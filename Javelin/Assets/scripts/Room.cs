@@ -51,10 +51,10 @@ public class Room : MonoBehaviour
         }
         if (!con.m_risingTemp && m_roomTemp > 0)
         {
-           m_roomTemp -=Time.deltaTime * m_multipler;
+           m_roomTemp -= Time.deltaTime * m_multipler;
         }
     }
 
 }
 
-}
+

@@ -13,7 +13,7 @@ public class Room : MonoBehaviour
     public float m_roomTemp;
     public float m_tempTarget;
 
- 
+
 
 
     // Start is called before the first frame update
@@ -25,11 +25,7 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void TempRise(bool heat)
-    {
 
     }
+
 }

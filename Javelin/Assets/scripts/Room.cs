@@ -9,10 +9,13 @@ public class Room : MonoBehaviour
 
     public bool m_isChanging;
     public float m_multipler;
-    public bool m_currentRoom;
     public float m_roomTemp;
     public float m_tempTarget;
+    public float m_maxTemp;
+    public bool m_alreadyHeated;
 
+
+    private Console con;
 
 
 
@@ -20,6 +23,9 @@ public class Room : MonoBehaviour
     void Start()
     {
         m_roomTemp = RoomTemp;
+        m_alreadyHeated = false;
+        m_maxTemp = con.m_Temp;
+      
     }
 
     // Update is called once per frame
@@ -27,5 +33,28 @@ public class Room : MonoBehaviour
     {
 
     }
+
+    void TempChange(bool isheating)
+    {
+        con.m_risingTemp = isheating;
+
+        if (con.m_risingTemp)
+        {
+            m_roomTemp += Time.deltaTime * m_multipler;
+
+
+            if (m_roomTemp == m_maxTemp)
+            {
+                con.m_risingTemp = false;
+            }
+
+        }
+        if (!con.m_risingTemp && m_roomTemp > 0)
+        {
+           m_roomTemp -=Time.deltaTime * m_multipler;
+        }
+    }
+
+}
 
 }

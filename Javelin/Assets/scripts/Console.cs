@@ -12,7 +12,10 @@ public class Console : MonoBehaviour
     #region Power
     public float m_powerAmount;
     public int m_doorsclosed;
+    public float m_heatCost;
     #endregion
+
+    private Room m_room;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,10 @@ public class Console : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            m_room.TempChange(true);
+        }
     }
 }

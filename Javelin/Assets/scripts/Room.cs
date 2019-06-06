@@ -34,13 +34,14 @@ public class Room : MonoBehaviour
 
     }
 
-    void TempChange(bool isheating)
+    public void TempChange(bool isheating)
     {
         con.m_risingTemp = isheating;
 
         if (con.m_risingTemp)
         {
             m_roomTemp += Time.deltaTime * m_multipler;
+            con.m_powerAmount -= con.m_heatCost;
 
 
             if (m_roomTemp == m_maxTemp)

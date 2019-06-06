@@ -60,7 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\scripts\Heat.cs" />
     <Compile Include="Assets\scripts\hghhhhh.cs" />
+    <Compile Include="Assets\scripts\Room.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/s172578/Desktop/JavelinVR.git/trunk/Javelin/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

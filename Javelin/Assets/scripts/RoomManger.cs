@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room {
+
+[System.Serializable]
+public class Room
+{
     public float m_MaxTemperature;
     public float m_heatMultiplier;
     public float m_RoomTemp;
+    public float m_energyCost;
 
     public bool m_isChanging;
     public bool m_hasBeenVisited;
@@ -15,14 +19,19 @@ public class Room {
 public class Door
 {
     public GameObject m_Door;
-    private int doorsClosed;
+    public bool m_openDoor;
+    public int m_maxclosed;
+    public float m_energyCost;
 
 }
 
 public class RoomManger : MonoBehaviour
 {
     public List<Room> m_Rooms;
+    public List<Door> m_Doors;
     public float m_Energy;
+    private int doorsClosed;
+    
 
 
     void Awake()
@@ -32,8 +41,17 @@ public class RoomManger : MonoBehaviour
             for (int i = 0; i < m_Rooms.Count; i++)
             {
                 m_Rooms[i].m_RoomTemp = 0;
+                m_Rooms[i].m_isChanging = false;
             }
         }
+        if (m_Doors != null)
+        {
+            for (int i = 0; i < m_Doors.Count; i++)
+            {
+                m_Doors[i].m_openDoor = true;
+            }
+        }
+        doorsClosed = 0;
     }
 
     void Update()
@@ -48,6 +66,7 @@ public class RoomManger : MonoBehaviour
                 }
             }
         }
+       
     }
 
     // Selects a room to be heated 
@@ -68,32 +87,40 @@ public class RoomManger : MonoBehaviour
     {
         //Check how many rooms are in the game
         //heat the room
-        if (m_Rooms[roomIndex].m_RoomTemp < m_Rooms[roomIndex].m_MaxTemperature)
+        if (doorsClosed <= 0)
         {
-             m_Rooms[roomIndex].m_RoomTemp += Time.deltaTime * m_Rooms[roomIndex].m_heatMultiplier;
-             m_Rooms[roomIndex].m_isChanging = true;
-            if (m_Rooms[roomIndex].m_RoomTemp >= m_Rooms[roomIndex].m_MaxTemperature)
+
+            if (m_Rooms[roomIndex].m_RoomTemp < m_Rooms[roomIndex].m_MaxTemperature)
             {
-                m_Rooms[roomIndex].m_RoomTemp = m_Rooms[roomIndex].m_MaxTemperature;
-                m_Rooms[roomIndex].m_isChanging = false;
+                m_Rooms[roomIndex].m_RoomTemp += Time.deltaTime * m_Rooms[roomIndex].m_heatMultiplier;
+                m_Rooms[roomIndex].m_isChanging = true;
+                if (m_Rooms[roomIndex].m_RoomTemp >= m_Rooms[roomIndex].m_MaxTemperature)
+                {
+                    m_Rooms[roomIndex].m_RoomTemp = m_Rooms[roomIndex].m_MaxTemperature;
+                    m_Rooms[roomIndex].m_isChanging = false;
+                }
             }
         }
-
-    }
-
-    // Checks if the current room has been heated or not
-    void CheckRoom()
-    {
-        //Checks how many rooms are in the game
-        // Check if Enemies Collider has been overallped with Heatmodule collider
-        // if it has been, mark it as has been visited if not 
-        // mark it as it has not been 
     }
 
     // Closes and Opens Door
-    void DoorManager()
+    void DoorManager(int doorIndex)
     {
         //Checks 
+        if (doorsClosed <= 1)
+        {
+            if (m_Doors[doorIndex].m_openDoor)
+            {
+                m_Doors[doorIndex].m_openDoor = false;
+                doorsClosed++;
+            }
+        }
+        else if (!m_Doors[doorIndex].m_openDoor)
+        {
+            m_Doors[doorIndex].m_openDoor = true;
+            doorsClosed--;
+        }
+
     }
 
 

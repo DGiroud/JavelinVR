@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SampleEnemy : Room
+public class SampleEnemy : MonoBehaviour
 {
     public GameObject m_heatModule;
     public GameObject m_Floor;

@@ -6,9 +6,13 @@ using UnityEngine;
 [System.Serializable]
 public class Room
 {
+    [Range(0, 1)]
     public float m_MaxTemperature;
+    [Range(0, 1)]
     public float m_heatMultiplier;
+    [Range(0, 1)]
     public float m_RoomTemp;
+    [Range(0, 1)]
     public float m_energyCost;
 
     public bool m_isChanging;
@@ -21,6 +25,7 @@ public class Door
     public GameObject m_Door;
     public bool m_openDoor;
     public int m_maxclosed;
+    [Range(0, 1)]
     public float m_energyCost;
 
 }
@@ -29,6 +34,7 @@ public class RoomManger : MonoBehaviour
 {
     public List<Room> m_Rooms;
     public List<Door> m_Doors;
+    [Range(0, 1)]
     public float m_Energy;
     private int doorsClosed;
     

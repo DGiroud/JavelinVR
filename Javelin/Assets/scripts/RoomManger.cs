@@ -11,6 +11,8 @@ public class Room
     [Range(0, 1)]
     public float m_heatMultiplier;
     [Range(0, 1)]
+    public float m_coolMultiplier;
+    [Range(0, 1)]
     public float m_RoomTemp;
     [Range(0, 1)]
     public float m_energyCost;
@@ -37,7 +39,8 @@ public class RoomManger : MonoBehaviour
     [Range(0, 1)]
     public float m_Energy;
     private int doorsClosed;
-    
+
+    public SimpleSlider slider;
 
 
     void Awake()
@@ -66,13 +69,26 @@ public class RoomManger : MonoBehaviour
         {
             for (int i = 0; i < m_Rooms.Count; i++)
             {
-                if (m_Rooms[i].m_RoomTemp > 0 && !m_Rooms[i].m_isChanging)
+                if (m_Rooms[i].m_isChanging)
                 {
-                    m_Rooms[i].m_RoomTemp -= Time.deltaTime * m_Rooms[i].m_heatMultiplier;
+                    m_Rooms[i].m_RoomTemp += Time.deltaTime * m_Rooms[i].m_heatMultiplier;
+                    if (m_Rooms[i].m_RoomTemp >= m_Rooms[i].m_MaxTemperature)
+                    {
+                        m_Rooms[i].m_RoomTemp = m_Rooms[i].m_MaxTemperature;
+                        m_Rooms[i].m_isChanging = false;
+                    }
                 }
+                else if (!m_Rooms[i].m_isChanging && m_Rooms[i].m_RoomTemp > 0)
+                {
+                    m_Rooms[i].m_RoomTemp -= Time.deltaTime * m_Rooms[i].m_coolMultiplier;
+
+                }
+               
+
+               
             }
         }
-       
+
     }
 
     // Selects a room to be heated 
@@ -89,43 +105,52 @@ public class RoomManger : MonoBehaviour
     }
 
     // Heat the room
-    void HeatRoom(float m_playerTemp, int roomIndex)
+    public void HeatRoom(int roomIndex)
     {
         //Check how many rooms are in the game
         //heat the room
-        if (doorsClosed <= 0)
+        if (doorsClosed <= 0 || m_Energy != 0)
         {
 
             if (m_Rooms[roomIndex].m_RoomTemp < m_Rooms[roomIndex].m_MaxTemperature)
             {
-                m_Rooms[roomIndex].m_RoomTemp += Time.deltaTime * m_Rooms[roomIndex].m_heatMultiplier;
+                m_Rooms[roomIndex].m_MaxTemperature = slider.targetTemp;
                 m_Rooms[roomIndex].m_isChanging = true;
-                if (m_Rooms[roomIndex].m_RoomTemp >= m_Rooms[roomIndex].m_MaxTemperature)
-                {
-                    m_Rooms[roomIndex].m_RoomTemp = m_Rooms[roomIndex].m_MaxTemperature;
-                    m_Rooms[roomIndex].m_isChanging = false;
-                }
+
+                // usign cost of heating a room
+                m_Energy -= m_Rooms[roomIndex].m_energyCost;
             }
         }
     }
+
+
 
     // Closes and Opens Door
     void DoorManager(int doorIndex)
     {
         //Checks 
-        if (doorsClosed <= 1)
+        if (doorsClosed <= 1 || m_Energy != 0)
         {
             if (m_Doors[doorIndex].m_openDoor)
             {
                 m_Doors[doorIndex].m_openDoor = false;
                 doorsClosed++;
             }
+            // cost of using a door
+            m_Energy -= m_Doors[doorIndex].m_energyCost;
         }
         else if (!m_Doors[doorIndex].m_openDoor)
         {
             m_Doors[doorIndex].m_openDoor = true;
             doorsClosed--;
+            // cost of opening a door
+            m_Energy += m_Doors[doorIndex].m_energyCost;
+
         }
+
+    }
+    public void DoFunction()
+    {
 
     }
 

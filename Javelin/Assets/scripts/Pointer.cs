@@ -71,7 +71,12 @@ public class Pointer : MonoBehaviour
             mat.SetFloat("_ASEOutlineWidth", 0.3f);
             return hit.collider.gameObject;
         }
+        else {
 
+            Material mat = hit.transform.GetComponent<Renderer>().material;
+            mat.SetFloat("_ASEOutlineWidth", 0.0f);
+            return hit.collider.gameObject;
+        }
         return null;
     }
 

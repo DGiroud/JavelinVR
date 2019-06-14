@@ -344,7 +344,9 @@
     <Compile Include="Assets\scripts\RoomManger.cs" />
     <Compile Include="Assets\scripts\Rotator.cs" />
     <Compile Include="Assets\scripts\SampleEnemy.cs" />
+    <Compile Include="Assets\scripts\SimpleSlider.cs" />
     <Compile Include="Assets\scripts\Slider_Manger.cs" />
+    <Compile Include="Assets\scripts\Sound_Manager.cs" />
     <Compile Include="Assets\scripts\VRInteraction.cs" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Community\LowPolyWater\Credits.txt" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Templates\Legacy\Sprites-Default.shader" />
@@ -682,6 +684,7 @@
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_PosterizeNode.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_SinTimeNode.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_RadiansOpNode.shader" />
+    <None Include="Assets\Shader\New Amplify Shader.shader" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\DoubleLayerCustomSurface\DoubleLayerCustomSurface.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_TFHCFlipBookUVAnimation.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_TFHCRemap.shader" />

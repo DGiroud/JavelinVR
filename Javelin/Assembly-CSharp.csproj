@@ -338,10 +338,14 @@
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\scripts\Button.cs" />
     <Compile Include="Assets\scripts\Door_Panel.cs" />
+    <Compile Include="Assets\scripts\Interactable.cs" />
+    <Compile Include="Assets\scripts\Pointer.cs" />
+    <Compile Include="Assets\scripts\Reticule.cs" />
     <Compile Include="Assets\scripts\RoomManger.cs" />
     <Compile Include="Assets\scripts\Rotator.cs" />
     <Compile Include="Assets\scripts\SampleEnemy.cs" />
     <Compile Include="Assets\scripts\Slider_Manger.cs" />
+    <Compile Include="Assets\scripts\VRInteraction.cs" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Community\LowPolyWater\Credits.txt" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Templates\Legacy\Sprites-Default.shader" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\ScreenSpaceDetail\ScreenSpaceDetail.shader" />

@@ -66,7 +66,11 @@ public class Pointer : MonoBehaviour
         RaycastHit hit = CreateRayCast(m_InteractibleObjects);
 
         if (hit.collider)
+        {
+            Material mat = hit.transform.GetComponent<Renderer>().material;
+            mat.SetFloat("_ASEOutlineWidth", 0.3f);
             return hit.collider.gameObject;
+        }
 
         return null;
     }

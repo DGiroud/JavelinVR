@@ -24,7 +24,14 @@ public class Sound_Manager : MonoBehaviour
 
     public SoundEffect[] backgroundEffects;
 
-    private bool isStarted = false;  
+    private bool isStarted = false;
+    private int lastBGM;
+
+    private void Awake()
+    {
+        isStarted = true;
+        PlayBGM(0);
+    }
 
 
     private void Update()
@@ -32,7 +39,12 @@ public class Sound_Manager : MonoBehaviour
         if (!isStarted && !BGMSource.isPlaying)
         {
             isStarted = true;
+
             int rand = Random.Range(0, backgroundEffects.Length);
+            while (rand == lastBGM)            
+                rand = Random.Range(0, backgroundEffects.Length);            
+
+            lastBGM = rand;
             PlayBGM(rand);
         }
     }
@@ -49,9 +61,9 @@ public class Sound_Manager : MonoBehaviour
 
     void PlayBGM(int effect)
     {
-        BGMSource.clip = soundEffects[effect].sound;
-        BGMSource.volume = soundEffects[effect].volume;
-        BGMSource.pitch = soundEffects[effect].pitch;
+        BGMSource.clip = backgroundEffects[effect].sound;
+        BGMSource.volume = backgroundEffects[effect].volume;
+        BGMSource.pitch = backgroundEffects[effect].pitch;
 
         BGMSource.Play();
         isStarted = false;

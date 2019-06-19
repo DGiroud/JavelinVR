@@ -90,11 +90,19 @@ public class RoomManger : MonoBehaviour
                         m_Rooms[i].m_isChanging = false;
                     }
                 }
+                // cooling the room down 
                 if (!m_Rooms[i].m_isChanging && m_Rooms[i].m_RoomTemp > 0)
                 {
                     m_Rooms[i].m_RoomTemp -= Time.deltaTime * m_Rooms[i].m_coolMultiplier;
+                    // checking to see if the room temp gose below 0
+                    if (m_Rooms[i].m_RoomTemp < 0)
+                    {
+                        // setting the room temp to 0
+                        m_Rooms[i].m_RoomTemp = 0;
+                    }
 
                 }
+                // checking if the energy is 0
                 if (m_Energy <= 0)
                 {
                     m_Rooms[i].m_isChanging = false;

@@ -1,13 +1,26 @@
-﻿using System.Collections:
-using System.Collections.Generic:
-using UnityEngine:
+﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    public void Pressed() {
-        MeshRenderer renderer = GetComponent<MeshRenderer>():
-        bool flip = !renderer.enabled:
+    public Vector3 m_current;
+    public Vector3 m_past;
 
-        renderer.enabled = flip:
+    private Camera Main;
+
+    public void Pressed()
+    {
+        Main = Camera.main;
+        Vector3 previous = Main.WorldToScreenPoint(m_past);
+        Vector3 current = Main.WorldToScreenPoint(m_current);
+        m_past = m_current;
+        MoveInteractable(previous.x - current.x);
+    }
+
+    private void MoveInteractable(float amount)
+    {
+        if (transform.position.x < 0.12f && transform.position.x > -0.5)
+        {
+            transform.Translate(new Vector3(amount, 0, 0));
+        }
     }
 }

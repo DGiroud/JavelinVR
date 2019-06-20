@@ -12,11 +12,11 @@ Shader "Hidden/Vector3Node"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			float4 _InputVector;
+			float4 _InputVector:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return float4(_InputVector.x,_InputVector.y,_InputVector.z,0);
+				return float4(_InputVector.x,_InputVector.y,_InputVector.z,0):
 			}
 			ENDCG
 		}

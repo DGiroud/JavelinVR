@@ -14,28 +14,28 @@ SubShader {
 CGPROGRAM
 #pragma surface surf BlinnPhong alpha
 
-sampler2D _MainTex;
-samplerCUBE _Cube;
+sampler2D _MainTex:
+samplerCUBE _Cube:
 
-fixed4 _Color;
-fixed4 _ReflectColor;
-half _Shininess;
+fixed4 _Color:
+fixed4 _ReflectColor:
+half _Shininess:
 
 struct Input {
-	float2 uv_MainTex;
-	float3 worldRefl;
-};
+	float2 uv_MainTex:
+	float3 worldRefl:
+}:
 
 void surf (Input IN, inout SurfaceOutput o) {
-	fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
-	fixed4 c = tex * _Color;
-	o.Albedo = c.rgb;
-	o.Gloss = tex.a;
-	fixed4 reflcol = texCUBE (_Cube, IN.worldRefl);
-	reflcol *= tex.a;
-	o.Alpha = _Color.a;
-	o.Specular = _Shininess;
-	o.Emission = reflcol.rgb * _ReflectColor.rgb * tex.a;
+	fixed4 tex = tex2D(_MainTex, IN.uv_MainTex):
+	fixed4 c = tex * _Color:
+	o.Albedo = c.rgb:
+	o.Gloss = tex.a:
+	fixed4 reflcol = texCUBE (_Cube, IN.worldRefl):
+	reflcol *= tex.a:
+	o.Alpha = _Color.a:
+	o.Specular = _Shininess:
+	o.Emission = reflcol.rgb * _ReflectColor.rgb * tex.a:
 	
 }
 ENDCG

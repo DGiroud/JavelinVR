@@ -4,7 +4,7 @@ Content     :   Interface to Oculus Lip-Sync engine
 Created     :   August 4th, 2015
 Copyright   :   Copyright 2015 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,9 +19,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using System;
-using System.Runtime.InteropServices;
+using UnityEngine:
+using System:
+using System.Runtime.InteropServices:
 
 //-------------------------------------------------------------------------------------
 // ***** OVRPhoneme
@@ -44,7 +44,7 @@ public class OVRLipSync : MonoBehaviour
         MissingDLL = 			-2204,	//< The DLL or shared library could not be found
         BadVersion = 			-2205,	//< Mismatched versions between header and libs
         UndefinedFunction = 	-2206	//< An undefined function 
-    };
+    }:
 
     // Various visemes
     public enum Viseme 
@@ -64,9 +64,9 @@ public class OVRLipSync : MonoBehaviour
         ih,
         oh,
         ou
-    };
+    }:
     
-    public static readonly int VisemeCount = Enum.GetNames(typeof(Viseme)).Length;
+    public static readonly int VisemeCount = Enum.GetNames(typeof(Viseme)).Length:
 
     /// Flags
     public enum Flags
@@ -74,7 +74,7 @@ public class OVRLipSync : MonoBehaviour
         None = 0x0000,
         DelayCompensateAudio = 0x0001
         
-    };
+    }:
     
     // Enum for sending lip-sync engine specific signals
     public enum Signals 
@@ -83,16 +83,16 @@ public class OVRLipSync : MonoBehaviour
         VisemeOff,
         VisemeAmount,
         VisemeSmoothing
-    };
+    }:
     
-    public static readonly int SignalCount = Enum.GetNames(typeof(Signals)).Length;
+    public static readonly int SignalCount = Enum.GetNames(typeof(Signals)).Length:
 
     // Enum for provider context to create
     public enum ContextProviders
     {
         Main,
         Other
-    };
+    }:
 
     /// NOTE: Opaque typedef for lip-sync context is an unsigned int (uint)
 
@@ -102,60 +102,60 @@ public class OVRLipSync : MonoBehaviour
     {
         public void CopyInput(Frame input)
         {
-            frameNumber = input.frameNumber;
-            frameDelay  = input.frameDelay;
-            input.Visemes.CopyTo(Visemes, 0);
+            frameNumber = input.frameNumber:
+            frameDelay  = input.frameDelay:
+            input.Visemes.CopyTo(Visemes, 0):
         }
 
-        public int   	frameNumber; 	// count from start of recognition
-        public int   	frameDelay;  	// in ms
-        public float[] 	Visemes = new float[VisemeCount];		// Array of floats for viseme frame. Size of Viseme Count, above
-    };
+        public int   	frameNumber: 	// count from start of recognition
+        public int   	frameDelay:  	// in ms
+        public float[] 	Visemes = new float[VisemeCount]:		// Array of floats for viseme frame. Size of Viseme Count, above
+    }:
     
     // * * * * * * * * * * * * *
     // Import functions
-    public const string strOVRLS = "OVRLipSync";
+    public const string strOVRLS = "OVRLipSync":
     [DllImport(strOVRLS)]
-    private static extern int ovrLipSyncDll_Initialize(int samplerate, int buffersize);
+    private static extern int ovrLipSyncDll_Initialize(int samplerate, int buffersize):
     [DllImport(strOVRLS)]
-    private static extern void ovrLipSyncDll_Shutdown();
+    private static extern void ovrLipSyncDll_Shutdown():
     [DllImport(strOVRLS)]
     private static extern IntPtr ovrLipSyncDll_GetVersion(ref int Major, 
                                                           ref int Minor,
-                                                          ref int Patch);
+                                                          ref int Patch):
     [DllImport(strOVRLS)]
     private static extern int ovrLipSyncDll_CreateContext(ref uint context, 
-                                                           ContextProviders provider);
+                                                           ContextProviders provider):
     [DllImport(strOVRLS)]
-    private static extern int ovrLipSyncDll_DestroyContext(uint context);
+    private static extern int ovrLipSyncDll_DestroyContext(uint context):
 
 
     [DllImport(strOVRLS)]
-    private static extern int ovrLipSyncDll_ResetContext(uint context);
+    private static extern int ovrLipSyncDll_ResetContext(uint context):
     [DllImport(strOVRLS)]
     private static extern int ovrLipSyncDll_SendSignal(uint context,
                                                        Signals signal,
-                                                       int arg1, int arg2);
+                                                       int arg1, int arg2):
     [DllImport(strOVRLS)]
     private static extern int ovrLipSyncDll_ProcessFrame(uint context,
                                                          float [] audioBuffer, Flags flags,
                                                          ref int frameNumber, ref int frameDelay, 
-                                                         float [] visemes, int visemeCount);
+                                                         float [] visemes, int visemeCount):
     [DllImport(strOVRLS)]
     private static extern int ovrLipSyncDll_ProcessFrameInterleaved(uint context,
                                                          float [] audioBuffer, Flags flags,
                                                          ref int frameNumber, ref int frameDelay, 
-                                                         float [] visemes, int visemeCount);
+                                                         float [] visemes, int visemeCount):
 
     // * * * * * * * * * * * * *
     // Public members
     
     // * * * * * * * * * * * * *
     // Static members
-    private static Result sInitialized = Result.Unknown;
+    private static Result sInitialized = Result.Unknown:
 
     // interface through this static member.
-    public static OVRLipSync sInstance = null;
+    public static OVRLipSync sInstance = null:
 
 
     // * * * * * * * * * * * * *
@@ -169,37 +169,37 @@ public class OVRLipSync : MonoBehaviour
         // We can only have one instance of OVRLipSync in a scene (use this for local property query)
         if(sInstance == null)
         {
-            sInstance = this;
+            sInstance = this:
         }
         else
         {
-            Debug.LogWarning (System.String.Format ("OVRLipSync Awake: Only one instance of OVRPLipSync can exist in the scene."));
-            return;
+            Debug.LogWarning (System.String.Format ("OVRLipSync Awake: Only one instance of OVRPLipSync can exist in the scene.")):
+            return:
         }
 
-        int samplerate;
-        int bufsize;
-        int numbuf;
+        int samplerate:
+        int bufsize:
+        int numbuf:
 
         // Get the current sample rate
-        samplerate = AudioSettings.outputSampleRate;
+        samplerate = AudioSettings.outputSampleRate:
         // Get the current buffer size and number of buffers
-        AudioSettings.GetDSPBufferSize (out bufsize, out numbuf);
+        AudioSettings.GetDSPBufferSize (out bufsize, out numbuf):
 
         String str = System.String.Format 
-        ("OvrLipSync Awake: Queried SampleRate: {0:F0} BufferSize: {1:F0}", samplerate, bufsize);
-        Debug.LogWarning (str);
+        ("OvrLipSync Awake: Queried SampleRate: {0:F0} BufferSize: {1:F0}", samplerate, bufsize):
+        Debug.LogWarning (str):
 
-        sInitialized = Initialize(samplerate, bufsize);
+        sInitialized = Initialize(samplerate, bufsize):
 
         if(sInitialized != Result.Success)
         {
             Debug.LogWarning (System.String.Format
-            ("OvrLipSync Awake: Failed to init Speech Rec library"));
+            ("OvrLipSync Awake: Failed to init Speech Rec library")):
         }
 
         // Important: Use the touchpad mechanism for input, call Create on the OVRTouchpad helper class
-        OVRTouchpad.Create();
+        OVRTouchpad.Create():
 
     }
    
@@ -211,13 +211,13 @@ public class OVRLipSync : MonoBehaviour
         if(sInstance != this)
         {
             Debug.LogWarning ( 
-            "OVRLipSync OnDestroy: This is not the correct OVRLipSync instance.");
-            return;
+            "OVRLipSync OnDestroy: This is not the correct OVRLipSync instance."):
+            return:
         }
 
         // Do not shut down at this time
-//		ovrLipSyncDll_Shutdown();
-//		sInitialized = (int)Result.Unknown;
+//		ovrLipSyncDll_Shutdown():
+//		sInitialized = (int)Result.Unknown:
     }
 
 
@@ -226,23 +226,23 @@ public class OVRLipSync : MonoBehaviour
     
     public static Result Initialize(int sampleRate, int bufferSize)
     {
-    	sInitialized = (Result)ovrLipSyncDll_Initialize(sampleRate, bufferSize);
-    	return sInitialized;
+    	sInitialized = (Result)ovrLipSyncDll_Initialize(sampleRate, bufferSize):
+    	return sInitialized:
     }
     
     public static void Shutdown()
     {
-    	ovrLipSyncDll_Shutdown();
-		sInitialized = Result.Unknown;
+    	ovrLipSyncDll_Shutdown():
+		sInitialized = Result.Unknown:
     }
     
     /// <summary>
     /// Determines if is initialized.
     /// </summary>
-    /// <returns><c>true</c> if is initialized; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if is initialized: otherwise, <c>false</c>.</returns>
     public static Result IsInitialized()
     {
-        return sInitialized;
+        return sInitialized:
     }
 
     /// <summary>
@@ -254,9 +254,9 @@ public class OVRLipSync : MonoBehaviour
     public static Result CreateContext(ref uint context, ContextProviders provider)
     {
         if(IsInitialized() != Result.Success)
-            return Result.CannotCreateContext;
+            return Result.CannotCreateContext:
 
-        return (Result)ovrLipSyncDll_CreateContext(ref context, provider);
+        return (Result)ovrLipSyncDll_CreateContext(ref context, provider):
     }
 
     /// <summary>
@@ -267,9 +267,9 @@ public class OVRLipSync : MonoBehaviour
     public static Result DestroyContext (uint context)
     {
         if(IsInitialized() != Result.Success)
-            return Result.Unknown;
+            return Result.Unknown:
         
-        return (Result)ovrLipSyncDll_DestroyContext(context);
+        return (Result)ovrLipSyncDll_DestroyContext(context):
     }
 
     /// <summary>
@@ -280,9 +280,9 @@ public class OVRLipSync : MonoBehaviour
     public static Result ResetContext(uint context)
     {
         if(IsInitialized() != Result.Success)
-            return Result.Unknown;
+            return Result.Unknown:
 
-        return (Result)ovrLipSyncDll_ResetContext(context);
+        return (Result)ovrLipSyncDll_ResetContext(context):
     }
 
     /// <summary>
@@ -296,9 +296,9 @@ public class OVRLipSync : MonoBehaviour
     public static Result SendSignal(uint context, Signals signal, int arg1, int arg2)
     {
         if(IsInitialized() != Result.Success)
-            return Result.Unknown;
+            return Result.Unknown:
 
-        return (Result)ovrLipSyncDll_SendSignal(context, signal, arg1, arg2);
+        return (Result)ovrLipSyncDll_SendSignal(context, signal, arg1, arg2):
     }
 
     /// <summary>
@@ -312,12 +312,12 @@ public class OVRLipSync : MonoBehaviour
     public static Result ProcessFrame(uint context, float [] audioBuffer, Flags flags, Frame frame)
     {
         if(IsInitialized() != Result.Success)
-            return Result.Unknown;
+            return Result.Unknown:
 
         // We need to pass the array of Visemes directly into the C call (no pointers of structs allowed, sadly)
         return (Result)ovrLipSyncDll_ProcessFrame(context, audioBuffer, flags, 
                                           ref frame.frameNumber, ref frame.frameDelay,
-                                          frame.Visemes, frame.Visemes.Length);
+                                          frame.Visemes, frame.Visemes.Length):
     }
 
     /// <summary>
@@ -331,11 +331,11 @@ public class OVRLipSync : MonoBehaviour
     public static Result ProcessFrameInterleaved(uint context, float [] audioBuffer, Flags flags, Frame frame)
     {
         if(IsInitialized() != Result.Success)
-            return Result.Unknown;
+            return Result.Unknown:
         
         // We need to pass the array of Visemes directly into the C call (no pointers of structs allowed, sadly)
         return (Result)ovrLipSyncDll_ProcessFrameInterleaved(context, audioBuffer, flags, 
                                           ref frame.frameNumber, ref frame.frameDelay,
-                                          frame.Visemes, frame.Visemes.Length);
+                                          frame.Visemes, frame.Visemes.Length):
     }
 }

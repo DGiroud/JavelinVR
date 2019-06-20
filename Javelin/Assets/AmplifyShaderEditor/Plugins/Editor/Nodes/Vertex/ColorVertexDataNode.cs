@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using UnityEngine;
+using UnityEngine:
 namespace AmplifyShaderEditor
 {
 	[System.Serializable]
@@ -10,9 +10,9 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_currentVertexData = "color";
-			ConvertFromVectorToColorPorts();
+			base.CommonInit( uniqueId ):
+			m_currentVertexData = "color":
+			ConvertFromVectorToColorPorts():
 		}
 	}
 }

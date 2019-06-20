@@ -12,11 +12,11 @@ Shader "Hidden/ColorNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			float4 _InputColor;
+			float4 _InputColor:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return _InputColor;
+				return _InputColor:
 			}
 			ENDCG
 		}

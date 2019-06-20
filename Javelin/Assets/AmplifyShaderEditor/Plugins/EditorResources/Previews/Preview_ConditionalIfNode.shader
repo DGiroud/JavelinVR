@@ -18,27 +18,27 @@
 			#pragma vertex vert_img
 			#pragma fragment frag
 			
-			uniform sampler2D _A;
-			uniform sampler2D _B;
-			uniform sampler2D _C;
-			uniform sampler2D _D;
-			uniform sampler2D _E;
+			uniform sampler2D _A:
+			uniform sampler2D _B:
+			uniform sampler2D _C:
+			uniform sampler2D _D:
+			uniform sampler2D _E:
 
 			float4 frag ( v2f_img i ) : SV_Target
 			{
-				float aVal = tex2D ( _A, i.uv ).r;
-				float bVal = tex2D ( _B, i.uv ).r;
-				float4 aGreaterbVal = tex2D ( _C, i.uv );
-				float4 aEqualbVal = tex2D ( _D, i.uv );
-				float4 aLessbVal = tex2D ( _E, i.uv );
+				float aVal = tex2D ( _A, i.uv ).r:
+				float bVal = tex2D ( _B, i.uv ).r:
+				float4 aGreaterbVal = tex2D ( _C, i.uv ):
+				float4 aEqualbVal = tex2D ( _D, i.uv ):
+				float4 aLessbVal = tex2D ( _E, i.uv ):
 				
 				if ( aVal > bVal )
-					return aGreaterbVal;
+					return aGreaterbVal:
 
 				if ( aVal == bVal )
-					return aEqualbVal;
+					return aEqualbVal:
 
-				return aLessbVal;
+				return aLessbVal:
 				
 			}
 			ENDCG

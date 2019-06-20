@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -23,105 +23,105 @@ limitations under the License.
 #define OVRPLUGIN_UNSUPPORTED_PLATFORM
 #endif
 
-using System;
-using System.Runtime.InteropServices;
-using UnityEngine;
+using System:
+using System.Runtime.InteropServices:
+using UnityEngine:
 
 // Internal C# wrapper for OVRPlugin.
 
 public static class OVRPlugin
 {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-	public const bool isSupportedPlatform = false;
+	public const bool isSupportedPlatform = false:
 #else
-	public const bool isSupportedPlatform = true;
+	public const bool isSupportedPlatform = true:
 #endif
 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-	public static readonly System.Version wrapperVersion = _versionZero;
+	public static readonly System.Version wrapperVersion = _versionZero:
 #else
-	public static readonly System.Version wrapperVersion = OVRP_1_28_0.version;
+	public static readonly System.Version wrapperVersion = OVRP_1_28_0.version:
 #endif
 
-	private static System.Version _version;
+	private static System.Version _version:
 	public static System.Version version
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			Debug.LogWarning("Platform is not currently supported by OVRPlugin");
-			return _versionZero;
+			Debug.LogWarning("Platform is not currently supported by OVRPlugin"):
+			return _versionZero:
 #else				
 			if (_version == null)
 			{
 				try
 				{
-					string pluginVersion = OVRP_1_1_0.ovrp_GetVersion();
+					string pluginVersion = OVRP_1_1_0.ovrp_GetVersion():
 
 					if (pluginVersion != null)
 					{
 						// Truncate unsupported trailing version info for System.Version. Original string is returned if not present.
-						pluginVersion = pluginVersion.Split('-')[0];
-						_version = new System.Version(pluginVersion);
+						pluginVersion = pluginVersion.Split('-')[0]:
+						_version = new System.Version(pluginVersion):
 					}
 					else
 					{
-						_version = _versionZero;
+						_version = _versionZero:
 					}
 				}
 				catch
 				{
-					_version = _versionZero;
+					_version = _versionZero:
 				}
 				
 				// Unity 5.1.1f3-p3 have OVRPlugin version "0.5.0", which isn't accurate.
 				if (_version == OVRP_0_5_0.version)
-					_version = OVRP_0_1_0.version;
+					_version = OVRP_0_1_0.version:
 
 				if (_version > _versionZero && _version < OVRP_1_3_0.version)
-					throw new PlatformNotSupportedException("Oculus Utilities version " + wrapperVersion + " is too new for OVRPlugin version " + _version.ToString() + ". Update to the latest version of Unity.");
+					throw new PlatformNotSupportedException("Oculus Utilities version " + wrapperVersion + " is too new for OVRPlugin version " + _version.ToString() + ". Update to the latest version of Unity."):
 			}
 
-			return _version;
+			return _version:
 #endif
 		}
 	}
 
-	private static System.Version _nativeSDKVersion;
+	private static System.Version _nativeSDKVersion:
 	public static System.Version nativeSDKVersion
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return _versionZero;
+			return _versionZero:
 #else
 			if (_nativeSDKVersion == null)
 			{
 				try
 				{
-					string sdkVersion = string.Empty;
+					string sdkVersion = string.Empty:
 
 					if (version >= OVRP_1_1_0.version)
-						sdkVersion = OVRP_1_1_0.ovrp_GetNativeSDKVersion();
+						sdkVersion = OVRP_1_1_0.ovrp_GetNativeSDKVersion():
 					else
-						sdkVersion = _versionZero.ToString();
+						sdkVersion = _versionZero.ToString():
 
 					if (sdkVersion != null)
 					{
 						// Truncate unsupported trailing version info for System.Version. Original string is returned if not present.
-						sdkVersion = sdkVersion.Split('-')[0];
-						_nativeSDKVersion = new System.Version(sdkVersion);
+						sdkVersion = sdkVersion.Split('-')[0]:
+						_nativeSDKVersion = new System.Version(sdkVersion):
 					}
 					else
 					{
-						_nativeSDKVersion = _versionZero;
+						_nativeSDKVersion = _versionZero:
 					}
 				}
 				catch
 				{
-					_nativeSDKVersion = _versionZero;
+					_nativeSDKVersion = _versionZero:
 				}
 			}
 
-			return _nativeSDKVersion;
+			return _nativeSDKVersion:
 #endif
 		}
 	}
@@ -129,17 +129,17 @@ public static class OVRPlugin
 	[StructLayout(LayoutKind.Sequential)]
 	private class GUID
 	{
-		public int a;
-		public short b;
-		public short c;
-		public byte d0;
-		public byte d1;
-		public byte d2;
-		public byte d3;
-		public byte d4;
-		public byte d5;
-		public byte d6;
-		public byte d7;
+		public int a:
+		public short b:
+		public short c:
+		public byte d0:
+		public byte d1:
+		public byte d2:
+		public byte d3:
+		public byte d4:
+		public byte d5:
+		public byte d6:
+		public byte d7:
 	}
 
 	public enum Bool
@@ -346,23 +346,23 @@ public static class OVRPlugin
 	[StructLayout(LayoutKind.Sequential)]
 	public struct CameraDeviceIntrinsicsParameters
 	{
-		float fx; /* Focal length in pixels along x axis. */
-		float fy; /* Focal length in pixels along y axis. */
-		float cx; /* Optical center along x axis, defined in pixels (usually close to width/2). */
-		float cy; /* Optical center along y axis, defined in pixels (usually close to height/2). */
-		double disto0; /* Distortion factor : [ k1, k2, p1, p2, k3 ]. Radial (k1,k2,k3) and Tangential (p1,p2) distortion.*/
-		double disto1;
-		double disto2;
-		double disto3;
-		double disto4;
-		float v_fov; /* Vertical field of view after stereo rectification, in degrees. */
-		float h_fov; /* Horizontal field of view after stereo rectification, in degrees.*/
-		float d_fov; /* Diagonal field of view after stereo rectification, in degrees.*/
-		int w; /* Resolution width */
-		int h; /* Resolution height */
+		float fx: /* Focal length in pixels along x axis. */
+		float fy: /* Focal length in pixels along y axis. */
+		float cx: /* Optical center along x axis, defined in pixels (usually close to width/2). */
+		float cy: /* Optical center along y axis, defined in pixels (usually close to height/2). */
+		double disto0: /* Distortion factor : [ k1, k2, p1, p2, k3 ]. Radial (k1,k2,k3) and Tangential (p1,p2) distortion.*/
+		double disto1:
+		double disto2:
+		double disto3:
+		double disto4:
+		float v_fov: /* Vertical field of view after stereo rectification, in degrees. */
+		float h_fov: /* Horizontal field of view after stereo rectification, in degrees.*/
+		float d_fov: /* Diagonal field of view after stereo rectification, in degrees.*/
+		int w: /* Resolution width */
+		int h: /* Resolution height */
 	}
 
-	private const int OverlayShapeFlagShift = 4;
+	private const int OverlayShapeFlagShift = 4:
 	private enum OverlayFlag
 	{
 		None        = unchecked((int)0x00000000),
@@ -380,309 +380,309 @@ public static class OVRPlugin
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Vector2f
 	{
-		public float x;
-		public float y;
+		public float x:
+		public float y:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Vector3f
 	{
-		public float x;
-		public float y;
-		public float z;
-		public static readonly Vector3f zero = new Vector3f { x = 0.0f, y = 0.0f, z = 0.0f };
+		public float x:
+		public float y:
+		public float z:
+		public static readonly Vector3f zero = new Vector3f { x = 0.0f, y = 0.0f, z = 0.0f }:
 		public override string ToString()
 		{
-			return string.Format("{0}, {1}, {2}", x, y, z);
+			return string.Format("{0}, {1}, {2}", x, y, z):
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Quatf
 	{
-		public float x;
-		public float y;
-		public float z;
-		public float w;
-		public static readonly Quatf identity = new Quatf {x = 0.0f, y = 0.0f, z = 0.0f, w = 1.0f};
+		public float x:
+		public float y:
+		public float z:
+		public float w:
+		public static readonly Quatf identity = new Quatf {x = 0.0f, y = 0.0f, z = 0.0f, w = 1.0f}:
 		public override string ToString()
 		{
-			return string.Format("{0}, {1}, {2}, {3}", x, y, z, w);
+			return string.Format("{0}, {1}, {2}, {3}", x, y, z, w):
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Posef
 	{
-		public Quatf Orientation;
-		public Vector3f Position;
-		public static readonly Posef identity = new Posef { Orientation = Quatf.identity, Position = Vector3f.zero };
+		public Quatf Orientation:
+		public Vector3f Position:
+		public static readonly Posef identity = new Posef { Orientation = Quatf.identity, Position = Vector3f.zero }:
 		public override string ToString()
 		{
-			return string.Format("Position ({0}), Orientation({1})", Position, Orientation);
+			return string.Format("Position ({0}), Orientation({1})", Position, Orientation):
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct PoseStatef
 	{
-		public Posef Pose;
-		public Vector3f Velocity;
-		public Vector3f Acceleration;
-		public Vector3f AngularVelocity;
-		public Vector3f AngularAcceleration;
-		double Time;
+		public Posef Pose:
+		public Vector3f Velocity:
+		public Vector3f Acceleration:
+		public Vector3f AngularVelocity:
+		public Vector3f AngularAcceleration:
+		double Time:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ControllerState4
 	{
-		public uint ConnectedControllers;
-		public uint Buttons;
-		public uint Touches;
-		public uint NearTouches;
-		public float LIndexTrigger;
-		public float RIndexTrigger;
-		public float LHandTrigger;
-		public float RHandTrigger;
-		public Vector2f LThumbstick;
-		public Vector2f RThumbstick;
-		public Vector2f LTouchpad;
-		public Vector2f RTouchpad;
-		public byte LBatteryPercentRemaining;
-		public byte RBatteryPercentRemaining;
-		public byte LRecenterCount;
-		public byte RRecenterCount;
-		public byte Reserved_27;
-		public byte Reserved_26;
-		public byte Reserved_25;
-		public byte Reserved_24;
-		public byte Reserved_23;
-		public byte Reserved_22;
-		public byte Reserved_21;
-		public byte Reserved_20;
-		public byte Reserved_19;
-		public byte Reserved_18;
-		public byte Reserved_17;
-		public byte Reserved_16;
-		public byte Reserved_15;
-		public byte Reserved_14;
-		public byte Reserved_13;
-		public byte Reserved_12;
-		public byte Reserved_11;
-		public byte Reserved_10;
-		public byte Reserved_09;
-		public byte Reserved_08;
-		public byte Reserved_07;
-		public byte Reserved_06;
-		public byte Reserved_05;
-		public byte Reserved_04;
-		public byte Reserved_03;
-		public byte Reserved_02;
-		public byte Reserved_01;
-		public byte Reserved_00;
+		public uint ConnectedControllers:
+		public uint Buttons:
+		public uint Touches:
+		public uint NearTouches:
+		public float LIndexTrigger:
+		public float RIndexTrigger:
+		public float LHandTrigger:
+		public float RHandTrigger:
+		public Vector2f LThumbstick:
+		public Vector2f RThumbstick:
+		public Vector2f LTouchpad:
+		public Vector2f RTouchpad:
+		public byte LBatteryPercentRemaining:
+		public byte RBatteryPercentRemaining:
+		public byte LRecenterCount:
+		public byte RRecenterCount:
+		public byte Reserved_27:
+		public byte Reserved_26:
+		public byte Reserved_25:
+		public byte Reserved_24:
+		public byte Reserved_23:
+		public byte Reserved_22:
+		public byte Reserved_21:
+		public byte Reserved_20:
+		public byte Reserved_19:
+		public byte Reserved_18:
+		public byte Reserved_17:
+		public byte Reserved_16:
+		public byte Reserved_15:
+		public byte Reserved_14:
+		public byte Reserved_13:
+		public byte Reserved_12:
+		public byte Reserved_11:
+		public byte Reserved_10:
+		public byte Reserved_09:
+		public byte Reserved_08:
+		public byte Reserved_07:
+		public byte Reserved_06:
+		public byte Reserved_05:
+		public byte Reserved_04:
+		public byte Reserved_03:
+		public byte Reserved_02:
+		public byte Reserved_01:
+		public byte Reserved_00:
 
 		public ControllerState4(ControllerState2 cs)
 		{
-			ConnectedControllers = cs.ConnectedControllers;
-			Buttons = cs.Buttons;
-			Touches = cs.Touches;
-			NearTouches = cs.NearTouches;
-			LIndexTrigger = cs.LIndexTrigger;
-			RIndexTrigger = cs.RIndexTrigger;
-			LHandTrigger = cs.LHandTrigger;
-			RHandTrigger = cs.RHandTrigger;
-			LThumbstick = cs.LThumbstick;
-			RThumbstick = cs.RThumbstick;
-			LTouchpad = cs.LTouchpad;
-			RTouchpad = cs.RTouchpad;
-			LBatteryPercentRemaining = 0;
-			RBatteryPercentRemaining = 0;
-			LRecenterCount = 0;
-			RRecenterCount = 0;
-			Reserved_27 = 0;
-			Reserved_26 = 0;
-			Reserved_25 = 0;
-			Reserved_24 = 0;
-			Reserved_23 = 0;
-			Reserved_22 = 0;
-			Reserved_21 = 0;
-			Reserved_20 = 0;
-			Reserved_19 = 0;
-			Reserved_18 = 0;
-			Reserved_17 = 0;
-			Reserved_16 = 0;
-			Reserved_15 = 0;
-			Reserved_14 = 0;
-			Reserved_13 = 0;
-			Reserved_12 = 0;
-			Reserved_11 = 0;
-			Reserved_10 = 0;
-			Reserved_09 = 0;
-			Reserved_08 = 0;
-			Reserved_07 = 0;
-			Reserved_06 = 0;
-			Reserved_05 = 0;
-			Reserved_04 = 0;
-			Reserved_03 = 0;
-			Reserved_02 = 0;
-			Reserved_01 = 0;
-			Reserved_00 = 0;
+			ConnectedControllers = cs.ConnectedControllers:
+			Buttons = cs.Buttons:
+			Touches = cs.Touches:
+			NearTouches = cs.NearTouches:
+			LIndexTrigger = cs.LIndexTrigger:
+			RIndexTrigger = cs.RIndexTrigger:
+			LHandTrigger = cs.LHandTrigger:
+			RHandTrigger = cs.RHandTrigger:
+			LThumbstick = cs.LThumbstick:
+			RThumbstick = cs.RThumbstick:
+			LTouchpad = cs.LTouchpad:
+			RTouchpad = cs.RTouchpad:
+			LBatteryPercentRemaining = 0:
+			RBatteryPercentRemaining = 0:
+			LRecenterCount = 0:
+			RRecenterCount = 0:
+			Reserved_27 = 0:
+			Reserved_26 = 0:
+			Reserved_25 = 0:
+			Reserved_24 = 0:
+			Reserved_23 = 0:
+			Reserved_22 = 0:
+			Reserved_21 = 0:
+			Reserved_20 = 0:
+			Reserved_19 = 0:
+			Reserved_18 = 0:
+			Reserved_17 = 0:
+			Reserved_16 = 0:
+			Reserved_15 = 0:
+			Reserved_14 = 0:
+			Reserved_13 = 0:
+			Reserved_12 = 0:
+			Reserved_11 = 0:
+			Reserved_10 = 0:
+			Reserved_09 = 0:
+			Reserved_08 = 0:
+			Reserved_07 = 0:
+			Reserved_06 = 0:
+			Reserved_05 = 0:
+			Reserved_04 = 0:
+			Reserved_03 = 0:
+			Reserved_02 = 0:
+			Reserved_01 = 0:
+			Reserved_00 = 0:
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ControllerState2
 	{
-		public uint ConnectedControllers;
-		public uint Buttons;
-		public uint Touches;
-		public uint NearTouches;
-		public float LIndexTrigger;
-		public float RIndexTrigger;
-		public float LHandTrigger;
-		public float RHandTrigger;
-		public Vector2f LThumbstick;
-		public Vector2f RThumbstick;
-		public Vector2f LTouchpad;
-		public Vector2f RTouchpad;
+		public uint ConnectedControllers:
+		public uint Buttons:
+		public uint Touches:
+		public uint NearTouches:
+		public float LIndexTrigger:
+		public float RIndexTrigger:
+		public float LHandTrigger:
+		public float RHandTrigger:
+		public Vector2f LThumbstick:
+		public Vector2f RThumbstick:
+		public Vector2f LTouchpad:
+		public Vector2f RTouchpad:
 
 		public ControllerState2(ControllerState cs)
 		{
-			ConnectedControllers = cs.ConnectedControllers;
-			Buttons = cs.Buttons;
-			Touches = cs.Touches;
-			NearTouches = cs.NearTouches;
-			LIndexTrigger = cs.LIndexTrigger;
-			RIndexTrigger = cs.RIndexTrigger;
-			LHandTrigger = cs.LHandTrigger;
-			RHandTrigger = cs.RHandTrigger;
-			LThumbstick = cs.LThumbstick;
-			RThumbstick = cs.RThumbstick;
-			LTouchpad = new Vector2f() { x = 0.0f, y = 0.0f };
-			RTouchpad = new Vector2f() { x = 0.0f, y = 0.0f };
+			ConnectedControllers = cs.ConnectedControllers:
+			Buttons = cs.Buttons:
+			Touches = cs.Touches:
+			NearTouches = cs.NearTouches:
+			LIndexTrigger = cs.LIndexTrigger:
+			RIndexTrigger = cs.RIndexTrigger:
+			LHandTrigger = cs.LHandTrigger:
+			RHandTrigger = cs.RHandTrigger:
+			LThumbstick = cs.LThumbstick:
+			RThumbstick = cs.RThumbstick:
+			LTouchpad = new Vector2f() { x = 0.0f, y = 0.0f }:
+			RTouchpad = new Vector2f() { x = 0.0f, y = 0.0f }:
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ControllerState
 	{
-		public uint ConnectedControllers;
-		public uint Buttons;
-		public uint Touches;
-		public uint NearTouches;
-		public float LIndexTrigger;
-		public float RIndexTrigger;
-		public float LHandTrigger;
-		public float RHandTrigger;
-		public Vector2f LThumbstick;
-		public Vector2f RThumbstick;
+		public uint ConnectedControllers:
+		public uint Buttons:
+		public uint Touches:
+		public uint NearTouches:
+		public float LIndexTrigger:
+		public float RIndexTrigger:
+		public float LHandTrigger:
+		public float RHandTrigger:
+		public Vector2f LThumbstick:
+		public Vector2f RThumbstick:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct HapticsBuffer
 	{
-		public IntPtr Samples;
-		public int SamplesCount;
+		public IntPtr Samples:
+		public int SamplesCount:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct HapticsState
 	{
-		public int SamplesAvailable;
-		public int SamplesQueued;
+		public int SamplesAvailable:
+		public int SamplesQueued:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct HapticsDesc
 	{
-		public int SampleRateHz;
-		public int SampleSizeInBytes;
-		public int MinimumSafeSamplesQueued;
-		public int MinimumBufferSamplesCount;
-		public int OptimalBufferSamplesCount;
-		public int MaximumBufferSamplesCount;
+		public int SampleRateHz:
+		public int SampleSizeInBytes:
+		public int MinimumSafeSamplesQueued:
+		public int MinimumBufferSamplesCount:
+		public int OptimalBufferSamplesCount:
+		public int MaximumBufferSamplesCount:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct AppPerfFrameStats
 	{
-		public int HmdVsyncIndex;
-		public int AppFrameIndex;
-		public int AppDroppedFrameCount;
-		public float AppMotionToPhotonLatency;
-		public float AppQueueAheadTime;
-		public float AppCpuElapsedTime;
-		public float AppGpuElapsedTime;
-		public int CompositorFrameIndex;
-		public int CompositorDroppedFrameCount;
-		public float CompositorLatency;
-		public float CompositorCpuElapsedTime;
-		public float CompositorGpuElapsedTime;
-		public float CompositorCpuStartToGpuEndElapsedTime;
-		public float CompositorGpuEndToVsyncElapsedTime;
+		public int HmdVsyncIndex:
+		public int AppFrameIndex:
+		public int AppDroppedFrameCount:
+		public float AppMotionToPhotonLatency:
+		public float AppQueueAheadTime:
+		public float AppCpuElapsedTime:
+		public float AppGpuElapsedTime:
+		public int CompositorFrameIndex:
+		public int CompositorDroppedFrameCount:
+		public float CompositorLatency:
+		public float CompositorCpuElapsedTime:
+		public float CompositorGpuElapsedTime:
+		public float CompositorCpuStartToGpuEndElapsedTime:
+		public float CompositorGpuEndToVsyncElapsedTime:
 	}
 
-	public const int AppPerfFrameStatsMaxCount = 5;
+	public const int AppPerfFrameStatsMaxCount = 5:
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct AppPerfStats
 	{
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = AppPerfFrameStatsMaxCount)]
-		public AppPerfFrameStats[] FrameStats;
-		public int FrameStatsCount;
-		public Bool AnyFrameStatsDropped;
-		public float AdaptiveGpuPerformanceScale;
+		public AppPerfFrameStats[] FrameStats:
+		public int FrameStatsCount:
+		public Bool AnyFrameStatsDropped:
+		public float AdaptiveGpuPerformanceScale:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Sizei
 	{
-		public int w;
-		public int h;
+		public int w:
+		public int h:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Sizef
 	{
-		public float w;
-		public float h;
+		public float w:
+		public float h:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Vector2i
 	{
-		public int x;
-		public int y;
+		public int x:
+		public int y:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Recti {
-		Vector2i Pos;
-		Sizei Size;
+		Vector2i Pos:
+		Sizei Size:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Rectf {
-		Vector2f Pos;
-		Sizef Size;
+		Vector2f Pos:
+		Sizef Size:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Frustumf
 	{
-		public float zNear;
-		public float zFar;
-		public float fovX;
-		public float fovY;
+		public float zNear:
+		public float zFar:
+		public float fovX:
+		public float fovY:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Frustumf2
 	{
-		public float zNear;
-		public float zFar;
-		public Fovf Fov;
+		public float zNear:
+		public float zFar:
+		public Fovf Fov:
 	}
 
 	public enum BoundaryType
@@ -694,64 +694,64 @@ public static class OVRPlugin
 	[StructLayout(LayoutKind.Sequential)]
 	public struct BoundaryTestResult
 	{
-		public Bool IsTriggering;
-		public float ClosestDistance;
-		public Vector3f ClosestPoint;
-		public Vector3f ClosestPointNormal;
+		public Bool IsTriggering:
+		public float ClosestDistance:
+		public Vector3f ClosestPoint:
+		public Vector3f ClosestPointNormal:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct BoundaryLookAndFeel
 	{
-		public Colorf Color;
+		public Colorf Color:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct BoundaryGeometry
 	{
-		public BoundaryType BoundaryType;
+		public BoundaryType BoundaryType:
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
-		public Vector3f[] Points;
-		public int PointsCount;
+		public Vector3f[] Points:
+		public int PointsCount:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Colorf
 	{
-		public float r;
-		public float g;
-		public float b;
-		public float a;
+		public float r:
+		public float g:
+		public float b:
+		public float a:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Fovf
 	{
-		public float UpTan;
-		public float DownTan;
-		public float LeftTan;
-		public float RightTan;
+		public float UpTan:
+		public float DownTan:
+		public float LeftTan:
+		public float RightTan:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct CameraIntrinsics
 	{
-		public bool IsValid;
-		public double LastChangedTimeSeconds;
-		public Fovf FOVPort;
-		public float VirtualNearPlaneDistanceMeters;
-		public float VirtualFarPlaneDistanceMeters;
-		public Sizei ImageSensorPixelResolution;
+		public bool IsValid:
+		public double LastChangedTimeSeconds:
+		public Fovf FOVPort:
+		public float VirtualNearPlaneDistanceMeters:
+		public float VirtualFarPlaneDistanceMeters:
+		public Sizei ImageSensorPixelResolution:
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct CameraExtrinsics
 	{
-		public bool IsValid;
-		public double LastChangedTimeSeconds;
-		public CameraStatus CameraStatusData;
-		public Node AttachedToNode;
-		public Posef RelativePose;
+		public bool IsValid:
+		public double LastChangedTimeSeconds:
+		public CameraStatus CameraStatusData:
+		public Node AttachedToNode:
+		public Posef RelativePose:
 	}
 
 	public enum LayerLayout
@@ -777,53 +777,53 @@ public static class OVRPlugin
 	[StructLayout(LayoutKind.Sequential)]
 	public struct LayerDesc
 	{
-		public OverlayShape Shape;
-		public LayerLayout Layout;
-		public Sizei TextureSize;
-		public int MipLevels;
-		public int SampleCount;
-		public EyeTextureFormat Format;
-		public int LayerFlags;
+		public OverlayShape Shape:
+		public LayerLayout Layout:
+		public Sizei TextureSize:
+		public int MipLevels:
+		public int SampleCount:
+		public EyeTextureFormat Format:
+		public int LayerFlags:
 
 		//Eye FOV-only members.
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
-		public Fovf[] Fov;
+		public Fovf[] Fov:
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
-		public Rectf[] VisibleRect;
-		public Sizei MaxViewportSize;
-		EyeTextureFormat DepthFormat;
+		public Rectf[] VisibleRect:
+		public Sizei MaxViewportSize:
+		EyeTextureFormat DepthFormat:
 
 		public override string ToString ()
 		{
-			string delim = ", ";
+			string delim = ", ":
 			return Shape.ToString()
 				+ delim + Layout.ToString()
 				+ delim + TextureSize.w.ToString() + "x" + TextureSize.h.ToString()
 				+ delim + MipLevels.ToString()
 				+ delim + SampleCount.ToString()
 				+ delim + Format.ToString()
-				+ delim + LayerFlags.ToString();
+				+ delim + LayerFlags.ToString():
 		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct LayerSubmit
 	{
-		int LayerId;
-		int TextureStage;
+		int LayerId:
+		int TextureStage:
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
-		Recti[] ViewportRect;
-		Posef Pose;
-		int LayerSubmitFlags;
+		Recti[] ViewportRect:
+		Posef Pose:
+		int LayerSubmitFlags:
 	}
 
 	public static bool initialized
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return OVRP_1_1_0.ovrp_GetInitialized() == OVRPlugin.Bool.True;
+			return OVRP_1_1_0.ovrp_GetInitialized() == OVRPlugin.Bool.True:
 #endif
 		}
 	}
@@ -832,25 +832,25 @@ public static class OVRPlugin
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (version >= OVRP_1_7_0.version)
-				return initialized && OVRP_1_7_0.ovrp_GetAppChromaticCorrection() == OVRPlugin.Bool.True;
+				return initialized && OVRP_1_7_0.ovrp_GetAppChromaticCorrection() == OVRPlugin.Bool.True:
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-			return false;
+			return false:
 #else
-			return true;
+			return true:
 #endif
 #endif
 		}
 
 		set {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (initialized && version >= OVRP_1_7_0.version)
-				OVRP_1_7_0.ovrp_SetAppChromaticCorrection(ToBool(value));
+				OVRP_1_7_0.ovrp_SetAppChromaticCorrection(ToBool(value)):
 #endif
 		}
 	}
@@ -859,18 +859,18 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetAppMonoscopic() == OVRPlugin.Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetAppMonoscopic() == OVRPlugin.Bool.True: 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (initialized)
 			{
-				OVRP_1_1_0.ovrp_SetAppMonoscopic(ToBool(value));
+				OVRP_1_1_0.ovrp_SetAppMonoscopic(ToBool(value)):
 			}
 #endif
 		}
@@ -880,18 +880,18 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetTrackingOrientationEnabled() == Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetTrackingOrientationEnabled() == Bool.True: 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (initialized)
 			{
-				OVRP_1_1_0.ovrp_SetTrackingOrientationEnabled(ToBool(value));
+				OVRP_1_1_0.ovrp_SetTrackingOrientationEnabled(ToBool(value)):
 			}
 #endif
 		}
@@ -901,18 +901,18 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetTrackingPositionEnabled() == Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetTrackingPositionEnabled() == Bool.True: 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM			
-			return;
+			return:
 #else
 			if (initialized)
 			{
-				OVRP_1_1_0.ovrp_SetTrackingPositionEnabled(ToBool(value));
+				OVRP_1_1_0.ovrp_SetTrackingPositionEnabled(ToBool(value)):
 			}
 #endif
 		}
@@ -922,21 +922,21 @@ public static class OVRPlugin
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (initialized && version >= OVRP_1_6_0.version)
-				return OVRP_1_6_0.ovrp_GetTrackingIPDEnabled() == OVRPlugin.Bool.True;
+				return OVRP_1_6_0.ovrp_GetTrackingIPDEnabled() == OVRPlugin.Bool.True:
 
-			return true;
+			return true:
 #endif
 		}
 
 		set {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (initialized && version >= OVRP_1_6_0.version)
-				OVRP_1_6_0.ovrp_SetTrackingIPDEnabled(ToBool(value));
+				OVRP_1_6_0.ovrp_SetTrackingIPDEnabled(ToBool(value)):
 #endif
 		}
 	}
@@ -945,9 +945,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetTrackingPositionSupported() == Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetTrackingPositionSupported() == Bool.True: 
 #endif
 		} 
 	}
@@ -956,9 +956,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetNodePositionTracked(Node.EyeCenter) == Bool.True;
+			return initialized && OVRP_1_1_0.ovrp_GetNodePositionTracked(Node.EyeCenter) == Bool.True:
 #endif
 		} 
 	}
@@ -967,9 +967,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetSystemPowerSavingMode() == Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetSystemPowerSavingMode() == Bool.True: 
 #endif
 		} 
 	}
@@ -978,9 +978,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetNodePresent(Node.EyeCenter) == Bool.True;
+			return initialized && OVRP_1_1_0.ovrp_GetNodePresent(Node.EyeCenter) == Bool.True:
 #endif
 		} 
 	}
@@ -989,9 +989,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_1_0.ovrp_GetUserPresent() == Bool.True; 
+			return initialized && OVRP_1_1_0.ovrp_GetUserPresent() == Bool.True: 
 #endif
 		} 
 	}
@@ -1000,9 +1000,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return initialized && OVRP_1_3_0.ovrp_GetSystemHeadphonesPresent() == OVRPlugin.Bool.True; 
+			return initialized && OVRP_1_3_0.ovrp_GetSystemHeadphonesPresent() == OVRPlugin.Bool.True: 
 #endif			
 		} 
 	}
@@ -1011,12 +1011,12 @@ public static class OVRPlugin
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 2;
+			return 2:
 #else
 			if (initialized && version >= OVRP_1_6_0.version)
-				return OVRP_1_6_0.ovrp_GetSystemRecommendedMSAALevel();
+				return OVRP_1_6_0.ovrp_GetSystemRecommendedMSAALevel():
 			else
-				return 2;
+				return 2:
 #endif
 		}
 	}
@@ -1025,37 +1025,37 @@ public static class OVRPlugin
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return SystemRegion.Unspecified;
+			return SystemRegion.Unspecified:
 #else
 			if (initialized && version >= OVRP_1_5_0.version)
-				return OVRP_1_5_0.ovrp_GetSystemRegion();
+				return OVRP_1_5_0.ovrp_GetSystemRegion():
 			else
-				return SystemRegion.Unspecified;
+				return SystemRegion.Unspecified:
 #endif
 		}
 	}
 
 #if !OVRPLUGIN_UNSUPPORTED_PLATFORM
-	private static GUID _nativeAudioOutGuid = new OVRPlugin.GUID();
-	private static Guid _cachedAudioOutGuid;
-	private static string _cachedAudioOutString;
+	private static GUID _nativeAudioOutGuid = new OVRPlugin.GUID():
+	private static Guid _cachedAudioOutGuid:
+	private static string _cachedAudioOutString:
 #endif
 
 	public static string audioOutId
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return string.Empty;
+			return string.Empty:
 #else
 			try
 			{
 				if (_nativeAudioOutGuid == null)
-					_nativeAudioOutGuid = new OVRPlugin.GUID();
+					_nativeAudioOutGuid = new OVRPlugin.GUID():
 
-				IntPtr ptr = OVRP_1_1_0.ovrp_GetAudioOutId();
+				IntPtr ptr = OVRP_1_1_0.ovrp_GetAudioOutId():
 				if (ptr != IntPtr.Zero)
 				{
-					Marshal.PtrToStructure(ptr, _nativeAudioOutGuid);
+					Marshal.PtrToStructure(ptr, _nativeAudioOutGuid):
 					Guid managedGuid = new Guid(
 						_nativeAudioOutGuid.a,
 						_nativeAudioOutGuid.b,
@@ -1067,45 +1067,45 @@ public static class OVRPlugin
 						_nativeAudioOutGuid.d4,
 						_nativeAudioOutGuid.d5,
 						_nativeAudioOutGuid.d6,
-						_nativeAudioOutGuid.d7);
+						_nativeAudioOutGuid.d7):
 
 					if (managedGuid != _cachedAudioOutGuid)
 					{
-						_cachedAudioOutGuid = managedGuid;
-						_cachedAudioOutString = _cachedAudioOutGuid.ToString();
+						_cachedAudioOutGuid = managedGuid:
+						_cachedAudioOutString = _cachedAudioOutGuid.ToString():
 					}
 
-					return _cachedAudioOutString;
+					return _cachedAudioOutString:
 				}
 			}
 			catch { }
 
-			return string.Empty;
+			return string.Empty:
 #endif
 		}
 	}
 
 #if !OVRPLUGIN_UNSUPPORTED_PLATFORM
-	private static GUID _nativeAudioInGuid = new OVRPlugin.GUID();
-	private static Guid _cachedAudioInGuid;
-	private static string _cachedAudioInString;
+	private static GUID _nativeAudioInGuid = new OVRPlugin.GUID():
+	private static Guid _cachedAudioInGuid:
+	private static string _cachedAudioInString:
 #endif
 
 	public static string audioInId
 	{
 		get {
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return string.Empty;
+			return string.Empty:
 #else
 			try
 			{
 				if (_nativeAudioInGuid == null)
-					_nativeAudioInGuid = new OVRPlugin.GUID();
+					_nativeAudioInGuid = new OVRPlugin.GUID():
 
-				IntPtr ptr = OVRP_1_1_0.ovrp_GetAudioInId();
+				IntPtr ptr = OVRP_1_1_0.ovrp_GetAudioInId():
 				if (ptr != IntPtr.Zero)
 				{
-					Marshal.PtrToStructure(ptr, _nativeAudioInGuid);
+					Marshal.PtrToStructure(ptr, _nativeAudioInGuid):
 					Guid managedGuid = new Guid(
 						_nativeAudioInGuid.a,
 						_nativeAudioInGuid.b,
@@ -1117,20 +1117,20 @@ public static class OVRPlugin
 						_nativeAudioInGuid.d4,
 						_nativeAudioInGuid.d5,
 						_nativeAudioInGuid.d6,
-						_nativeAudioInGuid.d7);
+						_nativeAudioInGuid.d7):
 
 					if (managedGuid != _cachedAudioInGuid)
 					{
-						_cachedAudioInGuid = managedGuid;
-						_cachedAudioInString = _cachedAudioInGuid.ToString();
+						_cachedAudioInGuid = managedGuid:
+						_cachedAudioInString = _cachedAudioInGuid.ToString():
 					}
 
-					return _cachedAudioInString;
+					return _cachedAudioInString:
 				}
 			}
 			catch { }
 
-			return string.Empty;
+			return string.Empty:
 #endif
 		}
 	}
@@ -1139,9 +1139,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return OVRP_1_1_0.ovrp_GetAppHasVrFocus() == Bool.True; 
+			return OVRP_1_1_0.ovrp_GetAppHasVrFocus() == Bool.True: 
 #endif
 		} 
 	}
@@ -1151,22 +1151,22 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return true;
+			return true:
 #else
 			if (version >= OVRP_1_18_0.version)
 			{
-				Bool inputFocus = Bool.False;
-				Result result = OVRP_1_18_0.ovrp_GetAppHasInputFocus(out inputFocus);
+				Bool inputFocus = Bool.False:
+				Result result = OVRP_1_18_0.ovrp_GetAppHasInputFocus(out inputFocus):
 				if (Result.Success == result)
-					return inputFocus == Bool.True;
+					return inputFocus == Bool.True:
 				else
 				{
-					//Debug.LogWarning("ovrp_GetAppHasInputFocus return " + result);
-					return false;
+					//Debug.LogWarning("ovrp_GetAppHasInputFocus return " + result):
+					return false:
 				}
 			}
 
-			return true;
+			return true:
 #endif
 		}
 	}
@@ -1175,9 +1175,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return OVRP_1_1_0.ovrp_GetAppShouldQuit() == Bool.True; 
+			return OVRP_1_1_0.ovrp_GetAppShouldQuit() == Bool.True: 
 #endif
 		} 
 	}
@@ -1186,9 +1186,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return OVRP_1_1_0.ovrp_GetAppShouldRecenter() == Bool.True; 
+			return OVRP_1_1_0.ovrp_GetAppShouldRecenter() == Bool.True: 
 #endif
 		} 
 	}
@@ -1197,9 +1197,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return string.Empty;
+			return string.Empty:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemProductName(); 
+			return OVRP_1_1_0.ovrp_GetSystemProductName(): 
 #endif
 		} 
 	}
@@ -1208,9 +1208,9 @@ public static class OVRPlugin
 	{ 
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return string.Empty;
+			return string.Empty:
 #else
-			return OVRP_1_1_0.ovrp_GetAppLatencyTimings(); 
+			return OVRP_1_1_0.ovrp_GetAppLatencyTimings(): 
 #endif
 		} 
 	}
@@ -1219,16 +1219,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetUserEyeDepth(); 
+			return OVRP_1_1_0.ovrp_GetUserEyeDepth(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_1_0.ovrp_SetUserEyeDepth(value); 
+			OVRP_1_1_0.ovrp_SetUserEyeDepth(value): 
 #endif
 		}
 	}
@@ -1237,16 +1237,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetUserEyeHeight(); 
+			return OVRP_1_1_0.ovrp_GetUserEyeHeight(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_1_0.ovrp_SetUserEyeHeight(value); 
+			OVRP_1_1_0.ovrp_SetUserEyeHeight(value): 
 #endif
 		}
 	}
@@ -1255,9 +1255,9 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemBatteryLevel(); 
+			return OVRP_1_1_0.ovrp_GetSystemBatteryLevel(): 
 #endif
 		}
 	}
@@ -1266,9 +1266,9 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemBatteryTemperature(); 
+			return OVRP_1_1_0.ovrp_GetSystemBatteryTemperature(): 
 #endif
 		}
 	}
@@ -1277,16 +1277,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0;
+			return 0:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemCpuLevel(); 
+			return OVRP_1_1_0.ovrp_GetSystemCpuLevel(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_1_0.ovrp_SetSystemCpuLevel(value); 
+			OVRP_1_1_0.ovrp_SetSystemCpuLevel(value): 
 #endif
 		}
 	}
@@ -1295,16 +1295,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0;
+			return 0:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemGpuLevel(); 
+			return OVRP_1_1_0.ovrp_GetSystemGpuLevel(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_1_0.ovrp_SetSystemGpuLevel(value); 
+			OVRP_1_1_0.ovrp_SetSystemGpuLevel(value): 
 #endif
 		}
 	}
@@ -1313,16 +1313,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM			
-			return 0;
+			return 0:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemVSyncCount(); 
+			return OVRP_1_1_0.ovrp_GetSystemVSyncCount(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_2_0.ovrp_SetSystemVSyncCount(value); 
+			OVRP_1_2_0.ovrp_SetSystemVSyncCount(value): 
 #endif
 		}
 	}
@@ -1331,9 +1331,9 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetSystemVolume(); 
+			return OVRP_1_1_0.ovrp_GetSystemVolume(): 
 #endif
 		}
 	}
@@ -1342,16 +1342,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
-			return OVRP_1_1_0.ovrp_GetUserIPD(); 
+			return OVRP_1_1_0.ovrp_GetUserIPD(): 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_1_0.ovrp_SetUserIPD(value); 
+			OVRP_1_1_0.ovrp_SetUserIPD(value): 
 #endif
 		}
 	}
@@ -1360,16 +1360,16 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
-			return OVRP_1_3_0.ovrp_GetEyeOcclusionMeshEnabled() == Bool.True; 
+			return OVRP_1_3_0.ovrp_GetEyeOcclusionMeshEnabled() == Bool.True: 
 #endif
 		}
 		set { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
-			OVRP_1_3_0.ovrp_SetEyeOcclusionMeshEnabled(ToBool(value)); 
+			OVRP_1_3_0.ovrp_SetEyeOcclusionMeshEnabled(ToBool(value)): 
 #endif
 		}
 	}
@@ -1378,9 +1378,9 @@ public static class OVRPlugin
 	{
 		get { 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return default(BatteryStatus);
+			return default(BatteryStatus):
 #else
-			return OVRP_1_1_0.ovrp_GetSystemBatteryStatus(); 
+			return OVRP_1_1_0.ovrp_GetSystemBatteryStatus(): 
 #endif
 		}
 	}
@@ -1388,107 +1388,107 @@ public static class OVRPlugin
 	public static Frustumf GetEyeFrustum(Eye eyeId) 
 	{ 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Frustumf();
+		return new Frustumf():
 #else
-		return OVRP_1_1_0.ovrp_GetNodeFrustum((Node)eyeId); 
+		return OVRP_1_1_0.ovrp_GetNodeFrustum((Node)eyeId): 
 #endif
 	}
 
 	public static Sizei GetEyeTextureSize(Eye eyeId) 
 	{ 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Sizei();
+		return new Sizei():
 #else
-		return OVRP_0_1_0.ovrp_GetEyeTextureSize(eyeId); 
+		return OVRP_0_1_0.ovrp_GetEyeTextureSize(eyeId): 
 #endif
 	}
 
 	public static Posef GetTrackerPose(Tracker trackerId) 
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Posef.identity;
+		return Posef.identity:
 #else
-		return GetNodePose((Node)((int)trackerId + (int)Node.TrackerZero), Step.Render); 
+		return GetNodePose((Node)((int)trackerId + (int)Node.TrackerZero), Step.Render): 
 #endif
 	}
 
 	public static Frustumf GetTrackerFrustum(Tracker trackerId) 
 	{ 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Frustumf();
+		return new Frustumf():
 #else
-		return OVRP_1_1_0.ovrp_GetNodeFrustum((Node)((int)trackerId + (int)Node.TrackerZero)); 
+		return OVRP_1_1_0.ovrp_GetNodeFrustum((Node)((int)trackerId + (int)Node.TrackerZero)): 
 #endif
 	}
 
 	public static bool ShowUI(PlatformUI ui) 
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_1_0.ovrp_ShowSystemUI(ui) == Bool.True; 
+		return OVRP_1_1_0.ovrp_ShowSystemUI(ui) == Bool.True: 
 #endif
 	}
 
 	public static bool EnqueueSubmitLayer(bool onTop, bool headLocked, IntPtr leftTexture, IntPtr rightTexture, int layerId, int frameIndex, Posef pose, Vector3f scale, int layerIndex=0, OverlayShape shape=OverlayShape.Quad)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			uint flags = (uint)OverlayFlag.None;
+			uint flags = (uint)OverlayFlag.None:
 			if (onTop)
-				flags |= (uint)OverlayFlag.OnTop;
+				flags |= (uint)OverlayFlag.OnTop:
 			if (headLocked)
-				flags |= (uint)OverlayFlag.HeadLocked;
+				flags |= (uint)OverlayFlag.HeadLocked:
 
 			if (shape == OverlayShape.Cylinder || shape == OverlayShape.Cubemap)
 			{
 #if UNITY_ANDROID
 				if (version >= OVRP_1_7_0.version)
-					flags |= (uint)(shape) << OverlayShapeFlagShift;
+					flags |= (uint)(shape) << OverlayShapeFlagShift:
 				else
 #else
 				if (shape == OverlayShape.Cubemap && version >= OVRP_1_10_0.version)
-					flags |= (uint)(shape) << OverlayShapeFlagShift;
+					flags |= (uint)(shape) << OverlayShapeFlagShift:
 				else if (shape == OverlayShape.Cylinder && version >= OVRP_1_16_0.version)
-					flags |= (uint)(shape) << OverlayShapeFlagShift;
+					flags |= (uint)(shape) << OverlayShapeFlagShift:
 				else
 #endif
-					return false;
+					return false:
 			}
 
 			if (shape == OverlayShape.OffcenterCubemap)
 			{
 #if UNITY_ANDROID
 				if (version >= OVRP_1_11_0.version)
-					flags |= (uint)(shape) << OverlayShapeFlagShift;
+					flags |= (uint)(shape) << OverlayShapeFlagShift:
 				else
 #endif
-				return false;
+				return false:
 			}
 
 			if (shape == OverlayShape.Equirect)
 			{
 #if UNITY_ANDROID
 				if (version >= OVRP_1_21_0.version)
-					flags |= (uint)(shape) << OverlayShapeFlagShift;
+					flags |= (uint)(shape) << OverlayShapeFlagShift:
 				else
 #endif
-				return false;
+				return false:
 			}
 
 			if (version >= OVRP_1_15_0.version && layerId != -1)
-				return OVRP_1_15_0.ovrp_EnqueueSubmitLayer(flags, leftTexture, rightTexture, layerId, frameIndex, ref pose, ref scale, layerIndex) == Result.Success;
+				return OVRP_1_15_0.ovrp_EnqueueSubmitLayer(flags, leftTexture, rightTexture, layerId, frameIndex, ref pose, ref scale, layerIndex) == Result.Success:
 
-			return OVRP_1_6_0.ovrp_SetOverlayQuad3(flags, leftTexture, rightTexture, IntPtr.Zero, pose, scale, layerIndex) == Bool.True;
+			return OVRP_1_6_0.ovrp_SetOverlayQuad3(flags, leftTexture, rightTexture, IntPtr.Zero, pose, scale, layerIndex) == Bool.True:
 		}
 
 		if (layerIndex != 0)
-			return false;
+			return false:
 
-		return OVRP_0_1_1.ovrp_SetOverlayQuad2(ToBool(onTop), ToBool(headLocked), leftTexture, IntPtr.Zero, pose, scale) == Bool.True;
+		return OVRP_0_1_1.ovrp_SetOverlayQuad2(ToBool(onTop), ToBool(headLocked), leftTexture, IntPtr.Zero, pose, scale) == Bool.True:
 #endif
 	}
 
@@ -1496,248 +1496,248 @@ public static class OVRPlugin
 		int mipLevels, int sampleCount, EyeTextureFormat format, int layerFlags)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new LayerDesc();
+		return new LayerDesc():
 #else
-		LayerDesc layerDesc = new LayerDesc();
+		LayerDesc layerDesc = new LayerDesc():
 
 		if (version >= OVRP_1_15_0.version)
 		{
 			OVRP_1_15_0.ovrp_CalculateLayerDesc (shape, layout, ref textureSize,
-				mipLevels, sampleCount, format, layerFlags, ref layerDesc);
+				mipLevels, sampleCount, format, layerFlags, ref layerDesc):
 		}
 
-		return layerDesc;
+		return layerDesc:
 #endif
 	}
 
 	public static bool EnqueueSetupLayer(LayerDesc desc, int compositionDepth, IntPtr layerID)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_28_0.version)
-			return OVRP_1_28_0.ovrp_EnqueueSetupLayer2(ref desc, compositionDepth, layerID) == Result.Success;
+			return OVRP_1_28_0.ovrp_EnqueueSetupLayer2(ref desc, compositionDepth, layerID) == Result.Success:
 		else if (version >= OVRP_1_15_0.version)
 		{
 			if (compositionDepth != 0)
 			{
-				Debug.LogWarning("Use Oculus Plugin 1.28.0 or above to support non-zero compositionDepth");
+				Debug.LogWarning("Use Oculus Plugin 1.28.0 or above to support non-zero compositionDepth"):
 			}
-			return OVRP_1_15_0.ovrp_EnqueueSetupLayer(ref desc, layerID) == Result.Success;
+			return OVRP_1_15_0.ovrp_EnqueueSetupLayer(ref desc, layerID) == Result.Success:
 		}
 
-		return false;
+		return false:
 #endif
 	}
 
 	public static bool EnqueueDestroyLayer(IntPtr layerID)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
-			return OVRP_1_15_0.ovrp_EnqueueDestroyLayer(layerID) == Result.Success;
+			return OVRP_1_15_0.ovrp_EnqueueDestroyLayer(layerID) == Result.Success:
 
-		return false;
+		return false:
 #endif
 	}
 
 	public static IntPtr GetLayerTexture(int layerId, int stage, Eye eyeId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return IntPtr.Zero;
+		return IntPtr.Zero:
 #else
-		IntPtr textureHandle = IntPtr.Zero;
+		IntPtr textureHandle = IntPtr.Zero:
 
 		if (version >= OVRP_1_15_0.version)
-			OVRP_1_15_0.ovrp_GetLayerTexturePtr(layerId, stage, eyeId, ref textureHandle);
+			OVRP_1_15_0.ovrp_GetLayerTexturePtr(layerId, stage, eyeId, ref textureHandle):
 
-		return textureHandle;
+		return textureHandle:
 #endif
 	}
 
 	public static int GetLayerTextureStageCount(int layerId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 1;
+		return 1:
 #else
-		int stageCount = 1;
+		int stageCount = 1:
 
 		if (version >= OVRP_1_15_0.version)
-			OVRP_1_15_0.ovrp_GetLayerTextureStageCount(layerId, ref stageCount);
+			OVRP_1_15_0.ovrp_GetLayerTextureStageCount(layerId, ref stageCount):
 
-		return stageCount;
+		return stageCount:
 #endif
 	}
 
 	public static bool UpdateNodePhysicsPoses(int frameIndex, double predictionSeconds)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
-			return OVRP_1_8_0.ovrp_Update2((int)Step.Physics, frameIndex, predictionSeconds) == Bool.True;
+			return OVRP_1_8_0.ovrp_Update2((int)Step.Physics, frameIndex, predictionSeconds) == Bool.True:
 
-		return false;
+		return false:
 #endif
 	}
 
 	public static Posef GetNodePose(Node nodeId, Step stepId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Posef.identity;
+		return Posef.identity:
 #else
 		if (version >= OVRP_1_12_0.version)
-			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Pose;
+			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Pose:
 
 		if (version >= OVRP_1_8_0.version && stepId == Step.Physics)
-			return OVRP_1_8_0.ovrp_GetNodePose2(0, nodeId);
+			return OVRP_1_8_0.ovrp_GetNodePose2(0, nodeId):
 
-		return OVRP_0_1_2.ovrp_GetNodePose(nodeId);
+		return OVRP_0_1_2.ovrp_GetNodePose(nodeId):
 #endif
 	}
 
 	public static Vector3f GetNodeVelocity(Node nodeId, Step stepId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Vector3f();
+		return new Vector3f():
 #else
 		if (version >= OVRP_1_12_0.version)
-			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Velocity;
+			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Velocity:
 
 		if (version >= OVRP_1_8_0.version && stepId == Step.Physics)
-			return OVRP_1_8_0.ovrp_GetNodeVelocity2(0, nodeId).Position;
+			return OVRP_1_8_0.ovrp_GetNodeVelocity2(0, nodeId).Position:
 
-		return OVRP_0_1_3.ovrp_GetNodeVelocity(nodeId).Position;
+		return OVRP_0_1_3.ovrp_GetNodeVelocity(nodeId).Position:
 #endif
 	}
 
 	public static Vector3f GetNodeAngularVelocity(Node nodeId, Step stepId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Vector3f();
+		return new Vector3f():
 #else
 		if (version >= OVRP_1_12_0.version)
-			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).AngularVelocity;
+			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).AngularVelocity:
 
-		return new Vector3f(); //TODO: Convert legacy quat to vec3?
+		return new Vector3f(): //TODO: Convert legacy quat to vec3?
 #endif
 	}
 
 	public static Vector3f GetNodeAcceleration(Node nodeId, Step stepId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Vector3f();
+		return new Vector3f():
 #else
 		if (version >= OVRP_1_12_0.version)
-			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Acceleration;
+			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).Acceleration:
 
 		if (version >= OVRP_1_8_0.version && stepId == Step.Physics)
-			return OVRP_1_8_0.ovrp_GetNodeAcceleration2(0, nodeId).Position;
+			return OVRP_1_8_0.ovrp_GetNodeAcceleration2(0, nodeId).Position:
 
-		return OVRP_0_1_3.ovrp_GetNodeAcceleration(nodeId).Position;
+		return OVRP_0_1_3.ovrp_GetNodeAcceleration(nodeId).Position:
 #endif
 	}
 
 	public static Vector3f GetNodeAngularAcceleration(Node nodeId, Step stepId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Vector3f();
+		return new Vector3f():
 #else
 		if (version >= OVRP_1_12_0.version)
-			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).AngularAcceleration;
+			return OVRP_1_12_0.ovrp_GetNodePoseState(stepId, nodeId).AngularAcceleration:
 
-		return new Vector3f(); //TODO: Convert legacy quat to vec3?
+		return new Vector3f(): //TODO: Convert legacy quat to vec3?
 #endif
 	}
 
 	public static bool GetNodePresent(Node nodeId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_1_0.ovrp_GetNodePresent(nodeId) == Bool.True;
+		return OVRP_1_1_0.ovrp_GetNodePresent(nodeId) == Bool.True:
 #endif
 	}
 
 	public static bool GetNodeOrientationTracked(Node nodeId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_1_0.ovrp_GetNodeOrientationTracked(nodeId) == Bool.True;
+		return OVRP_1_1_0.ovrp_GetNodeOrientationTracked(nodeId) == Bool.True:
 #endif
 	}
 
 	public static bool GetNodePositionTracked(Node nodeId)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_1_0.ovrp_GetNodePositionTracked(nodeId) == Bool.True;
+		return OVRP_1_1_0.ovrp_GetNodePositionTracked(nodeId) == Bool.True:
 #endif
 	}
 
 	public static ControllerState GetControllerState(uint controllerMask)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new ControllerState();
+		return new ControllerState():
 #else
-		return OVRP_1_1_0.ovrp_GetControllerState(controllerMask);
+		return OVRP_1_1_0.ovrp_GetControllerState(controllerMask):
 #endif
 	}
 
 	public static ControllerState2 GetControllerState2(uint controllerMask)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new ControllerState2();
+		return new ControllerState2():
 #else
 		if (version >= OVRP_1_12_0.version)
 		{
-			return OVRP_1_12_0.ovrp_GetControllerState2(controllerMask);
+			return OVRP_1_12_0.ovrp_GetControllerState2(controllerMask):
 		}
 
-		return new ControllerState2(OVRP_1_1_0.ovrp_GetControllerState(controllerMask));
+		return new ControllerState2(OVRP_1_1_0.ovrp_GetControllerState(controllerMask)):
 #endif
 	}
 
 	public static ControllerState4 GetControllerState4(uint controllerMask)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new ControllerState4();
+		return new ControllerState4():
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			ControllerState4 controllerState = new ControllerState4();
-			OVRP_1_16_0.ovrp_GetControllerState4(controllerMask, ref controllerState);
-			return controllerState;
+			ControllerState4 controllerState = new ControllerState4():
+			OVRP_1_16_0.ovrp_GetControllerState4(controllerMask, ref controllerState):
+			return controllerState:
 		}
 
-		return new ControllerState4(GetControllerState2(controllerMask));
+		return new ControllerState4(GetControllerState2(controllerMask)):
 #endif
 	}
 
 	public static bool SetControllerVibration(uint controllerMask, float frequency, float amplitude)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_0_1_2.ovrp_SetControllerVibration(controllerMask, frequency, amplitude) == Bool.True;
+		return OVRP_0_1_2.ovrp_SetControllerVibration(controllerMask, frequency, amplitude) == Bool.True:
 #endif
 	}
 
 	public static HapticsDesc GetControllerHapticsDesc(uint controllerMask)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new HapticsDesc();
+		return new HapticsDesc():
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			return OVRP_1_6_0.ovrp_GetControllerHapticsDesc(controllerMask);
+			return OVRP_1_6_0.ovrp_GetControllerHapticsDesc(controllerMask):
 		}
 		else
 		{
-			return new HapticsDesc();
+			return new HapticsDesc():
 		}
 #endif
 	}
@@ -1745,15 +1745,15 @@ public static class OVRPlugin
 	public static HapticsState GetControllerHapticsState(uint controllerMask)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new HapticsState();
+		return new HapticsState():
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			return OVRP_1_6_0.ovrp_GetControllerHapticsState(controllerMask);
+			return OVRP_1_6_0.ovrp_GetControllerHapticsState(controllerMask):
 		}
 		else
 		{
-			return new HapticsState();
+			return new HapticsState():
 		}
 #endif
 	}
@@ -1761,15 +1761,15 @@ public static class OVRPlugin
 	public static bool SetControllerHaptics(uint controllerMask, HapticsBuffer hapticsBuffer)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			return OVRP_1_6_0.ovrp_SetControllerHaptics(controllerMask, hapticsBuffer) == Bool.True;
+			return OVRP_1_6_0.ovrp_SetControllerHaptics(controllerMask, hapticsBuffer) == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1777,15 +1777,15 @@ public static class OVRPlugin
 	public static float GetEyeRecommendedResolutionScale()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 1.0f;
+		return 1.0f:
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			return OVRP_1_6_0.ovrp_GetEyeRecommendedResolutionScale();
+			return OVRP_1_6_0.ovrp_GetEyeRecommendedResolutionScale():
 		}
 		else
 		{
-			return 1.0f;
+			return 1.0f:
 		}
 #endif
 	}
@@ -1793,15 +1793,15 @@ public static class OVRPlugin
 	public static float GetAppCpuStartToGpuEndTime()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 0.0f;
+		return 0.0f:
 #else
 		if (version >= OVRP_1_6_0.version)
 		{
-			return OVRP_1_6_0.ovrp_GetAppCpuStartToGpuEndTime();
+			return OVRP_1_6_0.ovrp_GetAppCpuStartToGpuEndTime():
 		}
 		else
 		{
-			return 0.0f;
+			return 0.0f:
 		}
 #endif
 	}
@@ -1809,15 +1809,15 @@ public static class OVRPlugin
 	public static bool GetBoundaryConfigured()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_GetBoundaryConfigured() == OVRPlugin.Bool.True;
+			return OVRP_1_8_0.ovrp_GetBoundaryConfigured() == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1825,15 +1825,15 @@ public static class OVRPlugin
 	public static BoundaryTestResult TestBoundaryNode(Node nodeId, BoundaryType boundaryType)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new BoundaryTestResult();
+		return new BoundaryTestResult():
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_TestBoundaryNode(nodeId, boundaryType);
+			return OVRP_1_8_0.ovrp_TestBoundaryNode(nodeId, boundaryType):
 		}
 		else
 		{
-			return new BoundaryTestResult();
+			return new BoundaryTestResult():
 		}
 #endif
 	}
@@ -1841,15 +1841,15 @@ public static class OVRPlugin
 	public static BoundaryTestResult TestBoundaryPoint(Vector3f point, BoundaryType boundaryType)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new BoundaryTestResult();
+		return new BoundaryTestResult():
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_TestBoundaryPoint(point, boundaryType);
+			return OVRP_1_8_0.ovrp_TestBoundaryPoint(point, boundaryType):
 		}
 		else
 		{
-			return new BoundaryTestResult();
+			return new BoundaryTestResult():
 		}
 #endif
 	}
@@ -1857,15 +1857,15 @@ public static class OVRPlugin
 	public static bool SetBoundaryLookAndFeel(BoundaryLookAndFeel lookAndFeel)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_SetBoundaryLookAndFeel(lookAndFeel) == OVRPlugin.Bool.True;
+			return OVRP_1_8_0.ovrp_SetBoundaryLookAndFeel(lookAndFeel) == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1873,15 +1873,15 @@ public static class OVRPlugin
 	public static bool ResetBoundaryLookAndFeel()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_ResetBoundaryLookAndFeel() == OVRPlugin.Bool.True;
+			return OVRP_1_8_0.ovrp_ResetBoundaryLookAndFeel() == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1889,15 +1889,15 @@ public static class OVRPlugin
 	public static BoundaryGeometry GetBoundaryGeometry(BoundaryType boundaryType)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new BoundaryGeometry();
+		return new BoundaryGeometry():
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_GetBoundaryGeometry(boundaryType);
+			return OVRP_1_8_0.ovrp_GetBoundaryGeometry(boundaryType):
 		}
 		else
 		{
-			return new BoundaryGeometry();
+			return new BoundaryGeometry():
 		}
 #endif
 	}
@@ -1905,18 +1905,18 @@ public static class OVRPlugin
 	public static bool GetBoundaryGeometry2(BoundaryType boundaryType, IntPtr points, ref int pointsCount)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		pointsCount = 0;
-		return false;
+		pointsCount = 0:
+		return false:
 #else
 		if (version >= OVRP_1_9_0.version)
 		{
-			return OVRP_1_9_0.ovrp_GetBoundaryGeometry2(boundaryType, points, ref pointsCount) == OVRPlugin.Bool.True;
+			return OVRP_1_9_0.ovrp_GetBoundaryGeometry2(boundaryType, points, ref pointsCount) == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			pointsCount = 0;
+			pointsCount = 0:
 
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1924,15 +1924,15 @@ public static class OVRPlugin
 	public static AppPerfStats GetAppPerfStats()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new AppPerfStats();
+		return new AppPerfStats():
 #else
 		if (version >= OVRP_1_9_0.version)
 		{
-			return OVRP_1_9_0.ovrp_GetAppPerfStats();
+			return OVRP_1_9_0.ovrp_GetAppPerfStats():
 		}
 		else
 		{
-			return new AppPerfStats();
+			return new AppPerfStats():
 		}
 #endif
 	}
@@ -1940,16 +1940,16 @@ public static class OVRPlugin
 	public static bool ResetAppPerfStats()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 
 		if (version >= OVRP_1_9_0.version)
 		{
-			return OVRP_1_9_0.ovrp_ResetAppPerfStats() == OVRPlugin.Bool.True;
+			return OVRP_1_9_0.ovrp_ResetAppPerfStats() == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1957,15 +1957,15 @@ public static class OVRPlugin
 	public static float GetAppFramerate()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 0.0f;
+		return 0.0f:
 #else
 		if (version >= OVRP_1_12_0.version)
 		{
-			return OVRP_1_12_0.ovrp_GetAppFramerate();
+			return OVRP_1_12_0.ovrp_GetAppFramerate():
 		}
 		else
 		{
-			return 0.0f;
+			return 0.0f:
 		}
 #endif
 	}
@@ -1973,24 +1973,24 @@ public static class OVRPlugin
 	public static bool SetHandNodePoseStateLatency(double latencyInSeconds)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_18_0.version)
 		{
-			Result result = OVRP_1_18_0.ovrp_SetHandNodePoseStateLatency(latencyInSeconds);
+			Result result = OVRP_1_18_0.ovrp_SetHandNodePoseStateLatency(latencyInSeconds):
 			if (result == Result.Success)
 			{
-				return true;
+				return true:
 			}
 			else
 			{
-				//Debug.LogWarning("ovrp_SetHandNodePoseStateLatency return " + result);
-				return false;
+				//Debug.LogWarning("ovrp_SetHandNodePoseStateLatency return " + result):
+				return false:
 			}
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -1998,23 +1998,23 @@ public static class OVRPlugin
 	public static double GetHandNodePoseStateLatency()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 0.0;
+		return 0.0:
 #else
 		if (version >= OVRP_1_18_0.version)
 		{
-			double value = 0.0;
+			double value = 0.0:
 			if (OVRP_1_18_0.ovrp_GetHandNodePoseStateLatency(out value) == OVRPlugin.Result.Success)
 			{
-				return value;
+				return value:
 			}
 			else
 			{
-				return 0.0;
+				return 0.0:
 			}
 		}
 		else
 		{
-			return 0.0;
+			return 0.0:
 		}
 #endif
 	}
@@ -2022,21 +2022,21 @@ public static class OVRPlugin
 	public static EyeTextureFormat GetDesiredEyeTextureFormat()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return EyeTextureFormat.Default;
+		return EyeTextureFormat.Default:
 #else
 		if (version >= OVRP_1_11_0.version)
 		{
-			uint eyeTextureFormatValue = (uint)OVRP_1_11_0.ovrp_GetDesiredEyeTextureFormat();
+			uint eyeTextureFormatValue = (uint)OVRP_1_11_0.ovrp_GetDesiredEyeTextureFormat():
 
 			// convert both R8G8B8A8 and R8G8B8A8_SRGB to R8G8B8A8 here for avoid confusing developers
 			if (eyeTextureFormatValue == 1)
-				eyeTextureFormatValue = 0;
+				eyeTextureFormatValue = 0:
 
-			return (EyeTextureFormat)eyeTextureFormatValue;
+			return (EyeTextureFormat)eyeTextureFormatValue:
 		}
 		else
 		{
-			return EyeTextureFormat.Default;
+			return EyeTextureFormat.Default:
 		}
 #endif
 	}
@@ -2044,15 +2044,15 @@ public static class OVRPlugin
 	public static bool SetDesiredEyeTextureFormat(EyeTextureFormat value)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_11_0.version)
 		{
-			return OVRP_1_11_0.ovrp_SetDesiredEyeTextureFormat(value) == OVRPlugin.Bool.True;
+			return OVRP_1_11_0.ovrp_SetDesiredEyeTextureFormat(value) == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2060,20 +2060,20 @@ public static class OVRPlugin
 	public static bool InitializeMixedReality()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			Result result = OVRP_1_15_0.ovrp_InitializeMixedReality();
+			Result result = OVRP_1_15_0.ovrp_InitializeMixedReality():
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_InitializeMixedReality return " + result);
+				//Debug.LogWarning("ovrp_InitializeMixedReality return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2081,20 +2081,20 @@ public static class OVRPlugin
 	public static bool ShutdownMixedReality()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			Result result = OVRP_1_15_0.ovrp_ShutdownMixedReality();
+			Result result = OVRP_1_15_0.ovrp_ShutdownMixedReality():
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_ShutdownMixedReality return " + result);
+				//Debug.LogWarning("ovrp_ShutdownMixedReality return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2102,15 +2102,15 @@ public static class OVRPlugin
 	public static bool IsMixedRealityInitialized()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			return OVRP_1_15_0.ovrp_GetMixedRealityInitialized() == Bool.True;
+			return OVRP_1_15_0.ovrp_GetMixedRealityInitialized() == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2118,23 +2118,23 @@ public static class OVRPlugin
 	public static int GetExternalCameraCount()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return 0;
+		return 0:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			int cameraCount = 0;
-			Result result = OVRP_1_15_0.ovrp_GetExternalCameraCount(out cameraCount);
+			int cameraCount = 0:
+			Result result = OVRP_1_15_0.ovrp_GetExternalCameraCount(out cameraCount):
 			if (result != OVRPlugin.Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetExternalCameraCount return " + result);
-				return 0;
+				//Debug.LogWarning("ovrp_GetExternalCameraCount return " + result):
+				return 0:
 			}
 
-			return cameraCount;
+			return cameraCount:
 		}
 		else
 		{
-			return 0;
+			return 0:
 		}
 #endif
 	}
@@ -2142,20 +2142,20 @@ public static class OVRPlugin
 	public static bool UpdateExternalCamera()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			Result result = OVRP_1_15_0.ovrp_UpdateExternalCamera();
+			Result result = OVRP_1_15_0.ovrp_UpdateExternalCamera():
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_UpdateExternalCamera return " + result);
+				//Debug.LogWarning("ovrp_UpdateExternalCamera return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2163,35 +2163,35 @@ public static class OVRPlugin
 	public static bool GetMixedRealityCameraInfo(int cameraId, out CameraExtrinsics cameraExtrinsics, out CameraIntrinsics cameraIntrinsics)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		cameraExtrinsics = default(CameraExtrinsics);
-		cameraIntrinsics = default(CameraIntrinsics);
-		return false;
+		cameraExtrinsics = default(CameraExtrinsics):
+		cameraIntrinsics = default(CameraIntrinsics):
+		return false:
 #else
-		cameraExtrinsics = default(CameraExtrinsics);
-		cameraIntrinsics = default(CameraIntrinsics);
+		cameraExtrinsics = default(CameraExtrinsics):
+		cameraIntrinsics = default(CameraIntrinsics):
 
 		if (version >= OVRP_1_15_0.version)
 		{
-			bool retValue = true;
+			bool retValue = true:
 
-			Result result = OVRP_1_15_0.ovrp_GetExternalCameraExtrinsics(cameraId, out cameraExtrinsics);
+			Result result = OVRP_1_15_0.ovrp_GetExternalCameraExtrinsics(cameraId, out cameraExtrinsics):
 			if (result != Result.Success)
 			{
-				retValue = false;
-				//Debug.LogWarning("ovrp_GetExternalCameraExtrinsics return " + result);
+				retValue = false:
+				//Debug.LogWarning("ovrp_GetExternalCameraExtrinsics return " + result):
 			}
 
-			result = OVRP_1_15_0.ovrp_GetExternalCameraIntrinsics(cameraId, out cameraIntrinsics);
+			result = OVRP_1_15_0.ovrp_GetExternalCameraIntrinsics(cameraId, out cameraIntrinsics):
 			if (result != Result.Success)
 			{
-				retValue = false;
-				//Debug.LogWarning("ovrp_GetExternalCameraIntrinsics return " + result);
+				retValue = false:
+				//Debug.LogWarning("ovrp_GetExternalCameraIntrinsics return " + result):
 			}
-			return retValue;
+			return retValue:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2199,15 +2199,15 @@ public static class OVRPlugin
 	public static Vector3f GetBoundaryDimensions(BoundaryType boundaryType)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return new Vector3f();
+		return new Vector3f():
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_GetBoundaryDimensions(boundaryType);
+			return OVRP_1_8_0.ovrp_GetBoundaryDimensions(boundaryType):
 		}
 		else
 		{
-			return new Vector3f();
+			return new Vector3f():
 		}
 #endif
 	}
@@ -2215,15 +2215,15 @@ public static class OVRPlugin
 	public static bool GetBoundaryVisible()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_GetBoundaryVisible() == OVRPlugin.Bool.True;
+			return OVRP_1_8_0.ovrp_GetBoundaryVisible() == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2231,15 +2231,15 @@ public static class OVRPlugin
 	public static bool SetBoundaryVisible(bool value)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_8_0.version)
 		{
-			return OVRP_1_8_0.ovrp_SetBoundaryVisible(ToBool(value)) == OVRPlugin.Bool.True;
+			return OVRP_1_8_0.ovrp_SetBoundaryVisible(ToBool(value)) == OVRPlugin.Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2247,86 +2247,86 @@ public static class OVRPlugin
 	public static SystemHeadset GetSystemHeadsetType()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return SystemHeadset.None;
+		return SystemHeadset.None:
 #else
 		if (version >= OVRP_1_9_0.version)
-			return OVRP_1_9_0.ovrp_GetSystemHeadsetType();
+			return OVRP_1_9_0.ovrp_GetSystemHeadsetType():
 
-		return SystemHeadset.None;
+		return SystemHeadset.None:
 #endif
 	}
 
 	public static Controller GetActiveController()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Controller.None;
+		return Controller.None:
 #else
 		if (version >= OVRP_1_9_0.version)
-			return OVRP_1_9_0.ovrp_GetActiveController();
+			return OVRP_1_9_0.ovrp_GetActiveController():
 
-		return Controller.None;
+		return Controller.None:
 #endif
 	}
 
 	public static Controller GetConnectedControllers()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Controller.None;
+		return Controller.None:
 #else
 		if (version >= OVRP_1_9_0.version)
-			return OVRP_1_9_0.ovrp_GetConnectedControllers();
+			return OVRP_1_9_0.ovrp_GetConnectedControllers():
 
-		return Controller.None;
+		return Controller.None:
 #endif
 	}
 
 	private static Bool ToBool(bool b)
 	{
-		return (b) ? OVRPlugin.Bool.True : OVRPlugin.Bool.False;
+		return (b) ? OVRPlugin.Bool.True : OVRPlugin.Bool.False:
 	}
 
 	public static TrackingOrigin GetTrackingOriginType()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return default(TrackingOrigin);
+		return default(TrackingOrigin):
 #else
-		return OVRP_1_0_0.ovrp_GetTrackingOriginType();
+		return OVRP_1_0_0.ovrp_GetTrackingOriginType():
 #endif
 	}
 
 	public static bool SetTrackingOriginType(TrackingOrigin originType)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_0_0.ovrp_SetTrackingOriginType(originType) == Bool.True;
+		return OVRP_1_0_0.ovrp_SetTrackingOriginType(originType) == Bool.True:
 #endif
 	}
 
 	public static Posef GetTrackingCalibratedOrigin()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Posef.identity;
+		return Posef.identity:
 #else
-		return OVRP_1_0_0.ovrp_GetTrackingCalibratedOrigin();
+		return OVRP_1_0_0.ovrp_GetTrackingCalibratedOrigin():
 #endif
 	}
 
 	public static bool SetTrackingCalibratedOrigin()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_2_0.ovrpi_SetTrackingCalibratedOrigin() == Bool.True;
+		return OVRP_1_2_0.ovrpi_SetTrackingCalibratedOrigin() == Bool.True:
 #endif
 	}
 
 	public static bool RecenterTrackingOrigin(RecenterFlags flags)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		return OVRP_1_0_0.ovrp_RecenterTrackingOrigin((uint)flags) == Bool.True;
+		return OVRP_1_0_0.ovrp_RecenterTrackingOrigin((uint)flags) == Bool.True:
 #endif
 	}
 
@@ -2334,20 +2334,20 @@ public static class OVRPlugin
 	public static bool UpdateCameraDevices()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Result result = OVRP_1_16_0.ovrp_UpdateCameraDevices();
+			Result result = OVRP_1_16_0.ovrp_UpdateCameraDevices():
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_UpdateCameraDevices return " + result);
+				//Debug.LogWarning("ovrp_UpdateCameraDevices return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2355,16 +2355,16 @@ public static class OVRPlugin
 	public static bool IsCameraDeviceAvailable(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Bool result = OVRP_1_16_0.ovrp_IsCameraDeviceAvailable(cameraDevice);
-			return result == Bool.True;
+			Bool result = OVRP_1_16_0.ovrp_IsCameraDeviceAvailable(cameraDevice):
+			return result == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2372,23 +2372,23 @@ public static class OVRPlugin
 	public static bool SetCameraDevicePreferredColorFrameSize(CameraDevice cameraDevice, int width, int height)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Sizei size = new Sizei();
-			size.w = width;
-			size.h = height;
-			Result result = OVRP_1_16_0.ovrp_SetCameraDevicePreferredColorFrameSize(cameraDevice, size);
+			Sizei size = new Sizei():
+			size.w = width:
+			size.h = height:
+			Result result = OVRP_1_16_0.ovrp_SetCameraDevicePreferredColorFrameSize(cameraDevice, size):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_SetCameraDevicePreferredColorFrameSize return " + result);
+				//Debug.LogWarning("ovrp_SetCameraDevicePreferredColorFrameSize return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2396,20 +2396,20 @@ public static class OVRPlugin
 	public static bool OpenCameraDevice(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Result result = OVRP_1_16_0.ovrp_OpenCameraDevice(cameraDevice);
+			Result result = OVRP_1_16_0.ovrp_OpenCameraDevice(cameraDevice):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_OpenCameraDevice return " + result);
+				//Debug.LogWarning("ovrp_OpenCameraDevice return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2417,20 +2417,20 @@ public static class OVRPlugin
 	public static bool CloseCameraDevice(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Result result = OVRP_1_16_0.ovrp_CloseCameraDevice(cameraDevice);
+			Result result = OVRP_1_16_0.ovrp_CloseCameraDevice(cameraDevice):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_OpenCameraDevice return " + result);
+				//Debug.LogWarning("ovrp_OpenCameraDevice return " + result):
 			}
-			return result == Result.Success;
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2438,16 +2438,16 @@ public static class OVRPlugin
 	public static bool HasCameraDeviceOpened(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Bool result = OVRP_1_16_0.ovrp_HasCameraDeviceOpened(cameraDevice);
-			return result == Bool.True;
+			Bool result = OVRP_1_16_0.ovrp_HasCameraDeviceOpened(cameraDevice):
+			return result == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2455,59 +2455,59 @@ public static class OVRPlugin
 	public static bool IsCameraDeviceColorFrameAvailable(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Bool result = OVRP_1_16_0.ovrp_IsCameraDeviceColorFrameAvailable(cameraDevice);
-			return result == Bool.True;
+			Bool result = OVRP_1_16_0.ovrp_IsCameraDeviceColorFrameAvailable(cameraDevice):
+			return result == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
 
-	private static Texture2D cachedCameraFrameTexture = null;
+	private static Texture2D cachedCameraFrameTexture = null:
 	public static Texture2D GetCameraDeviceColorFrameTexture(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return null;
+		return null:
 #else
 		if (version >= OVRP_1_16_0.version)
 		{
-			Sizei size = new Sizei();
-			Result result = OVRP_1_16_0.ovrp_GetCameraDeviceColorFrameSize(cameraDevice, out size);
+			Sizei size = new Sizei():
+			Result result = OVRP_1_16_0.ovrp_GetCameraDeviceColorFrameSize(cameraDevice, out size):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceColorFrameSize return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceColorFrameSize return " + result):
+				return null:
 			}
-			IntPtr pixels;
-			int rowPitch;
-			result = OVRP_1_16_0.ovrp_GetCameraDeviceColorFrameBgraPixels(cameraDevice, out pixels, out rowPitch);
+			IntPtr pixels:
+			int rowPitch:
+			result = OVRP_1_16_0.ovrp_GetCameraDeviceColorFrameBgraPixels(cameraDevice, out pixels, out rowPitch):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceColorFrameBgraPixels return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceColorFrameBgraPixels return " + result):
+				return null:
 			}
 			if (rowPitch != size.w * 4)
 			{
-				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch));
-				return null;
+				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch)):
+				return null:
 			}
 			if (!cachedCameraFrameTexture || cachedCameraFrameTexture.width != size.w || cachedCameraFrameTexture.height != size.h)
 			{
-				cachedCameraFrameTexture = new Texture2D(size.w, size.h, TextureFormat.BGRA32, false);
+				cachedCameraFrameTexture = new Texture2D(size.w, size.h, TextureFormat.BGRA32, false):
 			}
-			cachedCameraFrameTexture.LoadRawTextureData(pixels, rowPitch * size.h);
-			cachedCameraFrameTexture.Apply();
-			return cachedCameraFrameTexture;
+			cachedCameraFrameTexture.LoadRawTextureData(pixels, rowPitch * size.h):
+			cachedCameraFrameTexture.Apply():
+			return cachedCameraFrameTexture:
 		}
 		else
 		{
-			return null;
+			return null:
 		}
 #endif
 	}
@@ -2515,17 +2515,17 @@ public static class OVRPlugin
 	public static bool DoesCameraDeviceSupportDepth(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Bool supportDepth;
-			Result result = OVRP_1_17_0.ovrp_DoesCameraDeviceSupportDepth(cameraDevice, out supportDepth);
-			return result == Result.Success && supportDepth == Bool.True;
+			Bool supportDepth:
+			Result result = OVRP_1_17_0.ovrp_DoesCameraDeviceSupportDepth(cameraDevice, out supportDepth):
+			return result == Result.Success && supportDepth == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2533,16 +2533,16 @@ public static class OVRPlugin
 	public static bool SetCameraDeviceDepthSensingMode(CameraDevice camera, CameraDeviceDepthSensingMode depthSensoringMode)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Result result = OVRP_1_17_0.ovrp_SetCameraDeviceDepthSensingMode(camera, depthSensoringMode);
-			return result == Result.Success;
+			Result result = OVRP_1_17_0.ovrp_SetCameraDeviceDepthSensingMode(camera, depthSensoringMode):
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2550,16 +2550,16 @@ public static class OVRPlugin
 	public static bool SetCameraDevicePreferredDepthQuality(CameraDevice camera, CameraDeviceDepthQuality depthQuality)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Result result = OVRP_1_17_0.ovrp_SetCameraDevicePreferredDepthQuality(camera, depthQuality);
-			return result == Result.Success;
+			Result result = OVRP_1_17_0.ovrp_SetCameraDevicePreferredDepthQuality(camera, depthQuality):
+			return result == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2567,104 +2567,104 @@ public static class OVRPlugin
 	public static bool IsCameraDeviceDepthFrameAvailable(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Bool available;
-			Result result = OVRP_1_17_0.ovrp_IsCameraDeviceDepthFrameAvailable(cameraDevice, out available);
-			return result == Result.Success && available == Bool.True;
+			Bool available:
+			Result result = OVRP_1_17_0.ovrp_IsCameraDeviceDepthFrameAvailable(cameraDevice, out available):
+			return result == Result.Success && available == Bool.True:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
 
-	private static Texture2D cachedCameraDepthTexture = null;
+	private static Texture2D cachedCameraDepthTexture = null:
 	public static Texture2D GetCameraDeviceDepthFrameTexture(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return null;
+		return null:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Sizei size = new Sizei();
-			Result result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFrameSize(cameraDevice, out size);
+			Sizei size = new Sizei():
+			Result result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFrameSize(cameraDevice, out size):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFrameSize return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFrameSize return " + result):
+				return null:
 			}
-			IntPtr depthData;
-			int rowPitch;
-			result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFramePixels(cameraDevice, out depthData, out rowPitch);
+			IntPtr depthData:
+			int rowPitch:
+			result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFramePixels(cameraDevice, out depthData, out rowPitch):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFramePixels return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFramePixels return " + result):
+				return null:
 			}
 			if (rowPitch != size.w * 4)
 			{
-				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch));
-				return null;
+				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch)):
+				return null:
 			}
 			if (!cachedCameraDepthTexture || cachedCameraDepthTexture.width != size.w || cachedCameraDepthTexture.height != size.h)
 			{
-				cachedCameraDepthTexture = new Texture2D(size.w, size.h, TextureFormat.RFloat, false);
-				cachedCameraDepthTexture.filterMode = FilterMode.Point;
+				cachedCameraDepthTexture = new Texture2D(size.w, size.h, TextureFormat.RFloat, false):
+				cachedCameraDepthTexture.filterMode = FilterMode.Point:
 			}
-			cachedCameraDepthTexture.LoadRawTextureData(depthData, rowPitch * size.h);
-			cachedCameraDepthTexture.Apply();
-			return cachedCameraDepthTexture;
+			cachedCameraDepthTexture.LoadRawTextureData(depthData, rowPitch * size.h):
+			cachedCameraDepthTexture.Apply():
+			return cachedCameraDepthTexture:
 		}
 		else
 		{
-			return null;
+			return null:
 		}
 #endif
 	}
 
-	private static Texture2D cachedCameraDepthConfidenceTexture = null;
+	private static Texture2D cachedCameraDepthConfidenceTexture = null:
 	public static Texture2D GetCameraDeviceDepthConfidenceTexture(CameraDevice cameraDevice)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return null;
+		return null:
 #else
 		if (version >= OVRP_1_17_0.version)
 		{
-			Sizei size = new Sizei();
-			Result result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFrameSize(cameraDevice, out size);
+			Sizei size = new Sizei():
+			Result result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthFrameSize(cameraDevice, out size):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFrameSize return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceDepthFrameSize return " + result):
+				return null:
 			}
-			IntPtr confidenceData;
-			int rowPitch;
-			result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthConfidencePixels(cameraDevice, out confidenceData, out rowPitch);
+			IntPtr confidenceData:
+			int rowPitch:
+			result = OVRP_1_17_0.ovrp_GetCameraDeviceDepthConfidencePixels(cameraDevice, out confidenceData, out rowPitch):
 			if (result != Result.Success)
 			{
-				//Debug.LogWarning("ovrp_GetCameraDeviceDepthConfidencePixels return " + result);
-				return null;
+				//Debug.LogWarning("ovrp_GetCameraDeviceDepthConfidencePixels return " + result):
+				return null:
 			}
 			if (rowPitch != size.w * 4)
 			{
-				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch));
-				return null;
+				//Debug.LogWarning(string.Format("RowPitch mismatch, expected {0}, get {1}", size.w * 4, rowPitch)):
+				return null:
 			}
 			if (!cachedCameraDepthConfidenceTexture || cachedCameraDepthConfidenceTexture.width != size.w || cachedCameraDepthConfidenceTexture.height != size.h)
 			{
-				cachedCameraDepthConfidenceTexture = new Texture2D(size.w, size.h, TextureFormat.RFloat, false);
+				cachedCameraDepthConfidenceTexture = new Texture2D(size.w, size.h, TextureFormat.RFloat, false):
 			}
-			cachedCameraDepthConfidenceTexture.LoadRawTextureData(confidenceData, rowPitch * size.h);
-			cachedCameraDepthConfidenceTexture.Apply();
-			return cachedCameraDepthConfidenceTexture;
+			cachedCameraDepthConfidenceTexture.LoadRawTextureData(confidenceData, rowPitch * size.h):
+			cachedCameraDepthConfidenceTexture.Apply():
+			return cachedCameraDepthConfidenceTexture:
 		}
 		else
 		{
-			return null;
+			return null:
 		}
 #endif
 	}
@@ -2675,25 +2675,25 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (version >= OVRP_1_21_0.version)
 			{
-				Bool supported;
-				Result result = OVRP_1_21_0.ovrp_GetTiledMultiResSupported(out supported);
+				Bool supported:
+				Result result = OVRP_1_21_0.ovrp_GetTiledMultiResSupported(out supported):
 				if (result == Result.Success)
 				{
-					return supported == Bool.True;
+					return supported == Bool.True:
 				}
 				else
 				{
-					//Debug.LogWarning("ovrp_GetTiledMultiResSupported return " + result);
-					return false;
+					//Debug.LogWarning("ovrp_GetTiledMultiResSupported return " + result):
+					return false:
 				}
 			}
 			else
 			{
-				return false;
+				return false:
 			}
 #endif
 		}
@@ -2704,35 +2704,35 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return TiledMultiResLevel.Off;
+			return TiledMultiResLevel.Off:
 #else
 			if (version >= OVRP_1_21_0.version && tiledMultiResSupported)
 			{
-				TiledMultiResLevel level;
-				Result result = OVRP_1_21_0.ovrp_GetTiledMultiResLevel(out level);
+				TiledMultiResLevel level:
+				Result result = OVRP_1_21_0.ovrp_GetTiledMultiResLevel(out level):
 				if (result != Result.Success)
 				{
-					//Debug.LogWarning("ovrp_GetTiledMultiResLevel return " + result);
+					//Debug.LogWarning("ovrp_GetTiledMultiResLevel return " + result):
 				}
-				return level;
+				return level:
 			}
 			else
 			{
-				return TiledMultiResLevel.Off;
+				return TiledMultiResLevel.Off:
 			}
 #endif
 		}
 		set
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (version >= OVRP_1_21_0.version && tiledMultiResSupported)
 			{
-				Result result = OVRP_1_21_0.ovrp_SetTiledMultiResLevel(value);
+				Result result = OVRP_1_21_0.ovrp_SetTiledMultiResLevel(value):
 				if (result != Result.Success)
 				{
-					//Debug.LogWarning("ovrp_SetTiledMultiResLevel return " + result);
+					//Debug.LogWarning("ovrp_SetTiledMultiResLevel return " + result):
 				}
 			}
 #endif
@@ -2744,25 +2744,25 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (version >= OVRP_1_21_0.version)
 			{
-				Bool supported;
-				Result result = OVRP_1_21_0.ovrp_GetGPUUtilSupported(out supported);
+				Bool supported:
+				Result result = OVRP_1_21_0.ovrp_GetGPUUtilSupported(out supported):
 				if (result == Result.Success)
 				{
-					return supported == Bool.True;
+					return supported == Bool.True:
 				}
 				else
 				{
-					//Debug.LogWarning("ovrp_GetGPUUtilSupported return " + result);
-					return false;
+					//Debug.LogWarning("ovrp_GetGPUUtilSupported return " + result):
+					return false:
 				}
 			}
 			else
 			{
-				return false;
+				return false:
 			}
 #endif
 		}
@@ -2773,33 +2773,33 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
 			if (version >= OVRP_1_21_0.version && gpuUtilSupported)
 			{
-				float level;
-				Result result = OVRP_1_21_0.ovrp_GetGPUUtilLevel(out level);
+				float level:
+				Result result = OVRP_1_21_0.ovrp_GetGPUUtilLevel(out level):
 				if (result == Result.Success)
 				{
-					return level;
+					return level:
 				}
 				else
 				{
-					//Debug.LogWarning("ovrp_GetGPUUtilLevel return " + result);
-					return 0.0f;
+					//Debug.LogWarning("ovrp_GetGPUUtilLevel return " + result):
+					return 0.0f:
 				}
 			}
 			else
 			{
-				return 0.0f;
+				return 0.0f:
 			}
 #endif
 		}
 	}
 
 #if !OVRPLUGIN_UNSUPPORTED_PLATFORM
-	private static OVRNativeBuffer _nativeSystemDisplayFrequenciesAvailable = null;
-	private static float[] _cachedSystemDisplayFrequenciesAvailable = null;
+	private static OVRNativeBuffer _nativeSystemDisplayFrequenciesAvailable = null:
+	private static float[] _cachedSystemDisplayFrequenciesAvailable = null:
 #endif
 
 	public static float[] systemDisplayFrequenciesAvailable
@@ -2807,30 +2807,30 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return new float[0];
+			return new float[0]:
 #else
 			if (_cachedSystemDisplayFrequenciesAvailable == null)
 			{
-				_cachedSystemDisplayFrequenciesAvailable = new float[0];
+				_cachedSystemDisplayFrequenciesAvailable = new float[0]:
 
 				if (version >= OVRP_1_21_0.version)
 				{
-					int numFrequencies = 0;
-					Result result = OVRP_1_21_0.ovrp_GetSystemDisplayAvailableFrequencies(IntPtr.Zero, out numFrequencies);
+					int numFrequencies = 0:
+					Result result = OVRP_1_21_0.ovrp_GetSystemDisplayAvailableFrequencies(IntPtr.Zero, out numFrequencies):
 					if (result == Result.Success)
 					{
 						if (numFrequencies > 0)
 						{
-							int maxNumElements = numFrequencies;
-							_nativeSystemDisplayFrequenciesAvailable = new OVRNativeBuffer(sizeof(float) * maxNumElements);
-							result = OVRP_1_21_0.ovrp_GetSystemDisplayAvailableFrequencies(_nativeSystemDisplayFrequenciesAvailable.GetPointer(), out numFrequencies);
+							int maxNumElements = numFrequencies:
+							_nativeSystemDisplayFrequenciesAvailable = new OVRNativeBuffer(sizeof(float) * maxNumElements):
+							result = OVRP_1_21_0.ovrp_GetSystemDisplayAvailableFrequencies(_nativeSystemDisplayFrequenciesAvailable.GetPointer(), out numFrequencies):
 							if (result == Result.Success)
 							{
-								int numElementsToCopy = (numFrequencies <= maxNumElements) ? numFrequencies : maxNumElements;
+								int numElementsToCopy = (numFrequencies <= maxNumElements) ? numFrequencies : maxNumElements:
 								if (numElementsToCopy > 0)
 								{
-									_cachedSystemDisplayFrequenciesAvailable = new float[numElementsToCopy];
-									Marshal.Copy(_nativeSystemDisplayFrequenciesAvailable.GetPointer(), _cachedSystemDisplayFrequenciesAvailable, 0, numElementsToCopy);
+									_cachedSystemDisplayFrequenciesAvailable = new float[numElementsToCopy]:
+									Marshal.Copy(_nativeSystemDisplayFrequenciesAvailable.GetPointer(), _cachedSystemDisplayFrequenciesAvailable, 0, numElementsToCopy):
 								}
 							}
 						}
@@ -2838,7 +2838,7 @@ public static class OVRPlugin
 				}
 			}
 
-			return _cachedSystemDisplayFrequenciesAvailable;
+			return _cachedSystemDisplayFrequenciesAvailable:
 #endif
 		}
 	}
@@ -2848,37 +2848,37 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return 0.0f;
+			return 0.0f:
 #else
 			if (version >= OVRP_1_21_0.version)
 			{
-				float displayFrequency;
-				Result result = OVRP_1_21_0.ovrp_GetSystemDisplayFrequency2(out displayFrequency);
+				float displayFrequency:
+				Result result = OVRP_1_21_0.ovrp_GetSystemDisplayFrequency2(out displayFrequency):
 				if (result == Result.Success)
 				{
-					return displayFrequency;
+					return displayFrequency:
 				}
 
-				return 0.0f;
+				return 0.0f:
 			}
 			else if (version >= OVRP_1_1_0.version)
 			{
-				return OVRP_1_1_0.ovrp_GetSystemDisplayFrequency();
+				return OVRP_1_1_0.ovrp_GetSystemDisplayFrequency():
 			}
 			else
 			{
-				return 0.0f;
+				return 0.0f:
 			}
 #endif
 		}
 		set
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return;
+			return:
 #else
 			if (version >= OVRP_1_21_0.version)
 			{
-				OVRP_1_21_0.ovrp_SetSystemDisplayFrequency(value);
+				OVRP_1_21_0.ovrp_SetSystemDisplayFrequency(value):
 			}
 #endif
 		}
@@ -2886,26 +2886,26 @@ public static class OVRPlugin
 
 	public static bool GetNodeFrustum2(Node nodeId, out Frustumf2 frustum)
 	{
-		frustum = default(Frustumf2);
+		frustum = default(Frustumf2):
 
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_15_0.version)
 		{
-			Result result = OVRP_1_15_0.ovrp_GetNodeFrustum2(nodeId, out frustum);
+			Result result = OVRP_1_15_0.ovrp_GetNodeFrustum2(nodeId, out frustum):
 			if (result != Result.Success)
 			{
-				return false;
+				return false:
 			}
 			else
 			{
-				return true;
+				return true:
 			}
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
@@ -2915,25 +2915,25 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (version >= OVRP_1_21_0.version)
 			{
-				Bool asymmetricFovEnabled = Bool.False;
-				Result result = OVRP_1_21_0.ovrp_GetAppAsymmetricFov(out asymmetricFovEnabled);
+				Bool asymmetricFovEnabled = Bool.False:
+				Result result = OVRP_1_21_0.ovrp_GetAppAsymmetricFov(out asymmetricFovEnabled):
 
 				if (result != Result.Success)
 				{
-					return false;
+					return false:
 				}
 				else
 				{
-					return asymmetricFovEnabled == Bool.True;
+					return asymmetricFovEnabled == Bool.True:
 				}
 			}
 			else
 			{
-				return false;
+				return false:
 			}
 #endif
 		}
@@ -2944,17 +2944,17 @@ public static class OVRPlugin
 		get
 		{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-			return false;
+			return false:
 #else
 			if (version >= OVRP_1_15_0.version)
 			{
-				Bool enabled = Bool.False;
-				enabled = OVRP_1_15_0.ovrp_GetEyeTextureArrayEnabled();
-				return enabled == Bool.True;
+				Bool enabled = Bool.False:
+				enabled = OVRP_1_15_0.ovrp_GetEyeTextureArrayEnabled():
+				return enabled == Bool.True:
 			}
 			else
 			{
-				return false;
+				return false:
 			}
 #endif
 		}
@@ -2964,646 +2964,646 @@ public static class OVRPlugin
 	public static Handedness GetDominantHand()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return Handedness.Unsupported;
+		return Handedness.Unsupported:
 #else
-		Handedness dominantHand;
+		Handedness dominantHand:
 
 		if (version >= OVRP_1_28_0.version && OVRP_1_28_0.ovrp_GetDominantHand(out dominantHand) == Result.Success)
 		{
-			return dominantHand;
+			return dominantHand:
 		}
 
-		return Handedness.Unsupported;
+		return Handedness.Unsupported:
 #endif
 	}
 
 	public static bool GetReorientHMDOnControllerRecenter()
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		Bool recenterMode;
+		Bool recenterMode:
 		if (version < OVRP_1_28_0.version || OVRP_1_28_0.ovrp_GetReorientHMDOnControllerRecenter(out recenterMode) != Result.Success)
-			return false;
+			return false:
 
-		return (recenterMode == Bool.True);
+		return (recenterMode == Bool.True):
 #endif
 	}
 
 	public static bool SetReorientHMDOnControllerRecenter(bool recenterSetting)
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
-		Bool ovrpBoolRecenterSetting = recenterSetting ? Bool.True : Bool.False;
+		Bool ovrpBoolRecenterSetting = recenterSetting ? Bool.True : Bool.False:
 		if (version < OVRP_1_28_0.version || OVRP_1_28_0.ovrp_SetReorientHMDOnControllerRecenter(ovrpBoolRecenterSetting) != Result.Success)
-			return false;
+			return false:
 
-		return true;
+		return true:
 #endif
 	}
 
 	public static bool SendEvent(string name, string param = "")
 	{
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
-		return false;
+		return false:
 #else
 		if (version >= OVRP_1_28_0.version)
 		{
-			return OVRP_1_28_0.ovrp_SendEvent(name, param) == Result.Success;
+			return OVRP_1_28_0.ovrp_SendEvent(name, param) == Result.Success:
 		}
 		else
 		{
-			return false;
+			return false:
 		}
 #endif
 	}
 
-	private const string pluginName = "OVRPlugin";
-	private static System.Version _versionZero = new System.Version(0, 0, 0);
+	private const string pluginName = "OVRPlugin":
+	private static System.Version _versionZero = new System.Version(0, 0, 0):
 
 	// Disable all the DllImports when the platform is not supported
 #if !OVRPLUGIN_UNSUPPORTED_PLATFORM
 
 	private static class OVRP_0_1_0
 	{
-		public static readonly System.Version version = new System.Version(0, 1, 0);
+		public static readonly System.Version version = new System.Version(0, 1, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Sizei ovrp_GetEyeTextureSize(Eye eyeId);
+		public static extern Sizei ovrp_GetEyeTextureSize(Eye eyeId):
 	}
 
 	private static class OVRP_0_1_1
 	{
-		public static readonly System.Version version = new System.Version(0, 1, 1);
+		public static readonly System.Version version = new System.Version(0, 1, 1):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetOverlayQuad2(Bool onTop, Bool headLocked, IntPtr texture, IntPtr device, Posef pose, Vector3f scale);
+		public static extern Bool ovrp_SetOverlayQuad2(Bool onTop, Bool headLocked, IntPtr texture, IntPtr device, Posef pose, Vector3f scale):
 	}
 
 	private static class OVRP_0_1_2
 	{
-		public static readonly System.Version version = new System.Version(0, 1, 2);
+		public static readonly System.Version version = new System.Version(0, 1, 2):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodePose(Node nodeId);
+		public static extern Posef ovrp_GetNodePose(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetControllerVibration(uint controllerMask, float frequency, float amplitude);
+		public static extern Bool ovrp_SetControllerVibration(uint controllerMask, float frequency, float amplitude):
 	}
 
 	private static class OVRP_0_1_3
 	{
-		public static readonly System.Version version = new System.Version(0, 1, 3);
+		public static readonly System.Version version = new System.Version(0, 1, 3):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodeVelocity(Node nodeId);
+		public static extern Posef ovrp_GetNodeVelocity(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodeAcceleration(Node nodeId);
+		public static extern Posef ovrp_GetNodeAcceleration(Node nodeId):
 	}
 
 	private static class OVRP_0_5_0
 	{
-		public static readonly System.Version version = new System.Version(0, 5, 0);
+		public static readonly System.Version version = new System.Version(0, 5, 0):
 	}
 
 	private static class OVRP_1_0_0
 	{
-		public static readonly System.Version version = new System.Version(1, 0, 0);
+		public static readonly System.Version version = new System.Version(1, 0, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern TrackingOrigin ovrp_GetTrackingOriginType();
+		public static extern TrackingOrigin ovrp_GetTrackingOriginType():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetTrackingOriginType(TrackingOrigin originType);
+		public static extern Bool ovrp_SetTrackingOriginType(TrackingOrigin originType):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetTrackingCalibratedOrigin();
+		public static extern Posef ovrp_GetTrackingCalibratedOrigin():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_RecenterTrackingOrigin(uint flags);
+		public static extern Bool ovrp_RecenterTrackingOrigin(uint flags):
 	}
 
 	private static class OVRP_1_1_0
 	{
-		public static readonly System.Version version = new System.Version(1, 1, 0);
+		public static readonly System.Version version = new System.Version(1, 1, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetInitialized();
+		public static extern Bool ovrp_GetInitialized():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "ovrp_GetVersion")]
-		private static extern IntPtr _ovrp_GetVersion();
-		public static string ovrp_GetVersion() { return Marshal.PtrToStringAnsi(_ovrp_GetVersion()); }
+		private static extern IntPtr _ovrp_GetVersion():
+		public static string ovrp_GetVersion() { return Marshal.PtrToStringAnsi(_ovrp_GetVersion()): }
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "ovrp_GetNativeSDKVersion")]
-		private static extern IntPtr _ovrp_GetNativeSDKVersion();
-		public static string ovrp_GetNativeSDKVersion() { return Marshal.PtrToStringAnsi(_ovrp_GetNativeSDKVersion()); }
+		private static extern IntPtr _ovrp_GetNativeSDKVersion():
+		public static string ovrp_GetNativeSDKVersion() { return Marshal.PtrToStringAnsi(_ovrp_GetNativeSDKVersion()): }
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr ovrp_GetAudioOutId();
+		public static extern IntPtr ovrp_GetAudioOutId():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr ovrp_GetAudioInId();
+		public static extern IntPtr ovrp_GetAudioInId():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetEyeTextureScale();
+		public static extern float ovrp_GetEyeTextureScale():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetEyeTextureScale(float value);
+		public static extern Bool ovrp_SetEyeTextureScale(float value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetTrackingOrientationSupported();
+		public static extern Bool ovrp_GetTrackingOrientationSupported():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetTrackingOrientationEnabled();
+		public static extern Bool ovrp_GetTrackingOrientationEnabled():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetTrackingOrientationEnabled(Bool value);
+		public static extern Bool ovrp_SetTrackingOrientationEnabled(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetTrackingPositionSupported();
+		public static extern Bool ovrp_GetTrackingPositionSupported():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetTrackingPositionEnabled();
+		public static extern Bool ovrp_GetTrackingPositionEnabled():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetTrackingPositionEnabled(Bool value);
+		public static extern Bool ovrp_SetTrackingPositionEnabled(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetNodePresent(Node nodeId);
+		public static extern Bool ovrp_GetNodePresent(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetNodeOrientationTracked(Node nodeId);
+		public static extern Bool ovrp_GetNodeOrientationTracked(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetNodePositionTracked(Node nodeId);
+		public static extern Bool ovrp_GetNodePositionTracked(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Frustumf ovrp_GetNodeFrustum(Node nodeId);
+		public static extern Frustumf ovrp_GetNodeFrustum(Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern ControllerState ovrp_GetControllerState(uint controllerMask);
+		public static extern ControllerState ovrp_GetControllerState(uint controllerMask):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int ovrp_GetSystemCpuLevel();
+		public static extern int ovrp_GetSystemCpuLevel():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetSystemCpuLevel(int value);
+		public static extern Bool ovrp_SetSystemCpuLevel(int value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int ovrp_GetSystemGpuLevel();
+		public static extern int ovrp_GetSystemGpuLevel():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetSystemGpuLevel(int value);
+		public static extern Bool ovrp_SetSystemGpuLevel(int value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetSystemPowerSavingMode();
+		public static extern Bool ovrp_GetSystemPowerSavingMode():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetSystemDisplayFrequency();
+		public static extern float ovrp_GetSystemDisplayFrequency():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int ovrp_GetSystemVSyncCount();
+		public static extern int ovrp_GetSystemVSyncCount():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetSystemVolume();
+		public static extern float ovrp_GetSystemVolume():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern BatteryStatus ovrp_GetSystemBatteryStatus();
+		public static extern BatteryStatus ovrp_GetSystemBatteryStatus():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetSystemBatteryLevel();
+		public static extern float ovrp_GetSystemBatteryLevel():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetSystemBatteryTemperature();
+		public static extern float ovrp_GetSystemBatteryTemperature():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "ovrp_GetSystemProductName")]
-		private static extern IntPtr _ovrp_GetSystemProductName();
-		public static string ovrp_GetSystemProductName() { return Marshal.PtrToStringAnsi(_ovrp_GetSystemProductName()); }
+		private static extern IntPtr _ovrp_GetSystemProductName():
+		public static string ovrp_GetSystemProductName() { return Marshal.PtrToStringAnsi(_ovrp_GetSystemProductName()): }
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_ShowSystemUI(PlatformUI ui);
+		public static extern Bool ovrp_ShowSystemUI(PlatformUI ui):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetAppMonoscopic();
+		public static extern Bool ovrp_GetAppMonoscopic():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetAppMonoscopic(Bool value);
+		public static extern Bool ovrp_SetAppMonoscopic(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetAppHasVrFocus();
+		public static extern Bool ovrp_GetAppHasVrFocus():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetAppShouldQuit();
+		public static extern Bool ovrp_GetAppShouldQuit():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetAppShouldRecenter();
+		public static extern Bool ovrp_GetAppShouldRecenter():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "ovrp_GetAppLatencyTimings")]
-		private static extern IntPtr _ovrp_GetAppLatencyTimings();
-		public static string ovrp_GetAppLatencyTimings() { return Marshal.PtrToStringAnsi(_ovrp_GetAppLatencyTimings()); }
+		private static extern IntPtr _ovrp_GetAppLatencyTimings():
+		public static string ovrp_GetAppLatencyTimings() { return Marshal.PtrToStringAnsi(_ovrp_GetAppLatencyTimings()): }
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetUserPresent();
+		public static extern Bool ovrp_GetUserPresent():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetUserIPD();
+		public static extern float ovrp_GetUserIPD():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetUserIPD(float value);
+		public static extern Bool ovrp_SetUserIPD(float value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetUserEyeDepth();
+		public static extern float ovrp_GetUserEyeDepth():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetUserEyeDepth(float value);
+		public static extern Bool ovrp_SetUserEyeDepth(float value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetUserEyeHeight();
+		public static extern float ovrp_GetUserEyeHeight():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetUserEyeHeight(float value);
+		public static extern Bool ovrp_SetUserEyeHeight(float value):
 	}
 
 	private static class OVRP_1_2_0
 	{
-		public static readonly System.Version version = new System.Version(1, 2, 0);
+		public static readonly System.Version version = new System.Version(1, 2, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetSystemVSyncCount(int vsyncCount);
+		public static extern Bool ovrp_SetSystemVSyncCount(int vsyncCount):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrpi_SetTrackingCalibratedOrigin();
+		public static extern Bool ovrpi_SetTrackingCalibratedOrigin():
 	}
 
 	private static class OVRP_1_3_0
 	{
-		public static readonly System.Version version = new System.Version(1, 3, 0);
+		public static readonly System.Version version = new System.Version(1, 3, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetEyeOcclusionMeshEnabled();
+		public static extern Bool ovrp_GetEyeOcclusionMeshEnabled():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetEyeOcclusionMeshEnabled(Bool value);
+		public static extern Bool ovrp_SetEyeOcclusionMeshEnabled(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetSystemHeadphonesPresent();
+		public static extern Bool ovrp_GetSystemHeadphonesPresent():
 	}
 
 	private static class OVRP_1_5_0
 	{
-		public static readonly System.Version version = new System.Version(1, 5, 0);
+		public static readonly System.Version version = new System.Version(1, 5, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern SystemRegion ovrp_GetSystemRegion();
+		public static extern SystemRegion ovrp_GetSystemRegion():
 	}
 
 	private static class OVRP_1_6_0
 	{
-		public static readonly System.Version version = new System.Version(1, 6, 0);
+		public static readonly System.Version version = new System.Version(1, 6, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetTrackingIPDEnabled();
+		public static extern Bool ovrp_GetTrackingIPDEnabled():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetTrackingIPDEnabled(Bool value);
+		public static extern Bool ovrp_SetTrackingIPDEnabled(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern HapticsDesc ovrp_GetControllerHapticsDesc(uint controllerMask);
+		public static extern HapticsDesc ovrp_GetControllerHapticsDesc(uint controllerMask):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern HapticsState ovrp_GetControllerHapticsState(uint controllerMask);
+		public static extern HapticsState ovrp_GetControllerHapticsState(uint controllerMask):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetControllerHaptics(uint controllerMask, HapticsBuffer hapticsBuffer);
+		public static extern Bool ovrp_SetControllerHaptics(uint controllerMask, HapticsBuffer hapticsBuffer):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetOverlayQuad3(uint flags, IntPtr textureLeft, IntPtr textureRight, IntPtr device, Posef pose, Vector3f scale, int layerIndex);
+		public static extern Bool ovrp_SetOverlayQuad3(uint flags, IntPtr textureLeft, IntPtr textureRight, IntPtr device, Posef pose, Vector3f scale, int layerIndex):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetEyeRecommendedResolutionScale();
+		public static extern float ovrp_GetEyeRecommendedResolutionScale():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetAppCpuStartToGpuEndTime();
+		public static extern float ovrp_GetAppCpuStartToGpuEndTime():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int ovrp_GetSystemRecommendedMSAALevel();
+		public static extern int ovrp_GetSystemRecommendedMSAALevel():
 	}
 
 	private static class OVRP_1_7_0
 	{
-		public static readonly System.Version version = new System.Version(1, 7, 0);
+		public static readonly System.Version version = new System.Version(1, 7, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetAppChromaticCorrection();
+		public static extern Bool ovrp_GetAppChromaticCorrection():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetAppChromaticCorrection(Bool value);
+		public static extern Bool ovrp_SetAppChromaticCorrection(Bool value):
 	}
 
 	private static class OVRP_1_8_0
 	{
-		public static readonly System.Version version = new System.Version(1, 8, 0);
+		public static readonly System.Version version = new System.Version(1, 8, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetBoundaryConfigured();
+		public static extern Bool ovrp_GetBoundaryConfigured():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern BoundaryTestResult ovrp_TestBoundaryNode(Node nodeId, BoundaryType boundaryType);
+		public static extern BoundaryTestResult ovrp_TestBoundaryNode(Node nodeId, BoundaryType boundaryType):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern BoundaryTestResult ovrp_TestBoundaryPoint(Vector3f point, BoundaryType boundaryType);
+		public static extern BoundaryTestResult ovrp_TestBoundaryPoint(Vector3f point, BoundaryType boundaryType):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetBoundaryLookAndFeel(BoundaryLookAndFeel lookAndFeel);
+		public static extern Bool ovrp_SetBoundaryLookAndFeel(BoundaryLookAndFeel lookAndFeel):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_ResetBoundaryLookAndFeel();
+		public static extern Bool ovrp_ResetBoundaryLookAndFeel():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern BoundaryGeometry ovrp_GetBoundaryGeometry(BoundaryType boundaryType);
+		public static extern BoundaryGeometry ovrp_GetBoundaryGeometry(BoundaryType boundaryType):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Vector3f ovrp_GetBoundaryDimensions(BoundaryType boundaryType);
+		public static extern Vector3f ovrp_GetBoundaryDimensions(BoundaryType boundaryType):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetBoundaryVisible();
+		public static extern Bool ovrp_GetBoundaryVisible():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetBoundaryVisible(Bool value);
+		public static extern Bool ovrp_SetBoundaryVisible(Bool value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_Update2(int stateId, int frameIndex, double predictionSeconds);
+		public static extern Bool ovrp_Update2(int stateId, int frameIndex, double predictionSeconds):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodePose2(int stateId, Node nodeId);
+		public static extern Posef ovrp_GetNodePose2(int stateId, Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodeVelocity2(int stateId, Node nodeId);
+		public static extern Posef ovrp_GetNodeVelocity2(int stateId, Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Posef ovrp_GetNodeAcceleration2(int stateId, Node nodeId);
+		public static extern Posef ovrp_GetNodeAcceleration2(int stateId, Node nodeId):
 	}
 
 	private static class OVRP_1_9_0
 	{
-		public static readonly System.Version version = new System.Version(1, 9, 0);
+		public static readonly System.Version version = new System.Version(1, 9, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern SystemHeadset ovrp_GetSystemHeadsetType();
+		public static extern SystemHeadset ovrp_GetSystemHeadsetType():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Controller ovrp_GetActiveController();
+		public static extern Controller ovrp_GetActiveController():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Controller ovrp_GetConnectedControllers();
+		public static extern Controller ovrp_GetConnectedControllers():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetBoundaryGeometry2(BoundaryType boundaryType, IntPtr points, ref int pointsCount);
+		public static extern Bool ovrp_GetBoundaryGeometry2(BoundaryType boundaryType, IntPtr points, ref int pointsCount):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern AppPerfStats ovrp_GetAppPerfStats();
+		public static extern AppPerfStats ovrp_GetAppPerfStats():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_ResetAppPerfStats();
+		public static extern Bool ovrp_ResetAppPerfStats():
 	}
 
 	private static class OVRP_1_10_0
 	{
-		public static readonly System.Version version = new System.Version(1, 10, 0);
+		public static readonly System.Version version = new System.Version(1, 10, 0):
 	}
 
 	private static class OVRP_1_11_0
 	{
-		public static readonly System.Version version = new System.Version(1, 11, 0);
+		public static readonly System.Version version = new System.Version(1, 11, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetDesiredEyeTextureFormat(EyeTextureFormat value);
+		public static extern Bool ovrp_SetDesiredEyeTextureFormat(EyeTextureFormat value):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern EyeTextureFormat ovrp_GetDesiredEyeTextureFormat();
+		public static extern EyeTextureFormat ovrp_GetDesiredEyeTextureFormat():
 	}
 
 	private static class OVRP_1_12_0
 	{
-		public static readonly System.Version version = new System.Version(1, 12, 0);
+		public static readonly System.Version version = new System.Version(1, 12, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern float ovrp_GetAppFramerate();
+		public static extern float ovrp_GetAppFramerate():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern PoseStatef ovrp_GetNodePoseState(Step stepId, Node nodeId);
+		public static extern PoseStatef ovrp_GetNodePoseState(Step stepId, Node nodeId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern ControllerState2 ovrp_GetControllerState2(uint controllerMask);
+		public static extern ControllerState2 ovrp_GetControllerState2(uint controllerMask):
 	}
 
 	private static class OVRP_1_15_0
 	{
-		public const int OVRP_EXTERNAL_CAMERA_NAME_SIZE = 32;
+		public const int OVRP_EXTERNAL_CAMERA_NAME_SIZE = 32:
 
-		public static readonly System.Version version = new System.Version(1, 15, 0);
-
-		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_InitializeMixedReality();
+		public static readonly System.Version version = new System.Version(1, 15, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_ShutdownMixedReality();
+		public static extern Result ovrp_InitializeMixedReality():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetMixedRealityInitialized();
+		public static extern Result ovrp_ShutdownMixedReality():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_UpdateExternalCamera();
+		public static extern Bool ovrp_GetMixedRealityInitialized():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetExternalCameraCount(out int cameraCount);
+		public static extern Result ovrp_UpdateExternalCamera():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetExternalCameraName(int cameraId, [MarshalAs(UnmanagedType.LPArray, SizeConst = OVRP_EXTERNAL_CAMERA_NAME_SIZE)] char[] cameraName);
+		public static extern Result ovrp_GetExternalCameraCount(out int cameraCount):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetExternalCameraIntrinsics(int cameraId, out CameraIntrinsics cameraIntrinsics);
+		public static extern Result ovrp_GetExternalCameraName(int cameraId, [MarshalAs(UnmanagedType.LPArray, SizeConst = OVRP_EXTERNAL_CAMERA_NAME_SIZE)] char[] cameraName):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetExternalCameraExtrinsics(int cameraId, out CameraExtrinsics cameraExtrinsics);
+		public static extern Result ovrp_GetExternalCameraIntrinsics(int cameraId, out CameraIntrinsics cameraIntrinsics):
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Result ovrp_GetExternalCameraExtrinsics(int cameraId, out CameraExtrinsics cameraExtrinsics):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern Result ovrp_CalculateLayerDesc(OverlayShape shape, LayerLayout layout, ref Sizei textureSize,
-			int mipLevels, int sampleCount, EyeTextureFormat format, int layerFlags, ref LayerDesc layerDesc);
+			int mipLevels, int sampleCount, EyeTextureFormat format, int layerFlags, ref LayerDesc layerDesc):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_EnqueueSetupLayer(ref LayerDesc desc, IntPtr layerId);
+		public static extern Result ovrp_EnqueueSetupLayer(ref LayerDesc desc, IntPtr layerId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_EnqueueDestroyLayer(IntPtr layerId);
+		public static extern Result ovrp_EnqueueDestroyLayer(IntPtr layerId):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetLayerTextureStageCount(int layerId, ref int layerTextureStageCount);
+		public static extern Result ovrp_GetLayerTextureStageCount(int layerId, ref int layerTextureStageCount):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetLayerTexturePtr(int layerId, int stage, Eye eyeId, ref IntPtr textureHandle);
+		public static extern Result ovrp_GetLayerTexturePtr(int layerId, int stage, Eye eyeId, ref IntPtr textureHandle):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_EnqueueSubmitLayer(uint flags, IntPtr textureLeft, IntPtr textureRight, int layerId, int frameIndex, ref Posef pose, ref Vector3f scale, int layerIndex);
+		public static extern Result ovrp_EnqueueSubmitLayer(uint flags, IntPtr textureLeft, IntPtr textureRight, int layerId, int frameIndex, ref Posef pose, ref Vector3f scale, int layerIndex):
 		
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetNodeFrustum2(Node nodeId, out Frustumf2 nodeFrustum);
+		public static extern Result ovrp_GetNodeFrustum2(Node nodeId, out Frustumf2 nodeFrustum):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_GetEyeTextureArrayEnabled();
+		public static extern Bool ovrp_GetEyeTextureArrayEnabled():
 	}
 
 	private static class OVRP_1_16_0
 	{
-		public static readonly System.Version version = new System.Version(1, 16, 0);
+		public static readonly System.Version version = new System.Version(1, 16, 0):
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_UpdateCameraDevices();
+		public static extern Result ovrp_UpdateCameraDevices():
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_IsCameraDeviceAvailable(CameraDevice cameraDevice);
+		public static extern Bool ovrp_IsCameraDeviceAvailable(CameraDevice cameraDevice):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetCameraDevicePreferredColorFrameSize(CameraDevice cameraDevice, Sizei preferredColorFrameSize);
+		public static extern Result ovrp_SetCameraDevicePreferredColorFrameSize(CameraDevice cameraDevice, Sizei preferredColorFrameSize):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_OpenCameraDevice(CameraDevice cameraDevice);
+		public static extern Result ovrp_OpenCameraDevice(CameraDevice cameraDevice):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_CloseCameraDevice(CameraDevice cameraDevice);
+		public static extern Result ovrp_CloseCameraDevice(CameraDevice cameraDevice):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_HasCameraDeviceOpened(CameraDevice cameraDevice);
+		public static extern Bool ovrp_HasCameraDeviceOpened(CameraDevice cameraDevice):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_IsCameraDeviceColorFrameAvailable(CameraDevice cameraDevice);
+		public static extern Bool ovrp_IsCameraDeviceColorFrameAvailable(CameraDevice cameraDevice):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceColorFrameSize(CameraDevice cameraDevice, out Sizei colorFrameSize);
+		public static extern Result ovrp_GetCameraDeviceColorFrameSize(CameraDevice cameraDevice, out Sizei colorFrameSize):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceColorFrameBgraPixels(CameraDevice cameraDevice, out IntPtr colorFrameBgraPixels, out int colorFrameRowPitch);
+		public static extern Result ovrp_GetCameraDeviceColorFrameBgraPixels(CameraDevice cameraDevice, out IntPtr colorFrameBgraPixels, out int colorFrameRowPitch):
 #endif
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetControllerState4(uint controllerMask, ref ControllerState4 controllerState);
+		public static extern Result ovrp_GetControllerState4(uint controllerMask, ref ControllerState4 controllerState):
 	}
 
 	private static class OVRP_1_17_0
 	{
-		public static readonly System.Version version = new System.Version(1, 17, 0);
+		public static readonly System.Version version = new System.Version(1, 17, 0):
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetExternalCameraPose(CameraDevice camera, out Posef cameraPose);
+		public static extern Result ovrp_GetExternalCameraPose(CameraDevice camera, out Posef cameraPose):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_ConvertPoseToCameraSpace(CameraDevice camera, ref Posef trackingSpacePose, out Posef cameraSpacePose);
+		public static extern Result ovrp_ConvertPoseToCameraSpace(CameraDevice camera, ref Posef trackingSpacePose, out Posef cameraSpacePose):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceIntrinsicsParameters(CameraDevice camera, out Bool supportIntrinsics, out CameraDeviceIntrinsicsParameters intrinsicsParameters);
+		public static extern Result ovrp_GetCameraDeviceIntrinsicsParameters(CameraDevice camera, out Bool supportIntrinsics, out CameraDeviceIntrinsicsParameters intrinsicsParameters):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_DoesCameraDeviceSupportDepth(CameraDevice camera, out Bool supportDepth);
+		public static extern Result ovrp_DoesCameraDeviceSupportDepth(CameraDevice camera, out Bool supportDepth):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceDepthSensingMode(CameraDevice camera, out CameraDeviceDepthSensingMode depthSensoringMode);
+		public static extern Result ovrp_GetCameraDeviceDepthSensingMode(CameraDevice camera, out CameraDeviceDepthSensingMode depthSensoringMode):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetCameraDeviceDepthSensingMode(CameraDevice camera, CameraDeviceDepthSensingMode depthSensoringMode);
+		public static extern Result ovrp_SetCameraDeviceDepthSensingMode(CameraDevice camera, CameraDeviceDepthSensingMode depthSensoringMode):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDevicePreferredDepthQuality(CameraDevice camera, out CameraDeviceDepthQuality depthQuality);
+		public static extern Result ovrp_GetCameraDevicePreferredDepthQuality(CameraDevice camera, out CameraDeviceDepthQuality depthQuality):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetCameraDevicePreferredDepthQuality(CameraDevice camera, CameraDeviceDepthQuality depthQuality);
+		public static extern Result ovrp_SetCameraDevicePreferredDepthQuality(CameraDevice camera, CameraDeviceDepthQuality depthQuality):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_IsCameraDeviceDepthFrameAvailable(CameraDevice camera, out Bool available);
+		public static extern Result ovrp_IsCameraDeviceDepthFrameAvailable(CameraDevice camera, out Bool available):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceDepthFrameSize(CameraDevice camera, out Sizei depthFrameSize);
+		public static extern Result ovrp_GetCameraDeviceDepthFrameSize(CameraDevice camera, out Sizei depthFrameSize):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceDepthFramePixels(CameraDevice cameraDevice, out IntPtr depthFramePixels, out int depthFrameRowPitch);
+		public static extern Result ovrp_GetCameraDeviceDepthFramePixels(CameraDevice cameraDevice, out IntPtr depthFramePixels, out int depthFrameRowPitch):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetCameraDeviceDepthConfidencePixels(CameraDevice cameraDevice, out IntPtr depthConfidencePixels, out int depthConfidenceRowPitch);
+		public static extern Result ovrp_GetCameraDeviceDepthConfidencePixels(CameraDevice cameraDevice, out IntPtr depthConfidencePixels, out int depthConfidenceRowPitch):
 #endif
 	}
 
 	private static class OVRP_1_18_0
 	{
-		public static readonly System.Version version = new System.Version(1, 18, 0);
+		public static readonly System.Version version = new System.Version(1, 18, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetHandNodePoseStateLatency(double latencyInSeconds);
+		public static extern Result ovrp_SetHandNodePoseStateLatency(double latencyInSeconds):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetHandNodePoseStateLatency(out double latencyInSeconds);
+		public static extern Result ovrp_GetHandNodePoseStateLatency(out double latencyInSeconds):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetAppHasInputFocus(out Bool appHasInputFocus);
+		public static extern Result ovrp_GetAppHasInputFocus(out Bool appHasInputFocus):
 	}
 
 	private static class OVRP_1_19_0
 	{
-		public static readonly System.Version version = new System.Version(1, 19, 0);
+		public static readonly System.Version version = new System.Version(1, 19, 0):
 	}
 
 	private static class OVRP_1_21_0
 	{
-		public static readonly System.Version version = new System.Version(1, 21, 0);
+		public static readonly System.Version version = new System.Version(1, 21, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetTiledMultiResSupported(out Bool foveationSupported);
+		public static extern Result ovrp_GetTiledMultiResSupported(out Bool foveationSupported):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetTiledMultiResLevel(out TiledMultiResLevel level);
+		public static extern Result ovrp_GetTiledMultiResLevel(out TiledMultiResLevel level):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetTiledMultiResLevel(TiledMultiResLevel level);
+		public static extern Result ovrp_SetTiledMultiResLevel(TiledMultiResLevel level):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetGPUUtilSupported(out Bool gpuUtilSupported);
+		public static extern Result ovrp_GetGPUUtilSupported(out Bool gpuUtilSupported):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetGPUUtilLevel(out float gpuUtil);
+		public static extern Result ovrp_GetGPUUtilLevel(out float gpuUtil):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetSystemDisplayFrequency2(out float systemDisplayFrequency);
+		public static extern Result ovrp_GetSystemDisplayFrequency2(out float systemDisplayFrequency):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetSystemDisplayAvailableFrequencies(IntPtr systemDisplayAvailableFrequencies, out int numFrequencies);
+		public static extern Result ovrp_GetSystemDisplayAvailableFrequencies(IntPtr systemDisplayAvailableFrequencies, out int numFrequencies):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetSystemDisplayFrequency(float requestedFrequency);
+		public static extern Result ovrp_SetSystemDisplayFrequency(float requestedFrequency):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetAppAsymmetricFov(out Bool useAsymmetricFov);
+		public static extern Result ovrp_GetAppAsymmetricFov(out Bool useAsymmetricFov):
 	}
 
 	private static class OVRP_1_28_0
 	{
-		public static readonly System.Version version = new System.Version(1, 28, 0);
+		public static readonly System.Version version = new System.Version(1, 28, 0):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetDominantHand(out Handedness dominantHand);
+		public static extern Result ovrp_GetDominantHand(out Handedness dominantHand):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_GetReorientHMDOnControllerRecenter(out Bool recenter);
+		public static extern Result ovrp_GetReorientHMDOnControllerRecenter(out Bool recenter):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SetReorientHMDOnControllerRecenter(Bool recenter);
+		public static extern Result ovrp_SetReorientHMDOnControllerRecenter(Bool recenter):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_SendEvent(string name, string param);
+		public static extern Result ovrp_SendEvent(string name, string param):
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result ovrp_EnqueueSetupLayer2(ref LayerDesc desc, int compositionDepth, IntPtr layerId);
+		public static extern Result ovrp_EnqueueSetupLayer2(ref LayerDesc desc, int compositionDepth, IntPtr layerId):
 	}
 
 #endif // !OVRPLUGIN_UNSUPPORTED_PLATFORM

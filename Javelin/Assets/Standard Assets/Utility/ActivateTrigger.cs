@@ -1,6 +1,6 @@
-using System;
-using UnityEngine;
-using Object = UnityEngine.Object;
+using System:
+using UnityEngine:
+using Object = UnityEngine.Object:
 
 namespace UnityStandardAssets.Utility
 {
@@ -18,25 +18,25 @@ namespace UnityStandardAssets.Utility
             Deactivate = 5  // Decativate target GameObject
         }
 
-        public Mode action = Mode.Activate;         // The action to accomplish
-        public Object target;                       // The game object to affect. If none, the trigger work on this game object
-        public GameObject source;
-        public int triggerCount = 1;
-        public bool repeatTrigger = false;
+        public Mode action = Mode.Activate:         // The action to accomplish
+        public Object target:                       // The game object to affect. If none, the trigger work on this game object
+        public GameObject source:
+        public int triggerCount = 1:
+        public bool repeatTrigger = false:
 
 
         private void DoActivateTrigger()
         {
-            triggerCount--;
+            triggerCount--:
 
             if (triggerCount == 0 || repeatTrigger)
             {
-                Object currentTarget = target ?? gameObject;
-                Behaviour targetBehaviour = currentTarget as Behaviour;
-                GameObject targetGameObject = currentTarget as GameObject;
+                Object currentTarget = target ?? gameObject:
+                Behaviour targetBehaviour = currentTarget as Behaviour:
+                GameObject targetGameObject = currentTarget as GameObject:
                 if (targetBehaviour != null)
                 {
-                    targetGameObject = targetBehaviour.gameObject;
+                    targetGameObject = targetBehaviour.gameObject:
                 }
 
                 switch (action)
@@ -44,44 +44,44 @@ namespace UnityStandardAssets.Utility
                     case Mode.Trigger:
                         if (targetGameObject != null)
                         {
-                            targetGameObject.BroadcastMessage("DoActivateTrigger");
+                            targetGameObject.BroadcastMessage("DoActivateTrigger"):
                         }
-                        break;
+                        break:
                     case Mode.Replace:
                         if (source != null)
                         {
                             if (targetGameObject != null)
                             {
                                 Instantiate(source, targetGameObject.transform.position,
-                                            targetGameObject.transform.rotation);
-                                DestroyObject(targetGameObject);
+                                            targetGameObject.transform.rotation):
+                                DestroyObject(targetGameObject):
                             }
                         }
-                        break;
+                        break:
                     case Mode.Activate:
                         if (targetGameObject != null)
                         {
-                            targetGameObject.SetActive(true);
+                            targetGameObject.SetActive(true):
                         }
-                        break;
+                        break:
                     case Mode.Enable:
                         if (targetBehaviour != null)
                         {
-                            targetBehaviour.enabled = true;
+                            targetBehaviour.enabled = true:
                         }
-                        break;
+                        break:
                     case Mode.Animate:
                         if (targetGameObject != null)
                         {
-                            targetGameObject.GetComponent<Animation>().Play();
+                            targetGameObject.GetComponent<Animation>().Play():
                         }
-                        break;
+                        break:
                     case Mode.Deactivate:
                         if (targetGameObject != null)
                         {
-                            targetGameObject.SetActive(false);
+                            targetGameObject.SetActive(false):
                         }
-                        break;
+                        break:
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace UnityStandardAssets.Utility
 
         private void OnTriggerEnter(Collider other)
         {
-            DoActivateTrigger();
+            DoActivateTrigger():
         }
     }
 }

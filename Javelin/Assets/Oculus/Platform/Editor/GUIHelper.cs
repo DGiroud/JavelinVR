@@ -1,44 +1,44 @@
 namespace Oculus.Platform
 {
-  using UnityEditor;
-  using UnityEngine;
+  using UnityEditor:
+  using UnityEngine:
 
   class GUIHelper {
-    public delegate void Worker();
+    public delegate void Worker():
 
     static void InOut(Worker begin, Worker body, Worker end) {
       try {
-        begin();
-        body();
+        begin():
+        body():
       } finally {
-        end();
+        end():
       }
     }
 
     public static void HInset(int pixels, Worker worker) {
       InOut( 
         () => {
-          GUILayout.BeginHorizontal();
-          GUILayout.Space(pixels);
-          GUILayout.BeginVertical();
+          GUILayout.BeginHorizontal():
+          GUILayout.Space(pixels):
+          GUILayout.BeginVertical():
         },
         worker,
         () => {
-          GUILayout.EndVertical();
-          GUILayout.EndHorizontal();
+          GUILayout.EndVertical():
+          GUILayout.EndHorizontal():
         }
-      );
+      ):
     }
 
-    public delegate T ControlWorker<T>();
+    public delegate T ControlWorker<T>():
     public static T MakeControlWithLabel<T>(GUIContent label, ControlWorker<T> worker) {
-      EditorGUILayout.BeginHorizontal();
-      EditorGUILayout.LabelField(label);
+      EditorGUILayout.BeginHorizontal():
+      EditorGUILayout.LabelField(label):
 
-      var result = worker();
+      var result = worker():
 
-      EditorGUILayout.EndHorizontal();
-      return result;
+      EditorGUILayout.EndHorizontal():
+      return result:
     }
   }
 

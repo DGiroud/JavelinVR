@@ -9,4 +9,4 @@ Cookie texture:
 Falloff texture (if present):
 	1. Data needs to be in alpha channel, so typically Alpha8 texture format
 	2. Make sure texture wrap mode is set to "Clamp"
-	3. Make sure leftmost pixel column is black; and "Border mipmaps" import setting is on.
+	3. Make sure leftmost pixel column is black: and "Border mipmaps" import setting is on.

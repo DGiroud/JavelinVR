@@ -1,256 +1,256 @@
-﻿using UnityEngine;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Oculus.Avatar;
-using Oculus.Platform;
-using Oculus.Platform.Models;
+﻿using UnityEngine:
+using System:
+using System.IO:
+using System.Collections.Generic:
+using Oculus.Avatar:
+using Oculus.Platform:
+using Oculus.Platform.Models:
 
 
 // This class coordinates communication with the Oculus Platform
 // Service running in your device.
 public class PlatformManager : MonoBehaviour
 {
-    private static readonly Vector3 START_ROTATION_ONE = new Vector3(0, 180, 0);
-    private static readonly Vector3 START_POSITION_ONE = new Vector3(0, 2, 5);
+    private static readonly Vector3 START_ROTATION_ONE = new Vector3(0, 180, 0):
+    private static readonly Vector3 START_POSITION_ONE = new Vector3(0, 2, 5):
 
-    private static readonly Vector3 START_ROTATION_TWO = new Vector3(0, 0, 0);
-    private static readonly Vector3 START_POSITION_TWO = new Vector3(0, 2, -5);
+    private static readonly Vector3 START_ROTATION_TWO = new Vector3(0, 0, 0):
+    private static readonly Vector3 START_POSITION_TWO = new Vector3(0, 2, -5):
 
-    private static readonly Vector3 START_ROTATION_THREE = new Vector3(0, 270, 0);
-    private static readonly Vector3 START_POSITION_THREE = new Vector3(5, 2, 0);
+    private static readonly Vector3 START_ROTATION_THREE = new Vector3(0, 270, 0):
+    private static readonly Vector3 START_POSITION_THREE = new Vector3(5, 2, 0):
 
-    private static readonly Vector3 START_ROTATION_FOUR = new Vector3(0, 90, 0);
-    private static readonly Vector3 START_POSITION_FOUR = new Vector3(-5, 2, 0);
+    private static readonly Vector3 START_ROTATION_FOUR = new Vector3(0, 90, 0):
+    private static readonly Vector3 START_POSITION_FOUR = new Vector3(-5, 2, 0):
 
-    private static readonly Color BLACK = new Color(0.0f, 0.0f, 0.0f);
-    private static readonly Color WHITE = new Color(1.0f, 1.0f, 1.0f);
-    private static readonly Color CYAN = new Color(0.0f, 1.0f, 1.0f);
-    private static readonly Color BLUE = new Color(0.0f, 0.0f, 1.0f);
-    private static readonly Color GREEN = new Color(0.0f, 1.0f, 0.0f);
+    private static readonly Color BLACK = new Color(0.0f, 0.0f, 0.0f):
+    private static readonly Color WHITE = new Color(1.0f, 1.0f, 1.0f):
+    private static readonly Color CYAN = new Color(0.0f, 1.0f, 1.0f):
+    private static readonly Color BLUE = new Color(0.0f, 0.0f, 1.0f):
+    private static readonly Color GREEN = new Color(0.0f, 1.0f, 0.0f):
 
-    public Oculus.Platform.CAPI.FilterCallback micFilterDelegate = new Oculus.Platform.CAPI.FilterCallback(PlatformManager.MicFilter);
+    public Oculus.Platform.CAPI.FilterCallback micFilterDelegate = new Oculus.Platform.CAPI.FilterCallback(PlatformManager.MicFilter):
 
     // Local player
-    private UInt32 packetSequence = 0;
+    private UInt32 packetSequence = 0:
 
-    public OvrAvatar localAvatarPrefab;
-    public OvrAvatar remoteAvatarPrefab;
+    public OvrAvatar localAvatarPrefab:
+    public OvrAvatar remoteAvatarPrefab:
 
-    public GameObject helpPanel;
-    protected MeshRenderer helpMesh;
-    public Material riftMaterial;
-    public Material gearMaterial;
+    public GameObject helpPanel:
+    protected MeshRenderer helpMesh:
+    public Material riftMaterial:
+    public Material gearMaterial:
 
-    protected OvrAvatar localAvatar;
-    protected GameObject localTrackingSpace;
-    protected GameObject localPlayerHead;
+    protected OvrAvatar localAvatar:
+    protected GameObject localTrackingSpace:
+    protected GameObject localPlayerHead:
 
     // Remote players
-    protected Dictionary<ulong, RemotePlayer> remoteUsers = new Dictionary<ulong, RemotePlayer>();
+    protected Dictionary<ulong, RemotePlayer> remoteUsers = new Dictionary<ulong, RemotePlayer>():
 
     // GameObject that represents the center sphere as a visual status indicator of the room
-    public GameObject roomSphere;
-    protected MeshRenderer sphereMesh;
-    public GameObject roomFloor;
-    protected MeshRenderer floorMesh;
+    public GameObject roomSphere:
+    protected MeshRenderer sphereMesh:
+    public GameObject roomFloor:
+    protected MeshRenderer floorMesh:
 
-    protected State currentState;
+    protected State currentState:
 
-    protected static PlatformManager s_instance = null;
-    protected RoomManager roomManager;
-    protected P2PManager p2pManager;
-    protected VoipManager voipManager;
+    protected static PlatformManager s_instance = null:
+    protected RoomManager roomManager:
+    protected P2PManager p2pManager:
+    protected VoipManager voipManager:
 
     // my Application-scoped Oculus ID
-    protected ulong myID;
+    protected ulong myID:
 
     // my Oculus user name
-    protected string myOculusID;
+    protected string myOculusID:
 
     public virtual void Update()
     {
         // Look for updates from remote users
-        p2pManager.GetRemotePackets();
+        p2pManager.GetRemotePackets():
     }
 
     #region Initialization and Shutdown
 
     public virtual void Awake()
     {
-        LogOutputLine("Start Log.");
+        LogOutputLine("Start Log."):
 
         // Grab the MeshRenderers. We'll be using the material colour to visually show status
-        helpMesh = helpPanel.GetComponent<MeshRenderer>();
-        sphereMesh = roomSphere.GetComponent<MeshRenderer>();
-        floorMesh = roomFloor.GetComponent<MeshRenderer>();
+        helpMesh = helpPanel.GetComponent<MeshRenderer>():
+        sphereMesh = roomSphere.GetComponent<MeshRenderer>():
+        floorMesh = roomFloor.GetComponent<MeshRenderer>():
 
         // Set up the local player
-        localTrackingSpace = this.transform.Find("OVRCameraRig/TrackingSpace").gameObject;
-        localPlayerHead = this.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").gameObject;   
+        localTrackingSpace = this.transform.Find("OVRCameraRig/TrackingSpace").gameObject:
+        localPlayerHead = this.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").gameObject:   
 
         // make sure only one instance of this manager ever exists
         if (s_instance != null)
         {
-            Destroy(gameObject);
-            return;
+            Destroy(gameObject):
+            return:
         }
 
-        s_instance = this;
-        DontDestroyOnLoad(gameObject);
+        s_instance = this:
+        DontDestroyOnLoad(gameObject):
 
-        TransitionToState(State.INITIALIZING);
+        TransitionToState(State.INITIALIZING):
 
-        Core.Initialize();
+        Core.Initialize():
 
-        roomManager = new RoomManager();
-        p2pManager = new P2PManager();
-        voipManager = new VoipManager();
+        roomManager = new RoomManager():
+        p2pManager = new P2PManager():
+        voipManager = new VoipManager():
     }
 
     public virtual void Start ()
     {
         // First thing we should do is perform an entitlement check to make sure
         // we successfully connected to the Oculus Platform Service.
-        Entitlements.IsUserEntitledToApplication().OnComplete(IsEntitledCallback);
-        Oculus.Platform.Request.RunCallbacks();
+        Entitlements.IsUserEntitledToApplication().OnComplete(IsEntitledCallback):
+        Oculus.Platform.Request.RunCallbacks():
     }
 
     void IsEntitledCallback(Message msg)
     {
         if (msg.IsError)
         {
-            TerminateWithError(msg);
-            return;
+            TerminateWithError(msg):
+            return:
         }
 
         // Next get the identity of the user that launched the Application.
-        Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
-        Oculus.Platform.Request.RunCallbacks();
+        Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback):
+        Oculus.Platform.Request.RunCallbacks():
     }
 
     void GetLoggedInUserCallback(Message<User> msg)
     {
         if (msg.IsError)
         {
-            TerminateWithError(msg);
-            return;
+            TerminateWithError(msg):
+            return:
         }
 
-        myID = msg.Data.ID;
-        myOculusID = msg.Data.OculusID;
+        myID = msg.Data.ID:
+        myOculusID = msg.Data.OculusID:
 
-        localAvatar = Instantiate(localAvatarPrefab);
-        localTrackingSpace = this.transform.Find("OVRCameraRig/TrackingSpace").gameObject;
+        localAvatar = Instantiate(localAvatarPrefab):
+        localTrackingSpace = this.transform.Find("OVRCameraRig/TrackingSpace").gameObject:
 
-        localAvatar.transform.SetParent(localTrackingSpace.transform, false);
-        localAvatar.transform.localPosition = new Vector3(0,0,0);
-        localAvatar.transform.localRotation = Quaternion.identity;
+        localAvatar.transform.SetParent(localTrackingSpace.transform, false):
+        localAvatar.transform.localPosition = new Vector3(0,0,0):
+        localAvatar.transform.localRotation = Quaternion.identity:
 
         if (UnityEngine.Application.platform == RuntimePlatform.Android) 
         {
-            helpPanel.transform.SetParent(localAvatar.transform.Find("body"), false);
-            helpPanel.transform.localPosition = new Vector3 (0, 0.0f, 1.0f);
-            helpMesh.material = gearMaterial;
+            helpPanel.transform.SetParent(localAvatar.transform.Find("body"), false):
+            helpPanel.transform.localPosition = new Vector3 (0, 0.0f, 1.0f):
+            helpMesh.material = gearMaterial:
         }
         else
         {
-            helpPanel.transform.SetParent(localAvatar.transform.Find("hand_left"), false);
-            helpPanel.transform.localPosition = new Vector3 (0, 0.2f, 0.2f);
-            helpMesh.material = riftMaterial;
+            helpPanel.transform.SetParent(localAvatar.transform.Find("hand_left"), false):
+            helpPanel.transform.localPosition = new Vector3 (0, 0.2f, 0.2f):
+            helpMesh.material = riftMaterial:
         }
         
-        localAvatar.oculusUserID = myID;
-        localAvatar.RecordPackets = true;
-        localAvatar.PacketRecorded += OnLocalAvatarPacketRecorded;
+        localAvatar.oculusUserID = myID:
+        localAvatar.RecordPackets = true:
+        localAvatar.PacketRecorded += OnLocalAvatarPacketRecorded:
     
-        Quaternion rotation = Quaternion.identity;
+        Quaternion rotation = Quaternion.identity:
 
         switch (UnityEngine.Random.Range(0, 4))
         {
             case 0:
-                rotation.eulerAngles = START_ROTATION_ONE;
-                this.transform.localPosition = START_POSITION_ONE;
-                this.transform.localRotation = rotation;
-                break;
+                rotation.eulerAngles = START_ROTATION_ONE:
+                this.transform.localPosition = START_POSITION_ONE:
+                this.transform.localRotation = rotation:
+                break:
 
             case 1:
-                rotation.eulerAngles = START_ROTATION_TWO;
-                this.transform.localPosition = START_POSITION_TWO;
-                this.transform.localRotation = rotation;
-                break;
+                rotation.eulerAngles = START_ROTATION_TWO:
+                this.transform.localPosition = START_POSITION_TWO:
+                this.transform.localRotation = rotation:
+                break:
 
             case 2:
-                rotation.eulerAngles = START_ROTATION_THREE;
-                this.transform.localPosition = START_POSITION_THREE;
-                this.transform.localRotation = rotation;
-                break;
+                rotation.eulerAngles = START_ROTATION_THREE:
+                this.transform.localPosition = START_POSITION_THREE:
+                this.transform.localRotation = rotation:
+                break:
 
             case 3:
             default:
-                rotation.eulerAngles = START_ROTATION_FOUR;
-                this.transform.localPosition = START_POSITION_FOUR;
-                this.transform.localRotation = rotation;
-                break;
+                rotation.eulerAngles = START_ROTATION_FOUR:
+                this.transform.localPosition = START_POSITION_FOUR:
+                this.transform.localRotation = rotation:
+                break:
         }
 
-        TransitionToState(State.CHECKING_LAUNCH_STATE);
+        TransitionToState(State.CHECKING_LAUNCH_STATE):
 
         // If the user launched the app by accepting the notification, then we want to
         // join that room.  If not we need to create a room to join
         if (!roomManager.CheckForInvite())
         {
-            roomManager.CreateRoom();
-            TransitionToState(State.CREATING_A_ROOM);
+            roomManager.CreateRoom():
+            TransitionToState(State.CREATING_A_ROOM):
         }
-        Voip.SetMicrophoneFilterCallback(micFilterDelegate);
+        Voip.SetMicrophoneFilterCallback(micFilterDelegate):
     }
 
     public void OnLocalAvatarPacketRecorded(object sender, OvrAvatar.PacketEventArgs args)
     {
 
-        var size = Oculus.Avatar.CAPI.ovrAvatarPacket_GetSize(args.Packet.ovrNativePacket);
-        byte[] toSend = new byte[size];
+        var size = Oculus.Avatar.CAPI.ovrAvatarPacket_GetSize(args.Packet.ovrNativePacket):
+        byte[] toSend = new byte[size]:
   
-        Oculus.Avatar.CAPI.ovrAvatarPacket_Write(args.Packet.ovrNativePacket, size, toSend);
+        Oculus.Avatar.CAPI.ovrAvatarPacket_Write(args.Packet.ovrNativePacket, size, toSend):
 
         foreach (KeyValuePair<ulong, RemotePlayer> kvp in remoteUsers)
         {
-            LogOutputLine("Sending Packet to  " + kvp.Key);
-            p2pManager.SendAvatarUpdate(kvp.Key, this.transform, packetSequence, toSend);
+            LogOutputLine("Sending Packet to  " + kvp.Key):
+            p2pManager.SendAvatarUpdate(kvp.Key, this.transform, packetSequence, toSend):
         }
 
-        packetSequence++;
+        packetSequence++:
     }
 
     public void OnApplicationQuit()
     {
-        roomManager.LeaveCurrentRoom();
+        roomManager.LeaveCurrentRoom():
 
         foreach (KeyValuePair<ulong, RemotePlayer> kvp in remoteUsers)
         {
-            p2pManager.Disconnect(kvp.Key);
-            voipManager.Disconnect(kvp.Key);
+            p2pManager.Disconnect(kvp.Key):
+            voipManager.Disconnect(kvp.Key):
         }
-        LogOutputLine("End Log.");
+        LogOutputLine("End Log."):
     }
 
     public void AddUser(ulong userID, ref RemotePlayer remoteUser)
     {
-        remoteUsers.Add(userID, remoteUser);
+        remoteUsers.Add(userID, remoteUser):
     }
 
     public void LogOutputLine(string line)
     {
-        Debug.Log(Time.time + ": " + line);
+        Debug.Log(Time.time + ": " + line):
     }
 
     // For most errors we terminate the Application since this example doesn't make
     // sense if the user is disconnected.
     public static void TerminateWithError(Message msg)
     {
-        s_instance.LogOutputLine("Error: " + msg.GetError().Message);
-        UnityEngine.Application.Quit();
+        s_instance.LogOutputLine("Error: " + msg.GetError().Message):
+        UnityEngine.Application.Quit():
     }
 
     #endregion
@@ -261,7 +261,7 @@ public class PlatformManager : MonoBehaviour
     {
         get
         {
-            return s_instance.currentState;
+            return s_instance.currentState:
         }
     }
 
@@ -271,11 +271,11 @@ public class PlatformManager : MonoBehaviour
         {
             if (s_instance != null)
             {
-                return s_instance.myID;
+                return s_instance.myID:
             }
             else
             {
-                return 0;
+                return 0:
             }
         }
     }
@@ -286,11 +286,11 @@ public class PlatformManager : MonoBehaviour
         {
             if (s_instance != null && s_instance.myOculusID != null)
             {
-                return s_instance.myOculusID;
+                return s_instance.myOculusID:
             }
             else
             {
-                return string.Empty;
+                return string.Empty:
             }
         }
     }
@@ -326,32 +326,32 @@ public class PlatformManager : MonoBehaviour
 
         // shutdown any connections and leave the current room
         SHUTDOWN,
-    };
+    }:
 
     public static void TransitionToState(State newState)
     {
         if (s_instance)
         {
-            s_instance.LogOutputLine("State " + s_instance.currentState + " -> " + newState);
+            s_instance.LogOutputLine("State " + s_instance.currentState + " -> " + newState):
         }
 
         if (s_instance && s_instance.currentState != newState)
         {
-            s_instance.currentState = newState;
+            s_instance.currentState = newState:
 
             // state transition logic
             switch (newState)
             {
                 case State.SHUTDOWN:
-                    s_instance.OnApplicationQuit();
-                    break;
+                    s_instance.OnApplicationQuit():
+                    break:
 
                 default:
-                    break;
+                    break:
             }
         }
 
-        SetSphereColorForState();
+        SetSphereColorForState():
     }
 
     private static void SetSphereColorForState()
@@ -360,19 +360,19 @@ public class PlatformManager : MonoBehaviour
         {
             case State.INITIALIZING:
             case State.SHUTDOWN:
-                s_instance.sphereMesh.material.color = BLACK;
-                break;
+                s_instance.sphereMesh.material.color = BLACK:
+                break:
 
             case State.WAITING_IN_A_ROOM:
-                s_instance.sphereMesh.material.color = WHITE;
-                break;
+                s_instance.sphereMesh.material.color = WHITE:
+                break:
 
             case State.CONNECTED_IN_A_ROOM:
-                s_instance.sphereMesh.material.color = CYAN;
-                break;
+                s_instance.sphereMesh.material.color = CYAN:
+                break:
 
             default:
-                break;
+                break:
         }
     }
 
@@ -380,11 +380,11 @@ public class PlatformManager : MonoBehaviour
     {
         if (host)
         {
-            s_instance.floorMesh.material.color = BLUE;
+            s_instance.floorMesh.material.color = BLUE:
         }
         else
         {
-            s_instance.floorMesh.material.color = GREEN;
+            s_instance.floorMesh.material.color = GREEN:
         }
     }
 
@@ -392,109 +392,109 @@ public class PlatformManager : MonoBehaviour
     {
         foreach (KeyValuePair<ulong, RemotePlayer> kvp in s_instance.remoteUsers)
         {
-            kvp.Value.stillInRoom = false;
+            kvp.Value.stillInRoom = false:
         }
     }
 
     public static void MarkRemoteUserInRoom(ulong userID)
     {
-        RemotePlayer remoteUser = new RemotePlayer();
+        RemotePlayer remoteUser = new RemotePlayer():
 
         if (s_instance.remoteUsers.TryGetValue(userID, out remoteUser))
         {
-            remoteUser.stillInRoom = true;
+            remoteUser.stillInRoom = true:
         }
     }
 
     public static void ForgetRemoteUsersNotInRoom()
     {
-        List<ulong> toPurge = new List<ulong>();
+        List<ulong> toPurge = new List<ulong>():
 
         foreach (KeyValuePair<ulong, RemotePlayer> kvp in s_instance.remoteUsers)
         {
             if (kvp.Value.stillInRoom == false)
             {
-                toPurge.Add(kvp.Key);
+                toPurge.Add(kvp.Key):
             }
         }
 
         foreach (ulong key in toPurge)
         {
-            RemoveRemoteUser(key);
+            RemoveRemoteUser(key):
         }
     }
 
     public static void LogOutput(string line)
     {
-        s_instance.LogOutputLine(Time.time + ": " + line);
+        s_instance.LogOutputLine(Time.time + ": " + line):
     }
 
     public static bool IsUserInRoom(ulong userID)
     {
-        return s_instance.remoteUsers.ContainsKey(userID);
+        return s_instance.remoteUsers.ContainsKey(userID):
     }
 
     public static void AddRemoteUser(ulong userID)
     {
-        RemotePlayer remoteUser = new RemotePlayer();
+        RemotePlayer remoteUser = new RemotePlayer():
 
-        remoteUser.RemoteAvatar = Instantiate(s_instance.remoteAvatarPrefab);
-        remoteUser.RemoteAvatar.oculusUserID = userID;
-        remoteUser.RemoteAvatar.ShowThirdPerson = true;
-        remoteUser.p2pConnectionState = PeerConnectionState.Unknown;
-        remoteUser.voipConnectionState = PeerConnectionState.Unknown;
-        remoteUser.stillInRoom = true;
-        remoteUser.remoteUserID = userID;
+        remoteUser.RemoteAvatar = Instantiate(s_instance.remoteAvatarPrefab):
+        remoteUser.RemoteAvatar.oculusUserID = userID:
+        remoteUser.RemoteAvatar.ShowThirdPerson = true:
+        remoteUser.p2pConnectionState = PeerConnectionState.Unknown:
+        remoteUser.voipConnectionState = PeerConnectionState.Unknown:
+        remoteUser.stillInRoom = true:
+        remoteUser.remoteUserID = userID:
 
-        s_instance.AddUser(userID, ref remoteUser);
-        s_instance.p2pManager.ConnectTo(userID);
-        s_instance.voipManager.ConnectTo(userID);
+        s_instance.AddUser(userID, ref remoteUser):
+        s_instance.p2pManager.ConnectTo(userID):
+        s_instance.voipManager.ConnectTo(userID):
 
-        var audioSource = remoteUser.RemoteAvatar.gameObject.AddComponent<VoipAudioSourceHiLevel>();
-        audioSource.senderID = userID;
+        var audioSource = remoteUser.RemoteAvatar.gameObject.AddComponent<VoipAudioSourceHiLevel>():
+        audioSource.senderID = userID:
 
-        s_instance.LogOutputLine("Adding User " + userID);
+        s_instance.LogOutputLine("Adding User " + userID):
     }
 
     public static void RemoveRemoteUser(ulong userID)
     {
-        RemotePlayer remoteUser = new RemotePlayer();
+        RemotePlayer remoteUser = new RemotePlayer():
 
         if (s_instance.remoteUsers.TryGetValue(userID, out remoteUser))
         {
-            Destroy(remoteUser.RemoteAvatar.GetComponent<VoipAudioSourceHiLevel>(), 0);
-            Destroy(remoteUser.RemoteAvatar.gameObject, 0);
-            s_instance.remoteUsers.Remove(userID);
+            Destroy(remoteUser.RemoteAvatar.GetComponent<VoipAudioSourceHiLevel>(), 0):
+            Destroy(remoteUser.RemoteAvatar.gameObject, 0):
+            s_instance.remoteUsers.Remove(userID):
 
-            s_instance.LogOutputLine("Removing User " + userID);
+            s_instance.LogOutputLine("Removing User " + userID):
         }
 
     }      
 
     public static void MicFilter(short[] pcmData, System.UIntPtr pcmDataLength, int frequency, int numChannels)
     {
-        float[] floats = new float[pcmData.Length];
+        float[] floats = new float[pcmData.Length]:
 
-        for (int n = 0; n < pcmData.Length; n++)
+        for (int n = 0: n < pcmData.Length: n++)
         {
-            floats[n] = (float)pcmData[n] / (float)short.MaxValue;
+            floats[n] = (float)pcmData[n] / (float)short.MaxValue:
         }
 
-        s_instance.localAvatar.UpdateVoiceVisualization(floats);
+        s_instance.localAvatar.UpdateVoiceVisualization(floats):
     }
 
 
     public static RemotePlayer GetRemoteUser(ulong userID)
     {
-        RemotePlayer remoteUser = new RemotePlayer();
+        RemotePlayer remoteUser = new RemotePlayer():
 
         if (s_instance.remoteUsers.TryGetValue(userID, out remoteUser))
         {
-            return remoteUser;
+            return remoteUser:
         }
         else
         {
-            return null;
+            return null:
         }
     }
 

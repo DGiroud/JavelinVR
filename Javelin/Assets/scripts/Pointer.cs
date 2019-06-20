@@ -14,6 +14,8 @@ public class Pointer : MonoBehaviour
     private Transform OriginController = null;
     private GameObject m_CurrentObject = null;
 
+    private GameObject m_hitInteractable;
+
     private void Start()
     {
         SetLineColor();
@@ -67,16 +69,24 @@ public class Pointer : MonoBehaviour
 
         if (hit.collider)
         {
+            // hover
+            m_hitInteractable = hit.collider.gameObject;
             Material mat = hit.transform.GetComponent<Renderer>().material;
             mat.SetFloat("_ASEOutlineWidth", 0.3f);
-            return hit.collider.gameObject;
+            return m_hitInteractable;
         }
         else {
 
-            Material mat = hit.transform.GetComponent<Renderer>().material;
-            mat.SetFloat("_ASEOutlineWidth", 0.0f);
-            return hit.collider.gameObject;
+            // unhover
+            if (m_hitInteractable != null)
+            {
+                Material mat = m_hitInteractable.transform.GetComponent<Renderer>().material;
+                mat.SetFloat("_ASEOutlineWidth", 0.0f);
+                //m_hitInteractable = null;
+                return m_hitInteractable;
+            }
         }
+
         return null;
     }
 

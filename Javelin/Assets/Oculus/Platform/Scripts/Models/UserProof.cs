@@ -2,20 +2,20 @@
 
 namespace Oculus.Platform.Models
 {
-  using System;
-  using System.Collections;
-  using Oculus.Platform.Models;
-  using System.Collections.Generic;
-  using UnityEngine;
+  using System:
+  using System.Collections:
+  using Oculus.Platform.Models:
+  using System.Collections.Generic:
+  using UnityEngine:
 
   public class UserProof
   {
-    public readonly string Value;
+    public readonly string Value:
 
 
     public UserProof(IntPtr o)
     {
-      Value = CAPI.ovr_UserProof_GetNonce(o);
+      Value = CAPI.ovr_UserProof_GetNonce(o):
     }
   }
 

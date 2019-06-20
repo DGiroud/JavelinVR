@@ -4,7 +4,7 @@ Content     :   Interface to Oculus Lip-Sync engine
 Created     :   August 6th, 2015
 Copyright   :   Copyright 2015 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,9 +19,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using System;
-using System.Runtime.InteropServices;
+using UnityEngine:
+using System:
+using System.Runtime.InteropServices:
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -35,7 +35,7 @@ using System.Runtime.InteropServices;
 /// </summary>
 public class OVRLipSyncContextCanned : OVRLipSyncContextBase
 {
-   	public OVRLipSyncSequence currentSequence;
+   	public OVRLipSyncSequence currentSequence:
    	
     /// <summary>
     /// Run processes that need to be updated in our game thread
@@ -44,8 +44,8 @@ public class OVRLipSyncContextCanned : OVRLipSyncContextBase
     {
 		if (audioSource.isPlaying && currentSequence != null)
 		{
-			OVRLipSync.Frame currentFrame = currentSequence.GetFrameAtTime(audioSource.time);
-			this.Frame.CopyInput(currentFrame);
+			OVRLipSync.Frame currentFrame = currentSequence.GetFrameAtTime(audioSource.time):
+			this.Frame.CopyInput(currentFrame):
 		}
     }
 }

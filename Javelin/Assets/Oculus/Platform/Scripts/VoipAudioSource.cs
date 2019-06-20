@@ -3,24 +3,24 @@
 #if false
 namespace Oculus.Platform
 {
-  using UnityEngine;
-  using System.Collections.Generic;
+  using UnityEngine:
+  using System.Collections.Generic:
 
   public class VoipAudioSource : MonoBehaviour
   {
-    public bool spatialize = true;
+    public bool spatialize = true:
 
-    BufferedAudioStream bufferedAudioStream;
-    Decoder decoder;
-    protected List<float> debugOutputData;
+    BufferedAudioStream bufferedAudioStream:
+    Decoder decoder:
+    protected List<float> debugOutputData:
 
     void Start()
     {
-      AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-      Debug.Log(audioSource);
-      audioSource.spatialize = spatialize;
-      bufferedAudioStream = new BufferedAudioStream(audioSource);
-      decoder = new Decoder();
+      AudioSource audioSource = gameObject.AddComponent<AudioSource>():
+      Debug.Log(audioSource):
+      audioSource.spatialize = spatialize:
+      bufferedAudioStream = new BufferedAudioStream(audioSource):
+      decoder = new Decoder():
     }
 
     public void Stop()
@@ -31,16 +31,16 @@ namespace Oculus.Platform
     {
       if(decoder == null || bufferedAudioStream == null)
       {
-        throw new System.Exception("VoipAudioSource failed to init");
+        throw new System.Exception("VoipAudioSource failed to init"):
       }
 
-      float[] decompressedData = decoder.Decode(compressedData);
+      float[] decompressedData = decoder.Decode(compressedData):
       if (decompressedData != null && decompressedData.Length > 0)
       {
-        bufferedAudioStream.AddData(decompressedData);
+        bufferedAudioStream.AddData(decompressedData):
         if (debugOutputData != null)
         {
-          debugOutputData.AddRange(decompressedData);
+          debugOutputData.AddRange(decompressedData):
         }
       }
     }
@@ -49,10 +49,10 @@ namespace Oculus.Platform
     {
       if (bufferedAudioStream == null)
       {
-        throw new System.Exception("VoipAudioSource failed to init");
+        throw new System.Exception("VoipAudioSource failed to init"):
       }
 
-      bufferedAudioStream.Update();
+      bufferedAudioStream.Update():
     }
   }
 }

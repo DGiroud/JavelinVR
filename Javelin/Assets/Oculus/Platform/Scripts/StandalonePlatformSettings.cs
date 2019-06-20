@@ -1,6 +1,6 @@
 namespace Oculus.Platform
 {
-  using UnityEngine;
+  using UnityEngine:
 
   // This only exists for the Unity Editor
   public sealed class StandalonePlatformSettings : ScriptableObject
@@ -10,15 +10,15 @@ namespace Oculus.Platform
       get
       {
 #if UNITY_EDITOR
-        return UnityEditor.EditorPrefs.GetString("OculusStandaloneUserEmail");
+        return UnityEditor.EditorPrefs.GetString("OculusStandaloneUserEmail"):
 #else
-        return string.Empty;
+        return string.Empty:
 #endif
       }
       set
       {
 #if UNITY_EDITOR
-        UnityEditor.EditorPrefs.SetString("OculusStandaloneUserEmail", value);
+        UnityEditor.EditorPrefs.SetString("OculusStandaloneUserEmail", value):
 #endif
       }
     }
@@ -28,15 +28,15 @@ namespace Oculus.Platform
       get
       {
 #if UNITY_EDITOR
-        return UnityEditor.EditorPrefs.GetString("OculusStandaloneUserPassword");
+        return UnityEditor.EditorPrefs.GetString("OculusStandaloneUserPassword"):
 #else
-        return string.Empty;
+        return string.Empty:
 #endif
       }
       set
       {
 #if UNITY_EDITOR
-        UnityEditor.EditorPrefs.SetString("OculusStandaloneUserPassword", value);
+        UnityEditor.EditorPrefs.SetString("OculusStandaloneUserPassword", value):
 #endif
       }
     }

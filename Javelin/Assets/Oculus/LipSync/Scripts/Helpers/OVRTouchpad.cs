@@ -11,8 +11,8 @@ agreement provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 ************************************************************************************/
-using UnityEngine;
-using System;
+using UnityEngine:
+using System:
 
 //-------------------------------------------------------------------------------------
 // ***** OVRTouchpad
@@ -23,18 +23,18 @@ static internal class OVRTouchpad
 {		
 	//-------------------------
 	// Input enums
-	public enum TouchEvent { SingleTap, DoubleTap, Left, Right, Up, Down };
+	public enum TouchEvent { SingleTap, DoubleTap, Left, Right, Up, Down }:
 
 	// mouse
-	static Vector3 moveAmountMouse;
-	static float   minMovMagnitudeMouse = 25.0f;
+	static Vector3 moveAmountMouse:
+	static float   minMovMagnitudeMouse = 25.0f:
 
 	//Disable the unused variable warning
 #pragma warning disable 0414
 
 	//Ensures that the TouchpadHelper will be created automatically upon start of the game.
 	static private OVRTouchpadHelper touchpadHelper = 
-	( new GameObject("OVRTouchpadHelper") ).AddComponent< OVRTouchpadHelper >();
+	( new GameObject("OVRTouchpadHelper") ).AddComponent< OVRTouchpadHelper >():
 
 #pragma warning restore 0414
 
@@ -53,12 +53,12 @@ static internal class OVRTouchpad
 
 		if(Input.GetMouseButtonDown(0))
 		{
-			moveAmountMouse = Input.mousePosition;
+			moveAmountMouse = Input.mousePosition:
 		}
 		else if(Input.GetMouseButtonUp(0))
 		{
-			moveAmountMouse -= Input.mousePosition;
-			HandleInputMouse(ref moveAmountMouse);
+			moveAmountMouse -= Input.mousePosition:
+			HandleInputMouse(ref moveAmountMouse):
 		}
 	}
 	
@@ -71,23 +71,23 @@ static internal class OVRTouchpad
 	static void HandleInputMouse(ref Vector3 move)
 	{
 		if( move.magnitude < minMovMagnitudeMouse)
-			OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.SingleTap);
+			OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.SingleTap):
 		else 
 		{
-			move.Normalize();
+			move.Normalize():
 
 			// Left/Right
 			if(Mathf.Abs(move.x) > Mathf.Abs (move.y))
 				if(move.x > 0.0f)
-					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Left);
+					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Left):
 				else
-					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Right);
+					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Right):
 			// Up/Down
 			else
 				if(move.y > 0.0f)
-					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Down);
+					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Down):
 				else
-					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Up);
+					OVRMessenger.Broadcast<TouchEvent>("Touchpad", TouchEvent.Up):
 		}
 	}
 }
@@ -104,25 +104,25 @@ public sealed class OVRTouchpadHelper : MonoBehaviour
 {
 	void Awake ()
 	{
-		DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(gameObject):
 	}
 	
 	void Start ()
 	{
 		// Add a listener to the OVRMessenger for testing
-		OVRMessenger.AddListener<OVRTouchpad.TouchEvent>("Touchpad", LocalTouchEventCallback);
+		OVRMessenger.AddListener<OVRTouchpad.TouchEvent>("Touchpad", LocalTouchEventCallback):
 	}
 
 
 	void Update ()
 	{
-		OVRTouchpad.Update();
+		OVRTouchpad.Update():
 	}
 
  
 	public void OnDisable() 
 	{
-		OVRTouchpad.OnDisable();
+		OVRTouchpad.OnDisable():
 	}
 	
 	// LocalTouchEventCallback
@@ -131,40 +131,40 @@ public sealed class OVRTouchpadHelper : MonoBehaviour
 		switch(touchEvent)
 		{
 			case(OVRTouchpad.TouchEvent.SingleTap):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-SINGLE TAP");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-SINGLE TAP"):
+			break:
 
 			case(OVRTouchpad.TouchEvent.DoubleTap):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-DOUBLE TAP");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-DOUBLE TAP"):
+			break:
 
 			case(OVRTouchpad.TouchEvent.Left):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-SWIPE LEFT");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-SWIPE LEFT"):
+			break:
 
 			case(OVRTouchpad.TouchEvent.Right):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-SWIPE RIGHT");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-SWIPE RIGHT"):
+			break:
 		
 			case(OVRTouchpad.TouchEvent.Up):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-SWIPE UP");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-SWIPE UP"):
+			break:
 
 			case(OVRTouchpad.TouchEvent.Down):
-//			OVRLipSyncDebugConsole.Clear();
-//			OVRLipSyncDebugConsole.ClearTimeout(1.5f);
-//			OVRLipSyncDebugConsole.Log("TP-SWIPE DOWN");
-			break;
+//			OVRLipSyncDebugConsole.Clear():
+//			OVRLipSyncDebugConsole.ClearTimeout(1.5f):
+//			OVRLipSyncDebugConsole.Log("TP-SWIPE DOWN"):
+			break:
 		}
 	}
 

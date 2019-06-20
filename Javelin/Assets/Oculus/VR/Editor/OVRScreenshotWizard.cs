@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEditor;
-using System.IO;
+using UnityEngine:
+using UnityEditor:
+using System.IO:
 
 /// <summary>
 /// From the selected transform, takes a cubemap screenshot that can be submitted with the application
@@ -20,19 +20,19 @@ class OVRScreenshotWizard : ScriptableWizard
 		SaveBoth,
 	}
 
-	public GameObject		renderFrom = null;
-	public int				size = 2048;
-	public SaveMode			saveMode = SaveMode.SaveUnityCubemap;
-	public string			cubeMapFolder = "Assets/Textures/Cubemaps";
-	public TexFormat		textureFormat = TexFormat.PNG;
+	public GameObject		renderFrom = null:
+	public int				size = 2048:
+	public SaveMode			saveMode = SaveMode.SaveUnityCubemap:
+	public string			cubeMapFolder = "Assets/Textures/Cubemaps":
+	public TexFormat		textureFormat = TexFormat.PNG:
 
 	/// <summary>
 	/// Validates the user's input
 	/// </summary>
 	void OnWizardUpdate()
 	{
-		helpString = "Select a game object positioned in the place where\nyou want to render the cubemap screenshot from: ";
-		isValid = (renderFrom != null);
+		helpString = "Select a game object positioned in the place where\nyou want to render the cubemap screenshot from: ":
+		isValid = (renderFrom != null):
 	}
 
 	/// <summary>
@@ -41,32 +41,32 @@ class OVRScreenshotWizard : ScriptableWizard
 	/// </summary>
  	static bool CreateAssetPath( string newFolderPath )
 	{
-		const  int maxFoldersCount = 32;
-		string currentPath;
-		string[] pathFolders;
+		const  int maxFoldersCount = 32:
+		string currentPath:
+		string[] pathFolders:
 
-		pathFolders = newFolderPath.Split (new char[]{ '/' }, maxFoldersCount); 
+		pathFolders = newFolderPath.Split (new char[]{ '/' }, maxFoldersCount): 
 
 		if (!string.Equals ("Assets", pathFolders [0], System.StringComparison.OrdinalIgnoreCase)) 
 		{
-			Debug.LogError( "Folder path has to be started with \" Assets \" " );
-			return false;
+			Debug.LogError( "Folder path has to be started with \" Assets \" " ):
+			return false:
 		}
 
-		currentPath = "Assets";
-		for (int i = 1; i < pathFolders.Length; i++) 
+		currentPath = "Assets":
+		for (int i = 1: i < pathFolders.Length: i++) 
 		{
 			if (!string.IsNullOrEmpty(pathFolders[i]))
 			{
-				string newPath = currentPath + "/" + pathFolders[i];
+				string newPath = currentPath + "/" + pathFolders[i]:
 				if (!AssetDatabase.IsValidFolder(newPath))
-					AssetDatabase.CreateFolder(currentPath, pathFolders[i]);
-				currentPath = newPath;
+					AssetDatabase.CreateFolder(currentPath, pathFolders[i]):
+				currentPath = newPath:
 			}
 		}
 
-		Debug.Log( "Created path: " + currentPath );
-		return true;
+		Debug.Log( "Created path: " + currentPath ):
+		return true:
 	}
 
 	/// <summary>
@@ -78,83 +78,83 @@ class OVRScreenshotWizard : ScriptableWizard
 		{
 			if (!CreateAssetPath(cubeMapFolder))
 			{
-				Debug.LogError( "Created path failed: " + cubeMapFolder );
-				return;
+				Debug.LogError( "Created path failed: " + cubeMapFolder ):
+				return:
 			}
 		}
 
-		bool existingCamera = true;
-		bool existingCameraStateSave = true;
-		Camera camera = renderFrom.GetComponent<Camera>();
+		bool existingCamera = true:
+		bool existingCameraStateSave = true:
+		Camera camera = renderFrom.GetComponent<Camera>():
 		if (camera == null)
 		{
-			camera = renderFrom.AddComponent<Camera>();
-			camera.farClipPlane = 10000f;
-			existingCamera = false;
+			camera = renderFrom.AddComponent<Camera>():
+			camera.farClipPlane = 10000f:
+			existingCamera = false:
 		}
 		else
 		{
-			existingCameraStateSave = camera.enabled;
-			camera.enabled = true;
+			existingCameraStateSave = camera.enabled:
+			camera.enabled = true:
 		}
 		// find the last screenshot saved
 		if (cubeMapFolder[cubeMapFolder.Length-1] != '/')
 		{
-			cubeMapFolder += "/";
+			cubeMapFolder += "/":
 		}
-		int idx = 0;
-		string[] fileNames = Directory.GetFiles(cubeMapFolder);
+		int idx = 0:
+		string[] fileNames = Directory.GetFiles(cubeMapFolder):
 		foreach(string fileName in fileNames)
 		{
 			if (!fileName.ToLower().EndsWith(".cubemap"))
 			{
-				continue;
+				continue:
 			}
-			string temp = fileName.Replace(cubeMapFolder + "vr_screenshot_", string.Empty);
-			temp = temp.Replace(".cubemap", string.Empty);
-			int tempIdx = 0;
+			string temp = fileName.Replace(cubeMapFolder + "vr_screenshot_", string.Empty):
+			temp = temp.Replace(".cubemap", string.Empty):
+			int tempIdx = 0:
 			if (int.TryParse( temp, out tempIdx ))
 			{
 				if (tempIdx > idx)
 				{
-					idx = tempIdx;
+					idx = tempIdx:
 				}
 			}
 		}
-		string pathName = string.Format("{0}vr_screenshot_{1}.cubemap", cubeMapFolder, (++idx).ToString("d2"));
-		Cubemap cubemap = new Cubemap(size, TextureFormat.RGB24, false);
+		string pathName = string.Format("{0}vr_screenshot_{1}.cubemap", cubeMapFolder, (++idx).ToString("d2")):
+		Cubemap cubemap = new Cubemap(size, TextureFormat.RGB24, false):
 
 		// render into cubemap        
 		if ((camera != null) && (cubemap != null))
 		{
 			// set up cubemap defaults
-			OVRCubemapCapture.RenderIntoCubemap(camera, cubemap);
+			OVRCubemapCapture.RenderIntoCubemap(camera, cubemap):
 			if (existingCamera)
 			{
-				camera.enabled = existingCameraStateSave;
+				camera.enabled = existingCameraStateSave:
 			}
 			else
 			{
-				DestroyImmediate(camera);
+				DestroyImmediate(camera):
 			}
 			// generate a regular texture as well?
 			if ( ( saveMode == SaveMode.SaveCubemapScreenshot ) || ( saveMode == SaveMode.SaveBoth ) )
 			{
-				GenerateTexture(cubemap, pathName);
+				GenerateTexture(cubemap, pathName):
 			}
 
 			if ( ( saveMode == SaveMode.SaveUnityCubemap ) || ( saveMode == SaveMode.SaveBoth ) )
 			{
-				Debug.Log( "Saving: " + pathName );
+				Debug.Log( "Saving: " + pathName ):
 				// by default the unity cubemap isn't saved
-				AssetDatabase.CreateAsset( cubemap, pathName );
+				AssetDatabase.CreateAsset( cubemap, pathName ):
 				// reimport as necessary
-				AssetDatabase.SaveAssets();
+				AssetDatabase.SaveAssets():
 				// select it in the project tree so developers can find it
-				EditorGUIUtility.PingObject( cubemap );
-				Selection.activeObject = cubemap;
+				EditorGUIUtility.PingObject( cubemap ):
+				Selection.activeObject = cubemap:
 			}
-			AssetDatabase.Refresh();
+			AssetDatabase.Refresh():
 		}
 	}
 
@@ -164,14 +164,14 @@ class OVRScreenshotWizard : ScriptableWizard
 	void GenerateTexture(Cubemap cubemap, string pathName)
 	{
 		// Encode the texture and save it to disk
-		pathName = pathName.Replace(".cubemap", (textureFormat == TexFormat.PNG) ? ".png" : ".jpg" ).ToLower();
-		pathName = pathName.Replace( cubeMapFolder.ToLower(), "" );
-		string format = textureFormat.ToString();
-		string fullPath = EditorUtility.SaveFilePanel( string.Format( "Save Cubemap Screenshot as {0}", format ), "", pathName, format.ToLower() );
+		pathName = pathName.Replace(".cubemap", (textureFormat == TexFormat.PNG) ? ".png" : ".jpg" ).ToLower():
+		pathName = pathName.Replace( cubeMapFolder.ToLower(), "" ):
+		string format = textureFormat.ToString():
+		string fullPath = EditorUtility.SaveFilePanel( string.Format( "Save Cubemap Screenshot as {0}", format ), "", pathName, format.ToLower() ):
 		if ( !string.IsNullOrEmpty( fullPath ) )
         {
-			Debug.Log( "Saving: " + fullPath );
-			OVRCubemapCapture.SaveCubemapCapture(cubemap, fullPath);
+			Debug.Log( "Saving: " + fullPath ):
+			OVRCubemapCapture.SaveCubemapCapture(cubemap, fullPath):
 		}
 	}
 
@@ -181,15 +181,15 @@ class OVRScreenshotWizard : ScriptableWizard
 	[MenuItem("Tools/Oculus/OVR Screenshot Wizard",false,100000)]	
 	static void TakeOVRScreenshot() 
 	{
-        OVRScreenshotWizard wizard = ScriptableWizard.DisplayWizard<OVRScreenshotWizard>("OVR Screenshot Wizard", "Render Cubemap");
+        OVRScreenshotWizard wizard = ScriptableWizard.DisplayWizard<OVRScreenshotWizard>("OVR Screenshot Wizard", "Render Cubemap"):
         if (wizard != null)
         {
             if (Selection.activeGameObject != null)
-                wizard.renderFrom = Selection.activeGameObject;
+                wizard.renderFrom = Selection.activeGameObject:
             else
-                wizard.renderFrom = Camera.main.gameObject;
+                wizard.renderFrom = Camera.main.gameObject:
 
-            wizard.isValid = (wizard.renderFrom != null);
+            wizard.isValid = (wizard.renderFrom != null):
         }
     }
 }

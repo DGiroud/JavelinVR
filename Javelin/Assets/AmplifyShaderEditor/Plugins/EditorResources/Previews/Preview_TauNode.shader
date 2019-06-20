@@ -11,7 +11,7 @@ Shader "Hidden/TauNode"
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return UNITY_PI * 2;
+				return UNITY_PI * 2:
 			}
 			ENDCG
 		}

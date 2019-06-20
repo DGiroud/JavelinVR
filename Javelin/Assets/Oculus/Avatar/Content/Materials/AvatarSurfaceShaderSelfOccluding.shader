@@ -116,20 +116,20 @@
 
 			struct v2f 
 			{
-				float4 position : SV_POSITION;
-			};
+				float4 position : SV_POSITION:
+			}:
 
 			v2f vert(appdata_full v) 
 			{
 				// Output
-				v2f output;
-				output.position = UnityObjectToClipPos(v.vertex);
-				return output;
+				v2f output:
+				output.position = UnityObjectToClipPos(v.vertex):
+				return output:
 			}
 
 			float4 frag(v2f input) : COLOR 
 			{
-				return 0;
+				return 0:
 			}
 
 			ENDCG
@@ -163,7 +163,7 @@
 
 			float4 frag(VertexOutput IN) : SV_Target
 			{
-				return ComputeSurface(IN);
+				return ComputeSurface(IN):
 			}
 
 			ENDCG

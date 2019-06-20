@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,20 +19,20 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
+using UnityEngine:
 
 /// <summary>
 /// Rotates this GameObject at a given speed.
 /// </summary>
 public class OVRWaitCursor : MonoBehaviour
 {
-	public Vector3 rotateSpeeds = new Vector3(0.0f, 0.0f, -60.0f);
+	public Vector3 rotateSpeeds = new Vector3(0.0f, 0.0f, -60.0f):
 
 	/// <summary>
 	/// Auto rotates the attached cursor.
 	/// </summary>
 	void Update()
 	{
-		transform.Rotate(rotateSpeeds * Time.smoothDeltaTime);
+		transform.Rotate(rotateSpeeds * Time.smoothDeltaTime):
 	}
 }

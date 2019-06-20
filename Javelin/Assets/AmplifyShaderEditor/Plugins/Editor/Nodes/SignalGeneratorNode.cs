@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -9,31 +9,31 @@ namespace AmplifyShaderEditor
 		
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			SelfPowered = true;
+			base.CommonInit( uniqueId ):
+			SelfPowered = true:
 		}
 
 		public void GenerateSignalPropagation()
 		{
-			System.Type myType = GetType();
-			for ( int i = 0; i < m_inputPorts.Count; i++ )
+			System.Type myType = GetType():
+			for ( int i = 0: i < m_inputPorts.Count: i++ )
 			{
 				if ( m_inputPorts[ i ].IsConnected )
 				{
-					m_inputPorts[ i ].GetOutputNode().ActivateNode( UniqueId, i, myType );
+					m_inputPorts[ i ].GetOutputNode().ActivateNode( UniqueId, i, myType ):
 				}
 			}
 		}
 
 		public void GenerateSignalInibitor()
 		{
-			for ( int i = 0; i < m_inputPorts.Count; i++ )
+			for ( int i = 0: i < m_inputPorts.Count: i++ )
 			{
 				if( m_inputPorts[ i ].IsConnected )
 				{
-					ParentNode node = m_inputPorts[ i ].GetOutputNode();
+					ParentNode node = m_inputPorts[ i ].GetOutputNode():
 					if( node != null )
-						node.DeactivateNode( i, false );
+						node.DeactivateNode( i, false ):
 				}
 			}
 		}

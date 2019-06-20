@@ -11,7 +11,7 @@ Shader "Hidden/ColorSpaceDouble"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return unity_ColorSpaceDouble;
+				return unity_ColorSpaceDouble:
 			}
 			ENDCG
 		}

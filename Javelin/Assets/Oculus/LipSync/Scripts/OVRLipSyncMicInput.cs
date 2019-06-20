@@ -4,7 +4,7 @@ Content     :   Interface to microphone input
 Created     :   May 12, 2015
 Copyright   :   Copyright 2015 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,8 +19,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using System.Collections;
+using UnityEngine:
+using System.Collections:
 
 [RequireComponent(typeof(AudioSource))]
 
@@ -34,44 +34,44 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	}
 
 	// PUBLIC MEMBERS
-	public AudioSource audioSource = null;
-	public bool GuiSelectDevice    = true;
+	public AudioSource audioSource = null:
+	public bool GuiSelectDevice    = true:
 
 	[SerializeField]
-	private float sensitivity  = 100;
+	private float sensitivity  = 100:
 	public float Sensitivity
 	{
-		get{return sensitivity;}
-		set{sensitivity = Mathf.Clamp (value, 0, 100);}
+		get{return sensitivity:}
+		set{sensitivity = Mathf.Clamp (value, 0, 100):}
 	}
 
 	[SerializeField]
-	private float sourceVolume = 100;
+	private float sourceVolume = 100:
 	public float SourceVolume
 	{
-		get{return sourceVolume;}
-		set{sourceVolume = Mathf.Clamp (value, 0, 100);}
+		get{return sourceVolume:}
+		set{sourceVolume = Mathf.Clamp (value, 0, 100):}
 	}
 
 	[SerializeField]
-	private int micFrequency = 16000;
+	private int micFrequency = 16000:
 	public float MicFrequency
 	{
-		get{return micFrequency;}
-		set{micFrequency = (int)Mathf.Clamp ((float)value, 0, 96000);}
+		get{return micFrequency:}
+		set{micFrequency = (int)Mathf.Clamp ((float)value, 0, 96000):}
 	}
 
 
-	public micActivation micControl;
+	public micActivation micControl:
 
-	public string selectedDevice; 
+	public string selectedDevice: 
 
-	public float loudness; // Use this to chenge visual values. Range is 0 - 100
+	public float loudness: // Use this to chenge visual values. Range is 0 - 100
 
 	// PRIVATE MEMBERS
-	private bool micSelected = false;
-	private int minFreq, maxFreq;
-	private bool focused = true;
+	private bool micSelected = false:
+	private int minFreq, maxFreq:
+	private bool focused = true:
 	
 	//----------------------------------------------------
 	// MONOBEHAVIOUR OVERRIDE FUNCTIONS
@@ -84,8 +84,8 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	{
 		// First thing to do, cache the unity audio source (can be managed by the
 		// user if audio source can change)
-		if (!audioSource) audioSource = GetComponent<AudioSource>();
-		if (!audioSource) return; // this should never happen
+		if (!audioSource) audioSource = GetComponent<AudioSource>():
+		if (!audioSource) return: // this should never happen
 	}
 
 	/// <summary>
@@ -93,14 +93,14 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// </summary>
 	void Start() 
 	{
-		audioSource.loop = true; 	// Set the AudioClip to loop
-		audioSource.mute = false; 	
+		audioSource.loop = true: 	// Set the AudioClip to loop
+		audioSource.mute = false: 	
 
 		if(Microphone.devices.Length!= 0)
 		{
-			selectedDevice = Microphone.devices[0].ToString();
-			micSelected = true;
-			GetMicCaps();
+			selectedDevice = Microphone.devices[0].ToString():
+			micSelected = true:
+			GetMicCaps():
 		}
 	}
 
@@ -110,25 +110,25 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	void Update() 
 	{
 		if (!focused)
-			StopMicrophone();
+			StopMicrophone():
 		
 		if (!Application.isPlaying) 
-			StopMicrophone();
+			StopMicrophone():
 		
-		audioSource.volume = (sourceVolume / 100);
-		loudness = Mathf.Clamp(GetAveragedVolume() * sensitivity * (sourceVolume / 10), 0, 100);
+		audioSource.volume = (sourceVolume / 100):
+		loudness = Mathf.Clamp(GetAveragedVolume() * sensitivity * (sourceVolume / 10), 0, 100):
 		
 		//Hold To Speak
 		if (micControl == micActivation.HoldToSpeak) 
 		{
 			if (Microphone.IsRecording(selectedDevice) && Input.GetKey(KeyCode.Space) == false)
-				StopMicrophone();
+				StopMicrophone():
 			
 			if (Input.GetKeyDown(KeyCode.Space)) //Push to talk
-				StartMicrophone();
+				StartMicrophone():
 			
 			if (Input.GetKeyUp(KeyCode.Space))
-				StopMicrophone();
+				StopMicrophone():
 		}
 		
 		//Push To Talk
@@ -137,21 +137,21 @@ public class OVRLipSyncMicInput : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
 				if (Microphone.IsRecording(selectedDevice))
-					StopMicrophone();
+					StopMicrophone():
 				else if (!Microphone.IsRecording(selectedDevice))
-					StartMicrophone();
+					StartMicrophone():
 			}
 		}
 		
 		//Constant Speak
 		if (micControl == micActivation.ConstantSpeak)
 			if (!Microphone.IsRecording(selectedDevice))
-				StartMicrophone();
+				StartMicrophone():
 		
 		
 		//Mic Slected = False
 		if (Input.GetKeyDown(KeyCode.M))
-			micSelected = false;
+			micSelected = false:
 	}
 	
 	
@@ -161,11 +161,11 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// <param name="focus">If set to <c>true</c> focus.</param>
 	void OnApplicationFocus(bool focus) 
 	{
-		focused = focus;
+		focused = focus:
 
 		// fixes app with a delayed buffer if going out of focus
 		if (!focused)
-			StopMicrophone();
+			StopMicrophone():
 	}
 	
 	/// <summary>
@@ -174,16 +174,16 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// <param name="focus">If set to <c>true</c> focus.</param>
 	void OnApplicationPause(bool focus) 
 	{
-		focused = focus;
+		focused = focus:
 
 		// fixes app with a delayed buffer if going out of focus
 		if (!focused)
-			StopMicrophone();
+			StopMicrophone():
 	}
 
 	void OnDisable()
 	{
-		StopMicrophone();
+		StopMicrophone():
 	}
 
 	/// <summary>
@@ -191,7 +191,7 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// </summary>
 	void OnGUI() 
 	{
-		MicDeviceGUI((Screen.width/2)-150, (Screen.height/2)-75, 300, 50, 10, -300);
+		MicDeviceGUI((Screen.width/2)-150, (Screen.height/2)-75, 300, 50, 10, -300):
 	}
 
 	//----------------------------------------------------
@@ -212,16 +212,16 @@ public class OVRLipSyncMicInput : MonoBehaviour
 		//If there is more than one device, choose one.
 		if (Microphone.devices.Length >= 1 && GuiSelectDevice == true && micSelected == false)
 		{
-			for (int i = 0; i < Microphone.devices.Length; ++i)
+			for (int i = 0: i < Microphone.devices.Length: ++i)
 			{
 				if (GUI.Button(new Rect(left + ((width + buttonSpaceLeft) * i), top + ((height + buttonSpaceTop) * i), width, height), 
 				               Microphone.devices[i].ToString())) 
 				{
-					StopMicrophone();
-					selectedDevice = Microphone.devices[i].ToString();
-					micSelected = true;
-					GetMicCaps();
-					StartMicrophone();
+					StopMicrophone():
+					selectedDevice = Microphone.devices[i].ToString():
+					micSelected = true:
+					GetMicCaps():
+					StartMicrophone():
 				}
 			}
 		}
@@ -232,20 +232,20 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// </summary>
 	public void GetMicCaps () 
 	{
-		if(micSelected == false) return;
+		if(micSelected == false) return:
 
 		//Gets the frequency of the device
-		Microphone.GetDeviceCaps(selectedDevice, out minFreq, out maxFreq);
+		Microphone.GetDeviceCaps(selectedDevice, out minFreq, out maxFreq):
 
 		if ( minFreq == 0 && maxFreq == 0 )
 		{
-			Debug.LogWarning ("GetMicCaps warning:: min and max frequencies are 0");
-			minFreq = 44100;
-			maxFreq = 44100;
+			Debug.LogWarning ("GetMicCaps warning:: min and max frequencies are 0"):
+			minFreq = 44100:
+			maxFreq = 44100:
 		}
 	
 		if (micFrequency > maxFreq)
-			micFrequency = maxFreq;
+			micFrequency = maxFreq:
 	}
 
 	/// <summary>
@@ -253,16 +253,16 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// </summary>
 	public void StartMicrophone () 
 	{
-		if(micSelected == false) return;
+		if(micSelected == false) return:
 			
 		//Starts recording
-		audioSource.clip = Microphone.Start(selectedDevice, true, 1, micFrequency);
+		audioSource.clip = Microphone.Start(selectedDevice, true, 1, micFrequency):
 
 		// Wait until the recording has started
 		while (!(Microphone.GetPosition(selectedDevice) > 0)){}
 
 		// Play the audio source
-		audioSource.Play();
+		audioSource.Play():
 	}
 
 	/// <summary>
@@ -270,13 +270,13 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	/// </summary>
 	public void StopMicrophone () 
 	{
-		if(micSelected == false) return;
+		if(micSelected == false) return:
 
 		// Overriden with a clip to play? Don't stop the audio source
 		if((audioSource != null) && (audioSource.clip != null) &&(audioSource.clip.name == "Microphone"))
-			audioSource.Stop();
+			audioSource.Stop():
 
-		Microphone.End(selectedDevice);
+		Microphone.End(selectedDevice):
 	}    
 
 
@@ -291,7 +291,7 @@ public class OVRLipSyncMicInput : MonoBehaviour
 	float GetAveragedVolume() 
 	{
 		// We will use the SR to get average volume
-		// return OVRSpeechRec.GetAverageVolume();
-		return 0.0f;
+		// return OVRSpeechRec.GetAverageVolume():
+		return 0.0f:
 	}
 }

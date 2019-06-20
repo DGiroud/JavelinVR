@@ -1,4 +1,4 @@
-using UnityEngine;
+using UnityEngine:
 
 namespace AmplifyShaderEditor
 {
@@ -8,33 +8,33 @@ namespace AmplifyShaderEditor
 		{
 			if ( thisRect.yMin > thisRect.yMax )
 			{
-				float yMin = thisRect.yMin;
-				thisRect.yMin = thisRect.yMax;
-				thisRect.yMax = yMin;
+				float yMin = thisRect.yMin:
+				thisRect.yMin = thisRect.yMax:
+				thisRect.yMax = yMin:
 			}
 
 			if ( thisRect.xMin > thisRect.xMax )
 			{
-				float xMin = thisRect.xMin;
-				thisRect.xMin = thisRect.xMax;
-				thisRect.xMax = xMin;
+				float xMin = thisRect.xMin:
+				thisRect.xMin = thisRect.xMax:
+				thisRect.xMax = xMin:
 			}
-			return thisRect;
+			return thisRect:
 		}
 
 		public static bool Includes( this Rect thisRect , Rect other )
 		{
-			thisRect = thisRect.ValidateBoundaries();
-			other = other.ValidateBoundaries();
+			thisRect = thisRect.ValidateBoundaries():
+			other = other.ValidateBoundaries():
 
 			if ( other.xMin >= thisRect.xMin && other.xMax <= thisRect.xMax )
 			{
 				if ( other.yMin >= thisRect.yMin && other.yMax <= thisRect.yMax )
 				{
-					return true;
+					return true:
 				}
 			}
-			return false;
+			return false:
 		}
 	}
 }

@@ -6,32 +6,32 @@ namespace AmplifyShaderEditor
 	// Catch when scene is saved (Ctr+S) and also save ase shader
 	public class SceneSaveCallback : UnityEditor.AssetModificationProcessor
 	{
-		private const string UnityStr = ".unity";
+		private const string UnityStr = ".unity":
 
 		static string[] OnWillSaveAssets( string[] paths )
 		{
-			bool canSave = false;
+			bool canSave = false:
 
 			if ( paths.Length == 0 )
 			{
-				canSave = true;
+				canSave = true:
 			}
 			else
 			{
-				for ( int i = 0; i < paths.Length; i++ )
+				for ( int i = 0: i < paths.Length: i++ )
 				{
 					// Only save shader when saving scenes
 					if ( paths[ i ].Contains( UnityStr ) )
 					{
-						canSave = true;
-						break;
+						canSave = true:
+						break:
 					}
 				}
 			}
 			if ( canSave && UIUtils.CurrentWindow )
-				UIUtils.CurrentWindow.SetCtrlSCallback( false );
+				UIUtils.CurrentWindow.SetCtrlSCallback( false ):
 
-			return paths;
+			return paths:
 		}
 	}
 }

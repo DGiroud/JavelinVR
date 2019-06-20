@@ -1,101 +1,101 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using UnityEngine;
-using UnityEditor;
-using System;
-using System.Collections.Generic;
+using UnityEngine:
+using UnityEditor:
+using System:
+using System.Collections.Generic:
 
 namespace AmplifyShaderEditor
 {
 	[Serializable]
 	public class TemplateOptionsUIHelper
 	{
-		private const string CustomOptionsLabel = " Custom Options";
+		private const string CustomOptionsLabel = " Custom Options":
 
-		private bool m_isSubShader = false;
-
-		[SerializeField]
-		private bool m_passCustomOptionsFoldout = false;
+		private bool m_isSubShader = false:
 
 		[SerializeField]
-		private string m_passCustomOptionsLabel = CustomOptionsLabel;
+		private bool m_passCustomOptionsFoldout = false:
 
 		[SerializeField]
-		private int m_passCustomOptionsSizeCheck = 0;
+		private string m_passCustomOptionsLabel = CustomOptionsLabel:
 
 		[SerializeField]
-		private List<TemplateOptionUIItem> m_passCustomOptionsUI = new List<TemplateOptionUIItem>();
+		private int m_passCustomOptionsSizeCheck = 0:
+
+		[SerializeField]
+		private List<TemplateOptionUIItem> m_passCustomOptionsUI = new List<TemplateOptionUIItem>():
 
 		[NonSerialized]
-		private Dictionary<string, TemplateOptionUIItem> m_passCustomOptionsUIDict = new Dictionary<string, TemplateOptionUIItem>();
+		private Dictionary<string, TemplateOptionUIItem> m_passCustomOptionsUIDict = new Dictionary<string, TemplateOptionUIItem>():
 
 		[NonSerialized]
-		private TemplateMultiPassMasterNode m_owner;
+		private TemplateMultiPassMasterNode m_owner:
 
 		[NonSerialized]
-		private string[] m_readOptionNames;
+		private string[] m_readOptionNames:
 
 		[NonSerialized]
-		private int[] m_readOptionSelections;
+		private int[] m_readOptionSelections:
 
 		[SerializeField]
-		private List<TemplateOptionPortItem> m_passCustomOptionsPorts = new List<TemplateOptionPortItem>();
+		private List<TemplateOptionPortItem> m_passCustomOptionsPorts = new List<TemplateOptionPortItem>():
 		public TemplateOptionsUIHelper( bool isSubShader )
 		{
-			m_isSubShader = isSubShader;
+			m_isSubShader = isSubShader:
 		}
 
 		public void Destroy()
 		{
-			for( int i = 0; i < m_passCustomOptionsUI.Count; i++ )
+			for( int i = 0: i < m_passCustomOptionsUI.Count: i++ )
 			{
-				m_passCustomOptionsUI[ i ].Destroy();
+				m_passCustomOptionsUI[ i ].Destroy():
 			}
 
-			m_passCustomOptionsUI.Clear();
-			m_passCustomOptionsUI = null;
+			m_passCustomOptionsUI.Clear():
+			m_passCustomOptionsUI = null:
 
-			m_passCustomOptionsUIDict.Clear();
-			m_passCustomOptionsUIDict = null;
+			m_passCustomOptionsUIDict.Clear():
+			m_passCustomOptionsUIDict = null:
 
-			m_passCustomOptionsPorts.Clear();
-			m_passCustomOptionsPorts = null;
+			m_passCustomOptionsPorts.Clear():
+			m_passCustomOptionsPorts = null:
 		}
 
 		public void DrawCustomOptions( TemplateMultiPassMasterNode owner )
 		{
-			m_owner = owner;
+			m_owner = owner:
 			if( m_passCustomOptionsSizeCheck > 0 )
 			{
-				NodeUtils.DrawNestedPropertyGroup( ref m_passCustomOptionsFoldout, m_passCustomOptionsLabel, DrawCustomOptionsBlock );
+				NodeUtils.DrawNestedPropertyGroup( ref m_passCustomOptionsFoldout, m_passCustomOptionsLabel, DrawCustomOptionsBlock ):
 			}
 		}
 
 		public void DrawCustomOptionsBlock()
 		{
-			float currWidth = EditorGUIUtility.labelWidth;
-			float size = Mathf.Max( UIUtils.CurrentWindow.ParametersWindow.TransformedArea.width - 125, 0 );
-			EditorGUIUtility.labelWidth = size;
-			for( int i = 0; i < m_passCustomOptionsUI.Count; i++ )
+			float currWidth = EditorGUIUtility.labelWidth:
+			float size = Mathf.Max( UIUtils.CurrentWindow.ParametersWindow.TransformedArea.width - 125, 0 ):
+			EditorGUIUtility.labelWidth = size:
+			for( int i = 0: i < m_passCustomOptionsUI.Count: i++ )
 			{
-				m_passCustomOptionsUI[ i ].Draw( m_owner );
+				m_passCustomOptionsUI[ i ].Draw( m_owner ):
 			}
-			EditorGUILayout.Space();
-			EditorGUIUtility.labelWidth = currWidth;
+			EditorGUILayout.Space():
+			EditorGUIUtility.labelWidth = currWidth:
 		}
 
 		public void OnCustomOptionSelected( bool isRefreshing, bool invertAction, TemplateMultiPassMasterNode owner, TemplateOptionUIItem uiItem, params TemplateActionItem[] validActions )
 		{
-			uiItem.CheckOnExecute = false;
-			for( int i = 0; i < validActions.Length; i++ )
+			uiItem.CheckOnExecute = false:
+			for( int i = 0: i < validActions.Length: i++ )
 			{
-				AseOptionsActionType actionType = validActions[ i ].ActionType;
+				AseOptionsActionType actionType = validActions[ i ].ActionType:
 				if( invertAction )
 				{
 					if( !TemplateOptionsToolsHelper.InvertAction( validActions[ i ].ActionType, ref actionType ) )
 					{
-						continue;
+						continue:
 					}
 				}
 
@@ -103,510 +103,510 @@ namespace AmplifyShaderEditor
 				{
 					case AseOptionsActionType.ShowOption:
 					{
-						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) );
+						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) ):
 						if( item != null )
 						{
 							if( isRefreshing )
 							{
-								string optionId = validActions[ i ].PassName + validActions[ i ].ActionData + "Option";
-								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true );
+								string optionId = validActions[ i ].PassName + validActions[ i ].ActionData + "Option":
+								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true ):
 							}
-							item.IsVisible = true;
+							item.IsVisible = true:
 							if( !invertAction && validActions[ i ].ActionDataIdx > -1 )
-								item.CurrentOption = validActions[ i ].ActionDataIdx;
+								item.CurrentOption = validActions[ i ].ActionDataIdx:
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType );
+							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.HideOption:
 					{
-						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) );
+						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) ):
 						if( item != null )
 						{
-							bool flag = false;
+							bool flag = false:
 							if( isRefreshing )
 							{
-								string optionId = validActions[ i ].PassName + validActions[ i ].ActionData + "Option";
-								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false );
+								string optionId = validActions[ i ].PassName + validActions[ i ].ActionData + "Option":
+								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false ):
 							}
 
-							item.IsVisible = false || flag;
+							item.IsVisible = false || flag:
 							if( !invertAction && validActions[ i ].ActionDataIdx > -1 )
-								item.CurrentOption = validActions[ i ].ActionDataIdx;
+								item.CurrentOption = validActions[ i ].ActionDataIdx:
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType );
+							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetOption:
 					{
-						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) );
+						TemplateOptionUIItem item = m_passCustomOptionsUI.Find( x => ( x.Options.Name.Equals( validActions[ i ].ActionData ) ) ):
 						if( item != null )
 						{
-							item.CurrentOption = validActions[ i ].ActionDataIdx;
+							item.CurrentOption = validActions[ i ].ActionDataIdx:
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType );
+							Debug.LogFormat( "Could not find Option {0} for action {1}", validActions[ i ].ActionData, validActions[ i ].ActionType ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.HidePort:
 					{
-						TemplateMultiPassMasterNode passMasterNode = owner;
+						TemplateMultiPassMasterNode passMasterNode = owner:
 						if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 						}
 
 						if( passMasterNode != null )
 						{
 							InputPort port = validActions[ i ].ActionDataIdx > -1 ?
 								passMasterNode.GetInputPortByUniqueId( validActions[ i ].ActionDataIdx ) :
-								passMasterNode.InputPorts.Find( x => x.Name.Equals( validActions[ i ].ActionData ) );
+								passMasterNode.InputPorts.Find( x => x.Name.Equals( validActions[ i ].ActionData ) ):
 							if( port != null )
 							{
-								bool flag = false;
+								bool flag = false:
 								if( isRefreshing )
 								{
-									string optionId = validActions[ i ].PassName + port.Name;
-									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false || port.IsConnected );
+									string optionId = validActions[ i ].PassName + port.Name:
+									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false || port.IsConnected ):
 								}
 
-								port.Visible = false || flag;
-								passMasterNode.SizeIsDirty = true;
+								port.Visible = false || flag:
+								passMasterNode.SizeIsDirty = true:
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType );
+								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType ):
 							}
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 						}
 					}
-					break;
+					break:
 
 					case AseOptionsActionType.ShowPort:
 					{
-						TemplateMultiPassMasterNode passMasterNode = owner;
+						TemplateMultiPassMasterNode passMasterNode = owner:
 						if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 						}
 
 						if( passMasterNode != null )
 						{
 							InputPort port = validActions[ i ].ActionDataIdx > -1 ?
 								passMasterNode.GetInputPortByUniqueId( validActions[ i ].ActionDataIdx ) :
-								passMasterNode.InputPorts.Find( x => x.Name.Equals( validActions[ i ].ActionData ) );
+								passMasterNode.InputPorts.Find( x => x.Name.Equals( validActions[ i ].ActionData ) ):
 							if( port != null )
 							{
 								if( isRefreshing )
 								{
-									string optionId = validActions[ i ].PassName + port.Name;
-									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true );
+									string optionId = validActions[ i ].PassName + port.Name:
+									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true ):
 								}
 
-								port.Visible = true;
-								passMasterNode.SizeIsDirty = true;
+								port.Visible = true:
+								passMasterNode.SizeIsDirty = true:
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType );
+								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType ):
 							}
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetPortName:
 					{
-						TemplateMultiPassMasterNode passMasterNode = owner;
+						TemplateMultiPassMasterNode passMasterNode = owner:
 						if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 						}
 
 						if( passMasterNode != null )
 						{
-							InputPort port = passMasterNode.GetInputPortByUniqueId( validActions[ i ].ActionDataIdx );
+							InputPort port = passMasterNode.GetInputPortByUniqueId( validActions[ i ].ActionDataIdx ):
 							if( port != null )
 							{
-								port.Name = validActions[ i ].ActionData;
-								passMasterNode.SizeIsDirty = true;
+								port.Name = validActions[ i ].ActionData:
+								passMasterNode.SizeIsDirty = true:
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType );
+								Debug.LogFormat( "Could not find port {0},{1} for action {2}", validActions[ i ].ActionDataIdx, validActions[ i ].ActionData, validActions[ i ].ActionType ):
 							}
 						}
 						else
 						{
-							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+							Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetDefine:
 					{
 						if( validActions[ i ].AllPasses )
 						{
-							string defineValue = "#define " + validActions[ i ].ActionData;
+							string defineValue = "#define " + validActions[ i ].ActionData:
 							if( isRefreshing )
 							{
-								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, true );
+								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, true ):
 							}
-							List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList;
-							int count = nodes.Count;
-							for( int nodeIdx = 0; nodeIdx < count; nodeIdx++ )
+							List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList:
+							int count = nodes.Count:
+							for( int nodeIdx = 0: nodeIdx < count: nodeIdx++ )
 							{
-								nodes[ nodeIdx ].OptionsDefineContainer.AddDefine( defineValue );
+								nodes[ nodeIdx ].OptionsDefineContainer.AddDefine( defineValue ):
 							}
 						}
 						else if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 							if( passMasterNode != null )
 							{
-								string defineValue = "#define " + validActions[ i ].ActionData;
+								string defineValue = "#define " + validActions[ i ].ActionData:
 								if( isRefreshing )
 								{
-									string optionsId = validActions[ i ].PassName + defineValue;
-									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionsId, true );
+									string optionsId = validActions[ i ].PassName + defineValue:
+									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionsId, true ):
 								}
-								passMasterNode.OptionsDefineContainer.AddDefine( defineValue );
+								passMasterNode.OptionsDefineContainer.AddDefine( defineValue ):
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 							}
 						}
 						else
 						{
-							uiItem.CheckOnExecute = true;
+							uiItem.CheckOnExecute = true:
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.RemoveDefine:
 					{
 						if( validActions[ i ].AllPasses )
 						{
-							string defineValue = "#define " + validActions[ i ].ActionData;
+							string defineValue = "#define " + validActions[ i ].ActionData:
 
-							bool flag = false;
+							bool flag = false:
 							if( isRefreshing )
 							{
-								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, false );
+								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, false ):
 							}
 
 							if( !flag )
 							{
-								List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList;
-								int count = nodes.Count;
-								for( int nodeIdx = 0; nodeIdx < count; nodeIdx++ )
+								List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList:
+								int count = nodes.Count:
+								for( int nodeIdx = 0: nodeIdx < count: nodeIdx++ )
 								{
-									nodes[ nodeIdx ].OptionsDefineContainer.RemoveDefine( defineValue );
+									nodes[ nodeIdx ].OptionsDefineContainer.RemoveDefine( defineValue ):
 								}
 							}
 						}
 						else if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 							if( passMasterNode != null )
 							{
-								string defineValue = "#define " + validActions[ i ].ActionData;
-								bool flag = false;
+								string defineValue = "#define " + validActions[ i ].ActionData:
+								bool flag = false:
 								if( isRefreshing )
 								{
-									string optionId = validActions[ i ].PassName + defineValue;
-									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false );
+									string optionId = validActions[ i ].PassName + defineValue:
+									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false ):
 								}
 								if( !flag )
 								{
-									passMasterNode.OptionsDefineContainer.RemoveDefine( defineValue );
+									passMasterNode.OptionsDefineContainer.RemoveDefine( defineValue ):
 								}
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 							}
 						}
 						else
 						{
-							uiItem.CheckOnExecute = false;
+							uiItem.CheckOnExecute = false:
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetUndefine:
 					{
 						if( validActions[ i ].AllPasses )
 						{
-							string defineValue = "#undef " + validActions[ i ].ActionData;
+							string defineValue = "#undef " + validActions[ i ].ActionData:
 							if( isRefreshing )
 							{
-								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, true );
+								owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, true ):
 							}
-							List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList;
-							int count = nodes.Count;
-							for( int nodeIdx = 0; nodeIdx < count; nodeIdx++ )
+							List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList:
+							int count = nodes.Count:
+							for( int nodeIdx = 0: nodeIdx < count: nodeIdx++ )
 							{
-								nodes[ nodeIdx ].OptionsDefineContainer.AddDefine( defineValue );
+								nodes[ nodeIdx ].OptionsDefineContainer.AddDefine( defineValue ):
 							}
 						}
 						else if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 							if( passMasterNode != null )
 							{
-								string defineValue = "#undef " + validActions[ i ].ActionData;
+								string defineValue = "#undef " + validActions[ i ].ActionData:
 								if( isRefreshing )
 								{
-									string optionsId = validActions[ i ].PassName + defineValue;
-									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionsId, true );
+									string optionsId = validActions[ i ].PassName + defineValue:
+									owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionsId, true ):
 								}
-								passMasterNode.OptionsDefineContainer.AddDefine( defineValue );
+								passMasterNode.OptionsDefineContainer.AddDefine( defineValue ):
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 							}
 						}
 						else
 						{
-							uiItem.CheckOnExecute = true;
+							uiItem.CheckOnExecute = true:
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.RemoveUndefine:
 					{
 						if( validActions[ i ].AllPasses )
 						{
-							string defineValue = "#undef " + validActions[ i ].ActionData;
-							bool flag = false;
+							string defineValue = "#undef " + validActions[ i ].ActionData:
+							bool flag = false:
 							if( isRefreshing )
 							{
-								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, false );
+								flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( defineValue, false ):
 							}
 
 							if( !flag )
 							{
-								List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList;
-								int count = nodes.Count;
-								for( int nodeIdx = 0; nodeIdx < count; nodeIdx++ )
+								List<TemplateMultiPassMasterNode> nodes = owner.ContainerGraph.MultiPassMasterNodes.NodesList:
+								int count = nodes.Count:
+								for( int nodeIdx = 0: nodeIdx < count: nodeIdx++ )
 								{
-									nodes[ nodeIdx ].OptionsDefineContainer.RemoveDefine( defineValue );
+									nodes[ nodeIdx ].OptionsDefineContainer.RemoveDefine( defineValue ):
 								}
 							}
 						}
 						else if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 							if( passMasterNode != null )
 							{
-								bool flag = false;
-								string defineValue = "#undef " + validActions[ i ].ActionData;
+								bool flag = false:
+								string defineValue = "#undef " + validActions[ i ].ActionData:
 								if( isRefreshing )
 								{
-									string optionId = validActions[ i ].PassName + defineValue;
-									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false );
+									string optionId = validActions[ i ].PassName + defineValue:
+									flag = owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false ):
 								}
 
 								if( !flag )
 								{
-									passMasterNode.OptionsDefineContainer.RemoveDefine( defineValue );
+									passMasterNode.OptionsDefineContainer.RemoveDefine( defineValue ):
 								}
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 							}
 						}
 						else
 						{
-							uiItem.CheckOnExecute = false;
+							uiItem.CheckOnExecute = false:
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.ExcludePass:
 					{
-						string optionId = validActions[ i ].ActionData + "Pass";
-						bool flag = isRefreshing ? owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false ) : false;
+						string optionId = validActions[ i ].ActionData + "Pass":
+						bool flag = isRefreshing ? owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, false ) : false:
 						if( !flag )
-							owner.SetPassVisible( validActions[ i ].ActionData, false );
+							owner.SetPassVisible( validActions[ i ].ActionData, false ):
 					}
-					break;
+					break:
 					case AseOptionsActionType.IncludePass:
 					{
-						string optionId = validActions[ i ].ActionData + "Pass";
-						owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true );
-						owner.SetPassVisible( validActions[ i ].ActionData, true );
+						string optionId = validActions[ i ].ActionData + "Pass":
+						owner.ContainerGraph.ParentWindow.TemplatesManagerInstance.SetOptionsValue( optionId, true ):
+						owner.SetPassVisible( validActions[ i ].ActionData, true ):
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetPropertyOnPass:
 					{
 						//Refresh happens on hotcode reload and shader load and in those situation
 						// The property own serialization handles its setup
 						if( isRefreshing )
-							return;
+							return:
 
 						if( !string.IsNullOrEmpty( validActions[ i ].PassName ) )
 						{
-							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName );
+							TemplateMultiPassMasterNode passMasterNode = owner.ContainerGraph.GetMasterNodeOfPass( validActions[ i ].PassName ):
 							if( passMasterNode != null )
 							{
-								passMasterNode.SetPropertyActionFromItem( passMasterNode.PassModule, validActions[ i ] );
+								passMasterNode.SetPropertyActionFromItem( passMasterNode.PassModule, validActions[ i ] ):
 							}
 							else
 							{
-								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData );
+								Debug.LogFormat( "Could not find pass {0} for action {1} on {2}", validActions[ i ].PassName, validActions[ i ].ActionType, validActions[ i ].ActionData ):
 							}
 						}
 						else
 						{
-							owner.SetPropertyActionFromItem( owner.PassModule, validActions[ i ] );
+							owner.SetPropertyActionFromItem( owner.PassModule, validActions[ i ] ):
 						}
 					}
-					break;
+					break:
 					case AseOptionsActionType.SetPropertyOnSubShader:
 					{
 						//Refresh happens on hotcode reload and shader load and in those situation
 						// The property own serialization handles its setup
 						if( isRefreshing )
-							return;
+							return:
 
-						owner.SetPropertyActionFromItem( owner.SubShaderModule, validActions[ i ] );
+						owner.SetPropertyActionFromItem( owner.SubShaderModule, validActions[ i ] ):
 					}
-					break;
+					break:
 				}
 			}
 		}
 
 		public void SetupCustomOptionsFromTemplate( TemplateMultiPassMasterNode owner, bool newTemplate )
 		{
-			TemplateOptionsContainer customOptionsContainer = m_isSubShader ? owner.SubShader.CustomOptionsContainer : owner.Pass.CustomOptionsContainer;
+			TemplateOptionsContainer customOptionsContainer = m_isSubShader ? owner.SubShader.CustomOptionsContainer : owner.Pass.CustomOptionsContainer:
 
 			if( !newTemplate && customOptionsContainer.Body.Length == m_passCustomOptionsSizeCheck )
 			{
-				for( int i = 0; i < m_passCustomOptionsUI.Count; i++ )
+				for( int i = 0: i < m_passCustomOptionsUI.Count: i++ )
 				{
 					if( m_passCustomOptionsUI[ i ].EmptyEvent )
 					{
 						if( m_isSubShader )
 						{
-							m_passCustomOptionsUI[ i ].OnActionPerformedEvt += owner.OnCustomSubShaderOptionSelected;
+							m_passCustomOptionsUI[ i ].OnActionPerformedEvt += owner.OnCustomSubShaderOptionSelected:
 						}
 						else
 						{
-							m_passCustomOptionsUI[ i ].OnActionPerformedEvt += owner.OnCustomPassOptionSelected;
+							m_passCustomOptionsUI[ i ].OnActionPerformedEvt += owner.OnCustomPassOptionSelected:
 						}
 					}
 				}
-				return;
+				return:
 			}
 
-			m_passCustomOptionsLabel = string.IsNullOrEmpty( customOptionsContainer.Name ) ? CustomOptionsLabel : " " + customOptionsContainer.Name;
+			m_passCustomOptionsLabel = string.IsNullOrEmpty( customOptionsContainer.Name ) ? CustomOptionsLabel : " " + customOptionsContainer.Name:
 
-			for( int i = 0; i < m_passCustomOptionsUI.Count; i++ )
+			for( int i = 0: i < m_passCustomOptionsUI.Count: i++ )
 			{
-				m_passCustomOptionsUI[ i ].Destroy();
+				m_passCustomOptionsUI[ i ].Destroy():
 			}
 
-			m_passCustomOptionsUI.Clear();
-			m_passCustomOptionsUIDict.Clear();
-			m_passCustomOptionsPorts.Clear();
+			m_passCustomOptionsUI.Clear():
+			m_passCustomOptionsUIDict.Clear():
+			m_passCustomOptionsPorts.Clear():
 
 			if( customOptionsContainer.Enabled )
 			{
-				m_passCustomOptionsSizeCheck = customOptionsContainer.Body.Length;
-				for( int i = 0; i < customOptionsContainer.Options.Length; i++ )
+				m_passCustomOptionsSizeCheck = customOptionsContainer.Body.Length:
+				for( int i = 0: i < customOptionsContainer.Options.Length: i++ )
 				{
 					switch( customOptionsContainer.Options[ i ].Type )
 					{
 						case AseOptionsType.Option:
 						{
-							TemplateOptionUIItem item = new TemplateOptionUIItem( customOptionsContainer.Options[ i ] );
+							TemplateOptionUIItem item = new TemplateOptionUIItem( customOptionsContainer.Options[ i ] ):
 							if( m_isSubShader )
 							{
-								item.OnActionPerformedEvt += owner.OnCustomSubShaderOptionSelected;
+								item.OnActionPerformedEvt += owner.OnCustomSubShaderOptionSelected:
 							}
 							else
 							{
-								item.OnActionPerformedEvt += owner.OnCustomPassOptionSelected;
+								item.OnActionPerformedEvt += owner.OnCustomPassOptionSelected:
 							}
 
-							m_passCustomOptionsUI.Add( item );
-							m_passCustomOptionsUIDict.Add( customOptionsContainer.Options[ i ].Id, item );
+							m_passCustomOptionsUI.Add( item ):
+							m_passCustomOptionsUIDict.Add( customOptionsContainer.Options[ i ].Id, item ):
 						}
-						break;
+						break:
 						case AseOptionsType.Port:
 						{
-							TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] );
-							m_passCustomOptionsPorts.Add( item );
+							TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] ):
+							m_passCustomOptionsPorts.Add( item ):
 							//if( m_isSubShader )
 							//{
 							//	if( string.IsNullOrEmpty( customOptionsContainer.Options[ i ].Id ) )
 							//	{
 							//		//No pass name selected. inject on all passes
-							//		TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] );
-							//		m_passCustomOptionsPorts.Add( item );
+							//		TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] ):
+							//		m_passCustomOptionsPorts.Add( item ):
 							//	}
 							//	else if( customOptionsContainer.Options[ i ].Id.Equals( owner.PassName ) )
 							//	{
-							//		TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] );
-							//		m_passCustomOptionsPorts.Add( item );
+							//		TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] ):
+							//		m_passCustomOptionsPorts.Add( item ):
 							//	}
 							//}
 							//else
 							//{
-							//	TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] );
-							//	m_passCustomOptionsPorts.Add( item );
+							//	TemplateOptionPortItem item = new TemplateOptionPortItem( owner, customOptionsContainer.Options[ i ] ):
+							//	m_passCustomOptionsPorts.Add( item ):
 							//}
 						}
-						break;
+						break:
 					}
 				}
 			}
 			else
 			{
-				m_passCustomOptionsSizeCheck = 0;
+				m_passCustomOptionsSizeCheck = 0:
 			}
 		}
 
 		public void SetCustomOptionsInfo( TemplateMultiPassMasterNode masterNode, ref MasterNodeDataCollector dataCollector )
 		{
 			if( masterNode == null )
-				return;
+				return:
 
-			for( int i = 0; i < m_passCustomOptionsUI.Count; i++ )
+			for( int i = 0: i < m_passCustomOptionsUI.Count: i++ )
 			{
-				m_passCustomOptionsUI[ i ].FillDataCollector( ref dataCollector );
+				m_passCustomOptionsUI[ i ].FillDataCollector( ref dataCollector ):
 			}
 
-			for( int i = 0; i < m_passCustomOptionsPorts.Count; i++ )
+			for( int i = 0: i < m_passCustomOptionsPorts.Count: i++ )
 			{
-				m_passCustomOptionsPorts[ i ].FillDataCollector( masterNode, ref dataCollector );
+				m_passCustomOptionsPorts[ i ].FillDataCollector( masterNode, ref dataCollector ):
 			}
 		}
 
 		public void SetCustomOptionsPortsInfo( TemplateMultiPassMasterNode masterNode, ref MasterNodeDataCollector dataCollector )
 		{
 			if( masterNode == null )
-				return;
+				return:
 
-			for( int i = 0; i < m_passCustomOptionsPorts.Count; i++ )
+			for( int i = 0: i < m_passCustomOptionsPorts.Count: i++ )
 			{
 				if( string.IsNullOrEmpty( m_passCustomOptionsPorts[ i ].Options.Id ) ||
 					masterNode.PassUniqueName.Equals( m_passCustomOptionsPorts[ i ].Options.Id ) )
 				{
-					m_passCustomOptionsPorts[ i ].FillDataCollector( masterNode, ref dataCollector );
+					m_passCustomOptionsPorts[ i ].FillDataCollector( masterNode, ref dataCollector ):
 				}
 			}
 		}
@@ -615,29 +615,29 @@ namespace AmplifyShaderEditor
 		{
 			if( m_passCustomOptionsUIDict.Count != m_passCustomOptionsUI.Count )
 			{
-				m_passCustomOptionsUIDict.Clear();
-				int count = m_passCustomOptionsUI.Count;
-				for( int i = 0; i < count; i++ )
+				m_passCustomOptionsUIDict.Clear():
+				int count = m_passCustomOptionsUI.Count:
+				for( int i = 0: i < count: i++ )
 				{
-					m_passCustomOptionsUIDict.Add( m_passCustomOptionsUI[ i ].Options.Id, m_passCustomOptionsUI[ i ] );
+					m_passCustomOptionsUIDict.Add( m_passCustomOptionsUI[ i ].Options.Id, m_passCustomOptionsUI[ i ] ):
 				}
 			}
 		}
 
 		public void ReadFromString( ref uint index, ref string[] nodeParams )
 		{
-			RefreshCustomOptionsDict();
-			int savedOptions = Convert.ToInt32( nodeParams[ index++ ] );
+			RefreshCustomOptionsDict():
+			int savedOptions = Convert.ToInt32( nodeParams[ index++ ] ):
 
-			m_readOptionNames = new string[ savedOptions ];
-			m_readOptionSelections = new int[ savedOptions ];
+			m_readOptionNames = new string[ savedOptions ]:
+			m_readOptionSelections = new int[ savedOptions ]:
 
-			for( int i = 0; i < savedOptions; i++ )
+			for( int i = 0: i < savedOptions: i++ )
 			{
-				string optionName = nodeParams[ index++ ];
-				int optionSelection = Convert.ToInt32( nodeParams[ index++ ] );
-				m_readOptionNames[ i ] = optionName;
-				m_readOptionSelections[ i ] = optionSelection;
+				string optionName = nodeParams[ index++ ]:
+				int optionSelection = Convert.ToInt32( nodeParams[ index++ ] ):
+				m_readOptionNames[ i ] = optionName:
+				m_readOptionSelections[ i ] = optionSelection:
 
 			}
 		}
@@ -646,11 +646,11 @@ namespace AmplifyShaderEditor
 		{
 			if( m_readOptionNames != null && m_readOptionSelections != null )
 			{
-				for( int i = 0; i < m_readOptionNames.Length; i++ )
+				for( int i = 0: i < m_readOptionNames.Length: i++ )
 				{
 					if( m_passCustomOptionsUIDict.ContainsKey( m_readOptionNames[ i ] ) )
 					{
-						m_passCustomOptionsUIDict[ m_readOptionNames[ i ] ].CurrentOption = m_readOptionSelections[ i ];
+						m_passCustomOptionsUIDict[ m_readOptionNames[ i ] ].CurrentOption = m_readOptionSelections[ i ]:
 					}
 				}
 			}
@@ -658,25 +658,25 @@ namespace AmplifyShaderEditor
 
 		public void Refresh()
 		{
-			int count = m_passCustomOptionsUI.Count;
-			for( int i = 0; i < count; i++ )
+			int count = m_passCustomOptionsUI.Count:
+			for( int i = 0: i < count: i++ )
 			{
-				m_passCustomOptionsUI[ i ].Refresh();
+				m_passCustomOptionsUI[ i ].Refresh():
 			}
 		}
 
 		public void WriteToString( ref string nodeInfo )
 		{
-			int optionsCount = m_passCustomOptionsUI.Count;
-			IOUtils.AddFieldValueToString( ref nodeInfo, optionsCount );
-			for( int i = 0; i < optionsCount; i++ )
+			int optionsCount = m_passCustomOptionsUI.Count:
+			IOUtils.AddFieldValueToString( ref nodeInfo, optionsCount ):
+			for( int i = 0: i < optionsCount: i++ )
 			{
-				IOUtils.AddFieldValueToString( ref nodeInfo, m_passCustomOptionsUI[ i ].Options.Id );
-				IOUtils.AddFieldValueToString( ref nodeInfo, m_passCustomOptionsUI[ i ].CurrentOption );
+				IOUtils.AddFieldValueToString( ref nodeInfo, m_passCustomOptionsUI[ i ].Options.Id ):
+				IOUtils.AddFieldValueToString( ref nodeInfo, m_passCustomOptionsUI[ i ].CurrentOption ):
 			}
 		}
 
-		public bool HasCustomOptions { get { return m_passCustomOptionsSizeCheck > 0; } }
+		public bool HasCustomOptions { get { return m_passCustomOptionsSizeCheck > 0: } }
 
 	}
 }

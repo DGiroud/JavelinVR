@@ -12,12 +12,12 @@ Shader "Hidden/SwizzleNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
 
-			float4 _Mask;
+			float4 _Mask:
 		ENDCG
 		///////////////////////////////////////////////////////////////////////////////
 		Pass 
@@ -26,8 +26,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -38,8 +38,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -50,8 +50,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -62,8 +62,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -74,8 +74,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -87,8 +87,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -99,8 +99,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -111,8 +111,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -123,8 +123,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -135,8 +135,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -147,8 +147,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -159,8 +159,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -171,8 +171,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -183,8 +183,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -195,8 +195,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -207,8 +207,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.x,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.x,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -219,8 +219,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -231,8 +231,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -243,8 +243,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -255,8 +255,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -267,8 +267,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -279,8 +279,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -291,8 +291,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -303,8 +303,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -315,8 +315,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -327,8 +327,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -339,8 +339,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -351,8 +351,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -363,8 +363,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -375,8 +375,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -387,8 +387,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -399,8 +399,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.y,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.y,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -411,8 +411,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -423,8 +423,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -435,8 +435,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -447,8 +447,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -459,8 +459,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -471,8 +471,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -483,8 +483,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -495,8 +495,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -507,8 +507,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -519,8 +519,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -531,8 +531,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -543,8 +543,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -555,8 +555,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -567,8 +567,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -579,8 +579,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -591,8 +591,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.z,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.z,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -603,8 +603,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -615,8 +615,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -627,8 +627,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -639,8 +639,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -651,8 +651,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -664,8 +664,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -676,8 +676,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -688,8 +688,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -700,8 +700,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -712,8 +712,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -724,8 +724,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -736,8 +736,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -748,8 +748,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -760,8 +760,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -772,8 +772,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -784,8 +784,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.x,a.w,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.x,a.w,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -796,8 +796,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -808,8 +808,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -820,8 +820,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -832,8 +832,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -844,8 +844,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -857,8 +857,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -869,8 +869,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -881,8 +881,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -893,8 +893,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -905,8 +905,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -917,8 +917,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -929,8 +929,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -941,8 +941,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -953,8 +953,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -965,8 +965,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -977,8 +977,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.x,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.x,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -989,8 +989,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1001,8 +1001,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1013,8 +1013,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1025,8 +1025,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1037,8 +1037,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1049,8 +1049,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1061,8 +1061,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1073,8 +1073,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1085,8 +1085,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1097,8 +1097,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1109,8 +1109,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1121,8 +1121,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1133,8 +1133,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1145,8 +1145,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1157,8 +1157,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1169,8 +1169,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.y,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.y,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1181,8 +1181,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1193,8 +1193,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1205,8 +1205,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1217,8 +1217,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1229,8 +1229,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1241,8 +1241,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1253,8 +1253,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1265,8 +1265,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1277,8 +1277,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1289,8 +1289,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1301,8 +1301,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1313,8 +1313,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1325,8 +1325,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1337,8 +1337,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1349,8 +1349,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1361,8 +1361,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.z,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.z,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1373,8 +1373,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1385,8 +1385,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1397,8 +1397,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1409,8 +1409,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1421,8 +1421,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1434,8 +1434,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1446,8 +1446,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1458,8 +1458,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1470,8 +1470,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1482,8 +1482,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1494,8 +1494,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1506,8 +1506,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1518,8 +1518,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1530,8 +1530,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1542,8 +1542,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1554,8 +1554,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.y,a.w,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.y,a.w,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1566,8 +1566,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1578,8 +1578,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1590,8 +1590,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1602,8 +1602,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1614,8 +1614,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1627,8 +1627,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1639,8 +1639,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1651,8 +1651,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1663,8 +1663,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1675,8 +1675,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1687,8 +1687,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1699,8 +1699,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1711,8 +1711,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1723,8 +1723,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1735,8 +1735,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1747,8 +1747,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.x,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.x,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1759,8 +1759,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1771,8 +1771,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1783,8 +1783,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1795,8 +1795,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1807,8 +1807,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1819,8 +1819,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1831,8 +1831,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1843,8 +1843,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1855,8 +1855,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1867,8 +1867,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1879,8 +1879,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1891,8 +1891,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1903,8 +1903,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1915,8 +1915,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1927,8 +1927,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1939,8 +1939,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.y,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.y,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1951,8 +1951,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -1963,8 +1963,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -1975,8 +1975,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -1987,8 +1987,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -1999,8 +1999,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2011,8 +2011,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2023,8 +2023,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2035,8 +2035,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2047,8 +2047,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2059,8 +2059,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2071,8 +2071,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2083,8 +2083,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2095,8 +2095,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2107,8 +2107,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2119,8 +2119,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2131,8 +2131,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.z,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.z,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2143,8 +2143,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2155,8 +2155,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2167,8 +2167,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2179,8 +2179,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2191,8 +2191,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2204,8 +2204,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2216,8 +2216,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2228,8 +2228,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2240,8 +2240,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2252,8 +2252,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2264,8 +2264,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2276,8 +2276,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2288,8 +2288,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2300,8 +2300,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2312,8 +2312,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2324,8 +2324,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.z,a.w,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.z,a.w,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2336,8 +2336,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2348,8 +2348,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2360,8 +2360,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2372,8 +2372,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2384,8 +2384,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2397,8 +2397,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2409,8 +2409,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2421,8 +2421,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2433,8 +2433,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2445,8 +2445,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2457,8 +2457,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2469,8 +2469,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2481,8 +2481,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2493,8 +2493,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2505,8 +2505,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2517,8 +2517,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.x,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.x,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2529,8 +2529,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2541,8 +2541,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2553,8 +2553,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2565,8 +2565,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2577,8 +2577,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2589,8 +2589,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2601,8 +2601,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2613,8 +2613,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2625,8 +2625,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2637,8 +2637,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2649,8 +2649,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2661,8 +2661,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2673,8 +2673,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2685,8 +2685,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2697,8 +2697,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2709,8 +2709,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.y,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.y,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2721,8 +2721,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2733,8 +2733,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2745,8 +2745,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2757,8 +2757,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2769,8 +2769,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2781,8 +2781,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2793,8 +2793,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2805,8 +2805,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2817,8 +2817,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2829,8 +2829,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2841,8 +2841,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2853,8 +2853,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2865,8 +2865,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2877,8 +2877,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2889,8 +2889,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2901,8 +2901,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.z,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.z,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2913,8 +2913,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.x,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.x,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2925,8 +2925,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.x,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.x,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2937,8 +2937,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.x,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.x,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2949,8 +2949,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.x,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.x,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -2961,8 +2961,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.y,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.y,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -2974,8 +2974,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.y,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.y,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -2986,8 +2986,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.y,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.y,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -2998,8 +2998,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.y,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.y,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -3010,8 +3010,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.z,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.z,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -3022,8 +3022,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.z,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.z,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -3034,8 +3034,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.z,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.z,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -3046,8 +3046,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.z,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.z,a.w)*_Mask:
 			}
 			ENDCG
 		}
@@ -3058,8 +3058,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.w,a.x)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.w,a.x)*_Mask:
 			}
 			ENDCG
 		}
@@ -3070,8 +3070,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.w,a.y)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.w,a.y)*_Mask:
 			}
 			ENDCG
 		}
@@ -3082,8 +3082,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.w,a.z)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.w,a.z)*_Mask:
 			}
 			ENDCG
 		}
@@ -3094,8 +3094,8 @@ Shader "Hidden/SwizzleNode"
 			CGPROGRAM
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 a = tex2D(_A, i.uv);
-				return float4(a.w,a.w,a.w,a.w)*_Mask;
+				float4 a = tex2D(_A, i.uv):
+				return float4(a.w,a.w,a.w,a.w)*_Mask:
 			}
 			ENDCG
 		}

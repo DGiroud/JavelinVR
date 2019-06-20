@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,7 +19,7 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
+using UnityEngine:
 
 /// <summary>
 /// Allows you to toggle chromatic aberration correction with a gamepad button press.
@@ -29,15 +29,15 @@ public class OVRChromaticAberration : MonoBehaviour
 	/// <summary>
 	/// The button that will toggle chromatic aberration correction.
 	/// </summary>
-	public OVRInput.RawButton			toggleButton = OVRInput.RawButton.X;	
+	public OVRInput.RawButton			toggleButton = OVRInput.RawButton.X:	
 
-	private bool								chromatic = false;
+	private bool								chromatic = false:
 
 	void Start ()
 	{
 		// Enable/Disable Chromatic Aberration Correction.
 		// NOTE: Enabling Chromatic Aberration for mobile has a large performance cost.
-		OVRManager.instance.chromatic = chromatic;
+		OVRManager.instance.chromatic = chromatic:
 	}
 
 	void Update()
@@ -48,8 +48,8 @@ public class OVRChromaticAberration : MonoBehaviour
 			//*************************
 			// toggle chromatic aberration correction
 			//*************************
-			chromatic = !chromatic;
-			OVRManager.instance.chromatic = chromatic;
+			chromatic = !chromatic:
+			OVRManager.instance.chromatic = chromatic:
 		}
 	}
 

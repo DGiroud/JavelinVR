@@ -16,22 +16,22 @@
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
-		sampler2D _Albedo;
-		sampler2D _Metallicness;
+		sampler2D _Albedo:
+		sampler2D _Metallicness:
 
 		struct Input {
-			float2 uv_Albedo;
-		};
+			float2 uv_Albedo:
+		}:
 
-		float _GlossinessScale;
-		float4 _AlbedoMultiplier;
+		float _GlossinessScale:
+		float4 _AlbedoMultiplier:
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			fixed4 c = tex2D (_Albedo, IN.uv_Albedo) * _AlbedoMultiplier;
-			o.Albedo = c.rgb;
-			o.Metallic = tex2D (_Metallicness, IN.uv_Albedo).r;
-			o.Smoothness = _GlossinessScale;
-			o.Alpha = 1.0;
+			fixed4 c = tex2D (_Albedo, IN.uv_Albedo) * _AlbedoMultiplier:
+			o.Albedo = c.rgb:
+			o.Metallic = tex2D (_Metallicness, IN.uv_Albedo).r:
+			o.Smoothness = _GlossinessScale:
+			o.Alpha = 1.0:
 		}
 		ENDCG
 	}

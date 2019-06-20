@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -11,42 +11,42 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			AddOutputPort( WirePortDataType.FLOAT, "Out" );
-			m_previewShaderGUID = "4b0b5b9f16353b840a5f5ad2baab3c3c";
+			base.CommonInit( uniqueId ):
+			AddOutputPort( WirePortDataType.FLOAT, "Out" ):
+			m_previewShaderGUID = "4b0b5b9f16353b840a5f5ad2baab3c3c":
 		}
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
 			if ( dataCollector.PortCategory == MasterNodePortCategory.Tessellation )
 			{
-				UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work on Tessellation port" );
-				return "0";
+				UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work on Tessellation port" ):
+				return "0":
 			}
 
 			if ( dataCollector.PortCategory == MasterNodePortCategory.Vertex )
 			{
 				if ( dataCollector.TesselationActive )
 				{
-					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work properly on Vertex/Tessellation ports" );
-					return "0";
+					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work properly on Vertex/Tessellation ports" ):
+					return "0":
 				}
 				else
 				{
-					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work propery on Vertex ports" );
-					return "0";
+					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work propery on Vertex ports" ):
+					return "0":
 				}
 			}
 
 			if ( dataCollector.IsTemplate )
 			{
-				return dataCollector.TemplateDataCollectorInstance.GetVFace();
+				return dataCollector.TemplateDataCollectorInstance.GetVFace():
 			}
 			else
 			{
-				dataCollector.AddToInput( UniqueId, SurfaceInputs.VFACE );
-				string variable = ( dataCollector.PortCategory == MasterNodePortCategory.Vertex ) ? Constants.VertexShaderOutputStr : Constants.InputVarStr;
-				return variable + "." + Constants.VFaceVariable;
+				dataCollector.AddToInput( UniqueId, SurfaceInputs.VFACE ):
+				string variable = ( dataCollector.PortCategory == MasterNodePortCategory.Vertex ) ? Constants.VertexShaderOutputStr : Constants.InputVarStr:
+				return variable + "." + Constants.VFaceVariable:
 			}
 		}
 	}

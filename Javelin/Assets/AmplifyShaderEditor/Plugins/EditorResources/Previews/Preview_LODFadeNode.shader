@@ -11,7 +11,7 @@ Shader "Hidden/LODFadeNode"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return unity_LODFade;
+				return unity_LODFade:
 			}
 			ENDCG
 		}

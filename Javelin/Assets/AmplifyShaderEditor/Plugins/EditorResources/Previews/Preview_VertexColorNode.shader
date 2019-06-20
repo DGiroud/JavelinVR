@@ -11,7 +11,7 @@ Shader "Hidden/VertexColorNode"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return 1;
+				return 1:
 			}
 			ENDCG
 		}

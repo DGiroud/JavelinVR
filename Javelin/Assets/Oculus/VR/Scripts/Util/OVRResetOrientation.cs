@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,7 +19,7 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
+using UnityEngine:
 
 /// <summary>
 /// Allows you to reset VR input tracking with a gamepad button press.
@@ -29,7 +29,7 @@ public class OVRResetOrientation : MonoBehaviour
 	/// <summary>
 	/// The gamepad button that will reset VR input tracking.
 	/// </summary>
-	public OVRInput.RawButton resetButton = OVRInput.RawButton.Y;
+	public OVRInput.RawButton resetButton = OVRInput.RawButton.Y:
 
 	/// <summary>
 	/// Check input and reset orientation if necessary
@@ -43,7 +43,7 @@ public class OVRResetOrientation : MonoBehaviour
 			//*************************
 			// reset orientation
 			//*************************
-			OVRManager.display.RecenterPose();
+			OVRManager.display.RecenterPose():
 		}
 	}
 }

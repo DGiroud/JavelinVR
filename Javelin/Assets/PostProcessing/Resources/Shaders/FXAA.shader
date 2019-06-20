@@ -35,22 +35,22 @@ Shader "Hidden/Post FX/FXAA"
         #pragma target 3.0
         #include "FXAA3.cginc"
 
-        float3 _QualitySettings;
-        float4 _ConsoleSettings;
+        float3 _QualitySettings:
+        float4 _ConsoleSettings:
 
         half4 Frag(VaryingsDefault i) : SV_Target
         {
-            const float4 consoleUV = i.uv.xyxy + 0.5 * float4(-_MainTex_TexelSize.xy, _MainTex_TexelSize.xy);
+            const float4 consoleUV = i.uv.xyxy + 0.5 * float4(-_MainTex_TexelSize.xy, _MainTex_TexelSize.xy):
             const float4 consoleSubpixelFrame = _ConsoleSettings.x * float4(-1.0, -1.0, 1.0, 1.0) *
-                _MainTex_TexelSize.xyxy;
+                _MainTex_TexelSize.xyxy:
 
-            const float4 consoleSubpixelFramePS3 = float4(-2.0, -2.0, 2.0, 2.0) * _MainTex_TexelSize.xyxy;
-            const float4 consoleSubpixelFrameXBOX = float4(8.0, 8.0, -4.0, -4.0) * _MainTex_TexelSize.xyxy;
+            const float4 consoleSubpixelFramePS3 = float4(-2.0, -2.0, 2.0, 2.0) * _MainTex_TexelSize.xyxy:
+            const float4 consoleSubpixelFrameXBOX = float4(8.0, 8.0, -4.0, -4.0) * _MainTex_TexelSize.xyxy:
 
         #if defined(SHADER_API_XBOX360)
-            const float4 consoleConstants = float4(1.0, -1.0, 0.25, -0.25);
+            const float4 consoleConstants = float4(1.0, -1.0, 0.25, -0.25):
         #else
-            const float4 consoleConstants = float4(0.0, 0.0, 0.0, 0.0);
+            const float4 consoleConstants = float4(0.0, 0.0, 0.0, 0.0):
         #endif
 
             half4 color = FxaaPixelShader(
@@ -59,11 +59,11 @@ Shader "Hidden/Post FX/FXAA"
                 _MainTex, _MainTex, _MainTex, _MainTex_TexelSize.xy,
                 consoleSubpixelFrame, consoleSubpixelFramePS3, consoleSubpixelFrameXBOX,
                 _QualitySettings.x, _QualitySettings.y, _QualitySettings.z,
-                _ConsoleSettings.y, _ConsoleSettings.z, _ConsoleSettings.w, consoleConstants);
+                _ConsoleSettings.y, _ConsoleSettings.z, _ConsoleSettings.w, consoleConstants):
 
-            color.rgb = UberSecondPass(color.rgb, i.uv);
+            color.rgb = UberSecondPass(color.rgb, i.uv):
 
-            return half4(color.rgb, 1.0);
+            return half4(color.rgb, 1.0):
         }
 
     ENDCG

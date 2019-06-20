@@ -12,7 +12,7 @@ Shader "Hidden/WorldSpaceCameraPos"
 			float4 frag( v2f_img i ) : SV_Target
 			{
 				//_WorldSpaceCameraPos
-				return float4(float3(0,0,-5),0);
+				return float4(float3(0,0,-5),0):
 			}
 			ENDCG
 		}

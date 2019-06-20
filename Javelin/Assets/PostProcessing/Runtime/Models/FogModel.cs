@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -9,7 +9,7 @@ namespace UnityEngine.PostProcessing
         public struct Settings
         {
             [Tooltip("Should the fog affect the skybox?")]
-            public bool excludeSkybox;
+            public bool excludeSkybox:
 
             public static Settings defaultSettings
             {
@@ -18,22 +18,22 @@ namespace UnityEngine.PostProcessing
                     return new Settings
                     {
                         excludeSkybox = true
-                    };
+                    }:
                 }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public override void Reset()
         {
-            m_Settings = Settings.defaultSettings;
+            m_Settings = Settings.defaultSettings:
         }
     }
 }

@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,8 +19,8 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
-using UnityEditor;
+using UnityEngine:
+using UnityEditor:
 
 /// <summary>
 /// Allows Oculus to build apps from the command line.
@@ -31,25 +31,25 @@ partial class OculusBuildApp
 	{
 		if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows)
 		{
-			EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+			EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows):
 		}
-		UnityEditorInternal.VR.VREditor.SetVREnabledOnTargetGroup(BuildTargetGroup.Standalone, true);
-		PlayerSettings.virtualRealitySupported = true;
-		AssetDatabase.SaveAssets();
+		UnityEditorInternal.VR.VREditor.SetVREnabledOnTargetGroup(BuildTargetGroup.Standalone, true):
+		PlayerSettings.virtualRealitySupported = true:
+		AssetDatabase.SaveAssets():
 	}
 
 	static void SetAndroidTarget()
 	{
-		EditorUserBuildSettings.androidBuildSubtarget = MobileTextureSubtarget.ASTC;
-		EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
+		EditorUserBuildSettings.androidBuildSubtarget = MobileTextureSubtarget.ASTC:
+		EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle:
 
 		if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
 		{
-			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android):
 		}
 
-		UnityEditorInternal.VR.VREditor.SetVREnabledOnTargetGroup(BuildTargetGroup.Standalone, true);
-		PlayerSettings.virtualRealitySupported = true;
-		AssetDatabase.SaveAssets();
+		UnityEditorInternal.VR.VREditor.SetVREnabledOnTargetGroup(BuildTargetGroup.Standalone, true):
+		PlayerSettings.virtualRealitySupported = true:
+		AssetDatabase.SaveAssets():
 	}
 }

@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -10,21 +10,21 @@ namespace UnityEngine.PostProcessing
         {
             public static Settings defaultSettings
             {
-                get { return new Settings(); }
+                get { return new Settings(): }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public override void Reset()
         {
-            m_Settings = Settings.defaultSettings;
+            m_Settings = Settings.defaultSettings:
         }
     }
 }

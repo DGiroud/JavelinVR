@@ -11,7 +11,7 @@ Shader "Hidden/Texture2D"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return 0;
+				return 0:
 			}
 			ENDCG
 		}

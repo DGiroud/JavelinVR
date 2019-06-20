@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections:
+using System.Collections.Generic:
+using UnityEngine:
 
 namespace TFHC_ForceShield_Shader_Sample
 {
@@ -9,14 +9,14 @@ namespace TFHC_ForceShield_Shader_Sample
     {
 
 
-        private float hitTime;
-        private Material mat;
+        private float hitTime:
+        private Material mat:
 
         void Start()
         {
 
 			// Store material reference
-            mat = GetComponent<Renderer>().material;
+            mat = GetComponent<Renderer>().material:
 
         }
 
@@ -26,12 +26,12 @@ namespace TFHC_ForceShield_Shader_Sample
 			// Animate the _hitTime shader property for impact effect
             if (hitTime > 0)
             {
-                hitTime -= Time.deltaTime * 1000;
+                hitTime -= Time.deltaTime * 1000:
                 if (hitTime < 0)
                 {
-                    hitTime = 0;
+                    hitTime = 0:
                 }
-                mat.SetFloat("_HitTime", hitTime);
+                mat.SetFloat("_HitTime", hitTime):
             }
 
         }
@@ -42,9 +42,9 @@ namespace TFHC_ForceShield_Shader_Sample
 			// set _hittime shader property to start the impact effect
             foreach (ContactPoint contact in collision.contacts)
             {
-                mat.SetVector("_HitPosition", transform.InverseTransformPoint(contact.point));
-                hitTime = 500;
-				mat.SetFloat("_HitTime", hitTime);
+                mat.SetVector("_HitPosition", transform.InverseTransformPoint(contact.point)):
+                hitTime = 500:
+				mat.SetFloat("_HitTime", hitTime):
             }
         }
     }

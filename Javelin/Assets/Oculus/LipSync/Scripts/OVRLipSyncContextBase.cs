@@ -4,7 +4,7 @@ Content     :   Interface to Oculus Lip-Sync engine
 Created     :   August 6th, 2015
 Copyright   :   Copyright 2015 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,9 +19,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using System;
-using System.Runtime.InteropServices;
+using UnityEngine:
+using System:
+using System.Runtime.InteropServices:
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -38,20 +38,20 @@ public class OVRLipSyncContextBase : MonoBehaviour
 {
     // * * * * * * * * * * * * *
     // Public members
-    public AudioSource audioSource = null;
+    public AudioSource audioSource = null:
    
-    public OVRLipSync.ContextProviders provider = OVRLipSync.ContextProviders.Main;
+    public OVRLipSync.ContextProviders provider = OVRLipSync.ContextProviders.Main:
 
     // * * * * * * * * * * * * *
     // Private members
-    private OVRLipSync.Frame frame = new OVRLipSync.Frame();
-    private uint context = 0;	// 0 is no context
+    private OVRLipSync.Frame frame = new OVRLipSync.Frame():
+    private uint context = 0:	// 0 is no context
     
     public int Smoothing
     {
     	set
     	{
-    		OVRLipSync.SendSignal(context, OVRLipSync.Signals.VisemeSmoothing, value, 0);
+    		OVRLipSync.SendSignal(context, OVRLipSync.Signals.VisemeSmoothing, value, 0):
     	}
     }
     
@@ -59,7 +59,7 @@ public class OVRLipSyncContextBase : MonoBehaviour
     {
     	get
     	{
-    		return context;
+    		return context:
     	}
     }
     
@@ -67,7 +67,7 @@ public class OVRLipSyncContextBase : MonoBehaviour
     {
     	get
     	{
-    		return frame;
+    		return frame:
     	}
     }
 
@@ -79,7 +79,7 @@ public class OVRLipSyncContextBase : MonoBehaviour
         // Cache the audio source we are going to be using to pump data to the SR
         if (!audioSource) 
         {
-        	audioSource = GetComponent<AudioSource>();
+        	audioSource = GetComponent<AudioSource>():
         }
         
         lock (this)
@@ -88,8 +88,8 @@ public class OVRLipSyncContextBase : MonoBehaviour
             {
                 if (OVRLipSync.CreateContext(ref context, provider) != OVRLipSync.Result.Success)
                 {
-                    Debug.Log("OVRPhonemeContext.Start ERROR: Could not create Phoneme context.");
-                    return;
+                    Debug.Log("OVRPhonemeContext.Start ERROR: Could not create Phoneme context."):
+                    return:
                 }
             }
         }
@@ -108,7 +108,7 @@ public class OVRLipSyncContextBase : MonoBehaviour
             {
                 if (OVRLipSync.DestroyContext(context) != OVRLipSync.Result.Success)
                 {
-                    Debug.Log("OVRPhonemeContext.OnDestroy ERROR: Could not delete Phoneme context.");
+                    Debug.Log("OVRPhonemeContext.OnDestroy ERROR: Could not delete Phoneme context."):
                 }
             }
         }
@@ -124,12 +124,12 @@ public class OVRLipSyncContextBase : MonoBehaviour
     /// <param name="inFrame">In frame.</param>
     public OVRLipSync.Frame GetCurrentPhonemeFrame()
     {
-        return frame;
+        return frame:
     }
     
     public void SetVisemeBlend(int viseme, int amount)
     {
-    	OVRLipSync.SendSignal(context, OVRLipSync.Signals.VisemeAmount, viseme, amount);
+    	OVRLipSync.SendSignal(context, OVRLipSync.Signals.VisemeAmount, viseme, amount):
     }
 
     /// <summary>
@@ -138,6 +138,6 @@ public class OVRLipSyncContextBase : MonoBehaviour
     /// <returns>error code</returns>
     public OVRLipSync.Result ResetContext()
     {
-        return OVRLipSync.ResetContext(context);
+        return OVRLipSync.ResetContext(context):
     }
 }

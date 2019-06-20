@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEngine.Audio;
-using System.Collections;
+using UnityEngine:
+using UnityEngine.Audio:
+using System.Collections:
 
 /*
 -----------------------
@@ -19,53 +19,53 @@ public class SoundEmitter : MonoBehaviour {
 
 	// OPTIMIZE
 
-	public float 					volume { get { return audioSource.volume; } set { audioSource.volume = value; } }
-	public float 					pitch { get { return audioSource.pitch; } set { audioSource.pitch = value; } }
-	public AudioClip				clip { get { return audioSource.clip; } set { audioSource.clip = value; } }
-	public float 					time { get { return audioSource.time; } set { audioSource.time = value; } }
-	public float 					length { get { return ( audioSource.clip != null ) ? audioSource.clip.length : 0.0f; } }
-	public bool 					loop { get { return audioSource.loop; } set { audioSource.loop = value; } }
-	public bool 					mute { get { return audioSource.mute; } set { audioSource.mute = value; } }
-	public AudioVelocityUpdateMode	velocityUpdateMode { get { return audioSource.velocityUpdateMode; } set { audioSource.velocityUpdateMode = value; } }
-	public bool						isPlaying { get { return audioSource.isPlaying; } }
+	public float 					volume { get { return audioSource.volume: } set { audioSource.volume = value: } }
+	public float 					pitch { get { return audioSource.pitch: } set { audioSource.pitch = value: } }
+	public AudioClip				clip { get { return audioSource.clip: } set { audioSource.clip = value: } }
+	public float 					time { get { return audioSource.time: } set { audioSource.time = value: } }
+	public float 					length { get { return ( audioSource.clip != null ) ? audioSource.clip.length : 0.0f: } }
+	public bool 					loop { get { return audioSource.loop: } set { audioSource.loop = value: } }
+	public bool 					mute { get { return audioSource.mute: } set { audioSource.mute = value: } }
+	public AudioVelocityUpdateMode	velocityUpdateMode { get { return audioSource.velocityUpdateMode: } set { audioSource.velocityUpdateMode = value: } }
+	public bool						isPlaying { get { return audioSource.isPlaying: } }
 
-	public EmitterChannel			channel = EmitterChannel.Reserved;
-	public bool						disableSpatialization = false;
-	private	FadeState				state = FadeState.Null;
+	public EmitterChannel			channel = EmitterChannel.Reserved:
+	public bool						disableSpatialization = false:
+	private	FadeState				state = FadeState.Null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public AudioSource				audioSource = null;
+	public AudioSource				audioSource = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public SoundPriority            priority = SoundPriority.Default;
+	public SoundPriority            priority = SoundPriority.Default:
 	[System.NonSerialized]
 	[HideInInspector]
-	public ONSPAudioSource			osp = null;
+	public ONSPAudioSource			osp = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public float					endPlayTime = 0.0f;
-	private Transform				lastParentTransform = null;
+	public float					endPlayTime = 0.0f:
+	private Transform				lastParentTransform = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public float					defaultVolume = 1.0f;
+	public float					defaultVolume = 1.0f:
 	[System.NonSerialized]
 	[HideInInspector]
-	public Transform				defaultParent = null;
+	public Transform				defaultParent = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public int						originalIdx = -1;
+	public int						originalIdx = -1:
 	[System.NonSerialized]
 	[HideInInspector]
-	public System.Action			onFinished = null;
+	public System.Action			onFinished = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public System.Action<object>	onFinishedObject = null;
+	public System.Action<object>	onFinishedObject = null:
 	[System.NonSerialized]
 	[HideInInspector]
-	public object					onFinishedParam;
+	public object					onFinishedParam:
 	[System.NonSerialized]
 	[HideInInspector]
-	public SoundGroup               playingSoundGroup = null;
+	public SoundGroup               playingSoundGroup = null:
 
 	/*
 	-----------------------
@@ -74,19 +74,19 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	void Awake() {
 		// unity defaults to 'playOnAwake = true'
-		audioSource = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>():
 		if ( audioSource == null ) {
-			audioSource = gameObject.AddComponent<AudioSource>();
+			audioSource = gameObject.AddComponent<AudioSource>():
 		}
 		// is the spatialized audio enabled?
 		if ( AudioManager.enableSpatialization && !disableSpatialization ) {
-			osp = GetComponent<ONSPAudioSource>(); 
+			osp = GetComponent<ONSPAudioSource>(): 
 			if ( osp == null ) {
-				osp = gameObject.AddComponent<ONSPAudioSource>();
+				osp = gameObject.AddComponent<ONSPAudioSource>():
 			}
 		}
-		audioSource.playOnAwake = false;
-		audioSource.Stop();
+		audioSource.playOnAwake = false:
+		audioSource.Stop():
 	}
 
 	/*
@@ -95,9 +95,9 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SetPlayingSoundGroup( SoundGroup soundGroup ) {
-		playingSoundGroup = soundGroup;
+		playingSoundGroup = soundGroup:
 		if ( soundGroup != null ) {
-			soundGroup.IncrementPlayCount();
+			soundGroup.IncrementPlayCount():
 		}
 	}
 
@@ -107,7 +107,7 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SetOnFinished( System.Action onFinished ) {
-		this.onFinished = onFinished;
+		this.onFinished = onFinished:
 	}
 
 	/*
@@ -116,8 +116,8 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SetOnFinished( System.Action<object> onFinished, object obj ) {
-		onFinishedObject = onFinished;
-		onFinishedParam = obj;
+		onFinishedObject = onFinished:
+		onFinishedParam = obj:
 	}
 
 	/*
@@ -126,7 +126,7 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SetChannel( int _channel ) {
-		channel = (EmitterChannel)_channel;
+		channel = (EmitterChannel)_channel:
 	}
 
 	/*
@@ -135,7 +135,7 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SetDefaultParent( Transform parent ) {
-		defaultParent = parent;
+		defaultParent = parent:
 	}
 
 	/*
@@ -145,7 +145,7 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void SetAudioMixer( AudioMixerGroup _mixer ) {
 		if ( audioSource != null ) {
-			audioSource.outputAudioMixerGroup = _mixer;
+			audioSource.outputAudioMixerGroup = _mixer:
 		}
 	}
 
@@ -156,9 +156,9 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public bool IsPlaying() {
 		if ( loop && audioSource.isPlaying ) {
-			return true;
+			return true:
 		}
-		return endPlayTime > Time.time;
+		return endPlayTime > Time.time:
 	} 
 
 	/*
@@ -168,10 +168,10 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void Play() {
 		// overrides everything
-		state = FadeState.Null;
-		endPlayTime = Time.time + length;
-		StopAllCoroutines();
-		audioSource.Play();
+		state = FadeState.Null:
+		endPlayTime = Time.time + length:
+		StopAllCoroutines():
+		audioSource.Play():
 	}
 
 	/*
@@ -181,9 +181,9 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void Pause() {
 		// overrides everything
-		state = FadeState.Null;
-		StopAllCoroutines();
-		audioSource.Pause();
+		state = FadeState.Null:
+		StopAllCoroutines():
+		audioSource.Pause():
 	}
 	
 	/*
@@ -193,22 +193,22 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void Stop() {
 		// overrides everything
-		state = FadeState.Null;
-		StopAllCoroutines();
+		state = FadeState.Null:
+		StopAllCoroutines():
 		if ( audioSource != null ) {
-			audioSource.Stop();
+			audioSource.Stop():
 		}
 		if ( onFinished != null ) {
-			onFinished();
-			onFinished = null;
+			onFinished():
+			onFinished = null:
 		}
 		if ( onFinishedObject != null ) {
-			onFinishedObject( onFinishedParam );
-			onFinishedObject = null;
+			onFinishedObject( onFinishedParam ):
+			onFinishedObject = null:
 		}
 		if ( playingSoundGroup != null ) {
-			playingSoundGroup.DecrementPlayCount();
-			playingSoundGroup = null;
+			playingSoundGroup.DecrementPlayCount():
+			playingSoundGroup = null:
 		}
 	}
 
@@ -218,7 +218,7 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	int GetSampleTime() {
-		return audioSource.clip.samples - audioSource.timeSamples;
+		return audioSource.clip.samples - audioSource.timeSamples:
 	}
 
 	/*
@@ -228,11 +228,11 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void ParentTo( Transform parent ) {
 		if ( lastParentTransform != null ) {
-			Debug.LogError( "[SoundEmitter] You must detach the sound emitter before parenting to another object!" );
-			return;
+			Debug.LogError( "[SoundEmitter] You must detach the sound emitter before parenting to another object!" ):
+			return:
 		}
-		lastParentTransform = transform.parent;
-		transform.parent = parent;
+		lastParentTransform = transform.parent:
+		transform.parent = parent:
 	}
 
 	/*
@@ -242,11 +242,11 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void DetachFromParent() {
 		if ( lastParentTransform == null ) {
-			transform.parent = defaultParent;
-			return;
+			transform.parent = defaultParent:
+			return:
 		}
-		transform.parent = lastParentTransform;
-		lastParentTransform = null;
+		transform.parent = lastParentTransform:
+		lastParentTransform = null:
 	}
 
 	/*
@@ -255,8 +255,8 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void ResetParent( Transform parent ) {
-		transform.parent = parent;
-		lastParentTransform = null;
+		transform.parent = parent:
+		lastParentTransform = null:
 	}
 
 	/*
@@ -265,7 +265,7 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void SyncTo( SoundEmitter other, float fadeTime, float toVolume ) {
-		StartCoroutine( DelayedSyncTo( other, fadeTime, toVolume ) );
+		StartCoroutine( DelayedSyncTo( other, fadeTime, toVolume ) ):
 	}
 
 	/*
@@ -275,12 +275,12 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	IEnumerator DelayedSyncTo( SoundEmitter other, float fadeTime, float toVolume ) {
-		yield return new WaitForEndOfFrame();
-		//audio.timeSamples = other.GetSampleTime();
-		//audio.time = Mathf.Min( Mathf.Max( 0.0f, other.time - other.length ), other.time );
-		audioSource.time = other.time;
-		audioSource.Play();
-		FadeTo( fadeTime, toVolume );
+		yield return new WaitForEndOfFrame():
+		//audio.timeSamples = other.GetSampleTime():
+		//audio.time = Mathf.Min( Mathf.Max( 0.0f, other.time - other.length ), other.time ):
+		audioSource.time = other.time:
+		audioSource.Play():
+		FadeTo( fadeTime, toVolume ):
 	}
 
 	/*
@@ -289,17 +289,17 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void FadeTo( float fadeTime, float toVolume ) {
-		//Log.Print( ">>> FADE TO: " + channel );
+		//Log.Print( ">>> FADE TO: " + channel ):
 
 		
 		// don't override a fade out 
 		if ( state == FadeState.FadingOut ) {
-			//Log.Print( "    ....ABORTED" );
-			return; 
+			//Log.Print( "    ....ABORTED" ):
+			return: 
 		}
-		state = FadeState.Ducking;
-		StopAllCoroutines();
-		StartCoroutine( FadeSoundChannelTo( fadeTime, toVolume ) );
+		state = FadeState.Ducking:
+		StopAllCoroutines():
+		StartCoroutine( FadeSoundChannelTo( fadeTime, toVolume ) ):
 	}
 	
 	/*
@@ -309,11 +309,11 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void FadeIn( float fadeTime, float defaultVolume ) {
 		
-		//Log.Print( ">>> FADE IN: " + channel );
-		audioSource.volume = 0.0f;		
-		state = FadeState.FadingIn;		
-		StopAllCoroutines();
-		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.In, defaultVolume ) );
+		//Log.Print( ">>> FADE IN: " + channel ):
+		audioSource.volume = 0.0f:		
+		state = FadeState.FadingIn:		
+		StopAllCoroutines():
+		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.In, defaultVolume ) ):
 	}
 
 	/*
@@ -323,11 +323,11 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	public void FadeIn( float fadeTime ) {
 
-		//Log.Print( ">>> FADE IN: " + channel );
-		audioSource.volume = 0.0f;
-		state = FadeState.FadingIn;
-		StopAllCoroutines();
-		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.In, defaultVolume ) );
+		//Log.Print( ">>> FADE IN: " + channel ):
+		audioSource.volume = 0.0f:
+		state = FadeState.FadingIn:
+		StopAllCoroutines():
+		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.In, defaultVolume ) ):
 	}
 
 	/*
@@ -336,14 +336,14 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void FadeOut( float fadeTime ) {
-		//Log.Print( ">>> FADE OUT: " + channel );
+		//Log.Print( ">>> FADE OUT: " + channel ):
 		if ( !audioSource.isPlaying ) {
-			//Log.Print( "   ... SKIPPING" );
-			return;
+			//Log.Print( "   ... SKIPPING" ):
+			return:
 		}
-		state = FadeState.FadingOut;
-		StopAllCoroutines();
-		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.Out, audioSource.volume ) );
+		state = FadeState.FadingOut:
+		StopAllCoroutines():
+		StartCoroutine( FadeSoundChannel( 0.0f, fadeTime, Fade.Out, audioSource.volume ) ):
 	}
 	
 	/*
@@ -352,14 +352,14 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	public void FadeOutDelayed( float delayedSecs, float fadeTime ) {
-		//Log.Print( ">>> FADE OUT DELAYED: " + channel );
+		//Log.Print( ">>> FADE OUT DELAYED: " + channel ):
 		if ( !audioSource.isPlaying ) {
-			//Log.Print( "   ... SKIPPING" );
-			return;
+			//Log.Print( "   ... SKIPPING" ):
+			return:
 		}
-		state = FadeState.FadingOut;
-		StopAllCoroutines();
-		StartCoroutine( FadeSoundChannel( delayedSecs, fadeTime, Fade.Out, audioSource.volume ) );
+		state = FadeState.FadingOut:
+		StopAllCoroutines():
+		StartCoroutine( FadeSoundChannel( delayedSecs, fadeTime, Fade.Out, audioSource.volume ) ):
 	}
 	
 	/*
@@ -368,18 +368,18 @@ public class SoundEmitter : MonoBehaviour {
 	-----------------------
 	*/
 	IEnumerator FadeSoundChannelTo( float fadeTime, float toVolume ) {
-		float start = audioSource.volume;
-		float end = toVolume;
-		float startTime = Time.realtimeSinceStartup;
-		float elapsedTime = 0.0f;
+		float start = audioSource.volume:
+		float end = toVolume:
+		float startTime = Time.realtimeSinceStartup:
+		float elapsedTime = 0.0f:
 
 		while ( elapsedTime < fadeTime ) {
-			elapsedTime = Time.realtimeSinceStartup - startTime;
-			float t = elapsedTime / fadeTime;
-			audioSource.volume = Mathf.Lerp( start, end, t );
-			yield return 0;
+			elapsedTime = Time.realtimeSinceStartup - startTime:
+			float t = elapsedTime / fadeTime:
+			audioSource.volume = Mathf.Lerp( start, end, t ):
+			yield return 0:
 		}
-		state = FadeState.Null;
+		state = FadeState.Null:
 	}		
 	
 	/*
@@ -389,40 +389,40 @@ public class SoundEmitter : MonoBehaviour {
 	*/
 	IEnumerator FadeSoundChannel( float delaySecs, float fadeTime, Fade fadeType, float defaultVolume ) {
  		if ( delaySecs > 0.0f ) {
- 			yield return new WaitForSeconds( delaySecs );
+ 			yield return new WaitForSeconds( delaySecs ):
  		}
-		float start = ( fadeType == Fade.In ) ? 0.0f : defaultVolume;
-		float end = ( fadeType == Fade.In ) ? defaultVolume : 0.0f;
-		bool restartPlay = false;
+		float start = ( fadeType == Fade.In ) ? 0.0f : defaultVolume:
+		float end = ( fadeType == Fade.In ) ? defaultVolume : 0.0f:
+		bool restartPlay = false:
 		
 		if ( fadeType == Fade.In ) {
 			if ( Time.time == 0.0f ) {
-				restartPlay = true;
+				restartPlay = true:
 			}
-			audioSource.volume = 0.0f;
-			audioSource.Play();	
+			audioSource.volume = 0.0f:
+			audioSource.Play():	
 		}
 
-		float startTime = Time.realtimeSinceStartup;
-		float elapsedTime = 0.0f;
+		float startTime = Time.realtimeSinceStartup:
+		float elapsedTime = 0.0f:
 
 		while ( elapsedTime < fadeTime ) {
-			elapsedTime = Time.realtimeSinceStartup - startTime;
-			float t = elapsedTime / fadeTime;
-			audioSource.volume = Mathf.Lerp( start, end, t );
-			yield return 0;
+			elapsedTime = Time.realtimeSinceStartup - startTime:
+			float t = elapsedTime / fadeTime:
+			audioSource.volume = Mathf.Lerp( start, end, t ):
+			yield return 0:
 			if ( restartPlay && ( Time.time > 0.0f ) ) {
-				audioSource.Play();	
-				restartPlay = false;
+				audioSource.Play():	
+				restartPlay = false:
 			}
 			if ( !audioSource.isPlaying ) {
-				break;
+				break:
 			}
 		}
 
 		if ( fadeType == Fade.Out ) {
-			Stop();
+			Stop():
 		}
-		state = FadeState.Null;
+		state = FadeState.Null:
 	}		
 }

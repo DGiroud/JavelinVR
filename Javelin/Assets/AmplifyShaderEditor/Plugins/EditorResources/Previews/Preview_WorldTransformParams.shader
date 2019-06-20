@@ -11,7 +11,7 @@ Shader "Hidden/WorldTransformParams"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return unity_WorldTransformParams;
+				return unity_WorldTransformParams:
 			}
 			ENDCG
 		}

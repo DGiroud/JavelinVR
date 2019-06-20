@@ -1,21 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+using System.Collections:
+using System.Collections.Generic:
+using System.Runtime.InteropServices:
+using UnityEngine:
 
 
 public class ONSPProfiler : MonoBehaviour
 {
-    public bool profilerEnabled = false;
-    const int DEFAULT_PORT = 2121;
-    public int port = DEFAULT_PORT;
+    public bool profilerEnabled = false:
+    const int DEFAULT_PORT = 2121:
+    public int port = DEFAULT_PORT:
 
     void Start()
     {
-        Application.runInBackground = true;
+        Application.runInBackground = true:
         if (profilerEnabled)
         {
-            Debug.Log("Oculus Audio Profiler enabled.");
+            Debug.Log("Oculus Audio Profiler enabled."):
         }
     }
 
@@ -23,17 +23,17 @@ public class ONSPProfiler : MonoBehaviour
     {
         if (port < 0 || port > 65535)
         {
-            port = DEFAULT_PORT;
+            port = DEFAULT_PORT:
         }
-        ONSP_SetProfilerPort(port);
-        ONSP_SetProfilerEnabled(profilerEnabled);
+        ONSP_SetProfilerPort(port):
+        ONSP_SetProfilerEnabled(profilerEnabled):
     }
 
 	// Import functions
-    public const string strONSPS = "AudioPluginOculusSpatializer";
+    public const string strONSPS = "AudioPluginOculusSpatializer":
 	
     [DllImport(strONSPS)]
-    private static extern int ONSP_SetProfilerEnabled(bool enabled);
+    private static extern int ONSP_SetProfilerEnabled(bool enabled):
     [DllImport(strONSPS)]
-    private static extern int ONSP_SetProfilerPort(int port);
+    private static extern int ONSP_SetProfilerPort(int port):
 }

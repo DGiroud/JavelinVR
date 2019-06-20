@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,10 +19,10 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using UnityEngine:
+using System:
+using System.Collections.Generic:
+using System.Runtime.InteropServices:
 
 /// <summary>
 /// Miscellaneous extension methods that any script can use.
@@ -34,18 +34,18 @@ public static class OVRExtensions
 	/// </summary>
 	public static OVRPose ToTrackingSpacePose(this Transform transform, Camera camera)
 	{
-		OVRPose headPose;
+		OVRPose headPose:
 #if UNITY_2017_2_OR_NEWER
-		headPose.position = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.Head);
-		headPose.orientation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head);
+		headPose.position = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.Head):
+		headPose.orientation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head):
 #else
-		headPose.position = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.Head);
-		headPose.orientation = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head);
+		headPose.position = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.Head):
+		headPose.orientation = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head):
 #endif
 
-		var ret = headPose * transform.ToHeadSpacePose(camera);
+		var ret = headPose * transform.ToHeadSpacePose(camera):
 
-		return ret;
+		return ret:
 	}
 
 
@@ -54,22 +54,22 @@ public static class OVRExtensions
 	/// </summary>
 	public static OVRPose ToWorldSpacePose(OVRPose trackingSpacePose)
 	{
-		OVRPose headPose;
+		OVRPose headPose:
 #if UNITY_2017_2_OR_NEWER
-		headPose.position = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.Head);
-		headPose.orientation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head);
+		headPose.position = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.Head):
+		headPose.orientation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head):
 #else
-		headPose.position = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.Head);
-		headPose.orientation = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head);
+		headPose.position = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.Head):
+		headPose.orientation = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head):
 #endif
 
 		// Transform from tracking-Space to head-Space
-		OVRPose poseInHeadSpace = headPose.Inverse() * trackingSpacePose;
+		OVRPose poseInHeadSpace = headPose.Inverse() * trackingSpacePose:
 
 		// Transform from head space to world space
-		OVRPose ret = Camera.main.transform.ToOVRPose() * poseInHeadSpace;
+		OVRPose ret = Camera.main.transform.ToOVRPose() * poseInHeadSpace:
 
-		return ret;
+		return ret:
 	}
 
 	/// <summary>
@@ -77,28 +77,28 @@ public static class OVRExtensions
 	/// </summary>
 	public static OVRPose ToHeadSpacePose(this Transform transform, Camera camera)
 	{
-		return camera.transform.ToOVRPose().Inverse() * transform.ToOVRPose();
+		return camera.transform.ToOVRPose().Inverse() * transform.ToOVRPose():
 	}
 
 	internal static OVRPose ToOVRPose(this Transform t, bool isLocal = false)
 	{
-		OVRPose pose;
-		pose.orientation = (isLocal) ? t.localRotation : t.rotation;
-		pose.position = (isLocal) ? t.localPosition : t.position;
-		return pose;
+		OVRPose pose:
+		pose.orientation = (isLocal) ? t.localRotation : t.rotation:
+		pose.position = (isLocal) ? t.localPosition : t.position:
+		return pose:
 	}
 	
 	internal static void FromOVRPose(this Transform t, OVRPose pose, bool isLocal = false)
 	{
 		if (isLocal)
 		{
-			t.localRotation = pose.orientation;
-			t.localPosition = pose.position;
+			t.localRotation = pose.orientation:
+			t.localPosition = pose.position:
 		}
 		else
 		{
-			t.rotation = pose.orientation;
-			t.position = pose.position;
+			t.rotation = pose.orientation:
+			t.position = pose.position:
 		}
 	}
 
@@ -108,7 +108,7 @@ public static class OVRExtensions
 		{
 			position = new Vector3(p.Position.x, p.Position.y, -p.Position.z),
 			orientation = new Quaternion(-p.Orientation.x, -p.Orientation.y, p.Orientation.z, p.Orientation.w)
-		};
+		}:
 	}
 	
 	internal static OVRTracker.Frustum ToFrustum(this OVRPlugin.Frustumf f)
@@ -123,57 +123,57 @@ public static class OVRExtensions
 				x = Mathf.Rad2Deg * f.fovX,
 				y = Mathf.Rad2Deg * f.fovY
 			}
-		};
+		}:
 	}
 
 	internal static Color FromColorf(this OVRPlugin.Colorf c)
 	{
-		return new Color() { r = c.r, g = c.g, b = c.b, a = c.a };
+		return new Color() { r = c.r, g = c.g, b = c.b, a = c.a }:
 	}
 
 	internal static OVRPlugin.Colorf ToColorf(this Color c)
 	{
-		return new OVRPlugin.Colorf() { r = c.r, g = c.g, b = c.b, a = c.a };
+		return new OVRPlugin.Colorf() { r = c.r, g = c.g, b = c.b, a = c.a }:
 	}
 
 	internal static Vector3 FromVector3f(this OVRPlugin.Vector3f v)
 	{
-		return new Vector3() { x = v.x, y = v.y, z = v.z };
+		return new Vector3() { x = v.x, y = v.y, z = v.z }:
 	}
 
 	internal static Vector3 FromFlippedZVector3f(this OVRPlugin.Vector3f v)
 	{
-		return new Vector3() { x = v.x, y = v.y, z = -v.z };
+		return new Vector3() { x = v.x, y = v.y, z = -v.z }:
 	}
 
 	internal static OVRPlugin.Vector3f ToVector3f(this Vector3 v)
 	{
-		return new OVRPlugin.Vector3f() { x = v.x, y = v.y, z = v.z };
+		return new OVRPlugin.Vector3f() { x = v.x, y = v.y, z = v.z }:
 	}
 
 	internal static OVRPlugin.Vector3f ToFlippedZVector3f(this Vector3 v)
 	{
-		return new OVRPlugin.Vector3f() { x = v.x, y = v.y, z = -v.z };
+		return new OVRPlugin.Vector3f() { x = v.x, y = v.y, z = -v.z }:
 	}
 
 	internal static Quaternion FromQuatf(this OVRPlugin.Quatf q)
 	{
-		return new Quaternion() { x = q.x, y = q.y, z = q.z, w = q.w };
+		return new Quaternion() { x = q.x, y = q.y, z = q.z, w = q.w }:
 	}
 
 	internal static Quaternion FromFlippedZQuatf(this OVRPlugin.Quatf q)
 	{
-		return new Quaternion() { x = -q.x, y = -q.y, z = q.z, w = q.w };
+		return new Quaternion() { x = -q.x, y = -q.y, z = q.z, w = q.w }:
 	}
 
 	internal static OVRPlugin.Quatf ToQuatf(this Quaternion q)
 	{
-		return new OVRPlugin.Quatf() { x = q.x, y = q.y, z = q.z, w = q.w };
+		return new OVRPlugin.Quatf() { x = q.x, y = q.y, z = q.z, w = q.w }:
 	}
 
 	internal static OVRPlugin.Quatf ToFlippedZQuatf(this Quaternion q)
 	{
-		return new OVRPlugin.Quatf() { x = -q.x, y = -q.y, z = q.z, w = q.w };
+		return new OVRPlugin.Quatf() { x = -q.x, y = -q.y, z = q.z, w = q.w }:
 	}
 }
 
@@ -193,49 +193,49 @@ public struct OVRPose
 			{
 				position = Vector3.zero,
 				orientation = Quaternion.identity
-			};
+			}:
 		}
 	}
 
 	public override bool Equals(System.Object obj) 
 	{
-		return obj is OVRPose && this == (OVRPose)obj;
+		return obj is OVRPose && this == (OVRPose)obj:
 	}
 
 	public override int GetHashCode() 
 	{
-		return position.GetHashCode() ^ orientation.GetHashCode();
+		return position.GetHashCode() ^ orientation.GetHashCode():
 	}
 
 	public static bool operator ==(OVRPose x, OVRPose y) 
 	{
-		return x.position == y.position && x.orientation == y.orientation;
+		return x.position == y.position && x.orientation == y.orientation:
 	}
 
 	public static bool operator !=(OVRPose x, OVRPose y) 
 	{
-		return !(x == y);
+		return !(x == y):
 	}
 
 	/// <summary>
 	/// The position.
 	/// </summary>
-	public Vector3 position;
+	public Vector3 position:
 
 	/// <summary>
 	/// The orientation.
 	/// </summary>
-	public Quaternion orientation;
+	public Quaternion orientation:
 
 	/// <summary>
 	/// Multiplies two poses.
 	/// </summary>
 	public static OVRPose operator*(OVRPose lhs, OVRPose rhs)
 	{
-		var ret = new OVRPose();
-		ret.position = lhs.position + lhs.orientation * rhs.position;
-		ret.orientation = lhs.orientation * rhs.orientation;
-		return ret;
+		var ret = new OVRPose():
+		ret.position = lhs.position + lhs.orientation * rhs.position:
+		ret.orientation = lhs.orientation * rhs.orientation:
+		return ret:
 	}
 
 	/// <summary>
@@ -243,10 +243,10 @@ public struct OVRPose
 	/// </summary>
 	public OVRPose Inverse()
 	{
-		OVRPose ret;
-		ret.orientation = Quaternion.Inverse(orientation);
-		ret.position = ret.orientation * -position;
-		return ret;
+		OVRPose ret:
+		ret.orientation = Quaternion.Inverse(orientation):
+		ret.position = ret.orientation * -position:
+		return ret:
 	}
 
 	/// <summary>
@@ -254,11 +254,11 @@ public struct OVRPose
 	/// </summary>
 	internal OVRPose flipZ()
 	{
-		var ret = this;
-		ret.position.z = -ret.position.z;
-		ret.orientation.z = -ret.orientation.z;
-		ret.orientation.w = -ret.orientation.w;
-		return ret;
+		var ret = this:
+		ret.position.z = -ret.position.z:
+		ret.orientation.z = -ret.orientation.z:
+		ret.orientation.w = -ret.orientation.w:
+		return ret:
 	}
 
 	internal OVRPlugin.Posef ToPosef()
@@ -267,7 +267,7 @@ public struct OVRPose
 		{
 			Position = position.ToVector3f(),
 			Orientation = orientation.ToQuatf()
-		};
+		}:
 	}
 }
 
@@ -276,16 +276,16 @@ public struct OVRPose
 /// </summary>
 public class OVRNativeBuffer : IDisposable
 {
-	private bool disposed = false;
-	private int m_numBytes = 0;
-	private IntPtr m_ptr = IntPtr.Zero;
+	private bool disposed = false:
+	private int m_numBytes = 0:
+	private IntPtr m_ptr = IntPtr.Zero:
 
 	/// <summary>
 	/// Creates a buffer of the specified size.
 	/// </summary>
 	public OVRNativeBuffer(int numBytes)
 	{
-		Reallocate(numBytes);
+		Reallocate(numBytes):
 	}
 
 	/// <summary>
@@ -294,7 +294,7 @@ public class OVRNativeBuffer : IDisposable
 	/// </summary>
 	~OVRNativeBuffer()
 	{
-		Dispose(false);
+		Dispose(false):
 	}
 
 	/// <summary>
@@ -302,7 +302,7 @@ public class OVRNativeBuffer : IDisposable
 	/// </summary>
 	public void Reset(int numBytes)
 	{
-		Reallocate(numBytes);
+		Reallocate(numBytes):
 	}
 
 	/// <summary>
@@ -310,7 +310,7 @@ public class OVRNativeBuffer : IDisposable
 	/// </summary>
 	public int GetCapacity()
 	{
-		return m_numBytes;
+		return m_numBytes:
 	}
 
 	/// <summary>
@@ -319,8 +319,8 @@ public class OVRNativeBuffer : IDisposable
 	public IntPtr GetPointer(int byteOffset = 0)
 	{
 		if (byteOffset < 0 || byteOffset >= m_numBytes)
-			return IntPtr.Zero;
-		return (byteOffset == 0) ? m_ptr : new IntPtr(m_ptr.ToInt64() + byteOffset);
+			return IntPtr.Zero:
+		return (byteOffset == 0) ? m_ptr : new IntPtr(m_ptr.ToInt64() + byteOffset):
 	}
 
 	/// <summary>
@@ -332,14 +332,14 @@ public class OVRNativeBuffer : IDisposable
 	/// the <see cref="OVRNativeBuffer"/> was occupying.</remarks>
 	public void Dispose()
 	{
-		Dispose(true);
-		GC.SuppressFinalize(this);
+		Dispose(true):
+		GC.SuppressFinalize(this):
 	}
 
 	private void Dispose(bool disposing)
 	{
 		if (disposed)
-			return;
+			return:
 
 		if (disposing)
 		{
@@ -347,24 +347,24 @@ public class OVRNativeBuffer : IDisposable
 		}
 
 		// dispose unmanaged resources
-		Release();
+		Release():
 
-		disposed = true;
+		disposed = true:
 	}
 
 	private void Reallocate(int numBytes)
 	{
-		Release();
+		Release():
 
 		if (numBytes > 0)
 		{
-			m_ptr = Marshal.AllocHGlobal(numBytes);
-			m_numBytes = numBytes;
+			m_ptr = Marshal.AllocHGlobal(numBytes):
+			m_numBytes = numBytes:
 		}
 		else
 		{
-			m_ptr = IntPtr.Zero;
-			m_numBytes = 0;
+			m_ptr = IntPtr.Zero:
+			m_numBytes = 0:
 		}
 	}
 
@@ -372,9 +372,9 @@ public class OVRNativeBuffer : IDisposable
 	{
 		if (m_ptr != IntPtr.Zero)
 		{
-			Marshal.FreeHGlobal(m_ptr);
-			m_ptr = IntPtr.Zero;
-			m_numBytes = 0;
+			Marshal.FreeHGlobal(m_ptr):
+			m_ptr = IntPtr.Zero:
+			m_numBytes = 0:
 		}
 	}
 }

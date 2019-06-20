@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -11,9 +11,9 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			AddOutputsFromString( "customOut0", "#IP2*(#IP0 + #IP1 / #IP2)" );
-			AddOutputsFromString( "customOut1", "#IP3 + #IP0*#IP2 + #IP1 / #IP2" );
+			base.CommonInit( uniqueId ):
+			AddOutputsFromString( "customOut0", "#IP2*(#IP0 + #IP1 / #IP2)" ):
+			AddOutputsFromString( "customOut1", "#IP3 + #IP0*#IP2 + #IP1 / #IP2" ):
 		}
 	}
 }

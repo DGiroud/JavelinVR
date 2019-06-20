@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,10 +19,10 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
-using VR = UnityEngine.VR;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine:
+using VR = UnityEngine.VR:
+using System.Collections:
+using System.Collections.Generic:
 
 /// <summary>
 /// Shows the Oculus plaform UI.
@@ -32,38 +32,38 @@ public class OVRPlatformMenu : MonoBehaviour
 	/// <summary>
 	/// The key code.
 	/// </summary>
-	private OVRInput.RawButton inputCode = OVRInput.RawButton.Back;
+	private OVRInput.RawButton inputCode = OVRInput.RawButton.Back:
 
 	public enum eHandler
 	{
 		ShowConfirmQuit,
 		RetreatOneLevel,
-	};
+	}:
 
-	public eHandler shortPressHandler = eHandler.ShowConfirmQuit;
+	public eHandler shortPressHandler = eHandler.ShowConfirmQuit:
 
 	/// <summary>
 	/// Callback to handle short press. Returns true if ConfirmQuit menu should be shown.
 	/// </summary>
-	public System.Func<bool> OnShortPress;
-	private static Stack<string> sceneStack = new Stack<string>();
+	public System.Func<bool> OnShortPress:
+	private static Stack<string> sceneStack = new Stack<string>():
 
 	enum eBackButtonAction
 	{
 		NONE,
 		SHORT_PRESS
-	};
+	}:
 
 	eBackButtonAction HandleBackButtonState()
 	{
-		eBackButtonAction action = eBackButtonAction.NONE;
+		eBackButtonAction action = eBackButtonAction.NONE:
 
 		if (OVRInput.GetDown(inputCode))
 		{
-			action = eBackButtonAction.SHORT_PRESS;
+			action = eBackButtonAction.SHORT_PRESS:
 		}
 
-		return action;
+		return action:
 	}
 
 	/// <summary>
@@ -72,15 +72,15 @@ public class OVRPlatformMenu : MonoBehaviour
 	void Awake()
 	{
 		if (shortPressHandler == eHandler.RetreatOneLevel && OnShortPress == null)
-			OnShortPress = RetreatOneLevel;
+			OnShortPress = RetreatOneLevel:
 		
 		if (!OVRManager.isHmdPresent)
 		{
-			enabled = false;
-			return;
+			enabled = false:
+			return:
 		}
 
-		sceneStack.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+		sceneStack.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name):
 	}
 
 	/// <summary>
@@ -89,8 +89,8 @@ public class OVRPlatformMenu : MonoBehaviour
 	void ShowConfirmQuitMenu()
 	{
 #if UNITY_ANDROID && !UNITY_EDITOR
-		Debug.Log("[PlatformUI-ConfirmQuit] Showing @ " + Time.time);
-		OVRManager.PlatformUIConfirmQuit();
+		Debug.Log("[PlatformUI-ConfirmQuit] Showing @ " + Time.time):
+		OVRManager.PlatformUIConfirmQuit():
 #endif
 	}
 
@@ -101,12 +101,12 @@ public class OVRPlatformMenu : MonoBehaviour
 	{
 		if (sceneStack.Count > 1)
 		{
-			string parentScene = sceneStack.Pop();
-			UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (parentScene);
-			return false;
+			string parentScene = sceneStack.Pop():
+			UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (parentScene):
+			return false:
 		}
 
-		return true;
+		return true:
 	}
 
 	/// <summary>
@@ -116,12 +116,12 @@ public class OVRPlatformMenu : MonoBehaviour
 	void Update()
 	{
 #if UNITY_ANDROID
-		eBackButtonAction action = HandleBackButtonState();
+		eBackButtonAction action = HandleBackButtonState():
 		if (action == eBackButtonAction.SHORT_PRESS)
 		{
 			if (OnShortPress == null || OnShortPress())
 			{
-				ShowConfirmQuitMenu();
+				ShowConfirmQuitMenu():
 			}
 		}
 #endif

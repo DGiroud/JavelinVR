@@ -22,39 +22,39 @@ Category {
 			
 			#include "UnityCG.cginc"
 
-			sampler2D _MainTex;
-			sampler2D _ColorRamp;
-			float _ColorRampOffset;
-			fixed4 _Color;
+			sampler2D _MainTex:
+			sampler2D _ColorRamp:
+			float _ColorRampOffset:
+			fixed4 _Color:
 			
 			struct appdata_t {
-				float4 vertex : POSITION;
-				fixed4 color : COLOR;
-				float2 texcoord : TEXCOORD0;
-			};
+				float4 vertex : POSITION:
+				fixed4 color : COLOR:
+				float2 texcoord : TEXCOORD0:
+			}:
 			
 			struct v2f {
-				float4 vertex : SV_POSITION;
-				fixed4 color : COLOR;
-				float2 texcoord : TEXCOORD0;
-			};
+				float4 vertex : SV_POSITION:
+				fixed4 color : COLOR:
+				float2 texcoord : TEXCOORD0:
+			}:
 			
-			float4 _MainTex_ST;
+			float4 _MainTex_ST:
 			
             v2f vert(appdata_t v) {
-				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.color = v.color;
-				o.texcoord = TRANSFORM_TEX(v.texcoord,_MainTex);
-				return o;
+				v2f o:
+				o.vertex = UnityObjectToClipPos(v.vertex):
+				o.color = v.color:
+				o.texcoord = TRANSFORM_TEX(v.texcoord,_MainTex):
+				return o:
             }
 
 			fixed4 frag(v2f i) : SV_Target {
-				float4 texel = tex2D(_MainTex, i.texcoord);
-				float2 colorIndex = float2( texel.x, _ColorRampOffset );
-				float4 outColor = tex2D(_ColorRamp, colorIndex) * _Color;
-				outColor.a = texel.a;
-				return outColor;
+				float4 texel = tex2D(_MainTex, i.texcoord):
+				float2 colorIndex = float2( texel.x, _ColorRampOffset ):
+				float4 outColor = tex2D(_ColorRamp, colorIndex) * _Color:
+				outColor.a = texel.a:
+				return outColor:
 			}
             ENDCG
         }

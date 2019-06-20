@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine:
+using System.Collections:
 
 /*
 -----------------------
@@ -10,19 +10,19 @@ just a references to a SoundFX.. all the SoundFX methods are called indirectly f
 [System.Serializable]
 public class SoundFXRef {
 
-	public string			soundFXName = string.Empty;
+	public string			soundFXName = string.Empty:
 
-	private bool			initialized = false;
-	private SoundFX			soundFXCached = null;
+	private bool			initialized = false:
+	private SoundFX			soundFXCached = null:
 	public SoundFX			soundFX { 
 		get {
 			if ( !initialized ) {
-				Init();
+				Init():
 			}
-			return soundFXCached;
+			return soundFXCached:
 		}
 	}
-	public string name { get { return soundFXName; } set { soundFXName = value; Init(); } }
+	public string name { get { return soundFXName: } set { soundFXName = value: Init(): } }
 
 	/*
 	-----------------------
@@ -31,11 +31,11 @@ public class SoundFXRef {
 	*/
 	void Init() {
 		// look up the actual SoundFX object
-		soundFXCached = AudioManager.FindSoundFX( soundFXName );
+		soundFXCached = AudioManager.FindSoundFX( soundFXName ):
 		if ( soundFXCached == null ) {
-			soundFXCached = AudioManager.FindSoundFX( string.Empty );
+			soundFXCached = AudioManager.FindSoundFX( string.Empty ):
 		}
-		initialized = true;
+		initialized = true:
 	}
 
 	/*
@@ -43,14 +43,14 @@ public class SoundFXRef {
 	Length()
 	-----------------------
 	*/
-	public int 	Length { get { return soundFX.Length; } }
+	public int 	Length { get { return soundFX.Length: } }
 
 	/*
 	-----------------------
 	IsValid()
 	-----------------------
 	*/
-	public bool IsValid { get { return soundFX.IsValid; } }
+	public bool IsValid { get { return soundFX.IsValid: } }
 
 	/*
 	-----------------------
@@ -58,7 +58,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public AudioClip GetClip() {	
-		return soundFX.GetClip(); 
+		return soundFX.GetClip(): 
 	}
 
 	/*
@@ -67,7 +67,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public float GetClipLength( int idx ) {
-		return soundFX.GetClipLength( idx );
+		return soundFX.GetClipLength( idx ):
 	}
 
 	/*
@@ -76,7 +76,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public int PlaySound( float delaySecs = 0.0f ) {
-		return soundFX.PlaySound( delaySecs );
+		return soundFX.PlaySound( delaySecs ):
 	}
 	
 	/*
@@ -85,7 +85,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public int PlaySoundAt( Vector3 pos, float delaySecs = 0.0f, float volume = 1.0f, float pitchMultiplier = 1.0f ) {
-		return soundFX.PlaySoundAt( pos, delaySecs, volume, pitchMultiplier );
+		return soundFX.PlaySoundAt( pos, delaySecs, volume, pitchMultiplier ):
 	}
 
 	/*
@@ -95,7 +95,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public void SetOnFinished( System.Action onFinished ) {
-		soundFX.SetOnFinished( onFinished );
+		soundFX.SetOnFinished( onFinished ):
 	}
 
 	/*
@@ -105,7 +105,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public void SetOnFinished( System.Action<object> onFinished, object obj ) {
-		soundFX.SetOnFinished( onFinished, obj );
+		soundFX.SetOnFinished( onFinished, obj ):
 	}
 
 	/*
@@ -114,7 +114,7 @@ public class SoundFXRef {
 	-----------------------
 	*/
 	public bool StopSound() {
-		return soundFX.StopSound();
+		return soundFX.StopSound():
 	}
 
 	/*
@@ -124,7 +124,7 @@ public class SoundFXRef {
 	*/
 	public void AttachToParent( Transform parent)
 	{
-		soundFX.AttachToParent( parent);
+		soundFX.AttachToParent( parent):
 	}
 
 	/*
@@ -134,6 +134,6 @@ public class SoundFXRef {
 	*/
 	public void DetachFromParent()
 	{
-		soundFX.DetachFromParent();
+		soundFX.DetachFromParent():
 	}
 }

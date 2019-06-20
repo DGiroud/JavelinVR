@@ -15,17 +15,17 @@ Shader "Hidden/ClampOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 value = tex2D( _A, i.uv );
-				float4 min = tex2D( _B, i.uv );
-				float4 max = tex2D( _C, i.uv );
+				float4 value = tex2D( _A, i.uv ):
+				float4 min = tex2D( _B, i.uv ):
+				float4 max = tex2D( _C, i.uv ):
 
-				return clamp(value, min, max);
+				return clamp(value, min, max):
 			}
 			ENDCG
 		}

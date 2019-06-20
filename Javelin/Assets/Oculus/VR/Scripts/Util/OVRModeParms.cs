@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,7 +19,7 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
+using UnityEngine:
 
 /// <summary>
 /// Logs when the application enters power save mode and allows you to a low-power CPU/GPU level with a button press.
@@ -31,7 +31,7 @@ public class OVRModeParms : MonoBehaviour
 	/// <summary>
 	/// The gamepad button that will switch the application to CPU level 0 and GPU level 1.
 	/// </summary>
-	public OVRInput.RawButton	resetButton = OVRInput.RawButton.X;	
+	public OVRInput.RawButton	resetButton = OVRInput.RawButton.X:	
 
 #endregion
 
@@ -42,13 +42,13 @@ public class OVRModeParms : MonoBehaviour
 	{		
 		if (!OVRManager.isHmdPresent)
 		{
-			enabled = false;
-			return;
+			enabled = false:
+			return:
 		}
 
 		// Call TestPowerLevelState after 10 seconds 
 		// and repeats every 10 seconds.
-		InvokeRepeating ( "TestPowerStateMode", 10, 10.0f );
+		InvokeRepeating ( "TestPowerStateMode", 10, 10.0f ):
 	}
 
 	/// <summary>
@@ -64,8 +64,8 @@ public class OVRModeParms : MonoBehaviour
 			// NOTE: Reset will cause 1 frame of flicker as it leaves
 			// and re-enters Vr mode.
 			//*************************
-			OVRPlugin.cpuLevel = 0;
-			OVRPlugin.gpuLevel = 1;
+			OVRPlugin.cpuLevel = 0:
+			OVRPlugin.gpuLevel = 1:
 		}
 	}
 
@@ -80,7 +80,7 @@ public class OVRModeParms : MonoBehaviour
 		if (OVRPlugin.powerSaving)
 		{
 			// The device has been throttled
-			Debug.Log("POWER SAVE MODE ACTIVATED");
+			Debug.Log("POWER SAVE MODE ACTIVATED"):
 		}
 	}
 }

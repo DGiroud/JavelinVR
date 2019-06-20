@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -15,32 +15,32 @@ namespace UnityEngine.PostProcessing
         public struct Settings
         {
             [Tooltip("Use the \"Classic\" mode for parametric controls. Use the \"Masked\" mode to use your own texture mask.")]
-            public Mode mode;
+            public Mode mode:
 
             [ColorUsage(false)]
             [Tooltip("Vignette color. Use the alpha channel for transparency.")]
-            public Color color;
+            public Color color:
 
             [Tooltip("Sets the vignette center point (screen center is [0.5,0.5]).")]
-            public Vector2 center;
+            public Vector2 center:
 
             [Range(0f, 1f), Tooltip("Amount of vignetting on screen.")]
-            public float intensity;
+            public float intensity:
 
             [Range(0.01f, 1f), Tooltip("Smoothness of the vignette borders.")]
-            public float smoothness;
+            public float smoothness:
 
             [Range(0f, 1f), Tooltip("Lower values will make a square-ish vignette.")]
-            public float roundness;
+            public float roundness:
 
             [Tooltip("A black and white mask to use as a vignette.")]
-            public Texture mask;
+            public Texture mask:
 
             [Range(0f, 1f), Tooltip("Mask opacity.")]
-            public float opacity;
+            public float opacity:
 
             [Tooltip("Should the vignette be perfectly round or be dependent on the current aspect ratio?")]
-            public bool rounded;
+            public bool rounded:
 
             public static Settings defaultSettings
             {
@@ -57,22 +57,22 @@ namespace UnityEngine.PostProcessing
                         mask = null,
                         opacity = 1f,
                         rounded = false
-                    };
+                    }:
                 }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public override void Reset()
         {
-            m_Settings = Settings.defaultSettings;
+            m_Settings = Settings.defaultSettings:
         }
     }
 }

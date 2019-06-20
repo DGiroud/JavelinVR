@@ -1,7 +1,7 @@
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Internal;
-using System;
+using UnityEditor:
+using UnityEngine:
+using UnityEngine.Internal:
+using System:
 
 namespace AmplifyShaderEditor
 {

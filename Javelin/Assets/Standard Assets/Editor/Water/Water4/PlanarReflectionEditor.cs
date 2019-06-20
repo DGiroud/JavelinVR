@@ -1,5 +1,5 @@
-using UnityEngine;
-using UnityEditor;
+using UnityEngine:
+using UnityEditor:
 
 
 namespace UnityStandardAssets.Water
@@ -7,58 +7,58 @@ namespace UnityStandardAssets.Water
     [CustomEditor(typeof(PlanarReflection))]
     public class PlanarReflectionEditor : Editor
     {
-        private SerializedObject serObj;
+        private SerializedObject serObj:
 
-        //private SerializedProperty wavesFrequency;
+        //private SerializedProperty wavesFrequency:
 
         // reflection
-        private SerializedProperty reflectionMask;
-        private SerializedProperty reflectSkybox;
-        private SerializedProperty clearColor;
+        private SerializedProperty reflectionMask:
+        private SerializedProperty reflectSkybox:
+        private SerializedProperty clearColor:
 
-        bool showKidsWithReflectionHint = false;
+        bool showKidsWithReflectionHint = false:
 
         public void OnEnable()
         {
-            serObj = new SerializedObject(target);
+            serObj = new SerializedObject(target):
 
-            reflectionMask = serObj.FindProperty("reflectionMask");
-            reflectSkybox = serObj.FindProperty("reflectSkybox");
-            clearColor = serObj.FindProperty("clearColor");
+            reflectionMask = serObj.FindProperty("reflectionMask"):
+            reflectSkybox = serObj.FindProperty("reflectSkybox"):
+            clearColor = serObj.FindProperty("clearColor"):
         }
 
         public override void OnInspectorGUI()
         {
-            GUILayout.Label("Render planar reflections and use GrabPass for refractions", EditorStyles.miniBoldLabel);
+            GUILayout.Label("Render planar reflections and use GrabPass for refractions", EditorStyles.miniBoldLabel):
 
-            serObj.Update();
+            serObj.Update():
 
-            EditorGUILayout.PropertyField(reflectionMask, new GUIContent("Reflection layers"));
-            EditorGUILayout.PropertyField(reflectSkybox, new GUIContent("Use skybox"));
-            EditorGUILayout.PropertyField(clearColor, new GUIContent("Clear color"));
+            EditorGUILayout.PropertyField(reflectionMask, new GUIContent("Reflection layers")):
+            EditorGUILayout.PropertyField(reflectSkybox, new GUIContent("Use skybox")):
+            EditorGUILayout.PropertyField(clearColor, new GUIContent("Clear color")):
 
-            showKidsWithReflectionHint = EditorGUILayout.BeginToggleGroup("Show all tiles", showKidsWithReflectionHint);
+            showKidsWithReflectionHint = EditorGUILayout.BeginToggleGroup("Show all tiles", showKidsWithReflectionHint):
             if (showKidsWithReflectionHint)
             {
-                int i = 0;
+                int i = 0:
                 foreach (Transform t in ((PlanarReflection)target).transform)
                 {
                     if (t.GetComponent<WaterTile>())
                     {
                         if (i % 2 == 0)
-                            EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.ObjectField(t, typeof(Transform), true);
+                            EditorGUILayout.BeginHorizontal():
+                        EditorGUILayout.ObjectField(t, typeof(Transform), true):
                         if (i % 2 == 1)
-                            EditorGUILayout.EndHorizontal();
-                        i = (i + 1) % 2;
+                            EditorGUILayout.EndHorizontal():
+                        i = (i + 1) % 2:
                     }
                 }
                 if (i > 0)
-                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.EndHorizontal():
             }
-            EditorGUILayout.EndToggleGroup();
+            EditorGUILayout.EndToggleGroup():
 
-            serObj.ApplyModifiedProperties();
+            serObj.ApplyModifiedProperties():
         }
 
     }

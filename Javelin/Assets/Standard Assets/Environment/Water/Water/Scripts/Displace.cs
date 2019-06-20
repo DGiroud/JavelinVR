@@ -1,5 +1,5 @@
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace UnityStandardAssets.Water
 {
@@ -11,26 +11,26 @@ namespace UnityStandardAssets.Water
         {
             if (enabled)
             {
-                OnEnable();
+                OnEnable():
             }
             else
             {
-                OnDisable();
+                OnDisable():
             }
         }
 
 
         public void OnEnable()
         {
-            Shader.EnableKeyword("WATER_VERTEX_DISPLACEMENT_ON");
-            Shader.DisableKeyword("WATER_VERTEX_DISPLACEMENT_OFF");
+            Shader.EnableKeyword("WATER_VERTEX_DISPLACEMENT_ON"):
+            Shader.DisableKeyword("WATER_VERTEX_DISPLACEMENT_OFF"):
         }
 
 
         public void OnDisable()
         {
-            Shader.EnableKeyword("WATER_VERTEX_DISPLACEMENT_OFF");
-            Shader.DisableKeyword("WATER_VERTEX_DISPLACEMENT_ON");
+            Shader.EnableKeyword("WATER_VERTEX_DISPLACEMENT_OFF"):
+            Shader.DisableKeyword("WATER_VERTEX_DISPLACEMENT_ON"):
         }
     }
 }

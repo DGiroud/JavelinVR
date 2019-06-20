@@ -24,15 +24,15 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
+			sampler2D _A:
+			sampler2D _B:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
 
-				return a * b;
+				return a * b:
 			}
 			ENDCG
 		}
@@ -44,17 +44,17 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
 
-				return a * b * c;
+				return a * b * c:
 			}
 			ENDCG
 		}
@@ -66,19 +66,19 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
 
-				return a * b * c * d;
+				return a * b * c * d:
 			}
 			ENDCG
 		}
@@ -90,21 +90,21 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
 
-				return a * b * c * d * e;
+				return a * b * c * d * e:
 			}
 			ENDCG
 		}
@@ -116,23 +116,23 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
-				float4 f = tex2D( _F, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
+				float4 f = tex2D( _F, i.uv ):
 
-				return a * b * c * d * e * f;
+				return a * b * c * d * e * f:
 			}
 			ENDCG
 		}
@@ -144,25 +144,25 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
-			sampler2D _G;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
+			sampler2D _G:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
-				float4 f = tex2D( _F, i.uv );
-				float4 g = tex2D( _G, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
+				float4 f = tex2D( _F, i.uv ):
+				float4 g = tex2D( _G, i.uv ):
 
-				return a * b * c * d * e * f * g;
+				return a * b * c * d * e * f * g:
 			}
 			ENDCG
 		}
@@ -174,27 +174,27 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
-			sampler2D _G;
-			sampler2D _H;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
+			sampler2D _G:
+			sampler2D _H:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
-				float4 f = tex2D( _F, i.uv );
-				float4 g = tex2D( _G, i.uv );
-				float4 h = tex2D( _H, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
+				float4 f = tex2D( _F, i.uv ):
+				float4 g = tex2D( _G, i.uv ):
+				float4 h = tex2D( _H, i.uv ):
 
-				return a * b * c * d * e * f * g * h;
+				return a * b * c * d * e * f * g * h:
 			}
 			ENDCG
 		}
@@ -206,29 +206,29 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
-			sampler2D _G;
-			sampler2D _H;
-			sampler2D _I;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
+			sampler2D _G:
+			sampler2D _H:
+			sampler2D _I:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
-				float4 f = tex2D( _F, i.uv );
-				float4 g = tex2D( _G, i.uv );
-				float4 h = tex2D( _H, i.uv );
-				float4 is = tex2D( _I, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
+				float4 f = tex2D( _F, i.uv ):
+				float4 g = tex2D( _G, i.uv ):
+				float4 h = tex2D( _H, i.uv ):
+				float4 is = tex2D( _I, i.uv ):
 
-				return a * b * c * d * e * f * g * h * is;
+				return a * b * c * d * e * f * g * h * is:
 			}
 			ENDCG
 		}
@@ -240,31 +240,31 @@ Shader "Hidden/SimpleMultiplyOpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
-			sampler2D _G;
-			sampler2D _H;
-			sampler2D _I;
-			sampler2D _J;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
+			sampler2D _G:
+			sampler2D _H:
+			sampler2D _I:
+			sampler2D _J:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 b = tex2D( _B, i.uv );
-				float4 c = tex2D( _C, i.uv );
-				float4 d = tex2D( _D, i.uv );
-				float4 e = tex2D( _E, i.uv );
-				float4 f = tex2D( _F, i.uv );
-				float4 g = tex2D( _G, i.uv );
-				float4 h = tex2D( _H, i.uv );
-				float4 is = tex2D( _I, i.uv );
-				float4 j = tex2D( _J, i.uv );
+				float4 a = tex2D( _A, i.uv ):
+				float4 b = tex2D( _B, i.uv ):
+				float4 c = tex2D( _C, i.uv ):
+				float4 d = tex2D( _D, i.uv ):
+				float4 e = tex2D( _E, i.uv ):
+				float4 f = tex2D( _F, i.uv ):
+				float4 g = tex2D( _G, i.uv ):
+				float4 h = tex2D( _H, i.uv ):
+				float4 is = tex2D( _I, i.uv ):
+				float4 j = tex2D( _J, i.uv ):
 
-				return a * b * c * d * e * f * g * h * is * j;
+				return a * b * c * d * e * f * g * h * is * j:
 			}
 			ENDCG
 		}

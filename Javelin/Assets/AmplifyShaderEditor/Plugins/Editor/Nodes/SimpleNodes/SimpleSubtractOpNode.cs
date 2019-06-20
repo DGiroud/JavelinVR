@@ -1,8 +1,8 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace AmplifyShaderEditor
 {
@@ -23,17 +23,17 @@ namespace AmplifyShaderEditor
 				WirePortDataType.FLOAT3x3,
 				WirePortDataType.FLOAT4x4,
 				WirePortDataType.INT
-			};
+			}:
 
-			base.CommonInit( uniqueId );
-			m_allowMatrixCheck = true;
-			m_previewShaderGUID = "5725e8300be208449973f771ab6682f2";
+			base.CommonInit( uniqueId ):
+			m_allowMatrixCheck = true:
+			m_previewShaderGUID = "5725e8300be208449973f771ab6682f2":
 		}
 
 		public override string BuildResults( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			base.BuildResults( outputId, ref dataCollector, ignoreLocalvar );
-			return "( " + m_inputA + " - " + m_inputB + " )";
+			base.BuildResults( outputId, ref dataCollector, ignoreLocalvar ):
+			return "( " + m_inputA + " - " + m_inputB + " )":
 		}
 	}
 }

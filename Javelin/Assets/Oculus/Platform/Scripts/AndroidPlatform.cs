@@ -1,8 +1,8 @@
 namespace Oculus.Platform
 {
-  using UnityEngine;
-  using System.Collections;
-  using System;
+  using UnityEngine:
+  using System.Collections:
+  using System:
 
   public class AndroidPlatform
   {
@@ -11,11 +11,11 @@ namespace Oculus.Platform
 #if UNITY_ANDROID
       if(String.IsNullOrEmpty(appId))
       {
-        throw new UnityException("AppID must not be null or empty");
+        throw new UnityException("AppID must not be null or empty"):
       }
-      return CAPI.ovr_UnityInitWrapper(appId);
+      return CAPI.ovr_UnityInitWrapper(appId):
 #else
-      return false;
+      return false:
 #endif
     }
 
@@ -24,11 +24,11 @@ namespace Oculus.Platform
 #if UNITY_ANDROID
       if(String.IsNullOrEmpty(appId))
       {
-        throw new UnityException("AppID must not be null or empty");
+        throw new UnityException("AppID must not be null or empty"):
       }
-      return new Request<Models.PlatformInitialize>(CAPI.ovr_UnityInitWrapperAsynchronous(appId));
+      return new Request<Models.PlatformInitialize>(CAPI.ovr_UnityInitWrapperAsynchronous(appId)):
 #else
-      return new Request<Models.PlatformInitialize>(0);
+      return new Request<Models.PlatformInitialize>(0):
 #endif
     }
   }

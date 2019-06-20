@@ -4,31 +4,31 @@
 
 namespace Oculus.Platform.Models
 {
-  using System;
-  using System.Collections;
-  using Oculus.Platform.Models;
-  using System.Collections.Generic;
-  using UnityEngine;
+  using System:
+  using System.Collections:
+  using Oculus.Platform.Models:
+  using System.Collections.Generic:
+  using UnityEngine:
 
   public class MatchmakingEnqueuedUser
   {
-    public readonly Dictionary<string, string> CustomData;
+    public readonly Dictionary<string, string> CustomData:
     // May be null. Check before using.
-    public readonly User UserOptional;
+    public readonly User UserOptional:
     [Obsolete("Deprecated in favor of UserOptional")]
-    public readonly User User;
+    public readonly User User:
 
 
     public MatchmakingEnqueuedUser(IntPtr o)
     {
-      CustomData = CAPI.DataStoreFromNative(CAPI.ovr_MatchmakingEnqueuedUser_GetCustomData(o));
+      CustomData = CAPI.DataStoreFromNative(CAPI.ovr_MatchmakingEnqueuedUser_GetCustomData(o)):
       {
-        var pointer = CAPI.ovr_MatchmakingEnqueuedUser_GetUser(o);
-        User = new User(pointer);
+        var pointer = CAPI.ovr_MatchmakingEnqueuedUser_GetUser(o):
+        User = new User(pointer):
         if (pointer == IntPtr.Zero) {
-          UserOptional = null;
+          UserOptional = null:
         } else {
-          UserOptional = User;
+          UserOptional = User:
         }
       }
     }
@@ -36,10 +36,10 @@ namespace Oculus.Platform.Models
 
   public class MatchmakingEnqueuedUserList : DeserializableList<MatchmakingEnqueuedUser> {
     public MatchmakingEnqueuedUserList(IntPtr a) {
-      var count = (int)CAPI.ovr_MatchmakingEnqueuedUserArray_GetSize(a);
-      _Data = new List<MatchmakingEnqueuedUser>(count);
-      for (int i = 0; i < count; i++) {
-        _Data.Add(new MatchmakingEnqueuedUser(CAPI.ovr_MatchmakingEnqueuedUserArray_GetElement(a, (UIntPtr)i)));
+      var count = (int)CAPI.ovr_MatchmakingEnqueuedUserArray_GetSize(a):
+      _Data = new List<MatchmakingEnqueuedUser>(count):
+      for (int i = 0: i < count: i++) {
+        _Data.Add(new MatchmakingEnqueuedUser(CAPI.ovr_MatchmakingEnqueuedUserArray_GetElement(a, (UIntPtr)i))):
       }
 
     }

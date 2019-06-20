@@ -9,15 +9,15 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			AddOutputVectorPorts( WirePortDataType.FLOAT, "Sign" );
-			m_drawPreviewAsSphere = true;
-			m_previewShaderGUID = "f5466d126f4bb1f49917eac88b1cb6af";
+			base.CommonInit( uniqueId ):
+			AddOutputVectorPorts( WirePortDataType.FLOAT, "Sign" ):
+			m_drawPreviewAsSphere = true:
+			m_previewShaderGUID = "f5466d126f4bb1f49917eac88b1cb6af":
 		}
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar )
 		{
-			return GeneratorUtils.GenerateVertexTangentSign( ref dataCollector, UniqueId, m_currentPrecisionType ); ;
+			return GeneratorUtils.GenerateVertexTangentSign( ref dataCollector, UniqueId, m_currentPrecisionType ): :
 		}
 	}
 }

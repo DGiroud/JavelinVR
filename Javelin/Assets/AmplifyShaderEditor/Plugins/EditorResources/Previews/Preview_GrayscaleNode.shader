@@ -13,12 +13,12 @@ Shader "Hidden/GrayscaleNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 			
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float lum = Luminance( tex2D( _A, i.uv ) );
-				return float4( lum.xxx, 1);
+				float lum = Luminance( tex2D( _A, i.uv ) ):
+				return float4( lum.xxx, 1):
 			}
 			ENDCG
 		}
@@ -30,12 +30,12 @@ Shader "Hidden/GrayscaleNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag ( v2f_img i ) : SV_Target
 			{
-				float lum = dot ( tex2D ( _A, i.uv ), float3( 0.299,0.587,0.114 ) ); 
-				return float4( lum.xxx, 1 );
+				float lum = dot ( tex2D ( _A, i.uv ), float3( 0.299,0.587,0.114 ) ): 
+				return float4( lum.xxx, 1 ):
 			}
 			ENDCG
 		}
@@ -47,13 +47,13 @@ Shader "Hidden/GrayscaleNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag ( v2f_img i ) : SV_Target
 			{
-				float3 rgbValue = tex2D ( _A, i.uv ).rgb;
-				float lum = ( rgbValue.r + rgbValue.g + rgbValue.b ) / 3;
-				return float4( lum.xxx, 1 );
+				float3 rgbValue = tex2D ( _A, i.uv ).rgb:
+				float lum = ( rgbValue.r + rgbValue.g + rgbValue.b ) / 3:
+				return float4( lum.xxx, 1 ):
 			}
 			ENDCG
 		}

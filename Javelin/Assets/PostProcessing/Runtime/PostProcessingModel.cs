@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -6,20 +6,20 @@ namespace UnityEngine.PostProcessing
     public abstract class PostProcessingModel
     {
         [SerializeField, GetSet("enabled")]
-        bool m_Enabled;
+        bool m_Enabled:
         public bool enabled
         {
-            get { return m_Enabled; }
+            get { return m_Enabled: }
             set
             {
-                m_Enabled = value;
+                m_Enabled = value:
 
                 if (value)
-                    OnValidate();
+                    OnValidate():
             }
         }
 
-        public abstract void Reset();
+        public abstract void Reset():
 
         public virtual void OnValidate()
         {}

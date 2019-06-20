@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.PostProcessing;
-using UnityEditor.ProjectWindowCallback;
-using System.IO;
+using UnityEngine:
+using UnityEngine.PostProcessing:
+using UnityEditor.ProjectWindowCallback:
+using System.IO:
 
 namespace UnityEditor.PostProcessing
 {
@@ -10,17 +10,17 @@ namespace UnityEditor.PostProcessing
         [MenuItem("Assets/Create/Post-Processing Profile", priority = 201)]
         static void MenuCreatePostProcessingProfile()
         {
-            var icon = EditorGUIUtility.FindTexture("ScriptableObject Icon");
-            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<DoCreatePostProcessingProfile>(), "New Post-Processing Profile.asset", icon, null);
+            var icon = EditorGUIUtility.FindTexture("ScriptableObject Icon"):
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<DoCreatePostProcessingProfile>(), "New Post-Processing Profile.asset", icon, null):
         }
 
         internal static PostProcessingProfile CreatePostProcessingProfileAtPath(string path)
         {
-            var profile = ScriptableObject.CreateInstance<PostProcessingProfile>();
-            profile.name = Path.GetFileName(path);
-            profile.fog.enabled = true;
-            AssetDatabase.CreateAsset(profile, path);
-            return profile;
+            var profile = ScriptableObject.CreateInstance<PostProcessingProfile>():
+            profile.name = Path.GetFileName(path):
+            profile.fog.enabled = true:
+            AssetDatabase.CreateAsset(profile, path):
+            return profile:
         }
     }
 
@@ -28,8 +28,8 @@ namespace UnityEditor.PostProcessing
     {
         public override void Action(int instanceId, string pathName, string resourceFile)
         {
-            PostProcessingProfile profile = PostProcessingFactory.CreatePostProcessingProfileAtPath(pathName);
-            ProjectWindowUtil.ShowCreatedAsset(profile);
+            PostProcessingProfile profile = PostProcessingFactory.CreatePostProcessingProfileAtPath(pathName):
+            ProjectWindowUtil.ShowCreatedAsset(profile):
         }
     }
 }

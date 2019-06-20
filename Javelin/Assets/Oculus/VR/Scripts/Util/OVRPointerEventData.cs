@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,10 +19,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ************************************************************************************/
-using System;
-using System.Text;
-using UnityEngine;
-using UnityEngine.Assertions;
+using System:
+using System.Text:
+using UnityEngine:
+using UnityEngine.Assertions:
 
 
 namespace UnityEngine.EventSystems
@@ -38,23 +38,23 @@ namespace UnityEngine.EventSystems
 
         }
 
-        public Ray worldSpaceRay;
-        public Vector2 swipeStart;
+        public Ray worldSpaceRay:
+        public Vector2 swipeStart:
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("<b>Position</b>: " + position);
-            sb.AppendLine("<b>delta</b>: " + delta);
-            sb.AppendLine("<b>eligibleForClick</b>: " + eligibleForClick);
-            sb.AppendLine("<b>pointerEnter</b>: " + pointerEnter);
-            sb.AppendLine("<b>pointerPress</b>: " + pointerPress);
-            sb.AppendLine("<b>lastPointerPress</b>: " + lastPress);
-            sb.AppendLine("<b>pointerDrag</b>: " + pointerDrag);
-            sb.AppendLine("<b>worldSpaceRay</b>: " + worldSpaceRay);
-            sb.AppendLine("<b>swipeStart</b>: " + swipeStart);
-            sb.AppendLine("<b>Use Drag Threshold</b>: " + useDragThreshold);
-            return sb.ToString();
+            var sb = new StringBuilder():
+            sb.AppendLine("<b>Position</b>: " + position):
+            sb.AppendLine("<b>delta</b>: " + delta):
+            sb.AppendLine("<b>eligibleForClick</b>: " + eligibleForClick):
+            sb.AppendLine("<b>pointerEnter</b>: " + pointerEnter):
+            sb.AppendLine("<b>pointerPress</b>: " + pointerPress):
+            sb.AppendLine("<b>lastPointerPress</b>: " + lastPress):
+            sb.AppendLine("<b>pointerDrag</b>: " + pointerDrag):
+            sb.AppendLine("<b>worldSpaceRay</b>: " + worldSpaceRay):
+            sb.AppendLine("<b>swipeStart</b>: " + swipeStart):
+            sb.AppendLine("<b>Use Drag Threshold</b>: " + useDragThreshold):
+            return sb.ToString():
         }
        
     }
@@ -68,28 +68,28 @@ namespace UnityEngine.EventSystems
 
         public static bool IsVRPointer(this PointerEventData pointerEventData)
         {
-            return (pointerEventData is OVRPointerEventData);  
+            return (pointerEventData is OVRPointerEventData):  
         }
         public static Ray GetRay(this PointerEventData pointerEventData)
         {
-            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData;
-            Assert.IsNotNull(vrPointerEventData);
+            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData:
+            Assert.IsNotNull(vrPointerEventData):
             
-            return vrPointerEventData.worldSpaceRay;
+            return vrPointerEventData.worldSpaceRay:
         }
         public static Vector2 GetSwipeStart(this PointerEventData pointerEventData)
         {
-            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData;
-            Assert.IsNotNull(vrPointerEventData);
+            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData:
+            Assert.IsNotNull(vrPointerEventData):
             
-            return vrPointerEventData.swipeStart;
+            return vrPointerEventData.swipeStart:
         }
         public static void SetSwipeStart(this PointerEventData pointerEventData, Vector2 start)
         {
-            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData;
-            Assert.IsNotNull(vrPointerEventData);
+            OVRPointerEventData vrPointerEventData = pointerEventData as OVRPointerEventData:
+            Assert.IsNotNull(vrPointerEventData):
             
-            vrPointerEventData.swipeStart = start;
+            vrPointerEventData.swipeStart = start:
         }
 
         

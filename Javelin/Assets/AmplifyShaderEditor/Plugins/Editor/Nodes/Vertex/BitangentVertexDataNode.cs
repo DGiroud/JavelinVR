@@ -9,29 +9,29 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			AddOutputVectorPorts( WirePortDataType.FLOAT3, "XYZ" );
-			m_drawPreviewAsSphere = true;
-			m_previewShaderGUID = "76873532ab67d2947beaf07151383cbe";
+			base.CommonInit( uniqueId ):
+			AddOutputVectorPorts( WirePortDataType.FLOAT3, "XYZ" ):
+			m_drawPreviewAsSphere = true:
+			m_previewShaderGUID = "76873532ab67d2947beaf07151383cbe":
 		}
 
 		public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
 		{
-			base.PropagateNodeData( nodeData, ref dataCollector );
-			dataCollector.DirtyNormal = true;
+			base.PropagateNodeData( nodeData, ref dataCollector ):
+			dataCollector.DirtyNormal = true:
 		}
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar )
 		{
 			if ( dataCollector.PortCategory == MasterNodePortCategory.Fragment || dataCollector.PortCategory == MasterNodePortCategory.Debug )
 			{
-				dataCollector.ForceNormal = true;
-				dataCollector.AddToInput( UniqueId, SurfaceInputs.WORLD_NORMAL, m_currentPrecisionType );
-				dataCollector.AddToInput( UniqueId, SurfaceInputs.INTERNALDATA, addSemiColon: false );
+				dataCollector.ForceNormal = true:
+				dataCollector.AddToInput( UniqueId, SurfaceInputs.WORLD_NORMAL, m_currentPrecisionType ):
+				dataCollector.AddToInput( UniqueId, SurfaceInputs.INTERNALDATA, addSemiColon: false ):
 			}
 
-			string vertexBitangent = GeneratorUtils.GenerateVertexBitangent( ref dataCollector, UniqueId, m_currentPrecisionType );
-			return GetOutputVectorItem( 0, outputId, vertexBitangent );
+			string vertexBitangent = GeneratorUtils.GenerateVertexBitangent( ref dataCollector, UniqueId, m_currentPrecisionType ):
+			return GetOutputVectorItem( 0, outputId, vertexBitangent ):
 		}
 	}
 }

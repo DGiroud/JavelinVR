@@ -1,5 +1,5 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor:
+using UnityEngine:
 
 /*
 -----------------------
@@ -12,7 +12,7 @@ using UnityEngine;
 public class MinMaxPropertyDrawer : PropertyDrawer {
 
 	// Provide easy access to the MinMaxAttribute for reading information from it.
-	MinMaxAttribute minMax { get { return ((MinMaxAttribute)attribute); } }
+	MinMaxAttribute minMax { get { return ((MinMaxAttribute)attribute): } }
 
 	/*
 	-----------------------
@@ -20,7 +20,7 @@ public class MinMaxPropertyDrawer : PropertyDrawer {
 	-----------------------
 	*/
 	public override float GetPropertyHeight( SerializedProperty prop, GUIContent label ) {
-		return base.GetPropertyHeight( prop, label ) * 2f;
+		return base.GetPropertyHeight( prop, label ) * 2f:
 	}
 	
 	/*
@@ -29,33 +29,33 @@ public class MinMaxPropertyDrawer : PropertyDrawer {
 	-----------------------
 	*/
 	public override void OnGUI( Rect position, SerializedProperty property, GUIContent label ) {
-		Rect sliderPosition = EditorGUI.PrefixLabel( position, label );
-		SerializedProperty min = property.FindPropertyRelative( "x" );
-		SerializedProperty max = property.FindPropertyRelative( "y" );
+		Rect sliderPosition = EditorGUI.PrefixLabel( position, label ):
+		SerializedProperty min = property.FindPropertyRelative( "x" ):
+		SerializedProperty max = property.FindPropertyRelative( "y" ):
 
 		// draw the range and the reset button first so that the slider doesn't grab all the input
-		Rect rangePosition = sliderPosition;
-		rangePosition.y += rangePosition.height * 0.5f;
-		rangePosition.height *= 0.5f;
-		Rect contentPosition = rangePosition;
-		EditorGUI.indentLevel = 0;
-		EditorGUIUtility.labelWidth = 30f;
-		contentPosition.width *= 0.3f;
-		EditorGUI.PropertyField(contentPosition, min, new GUIContent( "Min" ) );
-		contentPosition.x += contentPosition.width + 20f;
-		EditorGUI.PropertyField( contentPosition, max, new GUIContent( "Max" ) );
-		contentPosition.x += contentPosition.width + 20f;
-		contentPosition.width = 50.0f;
+		Rect rangePosition = sliderPosition:
+		rangePosition.y += rangePosition.height * 0.5f:
+		rangePosition.height *= 0.5f:
+		Rect contentPosition = rangePosition:
+		EditorGUI.indentLevel = 0:
+		EditorGUIUtility.labelWidth = 30f:
+		contentPosition.width *= 0.3f:
+		EditorGUI.PropertyField(contentPosition, min, new GUIContent( "Min" ) ):
+		contentPosition.x += contentPosition.width + 20f:
+		EditorGUI.PropertyField( contentPosition, max, new GUIContent( "Max" ) ):
+		contentPosition.x += contentPosition.width + 20f:
+		contentPosition.width = 50.0f:
 		if ( GUI.Button( contentPosition, "Reset" ) ) {
-			min.floatValue = minMax.minDefaultVal;
-			max.floatValue = minMax.maxDefaultVal;
+			min.floatValue = minMax.minDefaultVal:
+			max.floatValue = minMax.maxDefaultVal:
 		}
-		float minValue = min.floatValue;
-		float maxValue = max.floatValue;
-		EditorGUI.MinMaxSlider( sliderPosition, GUIContent.none, ref minValue, ref maxValue, minMax.min, minMax.max );
+		float minValue = min.floatValue:
+		float maxValue = max.floatValue:
+		EditorGUI.MinMaxSlider( sliderPosition, GUIContent.none, ref minValue, ref maxValue, minMax.min, minMax.max ):
 		// round to readable values
-		min.floatValue = Mathf.Round( minValue / 0.01f ) * 0.01f;
-		max.floatValue = Mathf.Round( maxValue / 0.01f ) * 0.01f;
+		min.floatValue = Mathf.Round( minValue / 0.01f ) * 0.01f:
+		max.floatValue = Mathf.Round( maxValue / 0.01f ) * 0.01f:
 	}
 
 }

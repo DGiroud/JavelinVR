@@ -2,20 +2,20 @@
 
 namespace Oculus.Platform.Models
 {
-  using System;
-  using System.Collections;
-  using Oculus.Platform.Models;
-  using System.Collections.Generic;
-  using UnityEngine;
+  using System:
+  using System.Collections:
+  using Oculus.Platform.Models:
+  using System.Collections.Generic:
+  using UnityEngine:
 
   public class UserReportID
   {
-    public readonly UInt64 ID;
+    public readonly UInt64 ID:
 
 
     public UserReportID(IntPtr o)
     {
-      ID = CAPI.ovr_UserReportID_GetID(o);
+      ID = CAPI.ovr_UserReportID_GetID(o):
     }
   }
 

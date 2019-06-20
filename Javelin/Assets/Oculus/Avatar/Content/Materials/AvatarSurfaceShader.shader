@@ -129,7 +129,7 @@
 
 			float4 frag(VertexOutput IN) : COLOR
 			{
-				return ComputeSurface(IN);
+				return ComputeSurface(IN):
 			}
 
 			ENDCG

@@ -1,6 +1,6 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
-using UnityEngine;
+using UnityEngine:
 
 namespace AmplifyShaderEditor
 {
@@ -10,9 +10,9 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_currentInput = SurfaceInputs.WORLD_REFL;
-			InitialSetup();
+			base.CommonInit( uniqueId ):
+			m_currentInput = SurfaceInputs.WORLD_REFL:
+			InitialSetup():
 		}
 	}
 }

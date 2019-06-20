@@ -13,12 +13,12 @@ Shader "Hidden/LinearDepthNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float depthValue = tex2D( _A, i.uv ).r;
-				return LinearEyeDepth( depthValue );
+				float depthValue = tex2D( _A, i.uv ).r:
+				return LinearEyeDepth( depthValue ):
 			}
 			ENDCG
 		}
@@ -30,12 +30,12 @@ Shader "Hidden/LinearDepthNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float depthValue = tex2D( _A, i.uv ).r;
-				return Linear01Depth( depthValue );
+				float depthValue = tex2D( _A, i.uv ).r:
+				return Linear01Depth( depthValue ):
 			}
 			ENDCG
 		}

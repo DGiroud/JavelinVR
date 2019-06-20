@@ -1,19 +1,19 @@
 // This file was @generated with LibOVRPlatform/codegen/main. Do not modify it!
 
-using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices:
 [assembly: InternalsVisibleTo("Assembly-CSharp-Editor")]
 
 namespace Oculus.Platform
 {
-  using UnityEngine;
-  using System;
-  using System.Collections;
-  using System.Collections.Generic;
+  using UnityEngine:
+  using System:
+  using System.Collections:
+  using System.Collections.Generic:
 
   public static class PlatformInternal
   {
     // Keep this enum in sync with ovrMessageTypeInternal in OVR_Platform_Internal.h
-    public enum MessageTypeInternal : uint { //TODO - rename this to type; it's already in Message class
+    public enum MessageTypeInternal : uint { //TODO - rename this to type: it's already in Message class
       Application_ExecuteCoordinatedLaunch          = 0x267DB4F4,
       Application_GetInstalledApplications          = 0x520F744C,
       Avatar_UpdateMetaData                         = 0x7BCFD98E,
@@ -47,15 +47,15 @@ namespace Oculus.Platform
       User_NewEntitledTestUser                      = 0x11741F03,
       User_NewTestUser                              = 0x36E84F8C,
       User_NewTestUserFriends                       = 0x1ED726C7
-    };
+    }:
 
     public static void CrashApplication() {
-      CAPI.ovr_CrashApplication();
+      CAPI.ovr_CrashApplication():
     }
 
     internal static Message ParseMessageHandle(IntPtr messageHandle, Message.MessageType messageType)
     {
-      Message message = null;
+      Message message = null:
       switch ((PlatformInternal.MessageTypeInternal)messageType)
       {
         case MessageTypeInternal.Application_ExecuteCoordinatedLaunch:
@@ -63,53 +63,53 @@ namespace Oculus.Platform
         case MessageTypeInternal.Livestreaming_UpdateMicStatus:
         case MessageTypeInternal.Party_Leave:
         case MessageTypeInternal.User_LaunchBlockFlow:
-          message = new Message(messageHandle);
-          break;
+          message = new Message(messageHandle):
+          break:
 
         case MessageTypeInternal.Application_GetInstalledApplications:
-          message = new MessageWithInstalledApplicationList(messageHandle);
-          break;
+          message = new MessageWithInstalledApplicationList(messageHandle):
+          break:
 
         case MessageTypeInternal.Livestreaming_IsAllowedForApplication:
-          message = new MessageWithLivestreamingApplicationStatus(messageHandle);
-          break;
+          message = new MessageWithLivestreamingApplicationStatus(messageHandle):
+          break:
 
         case MessageTypeInternal.Livestreaming_StartPartyStream:
         case MessageTypeInternal.Livestreaming_StartStream:
-          message = new MessageWithLivestreamingStartResult(messageHandle);
-          break;
+          message = new MessageWithLivestreamingStartResult(messageHandle):
+          break:
 
         case MessageTypeInternal.Livestreaming_UpdateCommentsOverlayVisibility:
-          message = new MessageWithLivestreamingStatus(messageHandle);
-          break;
+          message = new MessageWithLivestreamingStatus(messageHandle):
+          break:
 
         case MessageTypeInternal.Livestreaming_StopStream:
-          message = new MessageWithLivestreamingVideoStats(messageHandle);
-          break;
+          message = new MessageWithLivestreamingVideoStats(messageHandle):
+          break:
 
         case MessageTypeInternal.Party_Get:
-          message = new MessageWithParty(messageHandle);
-          break;
+          message = new MessageWithParty(messageHandle):
+          break:
 
         case MessageTypeInternal.Party_GetCurrentForUser:
-          message = new MessageWithPartyUnderCurrentParty(messageHandle);
-          break;
+          message = new MessageWithPartyUnderCurrentParty(messageHandle):
+          break:
 
         case MessageTypeInternal.Party_Create:
         case MessageTypeInternal.Party_GatherInApplication:
         case MessageTypeInternal.Party_Invite:
         case MessageTypeInternal.Party_Join:
-          message = new MessageWithPartyID(messageHandle);
-          break;
+          message = new MessageWithPartyID(messageHandle):
+          break:
 
         case MessageTypeInternal.Room_CreateOrUpdateAndJoinNamed:
-          message = new MessageWithRoomUnderViewerRoom(messageHandle);
-          break;
+          message = new MessageWithRoomUnderViewerRoom(messageHandle):
+          break:
 
         case MessageTypeInternal.Room_GetNamedRooms:
         case MessageTypeInternal.Room_GetSocialRooms:
-          message = new MessageWithRoomList(messageHandle);
-          break;
+          message = new MessageWithRoomList(messageHandle):
+          break:
 
         case MessageTypeInternal.Avatar_UpdateMetaData:
         case MessageTypeInternal.GraphAPI_Get:
@@ -121,20 +121,20 @@ namespace Oculus.Platform
         case MessageTypeInternal.User_NewEntitledTestUser:
         case MessageTypeInternal.User_NewTestUser:
         case MessageTypeInternal.User_NewTestUserFriends:
-          message = new MessageWithString(messageHandle);
-          break;
+          message = new MessageWithString(messageHandle):
+          break:
 
         case MessageTypeInternal.SystemPermissions_GetStatus:
         case MessageTypeInternal.SystemPermissions_LaunchDeeplink:
-          message = new MessageWithSystemPermission(messageHandle);
-          break;
+          message = new MessageWithSystemPermission(messageHandle):
+          break:
 
         case MessageTypeInternal.User_LaunchReportFlow:
-          message = new MessageWithUserReportID(messageHandle);
-          break;
+          message = new MessageWithUserReportID(messageHandle):
+          break:
 
       }
-      return message;
+      return message:
     }
 
     public static class HTTP
@@ -144,7 +144,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_HTTP_Transfer,
           callback
-        );
+        ):
       }
     }
 

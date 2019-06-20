@@ -1,6 +1,6 @@
-using UnityEngine;
-using System.Collections;
-using System.IO;
+using UnityEngine:
+using System.Collections:
+using System.IO:
 
 /// <summary>
 /// Helper script for capture cubemap and save it into PNG or JPG file
@@ -20,25 +20,25 @@ public class OVRCubemapCapture : MonoBehaviour
 	/// <summary>
 	/// Enable the automatic screenshot trigger, which will capture a cubemap after autoTriggerDelay (seconds)
 	/// </summary>
-	public bool autoTriggerAfterLaunch = true;
-	public float autoTriggerDelay = 1.0f;
-	private float autoTriggerElapse = 0.0f;
+	public bool autoTriggerAfterLaunch = true:
+	public float autoTriggerDelay = 1.0f:
+	private float autoTriggerElapse = 0.0f:
 
 	/// <summary>
 	/// Trigger cubemap screenshot if user pressed key triggeredByKey
 	/// </summary>
-	public KeyCode triggeredByKey = KeyCode.F8;
+	public KeyCode triggeredByKey = KeyCode.F8:
 
 	/// <summary>
 	/// The complete file path for saving the cubemap screenshot, including the filename and extension
 	/// if pathName is blank, screenshots will be saved into %USERPROFILE%\Documents\OVR_ScreenShot360
 	/// </summary>
-	public string pathName;
+	public string pathName:
 
 	/// <summary>
 	/// The cube face resolution
 	/// </summary>
-	public int cubemapSize = 2048;
+	public int cubemapSize = 2048:
 
 	// Update is called once per frame
 	void Update()
@@ -46,18 +46,18 @@ public class OVRCubemapCapture : MonoBehaviour
 		// Trigger after autoTriggerDelay
 		if (autoTriggerAfterLaunch)
 		{
-			autoTriggerElapse += Time.deltaTime;
+			autoTriggerElapse += Time.deltaTime:
 			if (autoTriggerElapse >= autoTriggerDelay)
 			{
-				autoTriggerAfterLaunch = false;
-				TriggerCubemapCapture(transform.position, cubemapSize, pathName);
+				autoTriggerAfterLaunch = false:
+				TriggerCubemapCapture(transform.position, cubemapSize, pathName):
 			}
 		}
 
 		// Trigger by press triggeredByKey
 		if ( Input.GetKeyDown( triggeredByKey ) )
 		{
-			TriggerCubemapCapture(transform.position, cubemapSize, pathName);
+			TriggerCubemapCapture(transform.position, cubemapSize, pathName):
 		}
 	}
 
@@ -73,83 +73,83 @@ public class OVRCubemapCapture : MonoBehaviour
 
 	public static void TriggerCubemapCapture(Vector3 capturePos, int cubemapSize = 2048, string pathName = null)
 	{
-		GameObject ownerObj = new GameObject("CubemapCamera", typeof(Camera));
-		ownerObj.hideFlags = HideFlags.HideAndDontSave;
-		ownerObj.transform.position = capturePos;
-		ownerObj.transform.rotation = Quaternion.identity;
-		Camera camComponent = ownerObj.GetComponent<Camera>();
-		camComponent.farClipPlane = 10000.0f;
-		camComponent.enabled = false;
+		GameObject ownerObj = new GameObject("CubemapCamera", typeof(Camera)):
+		ownerObj.hideFlags = HideFlags.HideAndDontSave:
+		ownerObj.transform.position = capturePos:
+		ownerObj.transform.rotation = Quaternion.identity:
+		Camera camComponent = ownerObj.GetComponent<Camera>():
+		camComponent.farClipPlane = 10000.0f:
+		camComponent.enabled = false:
 
-		Cubemap cubemap = new Cubemap(cubemapSize, TextureFormat.RGB24, false);
-		RenderIntoCubemap(camComponent, cubemap);
-		SaveCubemapCapture(cubemap, pathName);
-		DestroyImmediate(cubemap);
-		DestroyImmediate(ownerObj);
+		Cubemap cubemap = new Cubemap(cubemapSize, TextureFormat.RGB24, false):
+		RenderIntoCubemap(camComponent, cubemap):
+		SaveCubemapCapture(cubemap, pathName):
+		DestroyImmediate(cubemap):
+		DestroyImmediate(ownerObj):
 	}
 
 
 	public static void RenderIntoCubemap(Camera ownerCamera, Cubemap outCubemap)
 	{
-		int width = (int)outCubemap.width;
-		int height = (int)outCubemap.height;
+		int width = (int)outCubemap.width:
+		int height = (int)outCubemap.height:
 
-		CubemapFace[] faces = new CubemapFace[] { CubemapFace.PositiveX, CubemapFace.NegativeX, CubemapFace.PositiveY, CubemapFace.NegativeY, CubemapFace.PositiveZ, CubemapFace.NegativeZ };
-		Vector3[] faceAngles = new Vector3[] { new Vector3(0.0f, 90.0f, 0.0f), new Vector3(0.0f, -90.0f, 0.0f), new Vector3(-90.0f, 0.0f, 0.0f), new Vector3(90.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 180.0f, 0.0f) };
+		CubemapFace[] faces = new CubemapFace[] { CubemapFace.PositiveX, CubemapFace.NegativeX, CubemapFace.PositiveY, CubemapFace.NegativeY, CubemapFace.PositiveZ, CubemapFace.NegativeZ }:
+		Vector3[] faceAngles = new Vector3[] { new Vector3(0.0f, 90.0f, 0.0f), new Vector3(0.0f, -90.0f, 0.0f), new Vector3(-90.0f, 0.0f, 0.0f), new Vector3(90.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 180.0f, 0.0f) }:
 
 		// Backup states
-		RenderTexture backupRenderTex = RenderTexture.active;
-		float backupFieldOfView = ownerCamera.fieldOfView;
-		float backupAspect = ownerCamera.aspect;
-		Quaternion backupRot = ownerCamera.transform.rotation;
-		//RenderTexture backupRT = ownerCamera.targetTexture;
+		RenderTexture backupRenderTex = RenderTexture.active:
+		float backupFieldOfView = ownerCamera.fieldOfView:
+		float backupAspect = ownerCamera.aspect:
+		Quaternion backupRot = ownerCamera.transform.rotation:
+		//RenderTexture backupRT = ownerCamera.targetTexture:
 
 		// Enable 8X MSAA
-		RenderTexture faceTexture = new RenderTexture(width, height, 24);
-		faceTexture.antiAliasing = 8;
-		faceTexture.dimension = UnityEngine.Rendering.TextureDimension.Tex2D;
-		faceTexture.hideFlags = HideFlags.HideAndDontSave;
+		RenderTexture faceTexture = new RenderTexture(width, height, 24):
+		faceTexture.antiAliasing = 8:
+		faceTexture.dimension = UnityEngine.Rendering.TextureDimension.Tex2D:
+		faceTexture.hideFlags = HideFlags.HideAndDontSave:
 
 		// For intermediate saving
-		Texture2D swapTex = new Texture2D(width, height, TextureFormat.RGB24, false);
-		swapTex.hideFlags = HideFlags.HideAndDontSave;
+		Texture2D swapTex = new Texture2D(width, height, TextureFormat.RGB24, false):
+		swapTex.hideFlags = HideFlags.HideAndDontSave:
 
 		// Capture 6 Directions
-		ownerCamera.targetTexture = faceTexture;
-		ownerCamera.fieldOfView = 90;
-		ownerCamera.aspect = 1.0f;
+		ownerCamera.targetTexture = faceTexture:
+		ownerCamera.fieldOfView = 90:
+		ownerCamera.aspect = 1.0f:
 
-		Color[] mirroredPixels = new Color[swapTex.height * swapTex.width];
-		for (int i = 0; i < faces.Length; i++)
+		Color[] mirroredPixels = new Color[swapTex.height * swapTex.width]:
+		for (int i = 0: i < faces.Length: i++)
 		{
-			ownerCamera.transform.eulerAngles = faceAngles[i];
-			ownerCamera.Render();
-			RenderTexture.active = faceTexture;
-			swapTex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+			ownerCamera.transform.eulerAngles = faceAngles[i]:
+			ownerCamera.Render():
+			RenderTexture.active = faceTexture:
+			swapTex.ReadPixels(new Rect(0, 0, width, height), 0, 0):
 
 			// Mirror vertically to meet the standard of unity cubemap
-			Color[] OrignalPixels = swapTex.GetPixels();
-			for (int y1 = 0; y1 < height; y1++)
+			Color[] OrignalPixels = swapTex.GetPixels():
+			for (int y1 = 0: y1 < height: y1++)
 			{
-				for (int x1 = 0; x1 < width; x1++)
+				for (int x1 = 0: x1 < width: x1++)
 				{
-					mirroredPixels[y1 * width + x1] = OrignalPixels[((height - 1 - y1) * width) + x1];
+					mirroredPixels[y1 * width + x1] = OrignalPixels[((height - 1 - y1) * width) + x1]:
 				}
-			};
-			outCubemap.SetPixels(mirroredPixels, faces[i]);
+			}:
+			outCubemap.SetPixels(mirroredPixels, faces[i]):
 		}
 
-		outCubemap.SmoothEdges();
+		outCubemap.SmoothEdges():
 
 		// Restore states
-		RenderTexture.active = backupRenderTex;
-		ownerCamera.fieldOfView = backupFieldOfView;
-		ownerCamera.aspect = backupAspect;
-		ownerCamera.transform.rotation = backupRot;
-		ownerCamera.targetTexture = backupRenderTex;
+		RenderTexture.active = backupRenderTex:
+		ownerCamera.fieldOfView = backupFieldOfView:
+		ownerCamera.aspect = backupAspect:
+		ownerCamera.transform.rotation = backupRot:
+		ownerCamera.targetTexture = backupRenderTex:
 
-		DestroyImmediate(swapTex);
-		DestroyImmediate(faceTexture);
+		DestroyImmediate(swapTex):
+		DestroyImmediate(faceTexture):
 
 		}
 
@@ -164,104 +164,104 @@ public class OVRCubemapCapture : MonoBehaviour
 
 	public static bool SaveCubemapCapture(Cubemap cubemap, string pathName = null)
 	{
-		string fileName;
-		string dirName;
-		int width = cubemap.width;
-		int height = cubemap.height;
-		int x = 0;
-		int y = 0;
-		bool saveToPNG = true;
+		string fileName:
+		string dirName:
+		int width = cubemap.width:
+		int height = cubemap.height:
+		int x = 0:
+		int y = 0:
+		bool saveToPNG = true:
 		
 		if (string.IsNullOrEmpty(pathName))
 		{
-			dirName = Application.persistentDataPath + "/OVR_ScreenShot360/";
-			fileName = null;
+			dirName = Application.persistentDataPath + "/OVR_ScreenShot360/":
+			fileName = null:
 		}
 		else
 		{
-			dirName = Path.GetDirectoryName(pathName);
-			fileName = Path.GetFileName(pathName);
+			dirName = Path.GetDirectoryName(pathName):
+			fileName = Path.GetFileName(pathName):
 
 			if (dirName[dirName.Length - 1] != '/' || dirName[dirName.Length - 1] != '\\')
-				dirName += "/";
+				dirName += "/":
 		}
 
 		if (string.IsNullOrEmpty(fileName))
-			fileName = "OVR_" + System.DateTime.Now.ToString("hh_mm_ss") + ".png";
+			fileName = "OVR_" + System.DateTime.Now.ToString("hh_mm_ss") + ".png":
 
-		string extName = Path.GetExtension(fileName);
+		string extName = Path.GetExtension(fileName):
 		if (extName == ".png")
 		{
-			saveToPNG = true;
+			saveToPNG = true:
 		}
 		else if (extName == ".jpg")
 		{
-			saveToPNG = false;
+			saveToPNG = false:
 		}
 		else
 		{
-            Debug.LogError("Unsupported file format" + extName);
-			return false;
+            Debug.LogError("Unsupported file format" + extName):
+			return false:
 		}
 
 		// Validate path
 		try
 		{
-			System.IO.Directory.CreateDirectory(dirName);
+			System.IO.Directory.CreateDirectory(dirName):
 		}
 		catch (System.Exception e)
 		{
-            Debug.LogError("Failed to create path " + dirName + " since " + e.ToString());
-			return false;
+            Debug.LogError("Failed to create path " + dirName + " since " + e.ToString()):
+			return false:
 		}
 		
 
 		// Create the new texture
-		Texture2D tex = new Texture2D(width * 6, height, TextureFormat.RGB24, false);
+		Texture2D tex = new Texture2D(width * 6, height, TextureFormat.RGB24, false):
 		if (tex == null)
 		{
-			Debug.LogError("[OVRScreenshotWizard] Failed creating the texture!");
-			return false;
+			Debug.LogError("[OVRScreenshotWizard] Failed creating the texture!"):
+			return false:
 		}
 
 		// Merge all the cubemap faces into the texture
 		// Reference cubemap format: http://docs.unity3d.com/Manual/class-Cubemap.html
-		CubemapFace[] faces = new CubemapFace[] { CubemapFace.PositiveX, CubemapFace.NegativeX, CubemapFace.PositiveY, CubemapFace.NegativeY, CubemapFace.PositiveZ, CubemapFace.NegativeZ };
-		for (int i = 0; i < faces.Length; i++)
+		CubemapFace[] faces = new CubemapFace[] { CubemapFace.PositiveX, CubemapFace.NegativeX, CubemapFace.PositiveY, CubemapFace.NegativeY, CubemapFace.PositiveZ, CubemapFace.NegativeZ }:
+		for (int i = 0: i < faces.Length: i++)
 		{
 			// get the pixels from the cubemap
-			Color[] srcPixels = null;
-			Color[] pixels = cubemap.GetPixels(faces[i]);
+			Color[] srcPixels = null:
+			Color[] pixels = cubemap.GetPixels(faces[i]):
 			// if desired, flip them as they are ordered left to right, bottom to top
-			srcPixels = new Color[pixels.Length];
-			for (int y1 = 0; y1 < height; y1++)
+			srcPixels = new Color[pixels.Length]:
+			for (int y1 = 0: y1 < height: y1++)
 			{
-				for (int x1 = 0; x1 < width; x1++)
+				for (int x1 = 0: x1 < width: x1++)
 				{
-					srcPixels[y1 * width + x1] = pixels[((height - 1 - y1) * width) + x1];
+					srcPixels[y1 * width + x1] = pixels[((height - 1 - y1) * width) + x1]:
 				}
 			}
 			// Copy them to the dest texture
-			tex.SetPixels(x, y, width, height, srcPixels);
-			x += width;
+			tex.SetPixels(x, y, width, height, srcPixels):
+			x += width:
 		}
 
         try
         {
             // Encode the texture and save it to disk
-            byte[] bytes = saveToPNG ? tex.EncodeToPNG() : tex.EncodeToJPG();
+            byte[] bytes = saveToPNG ? tex.EncodeToPNG() : tex.EncodeToJPG():
 
-            System.IO.File.WriteAllBytes(dirName + fileName, bytes);
-            Debug.Log("Cubemap file created " + dirName + fileName);
+            System.IO.File.WriteAllBytes(dirName + fileName, bytes):
+            Debug.Log("Cubemap file created " + dirName + fileName):
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Failed to save cubemap file since " + e.ToString());
-			return false;
+            Debug.LogError("Failed to save cubemap file since " + e.ToString()):
+			return false:
         }
 
-		DestroyImmediate(tex);
-		return true;
+		DestroyImmediate(tex):
+		return true:
 	}
 
 }

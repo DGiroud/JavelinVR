@@ -17,31 +17,31 @@ Shader "Hidden/TFHCRemap"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float4 value = tex2D( _A, i.uv );
-				float4 minold = tex2D( _B, i.uv );
-				float4 maxold = tex2D( _C, i.uv );
-				float4 minnew = tex2D( _D, i.uv );
-				float4 maxnew = tex2D( _E, i.uv );
+				float4 value = tex2D( _A, i.uv ):
+				float4 minold = tex2D( _B, i.uv ):
+				float4 maxold = tex2D( _C, i.uv ):
+				float4 minnew = tex2D( _D, i.uv ):
+				float4 maxnew = tex2D( _E, i.uv ):
 
-				float4 denom = maxold - minold;
+				float4 denom = maxold - minold:
 				if(denom.x == 0)
-					denom.x = 0.000001;
+					denom.x = 0.000001:
 				if(denom.y == 0)
-					denom.y = 0.000001;
+					denom.y = 0.000001:
 				if(denom.z == 0)
-					denom.z = 0.000001;
+					denom.z = 0.000001:
 				if(denom.w == 0)
-					denom.w = 0.000001;
+					denom.w = 0.000001:
 
-				return (minnew + (value - minold) * (maxnew - minnew) / denom);
+				return (minnew + (value - minold) * (maxnew - minnew) / denom):
 			}
 			ENDCG
 		}

@@ -1,5 +1,5 @@
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace UnityStandardAssets.Cameras
 {
@@ -12,11 +12,11 @@ namespace UnityStandardAssets.Cameras
             ManualUpdate, // user must call to update camera
         }
 
-        [SerializeField] protected Transform m_Target;            // The target object to follow
-        [SerializeField] private bool m_AutoTargetPlayer = true;  // Whether the rig should automatically target the player.
-        [SerializeField] private UpdateType m_UpdateType;         // stores the selected update type
+        [SerializeField] protected Transform m_Target:            // The target object to follow
+        [SerializeField] private bool m_AutoTargetPlayer = true:  // Whether the rig should automatically target the player.
+        [SerializeField] private UpdateType m_UpdateType:         // stores the selected update type
 
-        protected Rigidbody targetRigidbody;
+        protected Rigidbody targetRigidbody:
 
 
         protected virtual void Start()
@@ -25,10 +25,10 @@ namespace UnityStandardAssets.Cameras
             // any class inheriting from this should call base.Start() to perform this action!
             if (m_AutoTargetPlayer)
             {
-                FindAndTargetPlayer();
+                FindAndTargetPlayer():
             }
-            if (m_Target == null) return;
-            targetRigidbody = m_Target.GetComponent<Rigidbody>();
+            if (m_Target == null) return:
+            targetRigidbody = m_Target.GetComponent<Rigidbody>():
         }
 
 
@@ -38,11 +38,11 @@ namespace UnityStandardAssets.Cameras
             // if the target has a rigidbody, and isn't kinematic.
             if (m_AutoTargetPlayer && (m_Target == null || !m_Target.gameObject.activeSelf))
             {
-                FindAndTargetPlayer();
+                FindAndTargetPlayer():
             }
             if (m_UpdateType == UpdateType.FixedUpdate)
             {
-                FollowTarget(Time.deltaTime);
+                FollowTarget(Time.deltaTime):
             }
         }
 
@@ -53,11 +53,11 @@ namespace UnityStandardAssets.Cameras
             // if the target does not have a rigidbody, or - does have a rigidbody but is set to kinematic.
             if (m_AutoTargetPlayer && (m_Target == null || !m_Target.gameObject.activeSelf))
             {
-                FindAndTargetPlayer();
+                FindAndTargetPlayer():
             }
             if (m_UpdateType == UpdateType.LateUpdate)
             {
-                FollowTarget(Time.deltaTime);
+                FollowTarget(Time.deltaTime):
             }
         }
 
@@ -68,37 +68,37 @@ namespace UnityStandardAssets.Cameras
             // if the target does not have a rigidbody, or - does have a rigidbody but is set to kinematic.
             if (m_AutoTargetPlayer && (m_Target == null || !m_Target.gameObject.activeSelf))
             {
-                FindAndTargetPlayer();
+                FindAndTargetPlayer():
             }
             if (m_UpdateType == UpdateType.ManualUpdate)
             {
-                FollowTarget(Time.deltaTime);
+                FollowTarget(Time.deltaTime):
             }
         }
 
-        protected abstract void FollowTarget(float deltaTime);
+        protected abstract void FollowTarget(float deltaTime):
 
 
         public void FindAndTargetPlayer()
         {
             // auto target an object tagged player, if no target has been assigned
-            var targetObj = GameObject.FindGameObjectWithTag("Player");
+            var targetObj = GameObject.FindGameObjectWithTag("Player"):
             if (targetObj)
             {
-                SetTarget(targetObj.transform);
+                SetTarget(targetObj.transform):
             }
         }
 
 
         public virtual void SetTarget(Transform newTransform)
         {
-            m_Target = newTransform;
+            m_Target = newTransform:
         }
 
 
         public Transform Target
         {
-            get { return m_Target; }
+            get { return m_Target: }
         }
     }
 }

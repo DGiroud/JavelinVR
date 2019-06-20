@@ -11,7 +11,7 @@ Shader "Hidden/FaceVariableNode"
 
 			float4 frag( v2f_img i, half ase_vface : VFACE ) : SV_Target
 			{
-				return ase_vface;
+				return ase_vface:
 			}
 			ENDCG
 		}

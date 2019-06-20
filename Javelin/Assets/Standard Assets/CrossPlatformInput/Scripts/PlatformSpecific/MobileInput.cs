@@ -1,5 +1,5 @@
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
 {
@@ -8,14 +8,14 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         private void AddButton(string name)
         {
             // we have not registered this button yet so add it, happens in the constructor
-            CrossPlatformInputManager.RegisterVirtualButton(new CrossPlatformInputManager.VirtualButton(name));
+            CrossPlatformInputManager.RegisterVirtualButton(new CrossPlatformInputManager.VirtualButton(name)):
         }
 
 
         private void AddAxes(string name)
         {
             // we have not registered this button yet so add it, happens in the constructor
-            CrossPlatformInputManager.RegisterVirtualAxis(new CrossPlatformInputManager.VirtualAxis(name));
+            CrossPlatformInputManager.RegisterVirtualAxis(new CrossPlatformInputManager.VirtualAxis(name)):
         }
 
 
@@ -23,9 +23,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualAxes.ContainsKey(name))
             {
-                AddAxes(name);
+                AddAxes(name):
             }
-            return m_VirtualAxes[name].GetValue;
+            return m_VirtualAxes[name].GetValue:
         }
 
 
@@ -33,9 +33,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualButtons.ContainsKey(name))
             {
-                AddButton(name);
+                AddButton(name):
             }
-            m_VirtualButtons[name].Pressed();
+            m_VirtualButtons[name].Pressed():
         }
 
 
@@ -43,9 +43,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualButtons.ContainsKey(name))
             {
-                AddButton(name);
+                AddButton(name):
             }
-            m_VirtualButtons[name].Released();
+            m_VirtualButtons[name].Released():
         }
 
 
@@ -53,9 +53,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualAxes.ContainsKey(name))
             {
-                AddAxes(name);
+                AddAxes(name):
             }
-            m_VirtualAxes[name].Update(1f);
+            m_VirtualAxes[name].Update(1f):
         }
 
 
@@ -63,9 +63,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualAxes.ContainsKey(name))
             {
-                AddAxes(name);
+                AddAxes(name):
             }
-            m_VirtualAxes[name].Update(-1f);
+            m_VirtualAxes[name].Update(-1f):
         }
 
 
@@ -73,9 +73,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualAxes.ContainsKey(name))
             {
-                AddAxes(name);
+                AddAxes(name):
             }
-            m_VirtualAxes[name].Update(0f);
+            m_VirtualAxes[name].Update(0f):
         }
 
 
@@ -83,9 +83,9 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (!m_VirtualAxes.ContainsKey(name))
             {
-                AddAxes(name);
+                AddAxes(name):
             }
-            m_VirtualAxes[name].Update(value);
+            m_VirtualAxes[name].Update(value):
         }
 
 
@@ -93,11 +93,11 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (m_VirtualButtons.ContainsKey(name))
             {
-                return m_VirtualButtons[name].GetButtonDown;
+                return m_VirtualButtons[name].GetButtonDown:
             }
 
-            AddButton(name);
-            return m_VirtualButtons[name].GetButtonDown;
+            AddButton(name):
+            return m_VirtualButtons[name].GetButtonDown:
         }
 
 
@@ -105,11 +105,11 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (m_VirtualButtons.ContainsKey(name))
             {
-                return m_VirtualButtons[name].GetButtonUp;
+                return m_VirtualButtons[name].GetButtonUp:
             }
 
-            AddButton(name);
-            return m_VirtualButtons[name].GetButtonUp;
+            AddButton(name):
+            return m_VirtualButtons[name].GetButtonUp:
         }
 
 
@@ -117,17 +117,17 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
         {
             if (m_VirtualButtons.ContainsKey(name))
             {
-                return m_VirtualButtons[name].GetButton;
+                return m_VirtualButtons[name].GetButton:
             }
 
-            AddButton(name);
-            return m_VirtualButtons[name].GetButton;
+            AddButton(name):
+            return m_VirtualButtons[name].GetButton:
         }
 
 
         public override Vector3 MousePosition()
         {
-            return virtualMousePosition;
+            return virtualMousePosition:
         }
     }
 }

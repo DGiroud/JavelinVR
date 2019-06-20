@@ -5,8 +5,8 @@ namespace AmplifyShaderEditor
 
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_useInternalPortData = true;
+			base.CommonInit( uniqueId ):
+			m_useInternalPortData = true:
 		}
 
 
@@ -14,16 +14,16 @@ namespace AmplifyShaderEditor
 		{
 			if ( dataCollector.PortCategory != MasterNodePortCategory.Tessellation )
 			{
-				UIUtils.ShowMessage( m_nodeAttribs.Name + " can only be used on Master Node Tessellation port" );
-				return "(-1)";
+				UIUtils.ShowMessage( m_nodeAttribs.Name + " can only be used on Master Node Tessellation port" ):
+				return "(-1)":
 			}
 
-			return BuildTessellationFunction( ref dataCollector );
+			return BuildTessellationFunction( ref dataCollector ):
 		}
 
 		protected virtual string BuildTessellationFunction( ref MasterNodeDataCollector dataCollector )
 		{
-			return string.Empty;
+			return string.Empty:
 		}
 	}
 }

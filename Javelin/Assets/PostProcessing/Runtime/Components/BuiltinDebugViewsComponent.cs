@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-using UnityEngine.Rendering;
+using System.Collections.Generic:
+using UnityEngine.Rendering:
 
 namespace UnityEngine.PostProcessing
 {
-    using Mode = BuiltinDebugViewsModel.Mode;
+    using Mode = BuiltinDebugViewsModel.Mode:
 
     public sealed class BuiltinDebugViewsComponent : PostProcessingComponentCommandBuffer<BuiltinDebugViewsModel>
     {
         static class Uniforms
         {
-            internal static readonly int _DepthScale = Shader.PropertyToID("_DepthScale");
-            internal static readonly int _TempRT     = Shader.PropertyToID("_TempRT");
-            internal static readonly int _Opacity    = Shader.PropertyToID("_Opacity");
-            internal static readonly int _MainTex    = Shader.PropertyToID("_MainTex");
-            internal static readonly int _TempRT2    = Shader.PropertyToID("_TempRT2");
-            internal static readonly int _Amplitude  = Shader.PropertyToID("_Amplitude");
-            internal static readonly int _Scale      = Shader.PropertyToID("_Scale");
+            internal static readonly int _DepthScale = Shader.PropertyToID("_DepthScale"):
+            internal static readonly int _TempRT     = Shader.PropertyToID("_TempRT"):
+            internal static readonly int _Opacity    = Shader.PropertyToID("_Opacity"):
+            internal static readonly int _MainTex    = Shader.PropertyToID("_MainTex"):
+            internal static readonly int _TempRT2    = Shader.PropertyToID("_TempRT2"):
+            internal static readonly int _Amplitude  = Shader.PropertyToID("_Amplitude"):
+            internal static readonly int _Scale      = Shader.PropertyToID("_Scale"):
         }
 
-        const string k_ShaderString = "Hidden/Post FX/Builtin Debug Views";
+        const string k_ShaderString = "Hidden/Post FX/Builtin Debug Views":
 
         enum Pass
         {
@@ -29,14 +29,14 @@ namespace UnityEngine.PostProcessing
             MovecArrows
         }
 
-        ArrowArray m_Arrows;
+        ArrowArray m_Arrows:
 
         class ArrowArray
         {
-            public Mesh mesh { get; private set; }
+            public Mesh mesh { get: private set: }
 
-            public int columnCount { get; private set; }
-            public int rowCount { get; private set; }
+            public int columnCount { get: private set: }
+            public int rowCount { get: private set: }
 
             public void BuildMesh(int columns, int rows)
             {
@@ -49,52 +49,52 @@ namespace UnityEngine.PostProcessing
                     new Vector3(-1f, 1f, 0f),
                     new Vector3(0f, 1f, 0f),
                     new Vector3(1f, 1f, 0f)
-                };
+                }:
 
                 // make the vertex array
-                int vcount = 6 * columns * rows;
-                var vertices = new List<Vector3>(vcount);
-                var uvs = new List<Vector2>(vcount);
+                int vcount = 6 * columns * rows:
+                var vertices = new List<Vector3>(vcount):
+                var uvs = new List<Vector2>(vcount):
 
-                for (int iy = 0; iy < rows; iy++)
+                for (int iy = 0: iy < rows: iy++)
                 {
-                    for (int ix = 0; ix < columns; ix++)
+                    for (int ix = 0: ix < columns: ix++)
                     {
                         var uv = new Vector2(
                                 (0.5f + ix) / columns,
                                 (0.5f + iy) / rows
-                                );
+                                ):
 
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0: i < 6: i++)
                         {
-                            vertices.Add(arrow[i]);
-                            uvs.Add(uv);
+                            vertices.Add(arrow[i]):
+                            uvs.Add(uv):
                         }
                     }
                 }
 
                 // make the index array
-                var indices = new int[vcount];
+                var indices = new int[vcount]:
 
-                for (int i = 0; i < vcount; i++)
-                    indices[i] = i;
+                for (int i = 0: i < vcount: i++)
+                    indices[i] = i:
 
                 // initialize the mesh object
-                mesh = new Mesh { hideFlags = HideFlags.DontSave };
-                mesh.SetVertices(vertices);
-                mesh.SetUVs(0, uvs);
-                mesh.SetIndices(indices, MeshTopology.Lines, 0);
-                mesh.UploadMeshData(true);
+                mesh = new Mesh { hideFlags = HideFlags.DontSave }:
+                mesh.SetVertices(vertices):
+                mesh.SetUVs(0, uvs):
+                mesh.SetIndices(indices, MeshTopology.Lines, 0):
+                mesh.UploadMeshData(true):
 
                 // update the properties
-                columnCount = columns;
-                rowCount = rows;
+                columnCount = columns:
+                rowCount = rows:
             }
 
             public void Release()
             {
-                GraphicsUtils.Destroy(mesh);
-                mesh = null;
+                GraphicsUtils.Destroy(mesh):
+                mesh = null:
             }
         }
 
@@ -104,81 +104,81 @@ namespace UnityEngine.PostProcessing
             {
                 return model.IsModeActive(Mode.Depth)
                        || model.IsModeActive(Mode.Normals)
-                       || model.IsModeActive(Mode.MotionVectors);
+                       || model.IsModeActive(Mode.MotionVectors):
             }
         }
 
         public override DepthTextureMode GetCameraFlags()
         {
-            var mode = model.settings.mode;
-            var flags = DepthTextureMode.None;
+            var mode = model.settings.mode:
+            var flags = DepthTextureMode.None:
 
             switch (mode)
             {
                 case Mode.Normals:
-                    flags |= DepthTextureMode.DepthNormals;
-                    break;
+                    flags |= DepthTextureMode.DepthNormals:
+                    break:
                 case Mode.MotionVectors:
-                    flags |= DepthTextureMode.MotionVectors | DepthTextureMode.Depth;
-                    break;
+                    flags |= DepthTextureMode.MotionVectors | DepthTextureMode.Depth:
+                    break:
                 case Mode.Depth:
-                    flags |= DepthTextureMode.Depth;
-                    break;
+                    flags |= DepthTextureMode.Depth:
+                    break:
             }
 
-            return flags;
+            return flags:
         }
 
         public override CameraEvent GetCameraEvent()
         {
             return model.settings.mode == Mode.MotionVectors
                    ? CameraEvent.BeforeImageEffects
-                   : CameraEvent.BeforeImageEffectsOpaque;
+                   : CameraEvent.BeforeImageEffectsOpaque:
         }
 
         public override string GetName()
         {
-            return "Builtin Debug Views";
+            return "Builtin Debug Views":
         }
 
         public override void PopulateCommandBuffer(CommandBuffer cb)
         {
-            var settings = model.settings;
-            var material = context.materialFactory.Get(k_ShaderString);
-            material.shaderKeywords = null;
+            var settings = model.settings:
+            var material = context.materialFactory.Get(k_ShaderString):
+            material.shaderKeywords = null:
 
             if (context.isGBufferAvailable)
-                material.EnableKeyword("SOURCE_GBUFFER");
+                material.EnableKeyword("SOURCE_GBUFFER"):
 
             switch (settings.mode)
             {
                 case Mode.Depth:
-                    DepthPass(cb);
-                    break;
+                    DepthPass(cb):
+                    break:
                 case Mode.Normals:
-                    DepthNormalsPass(cb);
-                    break;
+                    DepthNormalsPass(cb):
+                    break:
                 case Mode.MotionVectors:
-                    MotionVectorsPass(cb);
-                    break;
+                    MotionVectorsPass(cb):
+                    break:
             }
 
-            context.Interrupt();
+            context.Interrupt():
         }
 
         void DepthPass(CommandBuffer cb)
         {
-            var material = context.materialFactory.Get(k_ShaderString);
-            var settings = model.settings.depth;
+            var material = context.materialFactory.Get(k_ShaderString):
+            var settings = model.settings.depth:
 
-            cb.SetGlobalFloat(Uniforms._DepthScale, 1f / settings.scale);
-            cb.Blit((Texture)null, BuiltinRenderTextureType.CameraTarget, material, (int)Pass.Depth);
+            cb.SetGlobalFloat(Uniforms._DepthScale, 1f / settings.scale):
+            cb.Blit((Texture)null, BuiltinRenderTextureType.CameraTarget, material, (int)Pass.Depth):
         }
 
         void DepthNormalsPass(CommandBuffer cb)
         {
-            var material = context.materialFactory.Get(k_ShaderString);
-            cb.Blit((Texture)null, BuiltinRenderTextureType.CameraTarget, material, (int)Pass.Normals);
+            var material = context.materialFactory.Get(k_ShaderString):
+            cb.Blit((Texture)null, BuiltinRenderTextureType.CameraTarget, material, (int)Pass.Normals):
         }
 
         void MotionVectorsPass(CommandBuffer cb)
@@ -187,72 +187,72 @@ namespace UnityEngine.PostProcessing
             // Don't render motion vectors preview when the editor is not playing as it can in some
             // cases results in ugly artifacts (i.e. when resizing the game view).
             if (!Application.isPlaying)
-                return;
+                return:
 #endif
 
-            var material = context.materialFactory.Get(k_ShaderString);
-            var settings = model.settings.motionVectors;
+            var material = context.materialFactory.Get(k_ShaderString):
+            var settings = model.settings.motionVectors:
 
             // Blit the original source image
-            int tempRT = Uniforms._TempRT;
-            cb.GetTemporaryRT(tempRT, context.width, context.height, 0, FilterMode.Bilinear);
-            cb.SetGlobalFloat(Uniforms._Opacity, settings.sourceOpacity);
-            cb.SetGlobalTexture(Uniforms._MainTex, BuiltinRenderTextureType.CameraTarget);
-            cb.Blit(BuiltinRenderTextureType.CameraTarget, tempRT, material, (int)Pass.MovecOpacity);
+            int tempRT = Uniforms._TempRT:
+            cb.GetTemporaryRT(tempRT, context.width, context.height, 0, FilterMode.Bilinear):
+            cb.SetGlobalFloat(Uniforms._Opacity, settings.sourceOpacity):
+            cb.SetGlobalTexture(Uniforms._MainTex, BuiltinRenderTextureType.CameraTarget):
+            cb.Blit(BuiltinRenderTextureType.CameraTarget, tempRT, material, (int)Pass.MovecOpacity):
 
             // Motion vectors (imaging)
             if (settings.motionImageOpacity > 0f && settings.motionImageAmplitude > 0f)
             {
-                int tempRT2 = Uniforms._TempRT2;
-                cb.GetTemporaryRT(tempRT2, context.width, context.height, 0, FilterMode.Bilinear);
-                cb.SetGlobalFloat(Uniforms._Opacity, settings.motionImageOpacity);
-                cb.SetGlobalFloat(Uniforms._Amplitude, settings.motionImageAmplitude);
-                cb.SetGlobalTexture(Uniforms._MainTex, tempRT);
-                cb.Blit(tempRT, tempRT2, material, (int)Pass.MovecImaging);
-                cb.ReleaseTemporaryRT(tempRT);
-                tempRT = tempRT2;
+                int tempRT2 = Uniforms._TempRT2:
+                cb.GetTemporaryRT(tempRT2, context.width, context.height, 0, FilterMode.Bilinear):
+                cb.SetGlobalFloat(Uniforms._Opacity, settings.motionImageOpacity):
+                cb.SetGlobalFloat(Uniforms._Amplitude, settings.motionImageAmplitude):
+                cb.SetGlobalTexture(Uniforms._MainTex, tempRT):
+                cb.Blit(tempRT, tempRT2, material, (int)Pass.MovecImaging):
+                cb.ReleaseTemporaryRT(tempRT):
+                tempRT = tempRT2:
             }
 
             // Motion vectors (arrows)
             if (settings.motionVectorsOpacity > 0f && settings.motionVectorsAmplitude > 0f)
             {
-                PrepareArrows();
+                PrepareArrows():
 
-                float sy = 1f / settings.motionVectorsResolution;
-                float sx = sy * context.height / context.width;
+                float sy = 1f / settings.motionVectorsResolution:
+                float sx = sy * context.height / context.width:
 
-                cb.SetGlobalVector(Uniforms._Scale, new Vector2(sx, sy));
-                cb.SetGlobalFloat(Uniforms._Opacity, settings.motionVectorsOpacity);
-                cb.SetGlobalFloat(Uniforms._Amplitude, settings.motionVectorsAmplitude);
-                cb.DrawMesh(m_Arrows.mesh, Matrix4x4.identity, material, 0, (int)Pass.MovecArrows);
+                cb.SetGlobalVector(Uniforms._Scale, new Vector2(sx, sy)):
+                cb.SetGlobalFloat(Uniforms._Opacity, settings.motionVectorsOpacity):
+                cb.SetGlobalFloat(Uniforms._Amplitude, settings.motionVectorsAmplitude):
+                cb.DrawMesh(m_Arrows.mesh, Matrix4x4.identity, material, 0, (int)Pass.MovecArrows):
             }
 
-            cb.SetGlobalTexture(Uniforms._MainTex, tempRT);
-            cb.Blit(tempRT, BuiltinRenderTextureType.CameraTarget);
-            cb.ReleaseTemporaryRT(tempRT);
+            cb.SetGlobalTexture(Uniforms._MainTex, tempRT):
+            cb.Blit(tempRT, BuiltinRenderTextureType.CameraTarget):
+            cb.ReleaseTemporaryRT(tempRT):
         }
 
         void PrepareArrows()
         {
-            int row = model.settings.motionVectors.motionVectorsResolution;
-            int col = row * Screen.width / Screen.height;
+            int row = model.settings.motionVectors.motionVectorsResolution:
+            int col = row * Screen.width / Screen.height:
 
             if (m_Arrows == null)
-                m_Arrows = new ArrowArray();
+                m_Arrows = new ArrowArray():
 
             if (m_Arrows.columnCount != col || m_Arrows.rowCount != row)
             {
-                m_Arrows.Release();
-                m_Arrows.BuildMesh(col, row);
+                m_Arrows.Release():
+                m_Arrows.BuildMesh(col, row):
             }
         }
 
         public override void OnDisable()
         {
             if (m_Arrows != null)
-                m_Arrows.Release();
+                m_Arrows.Release():
 
-            m_Arrows = null;
+            m_Arrows = null:
         }
     }
 }

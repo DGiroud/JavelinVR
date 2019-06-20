@@ -51,11 +51,11 @@ public class Sound_Manager : MonoBehaviour
 
     public void PlaySound(int effect)
     {
-        SFXSource.clip = soundEffects[effect].sound;
+        //SFXSource.clip = soundEffects[effect].sound;
         SFXSource.volume = soundEffects[effect].volume;
         SFXSource.pitch = soundEffects[effect].pitch;
 
-        SFXSource.Play();
+        SFXSource.PlayOneShot(soundEffects[effect].sound);
     }
 
 

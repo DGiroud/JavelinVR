@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -11,14 +11,14 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_previewShaderGUID = "d6033298044f0f14aa9932ca46e58ce6";
+			base.CommonInit( uniqueId ):
+			m_previewShaderGUID = "d6033298044f0f14aa9932ca46e58ce6":
 		}
 
 		public override string BuildResults( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			base.BuildResults( outputId, ref dataCollector, ignoreLocalvar );
-			return "min( " + m_inputA + " , " + m_inputB + " )";
+			base.BuildResults( outputId, ref dataCollector, ignoreLocalvar ):
+			return "min( " + m_inputA + " , " + m_inputB + " )":
 		}
 	}
 }

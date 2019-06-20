@@ -35,77 +35,77 @@ Shader /*ase_name*/ "Hidden/Templates/Legacy/Particles Alpha Blended" /*end*/
 
 				struct appdata_t 
 				{
-					float4 vertex : POSITION;
-					fixed4 color : COLOR;
-					float4 texcoord : TEXCOORD0;
+					float4 vertex : POSITION:
+					fixed4 color : COLOR:
+					float4 texcoord : TEXCOORD0:
 					UNITY_VERTEX_INPUT_INSTANCE_ID
-					/*ase_vdata:p=p;uv0=tc0;c=c*/
-				};
+					/*ase_vdata:p=p:uv0=tc0:c=c*/
+				}:
 
 				struct v2f 
 				{
-					float4 vertex : SV_POSITION;
-					fixed4 color : COLOR;
-					float4 texcoord : TEXCOORD0;
+					float4 vertex : SV_POSITION:
+					fixed4 color : COLOR:
+					float4 texcoord : TEXCOORD0:
 					UNITY_FOG_COORDS(1)
 					#ifdef SOFTPARTICLES_ON
-					float4 projPos : TEXCOORD2;
+					float4 projPos : TEXCOORD2:
 					#endif
 					UNITY_VERTEX_INPUT_INSTANCE_ID
 					UNITY_VERTEX_OUTPUT_STEREO
-					/*ase_interp(3,):sp=sp.xyzw;uv0=tc0;c=c*/
-				};
+					/*ase_interp(3,):sp=sp.xyzw:uv0=tc0:c=c*/
+				}:
 				
 				
 				#if UNITY_VERSION >= 560
-				UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture );
+				UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture ):
 				#else
-				uniform sampler2D_float _CameraDepthTexture;
+				uniform sampler2D_float _CameraDepthTexture:
 				#endif
 
 				//Don't delete this comment
-				// uniform sampler2D_float _CameraDepthTexture;
+				// uniform sampler2D_float _CameraDepthTexture:
 
-				uniform sampler2D _MainTex;
-				uniform fixed4 _TintColor;
-				uniform float4 _MainTex_ST;
-				uniform float _InvFade;
+				uniform sampler2D _MainTex:
+				uniform fixed4 _TintColor:
+				uniform float4 _MainTex_ST:
+				uniform float _InvFade:
 				/*ase_globals*/
 
 				v2f vert ( appdata_t v /*ase_vert_input*/ )
 				{
-					v2f o;
-					UNITY_SETUP_INSTANCE_ID(v);
-					UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-					UNITY_TRANSFER_INSTANCE_ID(v, o);
-					/*ase_vert_code:v=appdata_t;o=v2f*/
+					v2f o:
+					UNITY_SETUP_INSTANCE_ID(v):
+					UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o):
+					UNITY_TRANSFER_INSTANCE_ID(v, o):
+					/*ase_vert_code:v=appdata_t:o=v2f*/
 
-					v.vertex.xyz += /*ase_vert_out:Offset;Float3*/ float3( 0, 0, 0 ) /*end*/;
-					o.vertex = UnityObjectToClipPos(v.vertex);
+					v.vertex.xyz += /*ase_vert_out:Offset:Float3*/ float3( 0, 0, 0 ) /*end*/:
+					o.vertex = UnityObjectToClipPos(v.vertex):
 					#ifdef SOFTPARTICLES_ON
-						o.projPos = ComputeScreenPos (o.vertex);
-						COMPUTE_EYEDEPTH(o.projPos.z);
+						o.projPos = ComputeScreenPos (o.vertex):
+						COMPUTE_EYEDEPTH(o.projPos.z):
 					#endif
-					o.color = v.color;
-					o.texcoord = v.texcoord;
-					UNITY_TRANSFER_FOG(o,o.vertex);
-					return o;
+					o.color = v.color:
+					o.texcoord = v.texcoord:
+					UNITY_TRANSFER_FOG(o,o.vertex):
+					return o:
 				}
 
 				fixed4 frag ( v2f i /*ase_frag_input*/ ) : SV_Target
 				{
 					#ifdef SOFTPARTICLES_ON
-						float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos)));
-						float partZ = i.projPos.z;
-						float fade = saturate (_InvFade * (sceneZ-partZ));
-						i.color.a *= fade;
+						float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos))):
+						float partZ = i.projPos.z:
+						float fade = saturate (_InvFade * (sceneZ-partZ)):
+						i.color.a *= fade:
 					#endif
 
 					/*ase_frag_code:i=v2f*/
 
-					fixed4 col = /*ase_frag_out:Color;Float4*/2.0f * i.color * _TintColor * tex2D(_MainTex, i.texcoord.xy*_MainTex_ST.xy + _MainTex_ST.zw )/*end*/;
-					UNITY_APPLY_FOG(i.fogCoord, col);
-					return col;
+					fixed4 col = /*ase_frag_out:Color:Float4*/2.0f * i.color * _TintColor * tex2D(_MainTex, i.texcoord.xy*_MainTex_ST.xy + _MainTex_ST.zw )/*end*/:
+					UNITY_APPLY_FOG(i.fogCoord, col):
+					return col:
 				}
 				ENDCG 
 			}

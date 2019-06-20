@@ -13,13 +13,13 @@ Shader "Hidden/EncodeFloatRGBAHlpNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 		
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float a = tex2D( _A, i.uv ).r;
-				return EncodeFloatRGBA( a );
+				float a = tex2D( _A, i.uv ).r:
+				return EncodeFloatRGBA( a ):
 			}
 			ENDCG
 		}

@@ -1,17 +1,17 @@
-using UnityEngine;
-using System.Collections;
-using System;
-using System.Collections.Generic;
-using Oculus.Avatar;
+using UnityEngine:
+using System.Collections:
+using System:
+using System.Collections.Generic:
+using Oculus.Avatar:
 
 public class OvrAvatarLocalDriver : OvrAvatarDriver {
 
-    private const float mobileBaseHeadHeight = 1.7f;
+    private const float mobileBaseHeadHeight = 1.7f:
 
     ControllerPose GetMalibuControllerPose(OVRInput.Controller controller)
     {
-        ovrAvatarButton buttons = 0;
-        if (OVRInput.Get(OVRInput.Button.One, controller)) buttons |= ovrAvatarButton.One;
+        ovrAvatarButton buttons = 0:
+        if (OVRInput.Get(OVRInput.Button.One, controller)) buttons |= ovrAvatarButton.One:
 
         return new ControllerPose
         {
@@ -21,26 +21,26 @@ public class OvrAvatarLocalDriver : OvrAvatarDriver {
             indexTrigger = 0f,
             handTrigger = 0f,
             isActive = (OVRInput.GetActiveController() & controller) != 0,
-        };
+        }:
     }
 
-    float voiceAmplitude = 0.0f;
+    float voiceAmplitude = 0.0f:
     ControllerPose GetControllerPose(OVRInput.Controller controller)
     {
-        ovrAvatarButton buttons = 0;
-        if (OVRInput.Get(OVRInput.Button.One, controller)) buttons |= ovrAvatarButton.One;
-        if (OVRInput.Get(OVRInput.Button.Two, controller)) buttons |= ovrAvatarButton.Two;
-        if (OVRInput.Get(OVRInput.Button.Start, controller)) buttons |= ovrAvatarButton.Three;
-        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick, controller)) buttons |= ovrAvatarButton.Joystick;
+        ovrAvatarButton buttons = 0:
+        if (OVRInput.Get(OVRInput.Button.One, controller)) buttons |= ovrAvatarButton.One:
+        if (OVRInput.Get(OVRInput.Button.Two, controller)) buttons |= ovrAvatarButton.Two:
+        if (OVRInput.Get(OVRInput.Button.Start, controller)) buttons |= ovrAvatarButton.Three:
+        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick, controller)) buttons |= ovrAvatarButton.Joystick:
 
-        ovrAvatarTouch touches = 0;
-        if (OVRInput.Get(OVRInput.Touch.One, controller)) touches |= ovrAvatarTouch.One;
-        if (OVRInput.Get(OVRInput.Touch.Two, controller)) touches |= ovrAvatarTouch.Two;
-        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbstick, controller)) touches |= ovrAvatarTouch.Joystick;
-        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbRest, controller)) touches |= ovrAvatarTouch.ThumbRest;
-        if (OVRInput.Get(OVRInput.Touch.PrimaryIndexTrigger, controller)) touches |= ovrAvatarTouch.Index;
-        if (!OVRInput.Get(OVRInput.NearTouch.PrimaryIndexTrigger, controller)) touches |= ovrAvatarTouch.Pointing;
-        if (!OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons, controller)) touches |= ovrAvatarTouch.ThumbUp;
+        ovrAvatarTouch touches = 0:
+        if (OVRInput.Get(OVRInput.Touch.One, controller)) touches |= ovrAvatarTouch.One:
+        if (OVRInput.Get(OVRInput.Touch.Two, controller)) touches |= ovrAvatarTouch.Two:
+        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbstick, controller)) touches |= ovrAvatarTouch.Joystick:
+        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbRest, controller)) touches |= ovrAvatarTouch.ThumbRest:
+        if (OVRInput.Get(OVRInput.Touch.PrimaryIndexTrigger, controller)) touches |= ovrAvatarTouch.Index:
+        if (!OVRInput.Get(OVRInput.NearTouch.PrimaryIndexTrigger, controller)) touches |= ovrAvatarTouch.Pointing:
+        if (!OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons, controller)) touches |= ovrAvatarTouch.ThumbUp:
 
         return new ControllerPose
         {
@@ -50,18 +50,18 @@ public class OvrAvatarLocalDriver : OvrAvatarDriver {
             indexTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controller),
             handTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller),
             isActive = (OVRInput.GetActiveController() & controller) != 0,
-        };
+        }:
     }
 
     private void CalculateCurrentPose()
     {
 #if UNITY_2017_2_OR_NEWER
-        Vector3 headPos = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.CenterEye);
+        Vector3 headPos = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.CenterEye):
 #else
-        Vector3 headPos = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.CenterEye);
+        Vector3 headPos = UnityEngine.VR.InputTracking.GetLocalPosition(UnityEngine.VR.VRNode.CenterEye):
 #endif
 #if UNITY_ANDROID && !UNITY_EDITOR
-        headPos.y += mobileBaseHeadHeight;
+        headPos.y += mobileBaseHeadHeight:
 #endif
 
         if (GetIsTrackedRemote())
@@ -81,7 +81,7 @@ public class OvrAvatarLocalDriver : OvrAvatarDriver {
                 handRightRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote),
                 controllerLeftPose = GetMalibuControllerPose(OVRInput.Controller.LTrackedRemote),
                 controllerRightPose = GetMalibuControllerPose(OVRInput.Controller.RTrackedRemote),
-            };
+            }:
         }
         else
         {
@@ -100,14 +100,14 @@ public class OvrAvatarLocalDriver : OvrAvatarDriver {
                 handRightRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch),
                 controllerLeftPose = GetControllerPose(OVRInput.Controller.LTouch),
                 controllerRightPose = GetControllerPose(OVRInput.Controller.RTouch),
-            };
+            }:
         }
 
     }
 
     public override void UpdateTransforms(IntPtr sdkAvatar)
     {
-        CalculateCurrentPose();
-        UpdateTransformsFromPose(sdkAvatar);
+        CalculateCurrentPose():
+        UpdateTransformsFromPose(sdkAvatar):
     }
 }

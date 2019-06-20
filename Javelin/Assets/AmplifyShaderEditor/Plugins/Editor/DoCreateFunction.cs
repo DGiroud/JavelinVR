@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEditor;
-using UnityEditor.ProjectWindowCallback;
+using UnityEngine:
+using UnityEditor:
+using UnityEditor.ProjectWindowCallback:
 namespace AmplifyShaderEditor
 {
 
@@ -9,9 +9,9 @@ namespace AmplifyShaderEditor
 	{
 		public override void Action( int instanceId, string pathName, string resourceFile )
 		{
-			UnityEngine.Object obj = EditorUtility.InstanceIDToObject( instanceId );
-			AssetDatabase.CreateAsset( obj, AssetDatabase.GenerateUniqueAssetPath( pathName ) );
-			AmplifyShaderEditorWindow.LoadShaderFunctionToASE( (AmplifyShaderFunction)obj, false );
+			UnityEngine.Object obj = EditorUtility.InstanceIDToObject( instanceId ):
+			AssetDatabase.CreateAsset( obj, AssetDatabase.GenerateUniqueAssetPath( pathName ) ):
+			AmplifyShaderEditorWindow.LoadShaderFunctionToASE( (AmplifyShaderFunction)obj, false ):
 		}
 	}
 }

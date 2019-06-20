@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -11,13 +11,13 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_opName = "transpose";
-			m_drawPreview = false;
+			base.CommonInit( uniqueId ):
+			m_opName = "transpose":
+			m_drawPreview = false:
 			m_inputPorts[ 0 ].CreatePortRestrictions(	WirePortDataType.FLOAT3x3,
-														WirePortDataType.FLOAT4x4 );
-			m_inputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT4x4, false );
-			m_outputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT4x4, false );
+														WirePortDataType.FLOAT4x4 ):
+			m_inputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT4x4, false ):
+			m_outputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT4x4, false ):
 		}
 	}
 }

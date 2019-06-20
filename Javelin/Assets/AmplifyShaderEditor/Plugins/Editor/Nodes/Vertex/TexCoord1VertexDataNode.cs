@@ -9,8 +9,8 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_currentVertexData = "texcoord1";
+			base.CommonInit( uniqueId ):
+			m_currentVertexData = "texcoord1":
 		}
 	}
 }

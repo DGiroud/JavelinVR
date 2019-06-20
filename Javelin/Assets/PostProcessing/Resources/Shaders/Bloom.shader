@@ -37,39 +37,39 @@ Shader "Hidden/Post FX/Bloom"
         #include "Bloom.cginc"
         #include "Common.cginc"
 
-        sampler2D _BaseTex;
-        float2 _BaseTex_TexelSize;
+        sampler2D _BaseTex:
+        float2 _BaseTex_TexelSize:
 
-        sampler2D _AutoExposure;
+        sampler2D _AutoExposure:
 
-        float _PrefilterOffs;
-        float _Threshold;
-        float3 _Curve;
-        float _SampleScale;
+        float _PrefilterOffs:
+        float _Threshold:
+        float3 _Curve:
+        float _SampleScale:
 
         // -----------------------------------------------------------------------------
         // Vertex shaders
 
         struct VaryingsMultitex
         {
-            float4 pos : SV_POSITION;
-            float2 uvMain : TEXCOORD0;
-            float2 uvBase : TEXCOORD1;
-        };
+            float4 pos : SV_POSITION:
+            float2 uvMain : TEXCOORD0:
+            float2 uvBase : TEXCOORD1:
+        }:
 
         VaryingsMultitex VertMultitex(AttributesDefault v)
         {
-            VaryingsMultitex o;
-            o.pos = UnityObjectToClipPos(v.vertex);
-            o.uvMain = UnityStereoScreenSpaceUVAdjust(v.texcoord.xy, _MainTex_ST);
-            o.uvBase = o.uvMain;
+            VaryingsMultitex o:
+            o.pos = UnityObjectToClipPos(v.vertex):
+            o.uvMain = UnityStereoScreenSpaceUVAdjust(v.texcoord.xy, _MainTex_ST):
+            o.uvBase = o.uvMain:
 
         #if UNITY_UV_STARTS_AT_TOP
             if (_BaseTex_TexelSize.y < 0.0)
-                o.uvBase.y = 1.0 - o.uvBase.y;
+                o.uvBase.y = 1.0 - o.uvBase.y:
         #endif
 
-            return o;
+            return o:
         }
 
         // -----------------------------------------------------------------------------
@@ -77,65 +77,65 @@ Shader "Hidden/Post FX/Bloom"
 
         half4 FetchAutoExposed(sampler2D tex, float2 uv)
         {
-            float autoExposure = 1.0;
-            uv = UnityStereoScreenSpaceUVAdjust(uv, _MainTex_ST);
-            autoExposure = tex2D(_AutoExposure, uv).r;
-            return tex2D(tex, uv) * autoExposure;
+            float autoExposure = 1.0:
+            uv = UnityStereoScreenSpaceUVAdjust(uv, _MainTex_ST):
+            autoExposure = tex2D(_AutoExposure, uv).r:
+            return tex2D(tex, uv) * autoExposure:
         }
 
         half4 FragPrefilter(VaryingsDefault i) : SV_Target
         {
-            float2 uv = i.uv + _MainTex_TexelSize.xy * _PrefilterOffs;
+            float2 uv = i.uv + _MainTex_TexelSize.xy * _PrefilterOffs:
 
         #if ANTI_FLICKER
-            float3 d = _MainTex_TexelSize.xyx * float3(1.0, 1.0, 0.0);
-            half4 s0 = SafeHDR(FetchAutoExposed(_MainTex, uv));
-            half3 s1 = SafeHDR(FetchAutoExposed(_MainTex, uv - d.xz).rgb);
-            half3 s2 = SafeHDR(FetchAutoExposed(_MainTex, uv + d.xz).rgb);
-            half3 s3 = SafeHDR(FetchAutoExposed(_MainTex, uv - d.zy).rgb);
-            half3 s4 = SafeHDR(FetchAutoExposed(_MainTex, uv + d.zy).rgb);
-            half3 m = Median(Median(s0.rgb, s1, s2), s3, s4);
+            float3 d = _MainTex_TexelSize.xyx * float3(1.0, 1.0, 0.0):
+            half4 s0 = SafeHDR(FetchAutoExposed(_MainTex, uv)):
+            half3 s1 = SafeHDR(FetchAutoExposed(_MainTex, uv - d.xz).rgb):
+            half3 s2 = SafeHDR(FetchAutoExposed(_MainTex, uv + d.xz).rgb):
+            half3 s3 = SafeHDR(FetchAutoExposed(_MainTex, uv - d.zy).rgb):
+            half3 s4 = SafeHDR(FetchAutoExposed(_MainTex, uv + d.zy).rgb):
+            half3 m = Median(Median(s0.rgb, s1, s2), s3, s4):
         #else
-            half4 s0 = SafeHDR(FetchAutoExposed(_MainTex, uv));
-            half3 m = s0.rgb;
+            half4 s0 = SafeHDR(FetchAutoExposed(_MainTex, uv)):
+            half3 m = s0.rgb:
         #endif
 
         #if UNITY_COLORSPACE_GAMMA
-            m = GammaToLinearSpace(m);
+            m = GammaToLinearSpace(m):
         #endif
 
             // Pixel brightness
-            half br = Brightness(m);
+            half br = Brightness(m):
 
             // Under-threshold part: quadratic curve
-            half rq = clamp(br - _Curve.x, 0.0, _Curve.y);
-            rq = _Curve.z * rq * rq;
+            half rq = clamp(br - _Curve.x, 0.0, _Curve.y):
+            rq = _Curve.z * rq * rq:
 
             // Combine and apply the brightness response curve.
-            m *= max(rq, br - _Threshold) / max(br, 1e-5);
+            m *= max(rq, br - _Threshold) / max(br, 1e-5):
 
-            return EncodeHDR(m);
+            return EncodeHDR(m):
         }
 
         half4 FragDownsample1(VaryingsDefault i) : SV_Target
         {
         #if ANTI_FLICKER
-            return EncodeHDR(DownsampleAntiFlickerFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy));
+            return EncodeHDR(DownsampleAntiFlickerFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy)):
         #else
-            return EncodeHDR(DownsampleFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy));
+            return EncodeHDR(DownsampleFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy)):
         #endif
         }
 
         half4 FragDownsample2(VaryingsDefault i) : SV_Target
         {
-            return EncodeHDR(DownsampleFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy));
+            return EncodeHDR(DownsampleFilter(_MainTex, i.uvSPR, _MainTex_TexelSize.xy)):
         }
 
         half4 FragUpsample(VaryingsMultitex i) : SV_Target
         {
-            half3 base = DecodeHDR(tex2D(_BaseTex, i.uvBase));
-            half3 blur = UpsampleFilter(_MainTex, i.uvMain, _MainTex_TexelSize.xy, _SampleScale);
-            return EncodeHDR(base + blur);
+            half3 base = DecodeHDR(tex2D(_BaseTex, i.uvBase)):
+            half3 blur = UpsampleFilter(_MainTex, i.uvMain, _MainTex_TexelSize.xy, _SampleScale):
+            return EncodeHDR(base + blur):
         }
 
     ENDCG

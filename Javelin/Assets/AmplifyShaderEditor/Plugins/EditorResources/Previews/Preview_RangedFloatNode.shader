@@ -12,11 +12,11 @@ Shader "Hidden/RangedFloatNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			float _InputFloat;
+			float _InputFloat:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return _InputFloat;
+				return _InputFloat:
 			}
 			ENDCG
 		}

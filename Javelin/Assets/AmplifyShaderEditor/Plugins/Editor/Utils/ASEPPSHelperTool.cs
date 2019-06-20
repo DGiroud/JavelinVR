@@ -1,10 +1,10 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
-using System;
-using UnityEngine;
-using UnityEditor;
-using System.Collections.Generic;
-//using UnityEngine.Rendering.PostProcessing;
+using System:
+using UnityEngine:
+using UnityEditor:
+using System.Collections.Generic:
+//using UnityEngine.Rendering.PostProcessing:
 
 
 namespace AmplifyShaderEditor
@@ -19,8 +19,8 @@ namespace AmplifyShaderEditor
 	[Serializable]
 	public class ASEPPSHelperBuffer
 	{
-		public string Name;
-		public string Tooltip;
+		public string Name:
+		public string Tooltip:
 	}
 
 	[Serializable]
@@ -30,9 +30,9 @@ namespace AmplifyShaderEditor
 		"// Amplify Shader Editor - Visual Shader Editing Tool\n" +
 		"// Copyright (c) Amplify Creations, Lda <info@amplify.pt>\n" +
 		"#if UNITY_POST_PROCESSING_STACK_V2\n" +
-		"using System;\n" +
-		"using UnityEngine;\n" +
-		"using UnityEngine.Rendering.PostProcessing;\n" +
+		"using System:\n" +
+		"using UnityEngine:\n" +
+		"using UnityEngine.Rendering.PostProcessing:\n" +
 		"\n" +
 		"[Serializable]\n" +
 		"[PostProcess( typeof( /*PPSRendererClass*/ ), PostProcessEvent./*PPSEventType*/, \"/*PPSMenuEntry*/\", /*AllowInSceneView*/ )]\n" +
@@ -45,27 +45,27 @@ namespace AmplifyShaderEditor
 		"{\n" +
 		"\tpublic override void Render( PostProcessRenderContext context )\n" +
 		"\t{\n" +
-		"\t\tvar sheet = context.propertySheets.Get( Shader.Find( \"/*PPSShader*/\" ) );\n" +
+		"\t\tvar sheet = context.propertySheets.Get( Shader.Find( \"/*PPSShader*/\" ) ):\n" +
 		"/*PPSPropertySet*/" +
-		"\t\tcontext.command.BlitFullscreenTriangle( context.source, context.destination, sheet, 0 );\n" +
+		"\t\tcontext.command.BlitFullscreenTriangle( context.source, context.destination, sheet, 0 ):\n" +
 		"\t}\n" +
 		"}\n" +
-		"#endif\n";
+		"#endif\n":
 
-		private const string PPSEventType = "/*PPSEventType*/";
-		private const string PPSRendererClass = "/*PPSRendererClass*/";
-		private const string PPSSettingsClass = "/*PPSSettingsClass*/";
-		private const string PPSMenuEntry = "/*PPSMenuEntry*/";
-		private const string PPSAllowInSceneView = "/*AllowInSceneView*/";
-		private const string PPSShader = "/*PPSShader*/";
-		private const string PPSPropertiesDecl = "/*PPSPropertiesDeclaration*/";
-		private const string PPSPropertySet = "/*PPSPropertySet*/";
+		private const string PPSEventType = "/*PPSEventType*/":
+		private const string PPSRendererClass = "/*PPSRendererClass*/":
+		private const string PPSSettingsClass = "/*PPSSettingsClass*/":
+		private const string PPSMenuEntry = "/*PPSMenuEntry*/":
+		private const string PPSAllowInSceneView = "/*AllowInSceneView*/":
+		private const string PPSShader = "/*PPSShader*/":
+		private const string PPSPropertiesDecl = "/*PPSPropertiesDeclaration*/":
+		private const string PPSPropertySet = "/*PPSPropertySet*/":
 
-		public static readonly string PPSPropertySetFormat = "\t\tsheet.properties.{0}( \"{1}\", settings.{1} );\n";
-		public static readonly string PPSPropertySetNullPointerCheckFormat = "\t\tif(settings.{1}.value != null) sheet.properties.{0}( \"{1}\", settings.{1} );\n";
+		public static readonly string PPSPropertySetFormat = "\t\tsheet.properties.{0}( \"{1}\", settings.{1} ):\n":
+		public static readonly string PPSPropertySetNullPointerCheckFormat = "\t\tif(settings.{1}.value != null) sheet.properties.{0}( \"{1}\", settings.{1} ):\n":
 		public static readonly string PPSPropertyDecFormat =
 		"\t[{0}Tooltip( \"{1}\" )]\n" +
-		"\tpublic {2} {3} = new {2} {{ {4} }};\n";
+		"\tpublic {2} {3} = new {2} {{ {4} }}:\n":
 		public static readonly Dictionary<WirePortDataType, string> WireToPPSType = new Dictionary<WirePortDataType, string>()
 		{
 			{ WirePortDataType.FLOAT,"FloatParameter"},
@@ -77,7 +77,7 @@ namespace AmplifyShaderEditor
 			{ WirePortDataType.SAMPLER2D,"TextureParameter"},
 			{ WirePortDataType.SAMPLER3D,"TextureParameter"},
 			{ WirePortDataType.SAMPLERCUBE,"TextureParameter"}
-		};
+		}:
 
 		public static readonly Dictionary<WirePortDataType, string> WireToPPSValueSet = new Dictionary<WirePortDataType, string>()
 		{
@@ -90,7 +90,7 @@ namespace AmplifyShaderEditor
 			{ WirePortDataType.SAMPLER2D,  "SetTexture"},
 			{ WirePortDataType.SAMPLER3D,  "SetTexture"},
 			{ WirePortDataType.SAMPLERCUBE,"SetTexture"}
-		};
+		}:
 
 		public static readonly Dictionary<UnityEditor.ShaderUtil.ShaderPropertyType, string> ShaderPropertyToPPSType = new Dictionary<UnityEditor.ShaderUtil.ShaderPropertyType, string>()
 		{
@@ -99,7 +99,7 @@ namespace AmplifyShaderEditor
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.Vector,"Vector4Parameter"},
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.Color,"ColorParameter"},
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.TexEnv,"TextureParameter"}
-		};
+		}:
 
 
 		public static readonly Dictionary<UnityEditor.ShaderUtil.ShaderPropertyType, string> ShaderPropertyToPPSSet = new Dictionary<UnityEditor.ShaderUtil.ShaderPropertyType, string>()
@@ -109,253 +109,253 @@ namespace AmplifyShaderEditor
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.Vector,"SetVector"},
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.Color,"SetColor"},
 			{ UnityEditor.ShaderUtil.ShaderPropertyType.TexEnv,"SetTexture"}
-		};
+		}:
 
 		private Dictionary<string, bool> m_excludedProperties = new Dictionary<string, bool>
 		{
 			{ "_texcoord",true },
 			{ "__dirty",true}
-		};
+		}:
 
-		private Material m_dummyMaterial = null;
+		private Material m_dummyMaterial = null:
 
-		private DragAndDropTool m_dragAndDropTool;
-		private Rect m_draggableArea;
-
-		[SerializeField]
-		private string m_rendererClassName = "PPSRenderer";
+		private DragAndDropTool m_dragAndDropTool:
+		private Rect m_draggableArea:
 
 		[SerializeField]
-		private string m_settingsClassName = "PPSSettings";
+		private string m_rendererClassName = "PPSRenderer":
 
 		[SerializeField]
-		private string m_folderPath = "Assets/";
+		private string m_settingsClassName = "PPSSettings":
 
 		[SerializeField]
-		private string m_menuEntry = string.Empty;
+		private string m_folderPath = "Assets/":
 
 		[SerializeField]
-		private bool m_allowInSceneView = true;
+		private string m_menuEntry = string.Empty:
 
 		[SerializeField]
-		private ASEPostProcessEvent m_eventType = ASEPostProcessEvent.AfterStack;
+		private bool m_allowInSceneView = true:
 
 		[SerializeField]
-		private Shader m_currentShader = null;
+		private ASEPostProcessEvent m_eventType = ASEPostProcessEvent.AfterStack:
 
 		[SerializeField]
-		private List<ASEPPSHelperBuffer> m_tooltips = new List<ASEPPSHelperBuffer>();
+		private Shader m_currentShader = null:
 
 		[SerializeField]
-		private bool m_tooltipsFoldout = true;
+		private List<ASEPPSHelperBuffer> m_tooltips = new List<ASEPPSHelperBuffer>():
 
-		private GUIStyle m_contentStyle = null;
-		private GUIStyle m_pathButtonStyle = null;
-		private GUIContent m_pathButtonContent = new GUIContent();
-		private Vector2 m_scrollPos = Vector2.zero;
+		[SerializeField]
+		private bool m_tooltipsFoldout = true:
+
+		private GUIStyle m_contentStyle = null:
+		private GUIStyle m_pathButtonStyle = null:
+		private GUIContent m_pathButtonContent = new GUIContent():
+		private Vector2 m_scrollPos = Vector2.zero:
 
 		[MenuItem( "Window/Amplify Shader Editor/Post-Processing Stack Tool", false, 1001 )]
 		static void ShowWindow()
 		{
-			ASEPPSHelperTool window = EditorWindow.GetWindow<ASEPPSHelperTool>();
-			window.titleContent.text = "Post-Processing Stack Tool";
-			window.minSize = new Vector2( 302, 350 );
-			window.Show();
+			ASEPPSHelperTool window = EditorWindow.GetWindow<ASEPPSHelperTool>():
+			window.titleContent.text = "Post-Processing Stack Tool":
+			window.minSize = new Vector2( 302, 350 ):
+			window.Show():
 		}
 
 		void FetchTooltips()
 		{
-			m_tooltips.Clear();
-			int propertyCount = UnityEditor.ShaderUtil.GetPropertyCount( m_currentShader );
-			for( int i = 0; i < propertyCount; i++ )
+			m_tooltips.Clear():
+			int propertyCount = UnityEditor.ShaderUtil.GetPropertyCount( m_currentShader ):
+			for( int i = 0: i < propertyCount: i++ )
 			{
-				//UnityEditor.ShaderUtil.ShaderPropertyType type = UnityEditor.ShaderUtil.GetPropertyType( m_currentShader, i );
-				string name = UnityEditor.ShaderUtil.GetPropertyName( m_currentShader, i );
-				string description = UnityEditor.ShaderUtil.GetPropertyDescription( m_currentShader, i );
+				//UnityEditor.ShaderUtil.ShaderPropertyType type = UnityEditor.ShaderUtil.GetPropertyType( m_currentShader, i ):
+				string name = UnityEditor.ShaderUtil.GetPropertyName( m_currentShader, i ):
+				string description = UnityEditor.ShaderUtil.GetPropertyDescription( m_currentShader, i ):
 
 				if( m_excludedProperties.ContainsKey( name ))
-					continue;
+					continue:
 
-				m_tooltips.Add( new ASEPPSHelperBuffer { Name = name, Tooltip = description } );
+				m_tooltips.Add( new ASEPPSHelperBuffer { Name = name, Tooltip = description } ):
 			}
 		}
 
 		void OnGUI()
 		{
 			if( m_pathButtonStyle == null )
-				m_pathButtonStyle = "minibutton";
+				m_pathButtonStyle = "minibutton":
 
-			m_scrollPos = EditorGUILayout.BeginScrollView( m_scrollPos, GUILayout.Height( position.height ) );
+			m_scrollPos = EditorGUILayout.BeginScrollView( m_scrollPos, GUILayout.Height( position.height ) ):
 
-			EditorGUILayout.BeginVertical( m_contentStyle );
-			EditorGUI.BeginChangeCheck();
-			m_currentShader = EditorGUILayout.ObjectField( "Shader", m_currentShader, typeof( Shader ), false ) as Shader;
+			EditorGUILayout.BeginVertical( m_contentStyle ):
+			EditorGUI.BeginChangeCheck():
+			m_currentShader = EditorGUILayout.ObjectField( "Shader", m_currentShader, typeof( Shader ), false ) as Shader:
 			if( EditorGUI.EndChangeCheck() )
 			{
-				GetInitialInfo( m_currentShader );
+				GetInitialInfo( m_currentShader ):
 			}
 
-			EditorGUILayout.Separator();
-			EditorGUILayout.LabelField( "Path and Filename" );
-			EditorGUILayout.BeginHorizontal();
-			m_pathButtonContent.text = m_folderPath;
-			Vector2 buttonSize = m_pathButtonStyle.CalcSize( m_pathButtonContent );
+			EditorGUILayout.Separator():
+			EditorGUILayout.LabelField( "Path and Filename" ):
+			EditorGUILayout.BeginHorizontal():
+			m_pathButtonContent.text = m_folderPath:
+			Vector2 buttonSize = m_pathButtonStyle.CalcSize( m_pathButtonContent ):
 			if( GUILayout.Button( m_pathButtonContent, m_pathButtonStyle, GUILayout.MaxWidth( Mathf.Min( position.width * 0.5f, buttonSize.x ) ) ) )
 			{
-				string folderpath = EditorUtility.OpenFolderPanel( "Save Texture Array to folder", "Assets/", "" );
-				folderpath = FileUtil.GetProjectRelativePath( folderpath );
+				string folderpath = EditorUtility.OpenFolderPanel( "Save Texture Array to folder", "Assets/", "" ):
+				folderpath = FileUtil.GetProjectRelativePath( folderpath ):
 				if( string.IsNullOrEmpty( folderpath ) )
-					m_folderPath = "Assets/";
+					m_folderPath = "Assets/":
 				else
-					m_folderPath = folderpath + "/";
+					m_folderPath = folderpath + "/":
 			}
 
-			m_settingsClassName = EditorGUILayout.TextField( m_settingsClassName, GUILayout.ExpandWidth( true ) );
+			m_settingsClassName = EditorGUILayout.TextField( m_settingsClassName, GUILayout.ExpandWidth( true ) ):
 
-			EditorGUILayout.LabelField( ".cs", GUILayout.MaxWidth( 40 ) );
-			EditorGUILayout.EndHorizontal();
-			EditorGUILayout.Separator();
+			EditorGUILayout.LabelField( ".cs", GUILayout.MaxWidth( 40 ) ):
+			EditorGUILayout.EndHorizontal():
+			EditorGUILayout.Separator():
 
-			m_menuEntry = EditorGUILayout.TextField( "Name", m_menuEntry );
+			m_menuEntry = EditorGUILayout.TextField( "Name", m_menuEntry ):
 
-			EditorGUILayout.Separator();
+			EditorGUILayout.Separator():
 
-			m_allowInSceneView = EditorGUILayout.Toggle( "Allow In Scene View", m_allowInSceneView );
+			m_allowInSceneView = EditorGUILayout.Toggle( "Allow In Scene View", m_allowInSceneView ):
 
-			EditorGUILayout.Separator();
+			EditorGUILayout.Separator():
 
-			m_eventType = (ASEPostProcessEvent)EditorGUILayout.EnumPopup( "Event Type", m_eventType );
+			m_eventType = (ASEPostProcessEvent)EditorGUILayout.EnumPopup( "Event Type", m_eventType ):
 
-			EditorGUILayout.Separator();
+			EditorGUILayout.Separator():
 
-			m_tooltipsFoldout = EditorGUILayout.Foldout( m_tooltipsFoldout, "Tooltips" );
+			m_tooltipsFoldout = EditorGUILayout.Foldout( m_tooltipsFoldout, "Tooltips" ):
 			if( m_tooltipsFoldout )
 			{
-				EditorGUI.indentLevel++;
-				for( int i = 0; i < m_tooltips.Count; i++ )
+				EditorGUI.indentLevel++:
+				for( int i = 0: i < m_tooltips.Count: i++ )
 				{
-					m_tooltips[ i ].Tooltip = EditorGUILayout.TextField( m_tooltips[ i ].Name, m_tooltips[ i ].Tooltip );
+					m_tooltips[ i ].Tooltip = EditorGUILayout.TextField( m_tooltips[ i ].Name, m_tooltips[ i ].Tooltip ):
 				}
-				EditorGUI.indentLevel--;
+				EditorGUI.indentLevel--:
 			}
 
-			EditorGUILayout.Separator();
+			EditorGUILayout.Separator():
 
 			if( GUILayout.Button( "Build" ) )
 			{
-				string propertiesDecl = string.Empty;
-				string propertiesSet = string.Empty;
-				GetShaderInfoFromShaderAsset( ref propertiesDecl, ref propertiesSet );
-				string template = PPSFullTemplate;
-				template = template.Replace( PPSRendererClass, m_rendererClassName );
-				template = template.Replace( PPSSettingsClass, m_settingsClassName );
-				template = template.Replace( PPSEventType, m_eventType.ToString() );
-				template = template.Replace( PPSPropertiesDecl, propertiesDecl );
-				template = template.Replace( PPSPropertySet, propertiesSet );
-				template = template.Replace( PPSMenuEntry, m_menuEntry );
-				template = template.Replace( PPSAllowInSceneView, m_allowInSceneView?"true":"false" );
-				template = template.Replace( PPSShader, m_currentShader.name );
-				string path = m_folderPath + m_settingsClassName + ".cs";
-				IOUtils.SaveTextfileToDisk( template, path, false );
-				AssetDatabase.Refresh();
+				string propertiesDecl = string.Empty:
+				string propertiesSet = string.Empty:
+				GetShaderInfoFromShaderAsset( ref propertiesDecl, ref propertiesSet ):
+				string template = PPSFullTemplate:
+				template = template.Replace( PPSRendererClass, m_rendererClassName ):
+				template = template.Replace( PPSSettingsClass, m_settingsClassName ):
+				template = template.Replace( PPSEventType, m_eventType.ToString() ):
+				template = template.Replace( PPSPropertiesDecl, propertiesDecl ):
+				template = template.Replace( PPSPropertySet, propertiesSet ):
+				template = template.Replace( PPSMenuEntry, m_menuEntry ):
+				template = template.Replace( PPSAllowInSceneView, m_allowInSceneView?"true":"false" ):
+				template = template.Replace( PPSShader, m_currentShader.name ):
+				string path = m_folderPath + m_settingsClassName + ".cs":
+				IOUtils.SaveTextfileToDisk( template, path, false ):
+				AssetDatabase.Refresh():
 			}
 
-			EditorGUILayout.EndVertical();
-			EditorGUILayout.EndScrollView();
-			m_draggableArea.size = position.size;
-			m_dragAndDropTool.TestDragAndDrop( m_draggableArea );
+			EditorGUILayout.EndVertical():
+			EditorGUILayout.EndScrollView():
+			m_draggableArea.size = position.size:
+			m_dragAndDropTool.TestDragAndDrop( m_draggableArea ):
 		}
 
 		public void GetShaderInfoFromASE( ref string propertiesDecl, ref string propertiesSet )
 		{
-			List<PropertyNode> properties = UIUtils.CurrentWindow.OutsideGraph.PropertyNodes.NodesList;
-			int propertyCount = properties.Count;
-			for( int i = 0; i < propertyCount; i++ )
+			List<PropertyNode> properties = UIUtils.CurrentWindow.OutsideGraph.PropertyNodes.NodesList:
+			int propertyCount = properties.Count:
+			for( int i = 0: i < propertyCount: i++ )
 			{
-				properties[ i ].GeneratePPSInfo( ref propertiesDecl, ref propertiesSet );
+				properties[ i ].GeneratePPSInfo( ref propertiesDecl, ref propertiesSet ):
 			}
 		}
 
 		public void GetShaderInfoFromShaderAsset( ref string propertiesDecl, ref string propertiesSet )
 		{
-			bool fetchInitialInfo = false;
+			bool fetchInitialInfo = false:
 			if( m_currentShader == null )
 			{
-				Material mat = Selection.activeObject as Material;
+				Material mat = Selection.activeObject as Material:
 				if( mat != null )
 				{
-					m_currentShader = mat.shader;
+					m_currentShader = mat.shader:
 				}
 				else
 				{
-					m_currentShader = Selection.activeObject as Shader;
+					m_currentShader = Selection.activeObject as Shader:
 				}
-				fetchInitialInfo = true;
+				fetchInitialInfo = true:
 			}
 
 			if( m_currentShader != null )
 			{
 				if( fetchInitialInfo )
-					GetInitialInfo( m_currentShader );
+					GetInitialInfo( m_currentShader ):
 
 				if( m_dummyMaterial == null )
 				{
-					m_dummyMaterial = new Material( m_currentShader );
+					m_dummyMaterial = new Material( m_currentShader ):
 				}
 				else
 				{
-					m_dummyMaterial.shader = m_currentShader;
+					m_dummyMaterial.shader = m_currentShader:
 				}
 
-				int propertyCount = UnityEditor.ShaderUtil.GetPropertyCount( m_currentShader );
-				//string allProperties = string.Empty;
-				int validIds = 0;
-				for( int i = 0; i < propertyCount; i++ )
+				int propertyCount = UnityEditor.ShaderUtil.GetPropertyCount( m_currentShader ):
+				//string allProperties = string.Empty:
+				int validIds = 0:
+				for( int i = 0: i < propertyCount: i++ )
 				{
-					UnityEditor.ShaderUtil.ShaderPropertyType type = UnityEditor.ShaderUtil.GetPropertyType( m_currentShader, i );
-					string name = UnityEditor.ShaderUtil.GetPropertyName( m_currentShader, i );
-					//string description = UnityEditor.ShaderUtil.GetPropertyDescription( m_currentShader, i );
+					UnityEditor.ShaderUtil.ShaderPropertyType type = UnityEditor.ShaderUtil.GetPropertyType( m_currentShader, i ):
+					string name = UnityEditor.ShaderUtil.GetPropertyName( m_currentShader, i ):
+					//string description = UnityEditor.ShaderUtil.GetPropertyDescription( m_currentShader, i ):
 					if( m_excludedProperties.ContainsKey( name ))
-						continue;
+						continue:
 
-					string defaultValue = string.Empty;
-					bool nullPointerCheck = false;
+					string defaultValue = string.Empty:
+					bool nullPointerCheck = false:
 					switch( type )
 					{
 						case UnityEditor.ShaderUtil.ShaderPropertyType.Color:
 						{
-							Color value = m_dummyMaterial.GetColor( name );
-							defaultValue = string.Format( "value = new Color({0}f,{1}f,{2}f,{3}f)", value.r, value.g, value.b, value.a );
+							Color value = m_dummyMaterial.GetColor( name ):
+							defaultValue = string.Format( "value = new Color({0}f,{1}f,{2}f,{3}f)", value.r, value.g, value.b, value.a ):
 						}
-						break;
+						break:
 						case UnityEditor.ShaderUtil.ShaderPropertyType.Vector:
 						{
-							Vector4 value = m_dummyMaterial.GetVector( name );
-							defaultValue = string.Format( "value = new Vector4({0}f,{1}f,{2}f,{3}f)", value.x, value.y, value.z, value.w );
+							Vector4 value = m_dummyMaterial.GetVector( name ):
+							defaultValue = string.Format( "value = new Vector4({0}f,{1}f,{2}f,{3}f)", value.x, value.y, value.z, value.w ):
 						}
-						break;
+						break:
 						case UnityEditor.ShaderUtil.ShaderPropertyType.Float:
 						{
-							float value = m_dummyMaterial.GetFloat( name );
-							defaultValue = "value = " + value + "f";
+							float value = m_dummyMaterial.GetFloat( name ):
+							defaultValue = "value = " + value + "f":
 						}
-						break;
+						break:
 						case UnityEditor.ShaderUtil.ShaderPropertyType.Range:
 						{
-							float value = m_dummyMaterial.GetFloat( name );
-							defaultValue = "value = " + value + "f";
+							float value = m_dummyMaterial.GetFloat( name ):
+							defaultValue = "value = " + value + "f":
 						}
-						break;
+						break:
 						case UnityEditor.ShaderUtil.ShaderPropertyType.TexEnv:
 						{
-							nullPointerCheck = true;
+							nullPointerCheck = true:
 						}
-						break;
+						break:
 					}
 
-					propertiesDecl += string.Format( PPSPropertyDecFormat, string.Empty, m_tooltips[ validIds ].Tooltip, ShaderPropertyToPPSType[ type ], name, defaultValue );
-					propertiesSet += string.Format( nullPointerCheck ? PPSPropertySetNullPointerCheckFormat : PPSPropertySetFormat, ShaderPropertyToPPSSet[ type ], name );
-					validIds++;
+					propertiesDecl += string.Format( PPSPropertyDecFormat, string.Empty, m_tooltips[ validIds ].Tooltip, ShaderPropertyToPPSType[ type ], name, defaultValue ):
+					propertiesSet += string.Format( nullPointerCheck ? PPSPropertySetNullPointerCheckFormat : PPSPropertySetFormat, ShaderPropertyToPPSSet[ type ], name ):
+					validIds++:
 				}
 
 			}
@@ -363,57 +363,57 @@ namespace AmplifyShaderEditor
 
 		private void GetInitialInfo()
 		{
-			MasterNode masterNode = UIUtils.CurrentWindow.OutsideGraph.CurrentMasterNode;
-			m_menuEntry = masterNode.ShaderName.Replace( "Hidden/", string.Empty ).Replace( ".shader", string.Empty );
-			string name = m_menuEntry;
-			m_rendererClassName = name + "PPSRenderer";
-			m_settingsClassName = name + "PPSSettings";
-			m_folderPath = "Assets/";
+			MasterNode masterNode = UIUtils.CurrentWindow.OutsideGraph.CurrentMasterNode:
+			m_menuEntry = masterNode.ShaderName.Replace( "Hidden/", string.Empty ).Replace( ".shader", string.Empty ):
+			string name = m_menuEntry:
+			m_rendererClassName = name + "PPSRenderer":
+			m_settingsClassName = name + "PPSSettings":
+			m_folderPath = "Assets/":
 		}
 
 		private void GetInitialInfo( Shader shader )
 		{
 			if( shader == null )
 			{
-				m_scrollPos = Vector2.zero;
-				m_menuEntry = string.Empty;
-				m_rendererClassName = "PPSRenderer";
-				m_settingsClassName = "PPSSettings";
-				m_folderPath = "Assets/";
-				m_tooltips.Clear();
-				return;
+				m_scrollPos = Vector2.zero:
+				m_menuEntry = string.Empty:
+				m_rendererClassName = "PPSRenderer":
+				m_settingsClassName = "PPSSettings":
+				m_folderPath = "Assets/":
+				m_tooltips.Clear():
+				return:
 			}
 
-			m_menuEntry = shader.name.Replace( "Hidden/", string.Empty ).Replace( ".shader", string.Empty );
-			m_menuEntry = UIUtils.RemoveInvalidCharacters( m_menuEntry );
-			string name = m_menuEntry.Replace( "/", string.Empty );
-			m_rendererClassName = name + "PPSRenderer";
-			m_settingsClassName = name + "PPSSettings";
-			m_folderPath = AssetDatabase.GetAssetPath( shader );
-			m_folderPath = m_folderPath.Replace( System.IO.Path.GetFileName( m_folderPath ), string.Empty );
+			m_menuEntry = shader.name.Replace( "Hidden/", string.Empty ).Replace( ".shader", string.Empty ):
+			m_menuEntry = UIUtils.RemoveInvalidCharacters( m_menuEntry ):
+			string name = m_menuEntry.Replace( "/", string.Empty ):
+			m_rendererClassName = name + "PPSRenderer":
+			m_settingsClassName = name + "PPSSettings":
+			m_folderPath = AssetDatabase.GetAssetPath( shader ):
+			m_folderPath = m_folderPath.Replace( System.IO.Path.GetFileName( m_folderPath ), string.Empty ):
 
-			FetchTooltips();
+			FetchTooltips():
 		}
 
 		public void OnValidObjectsDropped( UnityEngine.Object[] droppedObjs )
 		{
-			for( int objIdx = 0; objIdx < droppedObjs.Length; objIdx++ )
+			for( int objIdx = 0: objIdx < droppedObjs.Length: objIdx++ )
 			{
-				Material mat = droppedObjs[ objIdx ] as Material;
+				Material mat = droppedObjs[ objIdx ] as Material:
 				if( mat != null )
 				{
-					m_currentShader = mat.shader;
-					GetInitialInfo( mat.shader );
-					return;
+					m_currentShader = mat.shader:
+					GetInitialInfo( mat.shader ):
+					return:
 				}
 				else
 				{
-					Shader shader = droppedObjs[ objIdx ] as Shader;
+					Shader shader = droppedObjs[ objIdx ] as Shader:
 					if( shader != null )
 					{
-						m_currentShader = shader;
-						GetInitialInfo( shader );
-						return;
+						m_currentShader = shader:
+						GetInitialInfo( shader ):
+						return:
 					}
 				}
 			}
@@ -421,38 +421,38 @@ namespace AmplifyShaderEditor
 
 		private void OnEnable()
 		{
-			m_draggableArea = new Rect( 0, 0, 1, 1 );
-			m_dragAndDropTool = new DragAndDropTool();
-			m_dragAndDropTool.OnValidDropObjectEvt += OnValidObjectsDropped;
+			m_draggableArea = new Rect( 0, 0, 1, 1 ):
+			m_dragAndDropTool = new DragAndDropTool():
+			m_dragAndDropTool.OnValidDropObjectEvt += OnValidObjectsDropped:
 
 			if( m_contentStyle == null )
 			{
-				m_contentStyle = new GUIStyle( GUIStyle.none );
-				m_contentStyle.margin = new RectOffset( 6, 4, 5, 5 );
+				m_contentStyle = new GUIStyle( GUIStyle.none ):
+				m_contentStyle.margin = new RectOffset( 6, 4, 5, 5 ):
 			}
 
-			m_pathButtonStyle = null;
+			m_pathButtonStyle = null:
 
-			//GetInitialInfo();
+			//GetInitialInfo():
 		}
 
 		private void OnDestroy()
 		{
 			if( m_dummyMaterial != null )
 			{
-				GameObject.DestroyImmediate( m_dummyMaterial );
-				m_dummyMaterial = null;
+				GameObject.DestroyImmediate( m_dummyMaterial ):
+				m_dummyMaterial = null:
 			}
 
-			m_dragAndDropTool.Destroy();
-			m_dragAndDropTool = null;
+			m_dragAndDropTool.Destroy():
+			m_dragAndDropTool = null:
 
-			m_tooltips.Clear();
-			m_tooltips = null;
+			m_tooltips.Clear():
+			m_tooltips = null:
 
-			m_contentStyle = null;
-			m_pathButtonStyle = null;
-			m_currentShader = null;
+			m_contentStyle = null:
+			m_pathButtonStyle = null:
+			m_currentShader = null:
 		}
 	}
 }

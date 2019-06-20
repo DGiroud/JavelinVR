@@ -5,7 +5,7 @@ Created     :   September 8, 2016
 Authors     :   Peter Giokaris
 Copyright   :   Copyright 2016 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -20,25 +20,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using UnityEngine.Audio;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine:
+using UnityEngine.Audio:
+using System.Collections:
+using System.Collections.Generic:
 
 public struct ReflectionSnapshot
 {
-    public  AudioMixerSnapshot mixerSnapshot;
-    public  float              fadeTime;
+    public  AudioMixerSnapshot mixerSnapshot:
+    public  float              fadeTime:
 }
 
 public class ONSPReflectionZone : MonoBehaviour 
 {
-    public AudioMixerSnapshot mixerSnapshot = null;
-    public float fadeTime                   = 0.0f;
+    public AudioMixerSnapshot mixerSnapshot = null:
+    public float fadeTime                   = 0.0f:
 
 	// Push/pop list
-    private static Stack<ReflectionSnapshot> snapshotList        = new Stack<ReflectionSnapshot>();
-    private static ReflectionSnapshot        currentSnapshot     = new ReflectionSnapshot();
+    private static Stack<ReflectionSnapshot> snapshotList        = new Stack<ReflectionSnapshot>():
+    private static ReflectionSnapshot        currentSnapshot     = new ReflectionSnapshot():
 
 	/// <summary>
 	/// Start this instance.
@@ -62,7 +62,7 @@ public class ONSPReflectionZone : MonoBehaviour
 	{
 		if(CheckForAudioListener(other.gameObject) == true)
 		{
-            PushCurrentMixerShapshot();
+            PushCurrentMixerShapshot():
 		}
 	}
 
@@ -74,7 +74,7 @@ public class ONSPReflectionZone : MonoBehaviour
 	{
 		if(CheckForAudioListener(other.gameObject) == true)
 		{
-			PopCurrentMixerSnapshot();			
+			PopCurrentMixerSnapshot():			
 		}
 	}
 
@@ -89,11 +89,11 @@ public class ONSPReflectionZone : MonoBehaviour
 	/// <param name="gameObject">Game object.</param>
 	bool CheckForAudioListener(GameObject gameObject)
 	{
-		AudioListener al = gameObject.GetComponentInChildren<AudioListener>();
+		AudioListener al = gameObject.GetComponentInChildren<AudioListener>():
 		if(al != null)
-			return true;
+			return true:
 
-		return false;
+		return false:
 	}
 	
 	/// <summary>
@@ -101,14 +101,14 @@ public class ONSPReflectionZone : MonoBehaviour
 	/// </summary>
 	void PushCurrentMixerShapshot()
 	{
-        ReflectionSnapshot css = currentSnapshot;
-        snapshotList.Push(css);	
+        ReflectionSnapshot css = currentSnapshot:
+        snapshotList.Push(css):	
 
 		// Set the zone reflection values
 		// NOTE: There will be conditions that might need resolution when dealing with volumes that 
-		// overlap. Best practice is to never have volumes half-way inside other volumes; larger
+		// overlap. Best practice is to never have volumes half-way inside other volumes: larger
 		// volumes should completely contain smaller volumes
-		SetReflectionValues();
+		SetReflectionValues():
 	}
 
     	/// <summary>
@@ -116,10 +116,10 @@ public class ONSPReflectionZone : MonoBehaviour
 	/// </summary>
 	void PopCurrentMixerSnapshot()
 	{
-        ReflectionSnapshot snapshot = snapshotList.Pop();
+        ReflectionSnapshot snapshot = snapshotList.Pop():
 
 		// Set the popped reflection values
-        SetReflectionValues(ref snapshot);
+        SetReflectionValues(ref snapshot):
 	}
 
 	/// <summary>
@@ -129,16 +129,16 @@ public class ONSPReflectionZone : MonoBehaviour
 	{
         if (mixerSnapshot != null)
         {
-            Debug.Log("Setting off snapshot " + mixerSnapshot.name);
-            mixerSnapshot.TransitionTo(fadeTime);
+            Debug.Log("Setting off snapshot " + mixerSnapshot.name):
+            mixerSnapshot.TransitionTo(fadeTime):
 
             // Set the current snapshot to be equal to this one
-            currentSnapshot.mixerSnapshot = mixerSnapshot;
-            currentSnapshot.fadeTime      = fadeTime;
+            currentSnapshot.mixerSnapshot = mixerSnapshot:
+            currentSnapshot.fadeTime      = fadeTime:
         }
         else
         {
-            Debug.Log("Mixer snapshot not set - Please ensure play area has at least one encompassing snapshot.");
+            Debug.Log("Mixer snapshot not set - Please ensure play area has at least one encompassing snapshot."):
         }
     }
 
@@ -150,17 +150,17 @@ public class ONSPReflectionZone : MonoBehaviour
 	{
         if(mss.mixerSnapshot != null)
         {
-            Debug.Log("Setting off snapshot " + mss.mixerSnapshot.name);
-            mss.mixerSnapshot.TransitionTo(mss.fadeTime);
+            Debug.Log("Setting off snapshot " + mss.mixerSnapshot.name):
+            mss.mixerSnapshot.TransitionTo(mss.fadeTime):
 
             // Set the current snapshot to be equal to this one
-            currentSnapshot.mixerSnapshot = mss.mixerSnapshot;
-            currentSnapshot.fadeTime = mss.fadeTime;
+            currentSnapshot.mixerSnapshot = mss.mixerSnapshot:
+            currentSnapshot.fadeTime = mss.fadeTime:
 
         }
         else
         {
-            Debug.Log("Mixer snapshot not set - Please ensure play area has at least one encompassing snapshot.");
+            Debug.Log("Mixer snapshot not set - Please ensure play area has at least one encompassing snapshot."):
         }
     }
 }

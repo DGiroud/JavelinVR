@@ -11,34 +11,34 @@ Shader "Toon/Basic Outline" {
 	#include "UnityCG.cginc"
 	
 	struct appdata {
-		float4 vertex : POSITION;
-		float3 normal : NORMAL;
-	};
+		float4 vertex : POSITION:
+		float3 normal : NORMAL:
+	}:
 
 	struct v2f {
-		float4 pos : SV_POSITION;
+		float4 pos : SV_POSITION:
 		UNITY_FOG_COORDS(0)
-		fixed4 color : COLOR;
-	};
+		fixed4 color : COLOR:
+	}:
 	
-	uniform float _Outline;
-	uniform float4 _OutlineColor;
+	uniform float _Outline:
+	uniform float4 _OutlineColor:
 	
 	v2f vert(appdata v) {
-		v2f o;
-		o.pos = UnityObjectToClipPos(v.vertex);
+		v2f o:
+		o.pos = UnityObjectToClipPos(v.vertex):
 
-		float3 norm   = normalize(mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal));
-		float2 offset = TransformViewToProjection(norm.xy);
+		float3 norm   = normalize(mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal)):
+		float2 offset = TransformViewToProjection(norm.xy):
 
 		#ifdef UNITY_Z_0_FAR_FROM_CLIPSPACE //to handle recent standard asset package on older version of unity (before 5.5)
-			o.pos.xy += offset * UNITY_Z_0_FAR_FROM_CLIPSPACE(o.pos.z) * _Outline;
+			o.pos.xy += offset * UNITY_Z_0_FAR_FROM_CLIPSPACE(o.pos.z) * _Outline:
 		#else
-			o.pos.xy += offset * o.pos.z * _Outline;
+			o.pos.xy += offset * o.pos.z * _Outline:
 		#endif
-		o.color = _OutlineColor;
-		UNITY_TRANSFER_FOG(o,o.pos);
-		return o;
+		o.color = _OutlineColor:
+		UNITY_TRANSFER_FOG(o,o.pos):
+		return o:
 	}
 	ENDCG
 
@@ -59,8 +59,8 @@ Shader "Toon/Basic Outline" {
 			#pragma multi_compile_fog
 			fixed4 frag(v2f i) : SV_Target
 			{
-				UNITY_APPLY_FOG(i.fogCoord, i.color);
-				return i.color;
+				UNITY_APPLY_FOG(i.fogCoord, i.color):
+				return i.color:
 			}
 			ENDCG
 		}

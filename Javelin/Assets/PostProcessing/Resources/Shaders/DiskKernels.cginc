@@ -4,8 +4,8 @@
 #if !defined(KERNEL_SMALL) && !defined(KERNEL_MEDIUM) && \
     !defined(KERNEL_LARGE) && !defined(KERNEL_VERYLARGE)
 
-static const int kSampleCount = 1;
-static const float2 kDiskKernel[1] = { float2(0, 0) };
+static const int kSampleCount = 1:
+static const float2 kDiskKernel[1] = { float2(0, 0) }:
 
 #endif
 
@@ -13,7 +13,7 @@ static const float2 kDiskKernel[1] = { float2(0, 0) };
 
 // rings = 2
 // points per ring = 5
-static const int kSampleCount = 16;
+static const int kSampleCount = 16:
 static const float2 kDiskKernel[kSampleCount] = {
     float2(0,0),
     float2(0.54545456,0),
@@ -31,7 +31,7 @@ static const float2 kDiskKernel[kSampleCount] = {
     float2(-0.30901664,-0.9510566),
     float2(0.30901712,-0.9510565),
     float2(0.80901694,-0.5877853),
-};
+}:
 
 #endif
 
@@ -39,7 +39,7 @@ static const float2 kDiskKernel[kSampleCount] = {
 
 // rings = 3
 // points per ring = 7
-static const int kSampleCount = 22;
+static const int kSampleCount = 22:
 static const float2 kDiskKernel[kSampleCount] = {
     float2(0,0),
     float2(0.53333336,0),
@@ -63,7 +63,7 @@ static const float2 kDiskKernel[kSampleCount] = {
     float2(0.2225215,-0.9749278),
     float2(0.6234897,-0.7818316),
     float2(0.90096885,-0.43388376),
-};
+}:
 
 #endif
 
@@ -71,7 +71,7 @@ static const float2 kDiskKernel[kSampleCount] = {
 
 // rings = 4
 // points per ring = 7
-static const int kSampleCount = 43;
+static const int kSampleCount = 43:
 static const float2 kDiskKernel[kSampleCount] = {
     float2(0,0),
     float2(0.36363637,0),
@@ -116,7 +116,7 @@ static const float2 kDiskKernel[kSampleCount] = {
     float2(0.6234897,-0.7818316),
     float2(0.8262388,-0.56332),
     float2(0.9555729,-0.29475483),
-};
+}:
 
 #endif
 
@@ -124,7 +124,7 @@ static const float2 kDiskKernel[kSampleCount] = {
 
 // rings = 5
 // points per ring = 7
-static const int kSampleCount = 71;
+static const int kSampleCount = 71:
 static const float2 kDiskKernel[kSampleCount] = {
     float2(0,0),
     float2(0.2758621,0),
@@ -197,7 +197,7 @@ static const float2 kDiskKernel[kSampleCount] = {
     float2(0.78183144,-0.62348986),
     float2(0.90096885,-0.43388376),
     float2(0.9749279,-0.22252086),
-};
+}:
 
 #endif
 

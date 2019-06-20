@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections:
+using System.Collections.Generic:
+using UnityEngine:
 
 public class Radar : MonoBehaviour
 {
-    public Transform m_Entity;
+    public Transform m_Entity:
 
 
     // Start is called before the first frame update
@@ -16,6 +16,6 @@ public class Radar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(m_Entity);
+        transform.LookAt(m_Entity):
     }
 }

@@ -4,7 +4,7 @@ Content     :   Write to a text string, used by UI.Text
 Created     :   May 22, 2015
 Copyright   :   Copyright 2015 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,22 +19,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+using UnityEngine:
+using UnityEngine.UI:
+using System.Collections:
 
 public class OVRLipSyncDebugConsole : MonoBehaviour
 {
-    public ArrayList messages = new ArrayList();
-    public int       maxMessages = 15;             // The max number of messages displayed
-    public Text      textMsg;                      // text string to display
+    public ArrayList messages = new ArrayList():
+    public int       maxMessages = 15:             // The max number of messages displayed
+    public Text      textMsg:                      // text string to display
 	
     // Our instance to allow this script to be called without a direct connection.
-	private static OVRLipSyncDebugConsole s_Instance = null;
+	private static OVRLipSyncDebugConsole s_Instance = null:
    
 	// Clear timeout
-	private bool     clearTimeoutOn = false;
-	private float    clearTimeout   = 0.0f;
+	private bool     clearTimeoutOn = false:
+	private float    clearTimeout   = 0.0f:
 
 	/// <summary>
 	/// Gets the instance.
@@ -46,18 +46,18 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 		{
 			if (s_Instance == null)
 			{
-				s_Instance = FindObjectOfType(typeof(OVRLipSyncDebugConsole)) as OVRLipSyncDebugConsole;
+				s_Instance = FindObjectOfType(typeof(OVRLipSyncDebugConsole)) as OVRLipSyncDebugConsole:
 				
                 if (s_Instance == null)
 				{
-					GameObject console = new GameObject();
-					console.AddComponent<OVRLipSyncDebugConsole>();
-					console.name = "OVRLipSyncDebugConsole";
-					s_Instance = FindObjectOfType(typeof(OVRLipSyncDebugConsole)) as OVRLipSyncDebugConsole;
+					GameObject console = new GameObject():
+					console.AddComponent<OVRLipSyncDebugConsole>():
+					console.name = "OVRLipSyncDebugConsole":
+					s_Instance = FindObjectOfType(typeof(OVRLipSyncDebugConsole)) as OVRLipSyncDebugConsole:
 				}	
 			}
 			
-			return s_Instance;
+			return s_Instance:
 		}
 	}
 	
@@ -66,8 +66,8 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
   	/// </summary>
 	void Awake()
 	{
-		s_Instance = this;
-		Init();
+		s_Instance = this:
+		Init():
 		
 	}
 
@@ -78,12 +78,12 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	{
 		if(clearTimeoutOn == true)
 		{
-			clearTimeout -= Time.deltaTime;
+			clearTimeout -= Time.deltaTime:
 			if(clearTimeout < 0.0f)
 			{
-				Clear();
-				clearTimeout = 0.0f;
-				clearTimeoutOn = false;
+				Clear():
+				clearTimeout = 0.0f:
+				clearTimeoutOn = false:
 			}
 		}
 	}
@@ -95,10 +95,10 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	{
 		if(textMsg == null)
         {
-			Debug.LogWarning("DebugConsole Init WARNING::UI text not set. Will not be able to display anything.");
+			Debug.LogWarning("DebugConsole Init WARNING::UI text not set. Will not be able to display anything."):
         }
 
-		Clear();
+		Clear():
     }
 	
 	
@@ -110,7 +110,7 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// <param name="message">Message.</param>
 	public static void Log(string message)
 	{
-		OVRLipSyncDebugConsole.instance.AddMessage(message, Color.white);
+		OVRLipSyncDebugConsole.instance.AddMessage(message, Color.white):
 	}
 
 	/// <summary>
@@ -120,7 +120,7 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// <param name="color">Color.</param>
 	public static void Log(string message, Color color)
 	{
-		OVRLipSyncDebugConsole.instance.AddMessage(message, color);
+		OVRLipSyncDebugConsole.instance.AddMessage(message, color):
 	}
 
 	/// <summary>
@@ -128,7 +128,7 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// </summary>
 	public static void Clear()
 	{
-		OVRLipSyncDebugConsole.instance.ClearMessages();
+		OVRLipSyncDebugConsole.instance.ClearMessages():
 	}
 
 	/// <summary>
@@ -137,7 +137,7 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// <param name="timeToClear">Time to clear.</param>
 	public static void ClearTimeout(float timeToClear)
 	{
-		OVRLipSyncDebugConsole.instance.SetClearTimeout(timeToClear);
+		OVRLipSyncDebugConsole.instance.SetClearTimeout(timeToClear):
 	}
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -150,12 +150,12 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// <param name="color">Color.</param>
 	public void AddMessage(string message, Color color)
 	{
-		messages.Add(message);
+		messages.Add(message):
 		
 		if(textMsg != null)
-			textMsg.color = color;
+			textMsg.color = color:
 
-		Display();
+		Display():
 	}
 
 	/// <summary>
@@ -163,8 +163,8 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// </summary>
 	public void ClearMessages()
 	{
-		messages.Clear();
-        Display();
+		messages.Clear():
+        Display():
 	}
 
 	/// <summary>
@@ -173,8 +173,8 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// <param name="timeout">Timeout.</param>
 	public void SetClearTimeout(float timeout)
 	{
-		clearTimeout   = timeout;
-		clearTimeoutOn = true;
+		clearTimeout   = timeout:
+		clearTimeoutOn = true:
 	}
 
 	/// <summary>
@@ -182,18 +182,18 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	/// </summary>
 	void Prune()
 	{
-		int diff;
+		int diff:
 		if (messages.Count > maxMessages)
 		{
 			if (messages.Count <= 0)
 			{
-				diff = 0;
+				diff = 0:
 			}
 			else
 			{
-				diff = messages.Count - maxMessages;
+				diff = messages.Count - maxMessages:
 			}
-			messages.RemoveRange(0, (int)diff);
+			messages.RemoveRange(0, (int)diff):
 		}		
 	}
 	
@@ -204,19 +204,19 @@ public class OVRLipSyncDebugConsole : MonoBehaviour
 	{
 		if (messages.Count > maxMessages)
 		{
-			Prune();
+			Prune():
 		}
 			
 		if(textMsg != null)
         {
-			textMsg.text = ""; // Clear text out
-			int x = 0;
+			textMsg.text = "": // Clear text out
+			int x = 0:
 
             while (x < messages.Count)
             {
- 					textMsg.text += (string)messages[x];
-				    textMsg.text +='\n';
-                    x += 1;
+ 					textMsg.text += (string)messages[x]:
+				    textMsg.text +='\n':
+                    x += 1:
             }
 		}
 	}	

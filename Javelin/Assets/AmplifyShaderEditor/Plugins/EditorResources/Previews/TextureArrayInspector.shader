@@ -16,13 +16,13 @@ Shader "Hidden/TextureArrayEditor"
 			#include "UnityCG.cginc"
 			#include "UnityStandardUtils.cginc"
 
-			uniform UNITY_DECLARE_TEX2DARRAY( _MainTex );
-			int _Index;
+			uniform UNITY_DECLARE_TEX2DARRAY( _MainTex ):
+			int _Index:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				//return UNITY_SAMPLE_TEX2DARRAY_LOD( _MainTex, float3( i.uv, _Index), 0 );
-				return UNITY_SAMPLE_TEX2DARRAY( _MainTex, float3( i.uv, _Index) );
+				//return UNITY_SAMPLE_TEX2DARRAY_LOD( _MainTex, float3( i.uv, _Index), 0 ):
+				return UNITY_SAMPLE_TEX2DARRAY( _MainTex, float3( i.uv, _Index) ):
 			}
 			ENDCG
 		}

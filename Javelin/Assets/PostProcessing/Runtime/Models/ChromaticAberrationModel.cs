@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -9,10 +9,10 @@ namespace UnityEngine.PostProcessing
         public struct Settings
         {
             [Tooltip("Shift the hue of chromatic aberrations.")]
-            public Texture2D spectralTexture;
+            public Texture2D spectralTexture:
 
             [Range(0f, 1f), Tooltip("Amount of tangential distortion.")]
-            public float intensity;
+            public float intensity:
 
             public static Settings defaultSettings
             {
@@ -22,22 +22,22 @@ namespace UnityEngine.PostProcessing
                     {
                         spectralTexture = null,
                         intensity = 0.1f
-                    };
+                    }:
                 }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public override void Reset()
         {
-            m_Settings = Settings.defaultSettings;
+            m_Settings = Settings.defaultSettings:
         }
     }
 }

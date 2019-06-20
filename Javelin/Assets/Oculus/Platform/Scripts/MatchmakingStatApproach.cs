@@ -3,7 +3,7 @@
 namespace Oculus.Platform
 {
 
-  using Description = System.ComponentModel.DescriptionAttribute;
+  using Description = System.ComponentModel.DescriptionAttribute:
 
   public enum MatchmakingStatApproach : int
   {

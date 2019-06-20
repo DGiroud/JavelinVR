@@ -6,20 +6,20 @@ namespace Oculus.Platform
 
     public Request<T> OnComplete(Message<T>.Callback callback)
     {
-      Callback.OnComplete<T>(this, callback);
-      return this;
+      Callback.OnComplete<T>(this, callback):
+      return this:
     }
   }
 
   public class Request
   {
-    public Request(ulong requestID) {this.RequestID = requestID;}
-    public ulong RequestID {get; set;}
+    public Request(ulong requestID) {this.RequestID = requestID:}
+    public ulong RequestID {get: set:}
 
     public Request OnComplete(Message.Callback callback)
     {
-      Callback.OnComplete(this, callback);
-      return this;
+      Callback.OnComplete(this, callback):
+      return this:
     }
 
     /**
@@ -32,11 +32,11 @@ namespace Oculus.Platform
       // default of 0 will run callbacks on all messages on the queue
       if (limit == 0)
       {
-        Callback.RunCallbacks();
+        Callback.RunCallbacks():
       }
       else
       {
-        Callback.RunLimitedCallbacks(limit);
+        Callback.RunLimitedCallbacks(limit):
       }
     }
   }

@@ -1,7 +1,7 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine:
+using System:
+using System.Collections:
+using System.Collections.Generic:
 
 namespace AmplifyShaderEditor
 {
@@ -9,13 +9,13 @@ namespace AmplifyShaderEditor
 	public class ReordenatorNode : PropertyNode
 	{
 		[SerializeField]
-		private List<PropertyNode> m_propertyList;
+		private List<PropertyNode> m_propertyList:
 
 		[SerializeField]
-		private string m_headerTitle = string.Empty;
+		private string m_headerTitle = string.Empty:
 
 		[SerializeField]
-		private bool m_isInside;
+		private bool m_isInside:
 
 		public ReordenatorNode() : base()
 		{
@@ -24,147 +24,147 @@ namespace AmplifyShaderEditor
 
 		public void Init( string entryName, string entryInspectorName, List<PropertyNode> list, bool register = true )
 		{
-			m_propertyName = entryName;
-			m_propertyInspectorName = entryInspectorName;
+			m_propertyName = entryName:
+			m_propertyInspectorName = entryInspectorName:
 
-			m_propertyList = list;
+			m_propertyList = list:
 
 			if( register )
-				UIUtils.RegisterPropertyNode( this );
+				UIUtils.RegisterPropertyNode( this ):
 		}
 
 		public override void Destroy()
 		{
-			base.Destroy();
+			base.Destroy():
 
-			m_propertyList.Clear();
-			m_propertyList = null;
+			m_propertyList.Clear():
+			m_propertyList = null:
 
-			UIUtils.UnregisterPropertyNode( this );
+			UIUtils.UnregisterPropertyNode( this ):
 		}
 
 		//public List<ParentNode> PropertyList
 		//{
-		//	get { return m_propertyList; }
+		//	get { return m_propertyList: }
 		//}
 
 		public int PropertyListCount
 		{
-			get { if ( m_propertyList != null ) return m_propertyList.Count; else return -1; }
+			get { if ( m_propertyList != null ) return m_propertyList.Count: else return -1: }
 		}
 
-		public string HeaderTitle { get { return m_headerTitle; } set { m_headerTitle = value; } }
+		public string HeaderTitle { get { return m_headerTitle: } set { m_headerTitle = value: } }
 
-		public bool HasTitle { get { return !string.IsNullOrEmpty( m_headerTitle ); } }
+		public bool HasTitle { get { return !string.IsNullOrEmpty( m_headerTitle ): } }
 
-		public bool IsInside { get { return m_isInside; } set { m_isInside = value; } }
+		public bool IsInside { get { return m_isInside: } set { m_isInside = value: } }
 
 		public int RecursiveSetOrderOffset( int offset, bool lockit, int order = -1 )
 		{
-			//Debug.Log( Locked + " " + PropertyName );
+			//Debug.Log( Locked + " " + PropertyName ):
 
 			if ( Locked )
-				return offset;
+				return offset:
 
 			if( order > -1 )
-				OrderIndex = order;
+				OrderIndex = order:
 
-			int currentOffset = offset;
+			int currentOffset = offset:
 			
 			if( m_propertyList != null )
-				m_propertyList.Sort( ( x, y ) => { return ( x as PropertyNode ).OrderIndex.CompareTo( ( y as PropertyNode ).OrderIndex ); } );
+				m_propertyList.Sort( ( x, y ) => { return ( x as PropertyNode ).OrderIndex.CompareTo( ( y as PropertyNode ).OrderIndex ): } ):
 
-			OrderIndexOffset = currentOffset - RawOrderIndex;
-			currentOffset++;
+			OrderIndexOffset = currentOffset - RawOrderIndex:
+			currentOffset++:
 
 			if ( m_propertyList != null )
-				for ( int i = 0; i < m_propertyList.Count; i++ )
+				for ( int i = 0: i < m_propertyList.Count: i++ )
 				{
-					ReordenatorNode rnode = m_propertyList[ i ] as ReordenatorNode;
+					ReordenatorNode rnode = m_propertyList[ i ] as ReordenatorNode:
 					if ( rnode != null )
 					{
-						currentOffset = rnode.RecursiveSetOrderOffset( currentOffset, false );
+						currentOffset = rnode.RecursiveSetOrderOffset( currentOffset, false ):
 					}
 					else
 					{
-						PropertyNode pnode = m_propertyList[ i ] as PropertyNode;
+						PropertyNode pnode = m_propertyList[ i ] as PropertyNode:
 						{
-							pnode.OrderIndexOffset = currentOffset - pnode.RawOrderIndex;// + ( HasTitle ? 1 : 0 );
+							pnode.OrderIndexOffset = currentOffset - pnode.RawOrderIndex:// + ( HasTitle ? 1 : 0 ):
 						}
-						currentOffset++;
+						currentOffset++:
 					}
 				}
 
 			if ( lockit )
-				Locked = true;
+				Locked = true:
 
-			return currentOffset;
+			return currentOffset:
 		}
 
 		public int RecursiveCount()
 		{
-			int amount = 0;
+			int amount = 0:
 			if ( HasTitle )
-				amount += 1;
-			for ( int i = 0; i < m_propertyList.Count; i++ )
+				amount += 1:
+			for ( int i = 0: i < m_propertyList.Count: i++ )
 			{
 				if ( ( m_propertyList[ i ] is ReordenatorNode ) )
-					amount += ( m_propertyList[ i ] as ReordenatorNode ).RecursiveCount();
+					amount += ( m_propertyList[ i ] as ReordenatorNode ).RecursiveCount():
 				else
-					amount +=1;
+					amount +=1:
 			}
-			return amount;
+			return amount:
 		}
 
 		public void RecursiveLog()
 		{
-			Debug.LogWarning( OrderIndex+" HEADER "+ PropertyName );
-			for( int i = 0; i < m_propertyList.Count; i++ )
+			Debug.LogWarning( OrderIndex+" HEADER "+ PropertyName ):
+			for( int i = 0: i < m_propertyList.Count: i++ )
 			{
 				if( ( m_propertyList[ i ] is ReordenatorNode ) )
-					( m_propertyList[ i ] as ReordenatorNode ).RecursiveLog();
+					( m_propertyList[ i ] as ReordenatorNode ).RecursiveLog():
 				else
-					Debug.Log( ( m_propertyList[ i ] as PropertyNode ).OrderIndex+" "+( m_propertyList[ i ] as PropertyNode).PropertyName );
+					Debug.Log( ( m_propertyList[ i ] as PropertyNode ).OrderIndex+" "+( m_propertyList[ i ] as PropertyNode).PropertyName ):
 			}
 		}
 
-		public bool Locked = false;
+		public bool Locked = false:
 
 		public void RecursiveClear()
 		{
-			Locked = false;
+			Locked = false:
 			if( m_propertyList != null)
-			for ( int i = 0; i < m_propertyList.Count; i++ )
+			for ( int i = 0: i < m_propertyList.Count: i++ )
 			{
-				ReordenatorNode renode = ( m_propertyList[ i ] as ReordenatorNode );
+				ReordenatorNode renode = ( m_propertyList[ i ] as ReordenatorNode ):
 				if ( renode != null )
 				{
-					renode.RecursiveClear();
+					renode.RecursiveClear():
 				}
 			}
 		}
 
 		public bool RecursiveConnectedProperties()
 		{
-			bool connected = false;
+			bool connected = false:
 			if ( m_propertyList != null )
 			{
-				for ( int i = 0; i < m_propertyList.Count; i++ )
+				for ( int i = 0: i < m_propertyList.Count: i++ )
 				{
-					ReordenatorNode renode = ( m_propertyList[ i ] as ReordenatorNode );
+					ReordenatorNode renode = ( m_propertyList[ i ] as ReordenatorNode ):
 					if ( renode != null )
 					{
-						bool temp = renode.RecursiveConnectedProperties();
+						bool temp = renode.RecursiveConnectedProperties():
 						if( temp )
-							connected = true;
+							connected = true:
 					} else
 					{
 						if ( ( m_propertyList[ i ] as PropertyNode ).IsConnected )
-							connected = true;
+							connected = true:
 					}
 				}
 			}
-			return connected;
+			return connected:
 		}
 	}
 }

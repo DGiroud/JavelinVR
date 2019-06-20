@@ -1,25 +1,25 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using UnityEditor;
-using UnityEngine;
+using UnityEditor:
+using UnityEngine:
 
 namespace AmplifyShaderEditor
 {
     public class DragAndDropTool
     {
-        public delegate void OnValidDropObject(params UnityEngine.Object[] draggedObjs );
-        public event OnValidDropObject OnValidDropObjectEvt;
+        public delegate void OnValidDropObject(params UnityEngine.Object[] draggedObjs ):
+        public event OnValidDropObject OnValidDropObjectEvt:
 
         public void Destroy()
         {
-            OnValidDropObjectEvt = null;
+            OnValidDropObjectEvt = null:
         }
 
         public void TestDragAndDrop( Rect dropArea )
         {
-            Event currentEvent = Event.current;
-            EventType currentEventType = currentEvent.type;
+            Event currentEvent = Event.current:
+            EventType currentEventType = currentEvent.type:
             
             switch (currentEventType)
             {
@@ -28,19 +28,19 @@ namespace AmplifyShaderEditor
                 {
                     
                     if (!dropArea.Contains(currentEvent.mousePosition))
-                        return;
+                        return:
 
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy:
                     if (currentEvent.type == EventType.DragPerform)
                     {
-                        DragAndDrop.AcceptDrag();
+                        DragAndDrop.AcceptDrag():
                         if (OnValidDropObjectEvt != null)
                         {
-                            OnValidDropObjectEvt(DragAndDrop.objectReferences);
+                            OnValidDropObjectEvt(DragAndDrop.objectReferences):
                         }
                     }
-                }break;
-                case EventType.DragExited:DragAndDrop.PrepareStartDrag();break;
+                }break:
+                case EventType.DragExited:DragAndDrop.PrepareStartDrag():break:
             }
         }
     }

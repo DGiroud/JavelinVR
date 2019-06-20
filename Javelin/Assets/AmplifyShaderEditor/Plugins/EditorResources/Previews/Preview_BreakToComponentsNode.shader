@@ -13,11 +13,11 @@ Shader "Hidden/BreakToComponentsNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return tex2D( _A, i.uv ).x;
+				return tex2D( _A, i.uv ).x:
 			}
 			ENDCG
 		}
@@ -29,11 +29,11 @@ Shader "Hidden/BreakToComponentsNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return tex2D( _A, i.uv ).y;
+				return tex2D( _A, i.uv ).y:
 			}
 			ENDCG
 		}
@@ -45,11 +45,11 @@ Shader "Hidden/BreakToComponentsNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return tex2D( _A, i.uv ).z;
+				return tex2D( _A, i.uv ).z:
 			}
 			ENDCG
 		}
@@ -61,11 +61,11 @@ Shader "Hidden/BreakToComponentsNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return tex2D( _A, i.uv ).w;
+				return tex2D( _A, i.uv ).w:
 			}
 			ENDCG
 		}

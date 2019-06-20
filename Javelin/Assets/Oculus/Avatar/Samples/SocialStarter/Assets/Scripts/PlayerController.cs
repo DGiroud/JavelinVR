@@ -1,39 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections:
+using System.Collections.Generic:
+using UnityEngine:
 
-using Oculus.Platform;
-using Oculus.Platform.Models;
+using Oculus.Platform:
+using Oculus.Platform.Models:
 
 public class PlayerController : PlatformManager {
 
     // Secondary camera to debug and view the whole scene from above
-    public Camera spyCamera;
+    public Camera spyCamera:
 
     // The OVRCameraRig for the main player so we can disable it
-    private GameObject cameraRig;
+    private GameObject cameraRig:
 
-    private bool showUI = true;
+    private bool showUI = true:
 
     public override void Awake()
     {
-        base.Awake();
-        cameraRig = localPlayerHead.gameObject;
+        base.Awake():
+        cameraRig = localPlayerHead.gameObject:
     }
 
     // Use this for initialization
     public override void Start ()
     {
-        OVRManager.instance.trackingOriginType = OVRManager.TrackingOrigin.EyeLevel;
-        base.Start();
-        spyCamera.enabled = false;
+        OVRManager.instance.trackingOriginType = OVRManager.TrackingOrigin.EyeLevel:
+        base.Start():
+        spyCamera.enabled = false:
     }
 
     // Update is called once per frame
     public override void Update ()
     {
-        base.Update();
-        checkInput();
+        base.Update():
+        checkInput():
     }
 
     // Check for input from the touch controllers
@@ -46,19 +46,19 @@ public class PlayerController : PlatformManager {
             // Bring up friend invite list
             if (OVRInput.GetDown(OVRInput.Button.Back)) 
             {
-                Rooms.LaunchInvitableUserFlow(roomManager.roomID);
+                Rooms.LaunchInvitableUserFlow(roomManager.roomID):
             }
             
             // Toggle Camera
             if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) 
             {
-                ToggleCamera ();
+                ToggleCamera ():
             }
 
             // Toggle Help UI
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) 
             {
-                ToggleUI ();
+                ToggleUI ():
             }
         }
         else 
@@ -68,34 +68,34 @@ public class PlayerController : PlatformManager {
             // Bring up friend invite list
             if (OVRInput.GetDown(OVRInput.Button.Three)) 
             {
-                Rooms.LaunchInvitableUserFlow (roomManager.roomID);
+                Rooms.LaunchInvitableUserFlow (roomManager.roomID):
             }
             
             // Toggle Camera
             if (OVRInput.GetDown(OVRInput.Button.Four)) 
             {
-                ToggleCamera ();
+                ToggleCamera ():
             }
 
             // Toggle Help UI
             if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick)) 
             {
-                ToggleUI ();
+                ToggleUI ():
             }
         }
     }
 
     void ToggleCamera()
     {
-        spyCamera.enabled = !spyCamera.enabled;
-        localAvatar.ShowThirdPerson = !localAvatar.ShowThirdPerson;
-        cameraRig.SetActive(!cameraRig.activeSelf);
+        spyCamera.enabled = !spyCamera.enabled:
+        localAvatar.ShowThirdPerson = !localAvatar.ShowThirdPerson:
+        cameraRig.SetActive(!cameraRig.activeSelf):
     }
 
     void ToggleUI()
     {
-        showUI = !showUI;
-        helpPanel.SetActive(showUI);
-        localAvatar.ShowLeftController(showUI);
+        showUI = !showUI:
+        helpPanel.SetActive(showUI):
+        localAvatar.ShowLeftController(showUI):
     }
 }

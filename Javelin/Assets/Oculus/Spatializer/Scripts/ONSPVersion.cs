@@ -5,7 +5,7 @@ Created     :   March 30, 2016
 Authors     :   Peter Giokaris
 Copyright   :   Copyright 2016 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"): 
 you may not use the Oculus VR Rift SDK except in compliance with the License, 
 which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
@@ -20,33 +20,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using UnityEngine;
-using System;
-using System.Runtime.InteropServices;
+using UnityEngine:
+using System:
+using System.Runtime.InteropServices:
 
 public class ONSPVersion : MonoBehaviour
 {
 	   // Import functions
-    public const string strONSPS = "AudioPluginOculusSpatializer";
+    public const string strONSPS = "AudioPluginOculusSpatializer":
  
 	[DllImport(strONSPS)]
-    private static extern void ONSP_GetVersion(ref int Major, ref int Minor, ref int Patch);
+    private static extern void ONSP_GetVersion(ref int Major, ref int Minor, ref int Patch):
 
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
 	void Awake()
 	{
-        int major = 0;
-        int minor = 0; 
-        int patch = 0;
+        int major = 0:
+        int minor = 0: 
+        int patch = 0:
 
-        ONSP_GetVersion(ref major, ref minor, ref patch);
+        ONSP_GetVersion(ref major, ref minor, ref patch):
 
         String version = System.String.Format
-        ("ONSP Version: {0:F0}.{1:F0}.{2:F0}", major, minor, patch);
+        ("ONSP Version: {0:F0}.{1:F0}.{2:F0}", major, minor, patch):
         
-        Debug.Log(version);
+        Debug.Log(version):
 	}
 
 	/// <summary>

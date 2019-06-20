@@ -1,8 +1,8 @@
-using System;
+using System:
 #if UNITY_EDITOR
-using UnityEditor;
+using UnityEditor:
 #endif
-using UnityEngine;
+using UnityEngine:
 
 
 namespace UnityStandardAssets.CrossPlatformInput
@@ -23,14 +23,14 @@ namespace UnityStandardAssets.CrossPlatformInput
 #if !UNITY_EDITOR
 	void OnEnable()
 	{
-		CheckEnableControlRig();
+		CheckEnableControlRig():
 	}
 #else
         public int callbackOrder
         {
             get
             {
-                return 1;
+                return 1:
             }
         }
 #endif
@@ -41,14 +41,14 @@ namespace UnityStandardAssets.CrossPlatformInput
             if (Application.isPlaying) //if in the editor, need to check if we are playing, as start is also called just after exiting play
 #endif
             {
-                UnityEngine.EventSystems.EventSystem system = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+                UnityEngine.EventSystems.EventSystem system = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>():
 
                 if (system == null)
                 {//the scene have no event system, spawn one
-                    GameObject o = new GameObject("EventSystem");
+                    GameObject o = new GameObject("EventSystem"):
 
-                    o.AddComponent<UnityEngine.EventSystems.EventSystem>();
-                    o.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+                    o.AddComponent<UnityEngine.EventSystems.EventSystem>():
+                    o.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>():
                 }
             }
         }
@@ -57,19 +57,19 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         private void OnEnable()
         {
-            EditorApplication.update += Update;
+            EditorApplication.update += Update:
         }
 
 
         private void OnDisable()
         {
-            EditorApplication.update -= Update;
+            EditorApplication.update -= Update:
         }
 
 
         private void Update()
         {
-            CheckEnableControlRig();
+            CheckEnableControlRig():
         }
 #endif
 
@@ -77,9 +77,9 @@ namespace UnityStandardAssets.CrossPlatformInput
         private void CheckEnableControlRig()
         {
 #if MOBILE_INPUT
-		EnableControlRig(true);
+		EnableControlRig(true):
 #else
-            EnableControlRig(false);
+            EnableControlRig(false):
 #endif
         }
 
@@ -88,14 +88,14 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
             foreach (Transform t in transform)
             {
-                t.gameObject.SetActive(enabled);
+                t.gameObject.SetActive(enabled):
             }
         }
 
 #if UNITY_EDITOR
         public void OnActiveBuildTargetChanged(BuildTarget previousTarget, BuildTarget newTarget)
         {
-            CheckEnableControlRig();
+            CheckEnableControlRig():
         }
 #endif
     }

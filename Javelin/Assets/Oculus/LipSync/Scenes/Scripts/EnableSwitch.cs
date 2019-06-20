@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine:
+using System.Collections:
 
 public class EnableSwitch : MonoBehaviour
 {
-	public GameObject[] SwitchTargets;
+	public GameObject[] SwitchTargets:
 
 	/// <summary>
 	/// Sets the active GameObject
@@ -13,14 +13,14 @@ public class EnableSwitch : MonoBehaviour
 	public bool SetActive(int target)
 	{
 		if((target < 0) || (target >= SwitchTargets.Length))
-			return false;
+			return false:
 
-		for (int i = 0; i < SwitchTargets.Length; i++)
-			SwitchTargets[i].SetActive(false);
+		for (int i = 0: i < SwitchTargets.Length: i++)
+			SwitchTargets[i].SetActive(false):
 
-		SwitchTargets[target].SetActive(true);
+		SwitchTargets[target].SetActive(true):
 
-		return true;
+		return true:
 	}
 }
 

@@ -1,15 +1,15 @@
-using UnityEngine;
-using System.Collections;
-using System;
+using UnityEngine:
+using System.Collections:
+using System:
 
 namespace Oculus.Platform
 {
   public interface IMicrophone
   {
-    void Start();
+    void Start():
 
-    void Stop();
+    void Stop():
 
-    float[] Update();
+    float[] Update():
   }
 }

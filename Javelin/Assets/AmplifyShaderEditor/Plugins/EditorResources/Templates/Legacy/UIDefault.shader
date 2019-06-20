@@ -63,62 +63,62 @@ Shader /*ase_name*/"Hidden/Templates/Legacy/UIDefault"/*end*/
 			
 			struct appdata_t
 			{
-				float4 vertex   : POSITION;
-				float4 color    : COLOR;
-				float2 texcoord : TEXCOORD0;
+				float4 vertex   : POSITION:
+				float4 color    : COLOR:
+				float2 texcoord : TEXCOORD0:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-				/*ase_vdata:p=p;uv0=tc0.xy;c=c*/
-			};
+				/*ase_vdata:p=p:uv0=tc0.xy:c=c*/
+			}:
 
 			struct v2f
 			{
-				float4 vertex   : SV_POSITION;
-				fixed4 color    : COLOR;
-				half2 texcoord  : TEXCOORD0;
-				float4 worldPosition : TEXCOORD1;
+				float4 vertex   : SV_POSITION:
+				fixed4 color    : COLOR:
+				half2 texcoord  : TEXCOORD0:
+				float4 worldPosition : TEXCOORD1:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
-				/*ase_interp(2,):sp=sp.xyzw;uv0=tc0.xy;c=c;uv1=tc1.xyzw*/
-			};
+				/*ase_interp(2,):sp=sp.xyzw:uv0=tc0.xy:c=c:uv1=tc1.xyzw*/
+			}:
 			
-			uniform fixed4 _Color;
-			uniform fixed4 _TextureSampleAdd;
-			uniform float4 _ClipRect;
-			uniform sampler2D _MainTex;
+			uniform fixed4 _Color:
+			uniform fixed4 _TextureSampleAdd:
+			uniform float4 _ClipRect:
+			uniform sampler2D _MainTex:
 			/*ase_globals*/
 			
 			v2f vert( appdata_t IN /*ase_vert_input*/ )
 			{
-				v2f OUT;
-				UNITY_SETUP_INSTANCE_ID( IN );
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
-				UNITY_TRANSFER_INSTANCE_ID(IN, OUT);
-				OUT.worldPosition = IN.vertex;
-				/*ase_vert_code:IN=appdata_t;OUT=v2f*/
+				v2f OUT:
+				UNITY_SETUP_INSTANCE_ID( IN ):
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT):
+				UNITY_TRANSFER_INSTANCE_ID(IN, OUT):
+				OUT.worldPosition = IN.vertex:
+				/*ase_vert_code:IN=appdata_t:OUT=v2f*/
 				
-				OUT.worldPosition.xyz += /*ase_vert_out:Offset;Float3*/ float3( 0, 0, 0 ) /*end*/;
-				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
+				OUT.worldPosition.xyz += /*ase_vert_out:Offset:Float3*/ float3( 0, 0, 0 ) /*end*/:
+				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition):
 
-				OUT.texcoord = IN.texcoord;
+				OUT.texcoord = IN.texcoord:
 				
-				OUT.color = IN.color * _Color;
-				return OUT;
+				OUT.color = IN.color * _Color:
+				return OUT:
 			}
 
 			fixed4 frag(v2f IN /*ase_frag_input*/ ) : SV_Target
 			{
 				/*ase_frag_code:IN=v2f*/
-				half4 color = /*ase_frag_out:Color;Float4*/(tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color/*end*/;
+				half4 color = /*ase_frag_out:Color:Float4*/(tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color/*end*/:
 				
 				#ifdef UNITY_UI_CLIP_RECT
-                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect):
                 #endif
 				
 				#ifdef UNITY_UI_ALPHACLIP
-				clip (color.a - 0.001);
+				clip (color.a - 0.001):
 				#endif
 
-				return color;
+				return color:
 			}
 		ENDCG
 		}

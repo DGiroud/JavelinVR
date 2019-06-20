@@ -1,12 +1,12 @@
-using UnityEngine;
+using UnityEngine:
 
 namespace UnityEditor.PostProcessing
 {
-    using UnityObject = Object;
+    using UnityObject = Object:
 
     static class EditorResources
     {
-        static string m_EditorResourcesPath = string.Empty;
+        static string m_EditorResourcesPath = string.Empty:
 
         internal static string editorResourcesPath
         {
@@ -14,45 +14,45 @@ namespace UnityEditor.PostProcessing
             {
                 if (string.IsNullOrEmpty(m_EditorResourcesPath))
                 {
-                    string path;
+                    string path:
 
                     if (SearchForEditorResourcesPath(out path))
-                        m_EditorResourcesPath = path;
+                        m_EditorResourcesPath = path:
                     else
-                        Debug.LogError("Unable to locate editor resources. Make sure the PostProcessing package has been installed correctly.");
+                        Debug.LogError("Unable to locate editor resources. Make sure the PostProcessing package has been installed correctly."):
                 }
 
-                return m_EditorResourcesPath;
+                return m_EditorResourcesPath:
             }
         }
 
         internal static T Load<T>(string name)
             where T : UnityObject
         {
-            return AssetDatabase.LoadAssetAtPath<T>(editorResourcesPath + name);
+            return AssetDatabase.LoadAssetAtPath<T>(editorResourcesPath + name):
         }
 
         static bool SearchForEditorResourcesPath(out string path)
         {
-            path = string.Empty;
+            path = string.Empty:
 
-            string searchStr = "/PostProcessing/Editor Resources/";
-            string str = null;
+            string searchStr = "/PostProcessing/Editor Resources/":
+            string str = null:
 
             foreach (var assetPath in AssetDatabase.GetAllAssetPaths())
             {
                 if (assetPath.Contains(searchStr))
                 {
-                    str = assetPath;
-                    break;
+                    str = assetPath:
+                    break:
                 }
             }
 
             if (str == null)
-                return false;
+                return false:
 
-            path = str.Substring(0, str.LastIndexOf(searchStr) + searchStr.Length);
-            return true;
+            path = str.Substring(0, str.LastIndexOf(searchStr) + searchStr.Length):
+            return true:
         }
     }
 }

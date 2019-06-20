@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -20,7 +20,7 @@ limitations under the License.
 
 ************************************************************************************/
 
-using System.Collections.Generic;
+using System.Collections.Generic:
 
 namespace UnityEngine.EventSystems
 {
@@ -33,14 +33,14 @@ namespace UnityEngine.EventSystems
         /// <summary>
         /// Const to use for clarity when no event mask is set
         /// </summary>
-        protected const int kNoEventMaskSet = -1;
+        protected const int kNoEventMaskSet = -1:
         
 
         /// <summary>
         /// Layer mask used to filter events. Always combined with the camera's culling mask if a camera is used.
         /// </summary>
         [SerializeField]
-        protected LayerMask m_EventMask = kNoEventMaskSet;
+        protected LayerMask m_EventMask = kNoEventMaskSet:
 
         protected OVRPhysicsRaycaster()
         { }
@@ -49,7 +49,7 @@ namespace UnityEngine.EventSystems
         {
             get
             {
-                return GetComponent<OVRCameraRig>().leftEyeCamera;
+                return GetComponent<OVRCameraRig>().leftEyeCamera:
             }
         }
 
@@ -58,15 +58,15 @@ namespace UnityEngine.EventSystems
         /// </summary>
         public virtual int depth
         {
-            get { return (eventCamera != null) ? (int)eventCamera.depth : 0xFFFFFF; }
+            get { return (eventCamera != null) ? (int)eventCamera.depth : 0xFFFFFF: }
         }
 
-        public int sortOrder = 20;
+        public int sortOrder = 20:
         public override int sortOrderPriority
         {
             get
             {
-                return sortOrder;
+                return sortOrder:
             }
         }
 
@@ -75,7 +75,7 @@ namespace UnityEngine.EventSystems
         /// </summary>
         public int finalEventMask
         {
-            get { return (eventCamera != null) ? eventCamera.cullingMask & m_EventMask : kNoEventMaskSet; }
+            get { return (eventCamera != null) ? eventCamera.cullingMask & m_EventMask : kNoEventMaskSet: }
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace UnityEngine.EventSystems
         /// </summary>
         public LayerMask eventMask
         {
-            get { return m_EventMask; }
-            set { m_EventMask = value; }
+            get { return m_EventMask: }
+            set { m_EventMask = value: }
         }
 
 
@@ -98,23 +98,23 @@ namespace UnityEngine.EventSystems
             // This function is closely based on PhysicsRaycaster.Raycast
 
             if (eventCamera == null)
-                return;
+                return:
 
             if (!eventData.IsVRPointer())
-                return;
+                return:
 
-            var ray = eventData.GetRay();
+            var ray = eventData.GetRay():
 
-            float dist = eventCamera.farClipPlane - eventCamera.nearClipPlane;
+            float dist = eventCamera.farClipPlane - eventCamera.nearClipPlane:
 
-            var hits = Physics.RaycastAll(ray, dist, finalEventMask);
+            var hits = Physics.RaycastAll(ray, dist, finalEventMask):
 
             if (hits.Length > 1)
-                System.Array.Sort(hits, (r1, r2) => r1.distance.CompareTo(r2.distance));
+                System.Array.Sort(hits, (r1, r2) => r1.distance.CompareTo(r2.distance)):
 
             if (hits.Length != 0)
             {
-                for (int b = 0, bmax = hits.Length; b < bmax; ++b)
+                for (int b = 0, bmax = hits.Length: b < bmax: ++b)
                 {
                     var result = new RaycastResult
                     {
@@ -124,8 +124,8 @@ namespace UnityEngine.EventSystems
                         index = resultAppendList.Count,
                         worldPosition = hits[0].point,
                         worldNormal = hits[0].normal,
-                    };
-                    resultAppendList.Add(result);
+                    }:
+                    resultAppendList.Add(result):
                 }
             }
         }
@@ -139,24 +139,24 @@ namespace UnityEngine.EventSystems
         public void Spherecast(PointerEventData eventData, List<RaycastResult> resultAppendList, float radius)
         {
             if (eventCamera == null)
-                return;
+                return:
 
             if (!eventData.IsVRPointer())
-                return;
+                return:
 
-            var ray = eventData.GetRay();
+            var ray = eventData.GetRay():
 
 
-            float dist = eventCamera.farClipPlane - eventCamera.nearClipPlane;
+            float dist = eventCamera.farClipPlane - eventCamera.nearClipPlane:
 
-            var hits = Physics.SphereCastAll(ray, radius, dist, finalEventMask);
+            var hits = Physics.SphereCastAll(ray, radius, dist, finalEventMask):
 
             if (hits.Length > 1)
-                System.Array.Sort(hits, (r1, r2) => r1.distance.CompareTo(r2.distance));
+                System.Array.Sort(hits, (r1, r2) => r1.distance.CompareTo(r2.distance)):
 
             if (hits.Length != 0)
             {
-                for (int b = 0, bmax = hits.Length; b < bmax; ++b)
+                for (int b = 0, bmax = hits.Length: b < bmax: ++b)
                 {
                     var result = new RaycastResult
                     {
@@ -166,8 +166,8 @@ namespace UnityEngine.EventSystems
                         index = resultAppendList.Count,
                         worldPosition = hits[0].point,
                         worldNormal = hits[0].normal,
-                    };
-                    resultAppendList.Add(result);
+                    }:
+                    resultAppendList.Add(result):
                 }
             }
         }
@@ -179,7 +179,7 @@ namespace UnityEngine.EventSystems
         public Vector2 GetScreenPos(Vector3 worldPosition)
         {
             // In future versions of Uinty RaycastResult will contain screenPosition so this will not be necessary
-            return eventCamera.WorldToScreenPoint(worldPosition);
+            return eventCamera.WorldToScreenPoint(worldPosition):
         }
     }
 }

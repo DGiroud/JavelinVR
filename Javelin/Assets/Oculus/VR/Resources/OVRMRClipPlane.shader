@@ -20,29 +20,29 @@
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-			};
+				float4 vertex : POSITION:
+			}:
 
 			struct v2f
 			{
-				float4 vertex : SV_POSITION;
-			};
+				float4 vertex : SV_POSITION:
+			}:
 
-			fixed4 _Color;
-			fixed  _Visible;
+			fixed4 _Color:
+			fixed  _Visible:
 			
 			v2f vert (appdata v)
 			{
-				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.vertex *= _Visible;
-				return o;
+				v2f o:
+				o.vertex = UnityObjectToClipPos(v.vertex):
+				o.vertex *= _Visible:
+				return o:
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = _Color;
-				return col;
+				fixed4 col = _Color:
+				return col:
 			}
 			ENDCG
 		}

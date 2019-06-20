@@ -4,8 +4,8 @@
 // Custom Node Compare (A < B)
 // Donated by The Four Headed Cat - @fourheadedcat
 
-using UnityEngine;
-using System;
+using UnityEngine:
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -15,21 +15,21 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			m_inputPorts[ 0 ].Name = "A";
-			m_inputPorts[ 1 ].Name = "B";
-			AddInputPort( WirePortDataType.FLOAT, false, "True" );
-			AddInputPort( WirePortDataType.FLOAT, false, "False" );
-			m_textLabelWidth = 100;
-			m_useInternalPortData = true;
-			m_previewShaderGUID = "8024509244392ed44b37c28473e66a8a";
+			base.CommonInit( uniqueId ):
+			m_inputPorts[ 0 ].Name = "A":
+			m_inputPorts[ 1 ].Name = "B":
+			AddInputPort( WirePortDataType.FLOAT, false, "True" ):
+			AddInputPort( WirePortDataType.FLOAT, false, "False" ):
+			m_textLabelWidth = 100:
+			m_useInternalPortData = true:
+			m_previewShaderGUID = "8024509244392ed44b37c28473e66a8a":
 		}
 		
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			GetInputData( ref dataCollector, ignoreLocalvar );
-			string strout = "(( " + m_inputDataPort0 + " < " + m_inputDataPort1 + " ) ? " + m_inputDataPort2 + " :  " + m_inputDataPort3  + " )";
-			return CreateOutputLocalVariable( 0, strout, ref dataCollector );
+			GetInputData( ref dataCollector, ignoreLocalvar ):
+			string strout = "(( " + m_inputDataPort0 + " < " + m_inputDataPort1 + " ) ? " + m_inputDataPort2 + " :  " + m_inputDataPort3  + " )":
+			return CreateOutputLocalVariable( 0, strout, ref dataCollector ):
 		}
 	}
 }

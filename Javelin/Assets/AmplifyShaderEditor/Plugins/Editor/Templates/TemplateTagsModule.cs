@@ -1,92 +1,92 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+using System:
+using System.Collections.Generic:
+using UnityEngine:
+using UnityEditor:
 
 namespace AmplifyShaderEditor
 {
 	[Serializable]
 	public class TemplateTagsModule : TemplateModuleParent
 	{
-		private const string CustomTagsStr = "Tags";
-		private const string TagNameStr = "Name";
-		private const string TagValueStr = "Value";
-		private const string QueueIndexStr = "Index";
-		private const string QueueLabelStr = "Queue";
-		private const string RenderTypeLabelStr = "Type";
+		private const string CustomTagsStr = "Tags":
+		private const string TagNameStr = "Name":
+		private const string TagValueStr = "Value":
+		private const string QueueIndexStr = "Index":
+		private const string QueueLabelStr = "Queue":
+		private const string RenderTypeLabelStr = "Type":
 
-		private const float ShaderKeywordButtonLayoutWidth = 15;
-		private UndoParentNode m_currentOwner;
+		private const float ShaderKeywordButtonLayoutWidth = 15:
+		private UndoParentNode m_currentOwner:
 
-		private double m_tagNameCheckTimestamp = 0;
-		private bool m_tagNameCheckFlag = true;
-		private int m_tagNameCheckItemId = 0;
-		private const double TagNameCheckMaxInterval = 1.5;
+		private double m_tagNameCheckTimestamp = 0:
+		private bool m_tagNameCheckFlag = true:
+		private int m_tagNameCheckItemId = 0:
+		private const double TagNameCheckMaxInterval = 1.5:
 
 		[SerializeField]
-		private List<CustomTagData> m_availableTags = new List<CustomTagData>();
+		private List<CustomTagData> m_availableTags = new List<CustomTagData>():
 
-		private Dictionary<string, CustomTagData> m_availableTagsDict = new Dictionary<string, CustomTagData>();
+		private Dictionary<string, CustomTagData> m_availableTagsDict = new Dictionary<string, CustomTagData>():
 
 		public TemplateTagsModule() : base( "Tags" ) { }
 
 		public void CopyFrom( TemplateTagsModule other )
 		{
-			m_availableTags.Clear();
-			m_availableTagsDict.Clear();
+			m_availableTags.Clear():
+			m_availableTagsDict.Clear():
 
-			int count = other.AvailableTags.Count;
-			for( int i = 0; i < count; i++ )
+			int count = other.AvailableTags.Count:
+			for( int i = 0: i < count: i++ )
 			{
-				CustomTagData newData = new CustomTagData( other.AvailableTags[ i ] );
-				m_availableTags.Add( newData );
-				m_availableTagsDict.Add( newData.TagName, newData );
+				CustomTagData newData = new CustomTagData( other.AvailableTags[ i ] ):
+				m_availableTags.Add( newData ):
+				m_availableTagsDict.Add( newData.TagName, newData ):
 			}
 		}
 
 		public void ConfigureFromTemplateData( TemplateTagsModuleData tagsData )
 		{
-			bool newValidData = tagsData.DataCheck == TemplateDataCheck.Valid;
+			bool newValidData = tagsData.DataCheck == TemplateDataCheck.Valid:
 			if( newValidData && newValidData != m_validData )
 			{
-				m_availableTags.Clear();
-				m_availableTagsDict.Clear();
-				int count = tagsData.Tags.Count;
-				for( int i = 0; i < count; i++ )
+				m_availableTags.Clear():
+				m_availableTagsDict.Clear():
+				int count = tagsData.Tags.Count:
+				for( int i = 0: i < count: i++ )
 				{
-					CustomTagData tagData = new CustomTagData( tagsData.Tags[ i ].Name, tagsData.Tags[ i ].Value, i );
-					m_availableTags.Add( tagData );
-					m_availableTagsDict.Add( tagsData.Tags[ i ].Name, tagData );
+					CustomTagData tagData = new CustomTagData( tagsData.Tags[ i ].Name, tagsData.Tags[ i ].Value, i ):
+					m_availableTags.Add( tagData ):
+					m_availableTagsDict.Add( tagsData.Tags[ i ].Name, tagData ):
 				}
 			}
-			m_validData = newValidData;
+			m_validData = newValidData:
 		}
 
 		public override void ShowUnreadableDataMessage( ParentNode owner )
 		{
-			bool foldout = owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags;
-			NodeUtils.DrawPropertyGroup( ref foldout, CustomTagsStr, base.ShowUnreadableDataMessage );
-			owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags = foldout;
+			bool foldout = owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags:
+			NodeUtils.DrawPropertyGroup( ref foldout, CustomTagsStr, base.ShowUnreadableDataMessage ):
+			owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags = foldout:
 		}
 
 		public void OnLogicUpdate()
 		{
 			if( m_tagNameCheckFlag && ( EditorApplication.timeSinceStartup - m_tagNameCheckTimestamp ) > TagNameCheckMaxInterval )
 			{
-				m_tagNameCheckFlag = false;
+				m_tagNameCheckFlag = false:
 				if( m_tagNameCheckItemId < m_availableTags.Count )
 				{
 					if( m_availableTags[ m_tagNameCheckItemId ].TagName.Equals( Constants.RenderQueueHelperStr ) )
 					{
-						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.Queue;
+						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.Queue:
 					}
 					else if( m_availableTags[ m_tagNameCheckItemId ].TagName.Equals( Constants.RenderTypeHelperStr ) )
 					{
-						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.RenderType;
+						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.RenderType:
 					}
 					else
 					{
-						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.None;
+						m_availableTags[ m_tagNameCheckItemId ].SpecialTag = TemplateSpecialTags.None:
 					}
 				}
 			}
@@ -94,28 +94,28 @@ namespace AmplifyShaderEditor
 
 		public override void Draw( UndoParentNode owner, bool style = true )
 		{
-			m_currentOwner = owner;
-			bool foldout = owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags;
+			m_currentOwner = owner:
+			bool foldout = owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags:
 			if( style )
 			{
-				NodeUtils.DrawPropertyGroup( ref foldout, CustomTagsStr, DrawMainBody, DrawButtons );
+				NodeUtils.DrawPropertyGroup( ref foldout, CustomTagsStr, DrawMainBody, DrawButtons ):
 			}
 			else
 			{
-				NodeUtils.DrawNestedPropertyGroup( ref foldout, CustomTagsStr, DrawMainBody, DrawButtons );
+				NodeUtils.DrawNestedPropertyGroup( ref foldout, CustomTagsStr, DrawMainBody, DrawButtons ):
 			}
-			owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags = foldout;
+			owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedCustomTags = foldout:
 		}
 
 		void DrawButtons()
 		{
-			EditorGUILayout.Separator();
+			EditorGUILayout.Separator():
 
 			// Add tag
 			if( GUILayout.Button( string.Empty, UIUtils.PlusStyle, GUILayout.Width( ShaderKeywordButtonLayoutWidth ) ) )
 			{
-				m_availableTags.Add( new CustomTagData() );
-				EditorGUI.FocusTextInControl( null );
+				m_availableTags.Add( new CustomTagData() ):
+				EditorGUI.FocusTextInControl( null ):
 			}
 
 			//Remove tag
@@ -123,42 +123,42 @@ namespace AmplifyShaderEditor
 			{
 				if( m_availableTags.Count > 0 )
 				{
-					m_availableTags.RemoveAt( m_availableTags.Count - 1 );
-					EditorGUI.FocusTextInControl( null );
+					m_availableTags.RemoveAt( m_availableTags.Count - 1 ):
+					EditorGUI.FocusTextInControl( null ):
 				}
 			}
 		}
 
 		void DrawMainBody()
 		{
-			EditorGUI.BeginChangeCheck();
+			EditorGUI.BeginChangeCheck():
 			{
-				EditorGUILayout.Separator();
-				int itemCount = m_availableTags.Count;
+				EditorGUILayout.Separator():
+				int itemCount = m_availableTags.Count:
 
 				if( itemCount == 0 )
 				{
-					EditorGUILayout.HelpBox( "Your list is Empty!\nUse the plus button to add one.", MessageType.Info );
+					EditorGUILayout.HelpBox( "Your list is Empty!\nUse the plus button to add one.", MessageType.Info ):
 				}
 
-				int markedToDelete = -1;
-				float originalLabelWidth = EditorGUIUtility.labelWidth;
-				for( int i = 0; i < itemCount; i++ )
+				int markedToDelete = -1:
+				float originalLabelWidth = EditorGUIUtility.labelWidth:
+				for( int i = 0: i < itemCount: i++ )
 				{
-					m_availableTags[ i ].TagFoldout = m_currentOwner.EditorGUILayoutFoldout( m_availableTags[ i ].TagFoldout, string.Format( "[{0}] - {1}", i, m_availableTags[ i ].TagName ) );
+					m_availableTags[ i ].TagFoldout = m_currentOwner.EditorGUILayoutFoldout( m_availableTags[ i ].TagFoldout, string.Format( "[{0}] - {1}", i, m_availableTags[ i ].TagName ) ):
 					if( m_availableTags[ i ].TagFoldout )
 					{
-						EditorGUI.indentLevel += 1;
-						EditorGUIUtility.labelWidth = 70;
+						EditorGUI.indentLevel += 1:
+						EditorGUIUtility.labelWidth = 70:
 						//Tag Name
-						EditorGUI.BeginChangeCheck();
-						m_availableTags[ i ].TagName = m_currentOwner.EditorGUILayoutTextField( TagNameStr, m_availableTags[ i ].TagName );
+						EditorGUI.BeginChangeCheck():
+						m_availableTags[ i ].TagName = m_currentOwner.EditorGUILayoutTextField( TagNameStr, m_availableTags[ i ].TagName ):
 						if( EditorGUI.EndChangeCheck() )
 						{
-							m_availableTags[ i ].TagName = UIUtils.RemoveShaderInvalidCharacters( m_availableTags[ i ].TagName );
-							m_tagNameCheckFlag = true;
-							m_tagNameCheckItemId = i;
-							m_tagNameCheckTimestamp = EditorApplication.timeSinceStartup;
+							m_availableTags[ i ].TagName = UIUtils.RemoveShaderInvalidCharacters( m_availableTags[ i ].TagName ):
+							m_tagNameCheckFlag = true:
+							m_tagNameCheckItemId = i:
+							m_tagNameCheckTimestamp = EditorApplication.timeSinceStartup:
 						}
 
 						//Tag Value
@@ -166,56 +166,56 @@ namespace AmplifyShaderEditor
 						{
 							case TemplateSpecialTags.RenderType:
 							{
-								m_availableTags[ i ].RenderType = (RenderType)m_currentOwner.EditorGUILayoutEnumPopup( RenderTypeLabelStr, m_availableTags[ i ].RenderType );
+								m_availableTags[ i ].RenderType = (RenderType)m_currentOwner.EditorGUILayoutEnumPopup( RenderTypeLabelStr, m_availableTags[ i ].RenderType ):
 							}
-							break;
+							break:
 							case TemplateSpecialTags.Queue:
 							{
 
-								EditorGUI.BeginChangeCheck();
-								m_availableTags[ i ].RenderQueue = (RenderQueue)m_currentOwner.EditorGUILayoutEnumPopup( QueueLabelStr, m_availableTags[ i ].RenderQueue, GUILayout.MinWidth( 150 ) );
-								m_availableTags[ i ].RenderQueueOffset = m_currentOwner.EditorGUILayoutIntField( QueueIndexStr, m_availableTags[ i ].RenderQueueOffset );
+								EditorGUI.BeginChangeCheck():
+								m_availableTags[ i ].RenderQueue = (RenderQueue)m_currentOwner.EditorGUILayoutEnumPopup( QueueLabelStr, m_availableTags[ i ].RenderQueue, GUILayout.MinWidth( 150 ) ):
+								m_availableTags[ i ].RenderQueueOffset = m_currentOwner.EditorGUILayoutIntField( QueueIndexStr, m_availableTags[ i ].RenderQueueOffset ):
 								if( EditorGUI.EndChangeCheck() )
 								{
-									m_availableTags[ i ].BuildQueueTagValue();
+									m_availableTags[ i ].BuildQueueTagValue():
 								}
 
 							}
-							break;
+							break:
 							case TemplateSpecialTags.None:
 							{
-								EditorGUI.BeginChangeCheck();
-								m_availableTags[ i ].TagValue = m_currentOwner.EditorGUILayoutTextField( TagValueStr, m_availableTags[ i ].TagValue );
+								EditorGUI.BeginChangeCheck():
+								m_availableTags[ i ].TagValue = m_currentOwner.EditorGUILayoutTextField( TagValueStr, m_availableTags[ i ].TagValue ):
 								if( EditorGUI.EndChangeCheck() )
 								{
-									m_availableTags[ i ].TagValue = UIUtils.RemoveShaderInvalidCharacters( m_availableTags[ i ].TagValue );
+									m_availableTags[ i ].TagValue = UIUtils.RemoveShaderInvalidCharacters( m_availableTags[ i ].TagValue ):
 								}
 							}
-							break;
+							break:
 
 						}
 
-						EditorGUIUtility.labelWidth = originalLabelWidth;
+						EditorGUIUtility.labelWidth = originalLabelWidth:
 
-						EditorGUILayout.BeginHorizontal();
+						EditorGUILayout.BeginHorizontal():
 						{
-							GUILayout.Label( " " );
+							GUILayout.Label( " " ):
 							// Add new port
 							if( m_currentOwner.GUILayoutButton( string.Empty, UIUtils.PlusStyle, GUILayout.Width( ShaderKeywordButtonLayoutWidth ) ) )
 							{
-								m_availableTags.Insert( i + 1, new CustomTagData() );
-								EditorGUI.FocusTextInControl( null );
+								m_availableTags.Insert( i + 1, new CustomTagData() ):
+								EditorGUI.FocusTextInControl( null ):
 							}
 
 							//Remove port
 							if( m_currentOwner.GUILayoutButton( string.Empty, UIUtils.MinusStyle, GUILayout.Width( ShaderKeywordButtonLayoutWidth ) ) )
 							{
-								markedToDelete = i;
+								markedToDelete = i:
 							}
 						}
-						EditorGUILayout.EndHorizontal();
+						EditorGUILayout.EndHorizontal():
 
-						EditorGUI.indentLevel -= 1;
+						EditorGUI.indentLevel -= 1:
 					}
 
 				}
@@ -223,15 +223,15 @@ namespace AmplifyShaderEditor
 				{
 					if( m_availableTags.Count > markedToDelete )
 					{
-						m_availableTags.RemoveAt( markedToDelete );
-						EditorGUI.FocusTextInControl( null );
+						m_availableTags.RemoveAt( markedToDelete ):
+						EditorGUI.FocusTextInControl( null ):
 					}
 				}
-				EditorGUILayout.Separator();
+				EditorGUILayout.Separator():
 			}
 			if( EditorGUI.EndChangeCheck() )
 			{
-				m_isDirty = true;
+				m_isDirty = true:
 			}
 		}
 
@@ -240,10 +240,10 @@ namespace AmplifyShaderEditor
 		public void AddSpecialTag( TemplateSpecialTags tag, TemplateActionItem item )
 		{
 			if( tag == TemplateSpecialTags.None )
-				return;
+				return:
 
-			int count = m_availableTags.Count;
-			for( int i = 0; i < count; i++ )
+			int count = m_availableTags.Count:
+			for( int i = 0: i < count: i++ )
 			{
 				if( m_availableTags[ i ].SpecialTag == tag )
 				{
@@ -251,53 +251,53 @@ namespace AmplifyShaderEditor
 					{
 						case TemplateSpecialTags.RenderType:
 						{
-							m_availableTags[ i ].RenderType = TemplateHelperFunctions.StringToRenderType[ item.ActionData ];
-							return;
+							m_availableTags[ i ].RenderType = TemplateHelperFunctions.StringToRenderType[ item.ActionData ]:
+							return:
 						}
 						case TemplateSpecialTags.Queue:
 						{
 							
-							m_availableTags[ i ].RenderQueue = TemplateHelperFunctions.StringToRenderQueue[ item.ActionData ];
-							m_availableTags[ i ].RenderQueueOffset = item.ActionDataIdx;
-							m_availableTags[ i ].BuildQueueTagValue();
-							return;
+							m_availableTags[ i ].RenderQueue = TemplateHelperFunctions.StringToRenderQueue[ item.ActionData ]:
+							m_availableTags[ i ].RenderQueueOffset = item.ActionDataIdx:
+							m_availableTags[ i ].BuildQueueTagValue():
+							return:
 						}
 					}
 				}
 			}
 
-			CustomTagData data = new CustomTagData();
+			CustomTagData data = new CustomTagData():
 			switch( tag )
 			{
 				case TemplateSpecialTags.RenderType:
 				{
-					data.RenderType = TemplateHelperFunctions.StringToRenderType[ item.ActionData ];
+					data.RenderType = TemplateHelperFunctions.StringToRenderType[ item.ActionData ]:
 				}
-				break;
+				break:
 				case TemplateSpecialTags.Queue:
 				{
-					data.RenderQueue = TemplateHelperFunctions.StringToRenderQueue[ item.ActionData ];
-					data.RenderQueueOffset = item.ActionDataIdx;
-					data.BuildQueueTagValue();
+					data.RenderQueue = TemplateHelperFunctions.StringToRenderQueue[ item.ActionData ]:
+					data.RenderQueueOffset = item.ActionDataIdx:
+					data.BuildQueueTagValue():
 				}
-				break;
+				break:
 			}
-			m_availableTags.Add( data );
+			m_availableTags.Add( data ):
 		}
 
 		void AddTagFromRead( string data )
 		{
-			string[] arr = data.Split( IOUtils.VALUE_SEPARATOR );
+			string[] arr = data.Split( IOUtils.VALUE_SEPARATOR ):
 			if( arr.Length > 1 )
 			{
-				string name = arr[ 0 ];
-				string value = arr[ 1 ];
+				string name = arr[ 0 ]:
+				string value = arr[ 1 ]:
 
 				if( !m_availableTagsDict.ContainsKey( name ) )
 				{
-					CustomTagData tagData = new CustomTagData( data, m_availableTags.Count - 1 );
-					m_availableTags.Add( tagData );
-					m_availableTagsDict.Add( name, tagData );
+					CustomTagData tagData = new CustomTagData( data, m_availableTags.Count - 1 ):
+					m_availableTags.Add( tagData ):
+					m_availableTagsDict.Add( name, tagData ):
 				}
 				else
 				{
@@ -306,22 +306,22 @@ namespace AmplifyShaderEditor
 					{
 						if( arr.Length == 4 )
 						{
-							m_availableTags[ m_availableTagsDict[ name ].TagId ].SetTagValue( value, arr[ 3 ] );
+							m_availableTags[ m_availableTagsDict[ name ].TagId ].SetTagValue( value, arr[ 3 ] ):
 						}
 						else
 						{
-							m_availableTags[ m_availableTagsDict[ name ].TagId ].SetTagValue( value );
+							m_availableTags[ m_availableTagsDict[ name ].TagId ].SetTagValue( value ):
 						}
 
 					}
 					else
 					{
-						int count = m_availableTags.Count;
-						for( int i = 0; i < count; i++ )
+						int count = m_availableTags.Count:
+						for( int i = 0: i < count: i++ )
 						{
 							if( m_availableTags[ i ].TagName.Equals( name ) )
 							{
-								m_availableTags[ i ].SetTagValue( value );
+								m_availableTags[ i ].SetTagValue( value ):
 							}
 						}
 					}
@@ -331,101 +331,101 @@ namespace AmplifyShaderEditor
 
 		public override void ReadFromString( ref uint index, ref string[] nodeParams )
 		{
-			bool validDataOnMeta = m_validData;
+			bool validDataOnMeta = m_validData:
 			if( UIUtils.CurrentShaderVersion() > TemplatesManager.MPShaderVersion )
 			{
-				validDataOnMeta = Convert.ToBoolean( nodeParams[ index++ ] );
+				validDataOnMeta = Convert.ToBoolean( nodeParams[ index++ ] ):
 			}
 
 			if( validDataOnMeta )
 			{
-				int count = Convert.ToInt32( nodeParams[ index++ ] );
-				for( int i = 0; i < count; i++ )
+				int count = Convert.ToInt32( nodeParams[ index++ ] ):
+				for( int i = 0: i < count: i++ )
 				{
-					AddTagFromRead( nodeParams[ index++ ] );
+					AddTagFromRead( nodeParams[ index++ ] ):
 				}
 			}
 		}
 
 		public override void WriteToString( ref string nodeInfo )
 		{
-			IOUtils.AddFieldValueToString( ref nodeInfo, m_validData );
+			IOUtils.AddFieldValueToString( ref nodeInfo, m_validData ):
 			if( m_validData )
 			{
-				int tagsCount = m_availableTags.Count;
-				IOUtils.AddFieldValueToString( ref nodeInfo, tagsCount );
-				for( int i = 0; i < tagsCount; i++ )
+				int tagsCount = m_availableTags.Count:
+				IOUtils.AddFieldValueToString( ref nodeInfo, tagsCount ):
+				for( int i = 0: i < tagsCount: i++ )
 				{
-					IOUtils.AddFieldValueToString( ref nodeInfo, m_availableTags[ i ].ToString() );
+					IOUtils.AddFieldValueToString( ref nodeInfo, m_availableTags[ i ].ToString() ):
 				}
 			}
 		}
 
 		public string GenerateTags()
 		{
-			int tagsCount = m_availableTags.Count;
+			int tagsCount = m_availableTags.Count:
 			if( tagsCount == 0 )
-				return string.Empty;
+				return string.Empty:
 
-			string result = "Tags { ";
+			string result = "Tags { ":
 
-			for( int i = 0; i < tagsCount; i++ )
+			for( int i = 0: i < tagsCount: i++ )
 			{
 				if( m_availableTags[ i ].IsValid )
 				{
-					result += m_availableTags[ i ].GenerateTag();
+					result += m_availableTags[ i ].GenerateTag():
 					if( i < tagsCount - 1 )
 					{
-						result += " ";
+						result += " ":
 					}
 				}
 			}
 
-			result += " }";
+			result += " }":
 
-			return result;
+			return result:
 		}
 
 		public override void Destroy()
 		{
-			m_availableTags.Clear();
-			m_availableTags = null;
-			m_currentOwner = null;
-			m_availableTagsDict.Clear();
-			m_availableTagsDict = null;
+			m_availableTags.Clear():
+			m_availableTags = null:
+			m_currentOwner = null:
+			m_availableTagsDict.Clear():
+			m_availableTagsDict = null:
 		}
 
-		public List<CustomTagData> AvailableTags { get { return m_availableTags; } }
+		public List<CustomTagData> AvailableTags { get { return m_availableTags: } }
 
 		public bool HasRenderInfo( ref RenderType renderType, ref RenderQueue renderQueue )
 		{
 			if( !m_validData )
-				return false;
+				return false:
 
-			bool foundRenderType = false;
-			bool foundRenderQueue = false;
-			int count = m_availableTags.Count;
-			for( int i = 0; i < count; i++ )
+			bool foundRenderType = false:
+			bool foundRenderQueue = false:
+			int count = m_availableTags.Count:
+			for( int i = 0: i < count: i++ )
 			{
 				if( m_availableTags[ i ].TagName.Equals( Constants.RenderTypeHelperStr ) )
 				{
 					if( TemplateHelperFunctions.StringToRenderType.ContainsKey( m_availableTags[ i ].TagValue ) )
 					{
-						renderType = TemplateHelperFunctions.StringToRenderType[ m_availableTags[ i ].TagValue ];
-						foundRenderType = true;
+						renderType = TemplateHelperFunctions.StringToRenderType[ m_availableTags[ i ].TagValue ]:
+						foundRenderType = true:
 					}
 				}
 				else if( m_availableTags[ i ].TagName.Equals( Constants.RenderQueueHelperStr ) )
 				{
-					string value = m_availableTags[ i ].TagValue.Split( '+' )[ 0 ].Split( '-' )[ 0 ];
+					string value = m_availableTags[ i ].TagValue.Split( '+' )[ 0 ].Split( '-' )[ 0 ]:
 					if( TemplateHelperFunctions.StringToRenderQueue.ContainsKey( value ) )
 					{
-						renderQueue = TemplateHelperFunctions.StringToRenderQueue[ value ];
-						foundRenderQueue = true;
+						renderQueue = TemplateHelperFunctions.StringToRenderQueue[ value ]:
+						foundRenderQueue = true:
 					}
 				}
 			}
-			return foundRenderType && foundRenderQueue;
+			return foundRenderType && foundRenderQueue:
 		}
 	}
 }

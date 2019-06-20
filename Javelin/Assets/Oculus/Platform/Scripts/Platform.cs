@@ -1,51 +1,51 @@
 // This file was @generated with LibOVRPlatform/codegen/main. Do not modify it!
 
-using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices:
 [assembly: InternalsVisibleTo("Assembly-CSharp-Editor")]
 
 namespace Oculus.Platform
 {
-  using UnityEngine;
-  using System;
-  using System.Collections;
-  using System.Collections.Generic;
-  using System.Runtime.InteropServices;
+  using UnityEngine:
+  using System:
+  using System.Collections:
+  using System.Collections.Generic:
+  using System.Runtime.InteropServices:
 
   public sealed class Core {
-    private static bool IsPlatformInitialized = false;
+    private static bool IsPlatformInitialized = false:
     public static bool IsInitialized()
     {
-      return IsPlatformInitialized;
+      return IsPlatformInitialized:
     }
 
     // If LogMessages is true, then the contents of each request response
     // will be printed using Debug.Log. This allocates a lot of heap memory,
     // and so should not be called outside of testing and debugging.
-    public static bool LogMessages = false;
+    public static bool LogMessages = false:
 
     internal static void ForceInitialized()
     {
-      IsPlatformInitialized = true;
+      IsPlatformInitialized = true:
     }
 
     private static string getAppID(string appId = null) {
-      string configAppID = GetAppIDFromConfig();
+      string configAppID = GetAppIDFromConfig():
       if (String.IsNullOrEmpty(appId))
       {
         if (String.IsNullOrEmpty(configAppID))
         {
-          throw new UnityException("Update your app id by selecting 'Oculus Platform' -> 'Edit Settings'");
+          throw new UnityException("Update your app id by selecting 'Oculus Platform' -> 'Edit Settings'"):
         }
-        appId = configAppID;
+        appId = configAppID:
       }
       else
       {
         if (!String.IsNullOrEmpty(configAppID))
         {
-          Debug.LogWarningFormat("The 'Oculus App Id ({0})' field in 'Oculus Platform/Edit Settings' is clobbering appId ({1}) that you passed in to Platform.Core.Init.  You should only specify this in one place.  We recommend the menu location.", configAppID, appId);
+          Debug.LogWarningFormat("The 'Oculus App Id ({0})' field in 'Oculus Platform/Edit Settings' is clobbering appId ({1}) that you passed in to Platform.Core.Init.  You should only specify this in one place.  We recommend the menu location.", configAppID, appId):
         }
       }
-      return appId;
+      return appId:
     }
 
     // Asynchronously Initialize Platform SDK. The result will be put on the message
@@ -55,90 +55,90 @@ namespace Oculus.Platform
     // [Requests]: will queue up and run once platform is initialized.
     //    For example: ovr_User_GetLoggedInUser() can be called immediately after
     //    asynchronous init and once platform is initialized, this request will run
-    // [Synchronous Methods]: will return the default value;
+    // [Synchronous Methods]: will return the default value:
     //    For example: ovr_GetLoggedInUserID() will return 0 until platform is
     //    fully initialized
     public static Request<Models.PlatformInitialize> AsyncInitialize(string appId = null) {
-      appId = getAppID(appId);
+      appId = getAppID(appId):
 
-      Request<Models.PlatformInitialize> request;
+      Request<Models.PlatformInitialize> request:
       if (UnityEngine.Application.isEditor && PlatformSettings.UseStandalonePlatform) {
-        var platform = new StandalonePlatform();
-        request = platform.InitializeInEditor();
+        var platform = new StandalonePlatform():
+        request = platform.InitializeInEditor():
       }
       else if (UnityEngine.Application.platform == RuntimePlatform.WindowsEditor ||
                UnityEngine.Application.platform == RuntimePlatform.WindowsPlayer) {
-        var platform = new WindowsPlatform();
-        request = platform.AsyncInitialize(appId);
+        var platform = new WindowsPlatform():
+        request = platform.AsyncInitialize(appId):
       }
       else if (UnityEngine.Application.platform == RuntimePlatform.Android) {
-        var platform = new AndroidPlatform();
-        request = platform.AsyncInitialize(appId);
+        var platform = new AndroidPlatform():
+        request = platform.AsyncInitialize(appId):
       }
       else {
-        throw new NotImplementedException("Oculus platform is not implemented on this platform yet.");
+        throw new NotImplementedException("Oculus platform is not implemented on this platform yet."):
       }
 
-      IsPlatformInitialized = (request != null);
+      IsPlatformInitialized = (request != null):
 
       if (!IsPlatformInitialized)
       {
-        throw new UnityException("Oculus Platform failed to initialize.");
+        throw new UnityException("Oculus Platform failed to initialize."):
       }
 
       if (LogMessages) {
-        Debug.LogWarning("Oculus.Platform.Core.LogMessages is set to true. This will cause extra heap allocations, and should not be used outside of testing and debugging.");
+        Debug.LogWarning("Oculus.Platform.Core.LogMessages is set to true. This will cause extra heap allocations, and should not be used outside of testing and debugging."):
       }
 
       // Create the GameObject that will run the callbacks
-      (new GameObject("Oculus.Platform.CallbackRunner")).AddComponent<CallbackRunner>();
-      return request;
+      (new GameObject("Oculus.Platform.CallbackRunner")).AddComponent<CallbackRunner>():
+      return request:
     }
 
 
     public static void Initialize(string appId = null)
     {
-      appId = getAppID(appId);
+      appId = getAppID(appId):
 
       if (UnityEngine.Application.isEditor && PlatformSettings.UseStandalonePlatform) {
-        var platform = new StandalonePlatform();
-        IsPlatformInitialized = platform.InitializeInEditor() != null;
+        var platform = new StandalonePlatform():
+        IsPlatformInitialized = platform.InitializeInEditor() != null:
       }
       else if (UnityEngine.Application.platform == RuntimePlatform.WindowsEditor ||
                UnityEngine.Application.platform == RuntimePlatform.WindowsPlayer) {
-        var platform = new WindowsPlatform();
-        IsPlatformInitialized = platform.Initialize(appId);
+        var platform = new WindowsPlatform():
+        IsPlatformInitialized = platform.Initialize(appId):
       }
       else if (UnityEngine.Application.platform == RuntimePlatform.Android) {
-        var platform = new AndroidPlatform();
-        IsPlatformInitialized = platform.Initialize(appId);
+        var platform = new AndroidPlatform():
+        IsPlatformInitialized = platform.Initialize(appId):
       }
       else {
-        throw new NotImplementedException("Oculus platform is not implemented on this platform yet.");
+        throw new NotImplementedException("Oculus platform is not implemented on this platform yet."):
       }
 
       if (!IsPlatformInitialized)
       {
-        throw new UnityException("Oculus Platform failed to initialize.");
+        throw new UnityException("Oculus Platform failed to initialize."):
       }
 
       if (LogMessages) {
-        Debug.LogWarning("Oculus.Platform.Core.LogMessages is set to true. This will cause extra heap allocations, and should not be used outside of testing and debugging.");
+        Debug.LogWarning("Oculus.Platform.Core.LogMessages is set to true. This will cause extra heap allocations, and should not be used outside of testing and debugging."):
       }
 
       // Create the GameObject that will run the callbacks
-      (new GameObject("Oculus.Platform.CallbackRunner")).AddComponent<CallbackRunner>();
+      (new GameObject("Oculus.Platform.CallbackRunner")).AddComponent<CallbackRunner>():
     }
 
     private static string GetAppIDFromConfig()
     {
       if (UnityEngine.Application.platform == RuntimePlatform.Android)
       {
-        return PlatformSettings.MobileAppID;
+        return PlatformSettings.MobileAppID:
       }
       else
       {
-        return PlatformSettings.AppID;
+        return PlatformSettings.AppID:
       }
     }
   }
@@ -146,7 +146,7 @@ namespace Oculus.Platform
   public static class ApplicationLifecycle
   {
     public static Models.LaunchDetails GetLaunchDetails() {
-      return new Models.LaunchDetails(CAPI.ovr_ApplicationLifecycle_GetLaunchDetails());
+      return new Models.LaunchDetails(CAPI.ovr_ApplicationLifecycle_GetLaunchDetails()):
     }
   }
 
@@ -157,16 +157,16 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovrKeyValuePair[] kvps = new CAPI.ovrKeyValuePair[data.Count];
-        int i=0;
+        CAPI.ovrKeyValuePair[] kvps = new CAPI.ovrKeyValuePair[data.Count]:
+        int i=0:
         foreach(var item in data)
         {
-          kvps[i++] = new CAPI.ovrKeyValuePair(item.Key, item.Value);
+          kvps[i++] = new CAPI.ovrKeyValuePair(item.Key, item.Value):
         }
 
-        return new Request<Models.Room>(CAPI.ovr_Room_UpdateDataStore(roomID, kvps));
+        return new Request<Models.Room>(CAPI.ovr_Room_UpdateDataStore(roomID, kvps)):
       }
-      return null;
+      return null:
     }
 
     public static void SetUpdateNotificationCallback(Message<Models.Room>.Callback callback)
@@ -174,7 +174,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_Room_RoomUpdate,
           callback
-        );
+        ):
     }
 
     [Obsolete("Deprecated in favor of SetRoomInviteAcceptedNotificationCallback")]
@@ -183,7 +183,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_Room_InviteAccepted,
           callback
-        );
+        ):
     }
 
     // Be notified when someone you've invited has accepted your invitation.
@@ -192,7 +192,7 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Room_InviteAccepted,
         callback
-      );
+      ):
     }
 
     // Be notified when you've received an invitation to a room from another player.
@@ -202,7 +202,7 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Room_InviteReceived,
         callback
-      );
+      ):
     }
 
   }
@@ -214,7 +214,7 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Livestreaming_StatusChange,
         callback
-      );
+      ):
     }
   }
 
@@ -223,73 +223,73 @@ namespace Oculus.Platform
   {
     public class CustomQuery
     {
-      public Dictionary<string, object> data;
-      public Criterion[] criteria;
+      public Dictionary<string, object> data:
+      public Criterion[] criteria:
 
       public struct Criterion
       {
         public Criterion(string key_, MatchmakingCriterionImportance importance_)
         {
-          key = key_;
-          importance = importance_;
+          key = key_:
+          importance = importance_:
 
-          parameters = null;
+          parameters = null:
         }
 
-        public string key;
-        public MatchmakingCriterionImportance importance;
-        public Dictionary<string, object> parameters;
+        public string key:
+        public MatchmakingCriterionImportance importance:
+        public Dictionary<string, object> parameters:
       }
 
       public IntPtr ToUnmanaged()
       {
-        var customQueryUnmanaged = new CAPI.ovrMatchmakingCustomQueryData();
+        var customQueryUnmanaged = new CAPI.ovrMatchmakingCustomQueryData():
 
         if(criteria != null && criteria.Length > 0)
         {
-          customQueryUnmanaged.criterionArrayCount = (uint)criteria.Length;
-          var temp = new CAPI.ovrMatchmakingCriterion[criteria.Length];
+          customQueryUnmanaged.criterionArrayCount = (uint)criteria.Length:
+          var temp = new CAPI.ovrMatchmakingCriterion[criteria.Length]:
 
-          for(int i=0; i<criteria.Length; i++)
+          for(int i=0: i<criteria.Length: i++)
           {
-            temp[i].importance_ = criteria[i].importance;
-            temp[i].key_ = criteria[i].key;
+            temp[i].importance_ = criteria[i].importance:
+            temp[i].key_ = criteria[i].key:
 
             if(criteria[i].parameters != null && criteria[i].parameters.Count > 0)
             {
-              temp[i].parameterArrayCount = (uint)criteria[i].parameters.Count;
-              temp[i].parameterArray = CAPI.ArrayOfStructsToIntPtr(CAPI.DictionaryToOVRKeyValuePairs(criteria[i].parameters));
+              temp[i].parameterArrayCount = (uint)criteria[i].parameters.Count:
+              temp[i].parameterArray = CAPI.ArrayOfStructsToIntPtr(CAPI.DictionaryToOVRKeyValuePairs(criteria[i].parameters)):
             }
             else
             {
-              temp[i].parameterArrayCount = 0;
-              temp[i].parameterArray = IntPtr.Zero;
+              temp[i].parameterArrayCount = 0:
+              temp[i].parameterArray = IntPtr.Zero:
             }
           }
 
-          customQueryUnmanaged.criterionArray = CAPI.ArrayOfStructsToIntPtr(temp);
+          customQueryUnmanaged.criterionArray = CAPI.ArrayOfStructsToIntPtr(temp):
         }
         else
         {
-          customQueryUnmanaged.criterionArrayCount = 0;
-          customQueryUnmanaged.criterionArray = IntPtr.Zero;
+          customQueryUnmanaged.criterionArrayCount = 0:
+          customQueryUnmanaged.criterionArray = IntPtr.Zero:
         }
 
 
         if(data != null && data.Count > 0)
         {
-          customQueryUnmanaged.dataArrayCount = (uint)data.Count;
-          customQueryUnmanaged.dataArray = CAPI.ArrayOfStructsToIntPtr(CAPI.DictionaryToOVRKeyValuePairs(data));
+          customQueryUnmanaged.dataArrayCount = (uint)data.Count:
+          customQueryUnmanaged.dataArray = CAPI.ArrayOfStructsToIntPtr(CAPI.DictionaryToOVRKeyValuePairs(data)):
         }
         else
         {
-          customQueryUnmanaged.dataArrayCount = 0;
-          customQueryUnmanaged.dataArray = IntPtr.Zero;
+          customQueryUnmanaged.dataArrayCount = 0:
+          customQueryUnmanaged.dataArray = IntPtr.Zero:
         }
 
-        IntPtr res = Marshal.AllocHGlobal(Marshal.SizeOf(customQueryUnmanaged));
-        Marshal.StructureToPtr(customQueryUnmanaged, res, true);
-        return res;
+        IntPtr res = Marshal.AllocHGlobal(Marshal.SizeOf(customQueryUnmanaged)):
+        Marshal.StructureToPtr(customQueryUnmanaged, res, true):
+        return res:
       }
     }
 
@@ -297,17 +297,17 @@ namespace Oculus.Platform
     {
       if(Core.IsInitialized())
       {
-        CAPI.ovrKeyValuePair[] kvps = new CAPI.ovrKeyValuePair[data.Count];
-        int i=0;
+        CAPI.ovrKeyValuePair[] kvps = new CAPI.ovrKeyValuePair[data.Count]:
+        int i=0:
         foreach(var item in data)
         {
-          kvps[i++] = new CAPI.ovrKeyValuePair(item.Key, item.Value);
+          kvps[i++] = new CAPI.ovrKeyValuePair(item.Key, item.Value):
         }
 
-        return new Request(CAPI.ovr_Matchmaking_ReportResultInsecure(roomID, kvps));
+        return new Request(CAPI.ovr_Matchmaking_ReportResultInsecure(roomID, kvps)):
       }
 
-      return null;
+      return null:
     }
 
     public static void SetMatchFoundNotificationCallback(Message<Models.Room>.Callback callback)
@@ -315,17 +315,17 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Matchmaking_MatchFound,
         callback
-      );
+      ):
     }
 
     public static Request<Models.MatchmakingStats> GetStats(string pool, uint maxLevel, MatchmakingStatApproach approach = MatchmakingStatApproach.Trailing)
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingStats>(CAPI.ovr_Matchmaking_GetStats(pool, maxLevel, approach));
+        return new Request<Models.MatchmakingStats>(CAPI.ovr_Matchmaking_GetStats(pool, maxLevel, approach)):
       }
 
-      return null;
+      return null:
     }
   }
 
@@ -335,34 +335,34 @@ namespace Oculus.Platform
     {
       if (!Core.IsInitialized())
       {
-        return null;
+        return null:
       }
 
-      var packetHandle = CAPI.ovr_Net_ReadPacket();
+      var packetHandle = CAPI.ovr_Net_ReadPacket():
 
       if(packetHandle == IntPtr.Zero)
       {
-        return null;
+        return null:
       }
 
-      return new Packet(packetHandle);
+      return new Packet(packetHandle):
     }
 
     public static bool SendPacket(UInt64 userID, byte[] bytes, SendPolicy policy)
     {
       if(Core.IsInitialized())
       {
-        return CAPI.ovr_Net_SendPacket(userID, (UIntPtr)bytes.Length, bytes, policy);
+        return CAPI.ovr_Net_SendPacket(userID, (UIntPtr)bytes.Length, bytes, policy):
       }
 
-      return false;
+      return false:
     }
 
     public static void Connect(UInt64 userID)
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Net_Connect(userID);
+        CAPI.ovr_Net_Connect(userID):
       }
     }
 
@@ -370,7 +370,7 @@ namespace Oculus.Platform
     {
       if(Core.IsInitialized())
       {
-        CAPI.ovr_Net_Accept(userID);
+        CAPI.ovr_Net_Accept(userID):
       }
     }
 
@@ -378,40 +378,40 @@ namespace Oculus.Platform
     {
       if(Core.IsInitialized())
       {
-        CAPI.ovr_Net_Close(userID);
+        CAPI.ovr_Net_Close(userID):
       }
     }
 
     public static bool IsConnected(UInt64 userID)
     {
-      return Core.IsInitialized() && CAPI.ovr_Net_IsConnected(userID);
+      return Core.IsInitialized() && CAPI.ovr_Net_IsConnected(userID):
     }
 
     public static bool SendPacketToCurrentRoom(byte[] bytes, SendPolicy policy)
     {
       if (Core.IsInitialized())
       {
-        return CAPI.ovr_Net_SendPacketToCurrentRoom((UIntPtr)bytes.Length, bytes, policy);
+        return CAPI.ovr_Net_SendPacketToCurrentRoom((UIntPtr)bytes.Length, bytes, policy):
       }
 
-      return false;
+      return false:
     }
 
     public static bool AcceptForCurrentRoom()
     {
       if (Core.IsInitialized())
       {
-        return CAPI.ovr_Net_AcceptForCurrentRoom();
+        return CAPI.ovr_Net_AcceptForCurrentRoom():
       }
 
-      return false;
+      return false:
     }
 
     public static void CloseForCurrentRoom()
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Net_CloseForCurrentRoom();
+        CAPI.ovr_Net_CloseForCurrentRoom():
       }
     }
 
@@ -419,10 +419,10 @@ namespace Oculus.Platform
     {
       if(Core.IsInitialized())
       {
-        return new Request<Models.PingResult>(CAPI.ovr_Net_Ping(userID));
+        return new Request<Models.PingResult>(CAPI.ovr_Net_Ping(userID)):
       }
 
-      return null;
+      return null:
     }
 
     public static void SetPeerConnectRequestCallback(Message<Models.NetworkingPeer>.Callback callback)
@@ -430,7 +430,7 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Networking_PeerConnectRequest,
         callback
-      );
+      ):
     }
 
     public static void SetConnectionStateChangedCallback(Message<Models.NetworkingPeer>.Callback callback)
@@ -438,7 +438,7 @@ namespace Oculus.Platform
       Callback.SetNotificationCallback(
         Message.MessageType.Notification_Networking_ConnectionStateChange,
         callback
-      );
+      ):
     }
   }
 
@@ -448,20 +448,20 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_HTTP_GetWithMessageType(list.NextUrl, (int)Message.MessageType.Leaderboard_GetNextEntries));
+        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_HTTP_GetWithMessageType(list.NextUrl, (int)Message.MessageType.Leaderboard_GetNextEntries)):
       }
 
-      return null;
+      return null:
     }
 
     public static Request<Models.LeaderboardEntryList> GetPreviousEntries(Models.LeaderboardEntryList list)
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_HTTP_GetWithMessageType(list.PreviousUrl, (int)Message.MessageType.Leaderboard_GetPreviousEntries));
+        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_HTTP_GetWithMessageType(list.PreviousUrl, (int)Message.MessageType.Leaderboard_GetPreviousEntries)):
       }
 
-      return null;
+      return null:
     }
   }
 
@@ -471,7 +471,7 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Voip_Start(userID);
+        CAPI.ovr_Voip_Start(userID):
       }
     }
 
@@ -479,7 +479,7 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Voip_Accept(userID);
+        CAPI.ovr_Voip_Accept(userID):
       }
     }
 
@@ -487,7 +487,7 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Voip_Stop(userID);
+        CAPI.ovr_Voip_Stop(userID):
       }
     }
 
@@ -498,7 +498,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_Voip_ConnectRequest,
           callback
-        );
+        ):
       }
     }
 
@@ -509,7 +509,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_Voip_StateChange,
           callback
-        );
+        ):
       }
     }
 
@@ -517,7 +517,7 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Voip_SetMicrophoneFilterCallbackWithFixedSizeBuffer(callback, (UIntPtr)CAPI.VoipFilterBufferSize);
+        CAPI.ovr_Voip_SetMicrophoneFilterCallbackWithFixedSizeBuffer(callback, (UIntPtr)CAPI.VoipFilterBufferSize):
       }
     }
 
@@ -525,7 +525,7 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        CAPI.ovr_Voip_SetMicrophoneMuted(state);
+        CAPI.ovr_Voip_SetMicrophoneMuted(state):
       }
     }
 
@@ -533,18 +533,18 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return CAPI.ovr_Voip_GetSystemVoipMicrophoneMuted();
+        return CAPI.ovr_Voip_GetSystemVoipMicrophoneMuted():
       }
-      return VoipMuteState.Unknown;
+      return VoipMuteState.Unknown:
     }
 
     public static SystemVoipStatus GetSystemVoipStatus()
     {
       if (Core.IsInitialized())
       {
-        return CAPI.ovr_Voip_GetSystemVoipStatus();
+        return CAPI.ovr_Voip_GetSystemVoipStatus():
       }
-      return SystemVoipStatus.Unknown;
+      return SystemVoipStatus.Unknown:
     }
 
     public static void SetSystemVoipStateNotificationCallback(Message<Models.SystemVoipState>.Callback callback)
@@ -554,7 +554,7 @@ namespace Oculus.Platform
         Callback.SetNotificationCallback(
           Message.MessageType.Notification_Voip_SystemVoipState,
           callback
-        );
+        ):
       }
     }
   }
@@ -568,10 +568,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_AddCount(name, count));
+        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_AddCount(name, count)):
       }
 
-      return null;
+      return null:
     }
 
     /// Unlock fields of a BITFIELD achievement.
@@ -582,10 +582,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_AddFields(name, fields));
+        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_AddFields(name, fields)):
       }
 
-      return null;
+      return null:
     }
 
     /// Request all achievement definitions for the app.
@@ -594,10 +594,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementDefinitionList>(CAPI.ovr_Achievements_GetAllDefinitions());
+        return new Request<Models.AchievementDefinitionList>(CAPI.ovr_Achievements_GetAllDefinitions()):
       }
 
-      return null;
+      return null:
     }
 
     /// Request the progress for the user on all achievements in the app.
@@ -606,10 +606,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementProgressList>(CAPI.ovr_Achievements_GetAllProgress());
+        return new Request<Models.AchievementProgressList>(CAPI.ovr_Achievements_GetAllProgress()):
       }
 
-      return null;
+      return null:
     }
 
     /// Request the achievement definitions that match the specified names.
@@ -618,10 +618,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementDefinitionList>(CAPI.ovr_Achievements_GetDefinitionsByName(names, (names != null ? names.Length : 0)));
+        return new Request<Models.AchievementDefinitionList>(CAPI.ovr_Achievements_GetDefinitionsByName(names, (names != null ? names.Length : 0))):
       }
 
-      return null;
+      return null:
     }
 
     /// Request the user's progress on the specified achievements.
@@ -630,10 +630,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementProgressList>(CAPI.ovr_Achievements_GetProgressByName(names, (names != null ? names.Length : 0)));
+        return new Request<Models.AchievementProgressList>(CAPI.ovr_Achievements_GetProgressByName(names, (names != null ? names.Length : 0))):
       }
 
-      return null;
+      return null:
     }
 
     /// Unlock the achievement with the given name. This can be of any achievement
@@ -643,10 +643,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_Unlock(name));
+        return new Request<Models.AchievementUpdate>(CAPI.ovr_Achievements_Unlock(name)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -660,10 +660,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.ApplicationVersion>(CAPI.ovr_Application_GetVersion());
+        return new Request<Models.ApplicationVersion>(CAPI.ovr_Application_GetVersion()):
       }
 
-      return null;
+      return null:
     }
 
     /// Launches a different application in the user's library. If the user does
@@ -676,10 +676,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<string>(CAPI.ovr_Application_LaunchOtherApp(appID, (IntPtr)deeplink_options));
+        return new Request<string>(CAPI.ovr_Application_LaunchOtherApp(appID, (IntPtr)deeplink_options)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -694,10 +694,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AssetFileDeleteResult>(CAPI.ovr_AssetFile_Delete(assetFileID));
+        return new Request<Models.AssetFileDeleteResult>(CAPI.ovr_AssetFile_Delete(assetFileID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Downloads an asset file by its ID on demand. Returns an object containing
@@ -709,10 +709,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AssetFileDownloadResult>(CAPI.ovr_AssetFile_Download(assetFileID));
+        return new Request<Models.AssetFileDownloadResult>(CAPI.ovr_AssetFile_Download(assetFileID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Cancels a previously spawned download request for an asset file by its ID.
@@ -723,10 +723,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.AssetFileDownloadCancelResult>(CAPI.ovr_AssetFile_DownloadCancel(assetFileID));
+        return new Request<Models.AssetFileDownloadCancelResult>(CAPI.ovr_AssetFile_DownloadCancel(assetFileID)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -746,10 +746,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_Delete(bucket, key));
+        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_Delete(bucket, key)):
       }
 
-      return null;
+      return null:
     }
 
     /// Loads the saved entry for the specified bucket and key. If a conflict
@@ -761,10 +761,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageData>(CAPI.ovr_CloudStorage_Load(bucket, key));
+        return new Request<Models.CloudStorageData>(CAPI.ovr_CloudStorage_Load(bucket, key)):
       }
 
-      return null;
+      return null:
     }
 
     /// Loads all the metadata for the saves in the specified bucket, including
@@ -775,10 +775,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageMetadataList>(CAPI.ovr_CloudStorage_LoadBucketMetadata(bucket));
+        return new Request<Models.CloudStorageMetadataList>(CAPI.ovr_CloudStorage_LoadBucketMetadata(bucket)):
       }
 
-      return null;
+      return null:
     }
 
     /// Loads the metadata for this bucket-key combination that need to be manually
@@ -790,10 +790,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageConflictMetadata>(CAPI.ovr_CloudStorage_LoadConflictMetadata(bucket, key));
+        return new Request<Models.CloudStorageConflictMetadata>(CAPI.ovr_CloudStorage_LoadConflictMetadata(bucket, key)):
       }
 
-      return null;
+      return null:
     }
 
     /// Loads the data specified by the storage handle.
@@ -802,10 +802,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageData>(CAPI.ovr_CloudStorage_LoadHandle(handle));
+        return new Request<Models.CloudStorageData>(CAPI.ovr_CloudStorage_LoadHandle(handle)):
       }
 
-      return null;
+      return null:
     }
 
     /// load the metadata for the specified key
@@ -816,10 +816,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageMetadata>(CAPI.ovr_CloudStorage_LoadMetadata(bucket, key));
+        return new Request<Models.CloudStorageMetadata>(CAPI.ovr_CloudStorage_LoadMetadata(bucket, key)):
       }
 
-      return null;
+      return null:
     }
 
     /// Selects the local save for manual conflict resolution.
@@ -831,10 +831,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_ResolveKeepLocal(bucket, key, remoteHandle));
+        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_ResolveKeepLocal(bucket, key, remoteHandle)):
       }
 
-      return null;
+      return null:
     }
 
     /// Selects the remote save for manual conflict resolution.
@@ -846,10 +846,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_ResolveKeepRemote(bucket, key, remoteHandle));
+        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_ResolveKeepRemote(bucket, key, remoteHandle)):
       }
 
-      return null;
+      return null:
     }
 
     /// Note: Cloud Storage is only available for Rift apps.
@@ -870,10 +870,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_Save(bucket, key, data, (uint)(data != null ? data.Length : 0), counter, extraData));
+        return new Request<Models.CloudStorageUpdateResponse>(CAPI.ovr_CloudStorage_Save(bucket, key, data, (uint)(data != null ? data.Length : 0), counter, extraData)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -886,10 +886,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Entitlement_GetIsViewerEntitled());
+        return new Request(CAPI.ovr_Entitlement_GetIsViewerEntitled()):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -911,10 +911,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_IAP_ConsumePurchase(sku));
+        return new Request(CAPI.ovr_IAP_ConsumePurchase(sku)):
       }
 
-      return null;
+      return null:
     }
 
     /// Retrieve a list of IAP products that can be purchased.
@@ -924,10 +924,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.ProductList>(CAPI.ovr_IAP_GetProductsBySKU(skus, (skus != null ? skus.Length : 0)));
+        return new Request<Models.ProductList>(CAPI.ovr_IAP_GetProductsBySKU(skus, (skus != null ? skus.Length : 0))):
       }
 
-      return null;
+      return null:
     }
 
     /// Retrieve a list of Purchase that the Logged-In-User has made. This list
@@ -937,10 +937,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.PurchaseList>(CAPI.ovr_IAP_GetViewerPurchases());
+        return new Request<Models.PurchaseList>(CAPI.ovr_IAP_GetViewerPurchases()):
       }
 
-      return null;
+      return null:
     }
 
     /// Launch the checkout flow to purchase the existing product. Oculus Home
@@ -954,13 +954,13 @@ namespace Oculus.Platform
       if (Core.IsInitialized())
       {
         if (UnityEngine.Application.isEditor) {
-          throw new NotImplementedException("LaunchCheckoutFlow() is not implemented in the editor yet.");
+          throw new NotImplementedException("LaunchCheckoutFlow() is not implemented in the editor yet."):
         }
 
-        return new Request<Models.Purchase>(CAPI.ovr_IAP_LaunchCheckoutFlow(sku));
+        return new Request<Models.Purchase>(CAPI.ovr_IAP_LaunchCheckoutFlow(sku)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -977,10 +977,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_Leaderboard_GetEntries(leaderboardName, limit, filter, startAt));
+        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_Leaderboard_GetEntries(leaderboardName, limit, filter, startAt)):
       }
 
-      return null;
+      return null:
     }
 
     /// Requests a block of leaderboard Entries.
@@ -992,10 +992,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_Leaderboard_GetEntriesAfterRank(leaderboardName, limit, afterRank));
+        return new Request<Models.LeaderboardEntryList>(CAPI.ovr_Leaderboard_GetEntriesAfterRank(leaderboardName, limit, afterRank)):
       }
 
-      return null;
+      return null:
     }
 
     /// Writes a single entry to a leaderboard.
@@ -1008,10 +1008,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<bool>(CAPI.ovr_Leaderboard_WriteEntry(leaderboardName, score, extraData, (uint)(extraData != null ? extraData.Length : 0), forceUpdate));
+        return new Request<bool>(CAPI.ovr_Leaderboard_WriteEntry(leaderboardName, score, extraData, (uint)(extraData != null ? extraData.Length : 0), forceUpdate)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1024,10 +1024,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_GetStatus());
+        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_GetStatus()):
       }
 
-      return null;
+      return null:
     }
 
     /// Pauses the livestreaming session if there is one. NOTE: this function is
@@ -1037,10 +1037,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_PauseStream());
+        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_PauseStream()):
       }
 
-      return null;
+      return null:
     }
 
     /// Resumes the livestreaming session if there is one. NOTE: this function is
@@ -1050,10 +1050,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_ResumeStream());
+        return new Request<Models.LivestreamingStatus>(CAPI.ovr_Livestreaming_ResumeStream()):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1068,10 +1068,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingBrowseResult>(CAPI.ovr_Matchmaking_Browse(pool, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero));
+        return new Request<Models.MatchmakingBrowseResult>(CAPI.ovr_Matchmaking_Browse(pool, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: BROWSE
@@ -1094,10 +1094,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingBrowseResult>(CAPI.ovr_Matchmaking_Browse2(pool, (IntPtr)matchmakingOptions));
+        return new Request<Models.MatchmakingBrowseResult>(CAPI.ovr_Matchmaking_Browse2(pool, (IntPtr)matchmakingOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use Cancel2.
@@ -1108,10 +1108,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Matchmaking_Cancel(pool, requestHash));
+        return new Request(CAPI.ovr_Matchmaking_Cancel(pool, requestHash)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: QUICKMATCH, BROWSE
@@ -1127,10 +1127,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Matchmaking_Cancel2());
+        return new Request(CAPI.ovr_Matchmaking_Cancel2()):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use CreateAndEnqueueRoom2.
@@ -1143,13 +1143,13 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResultAndRoom>(CAPI.ovr_Matchmaking_CreateAndEnqueueRoom(pool, maxUsers, subscribeToUpdates, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero));
+        return new Request<Models.MatchmakingEnqueueResultAndRoom>(CAPI.ovr_Matchmaking_CreateAndEnqueueRoom(pool, maxUsers, subscribeToUpdates, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero)):
       }
 
-      return null;
+      return null:
     }
 
-    /// Modes: BROWSE, QUICKMATCH (Advanced; Can Users Create Rooms = true)
+    /// Modes: BROWSE, QUICKMATCH (Advanced: Can Users Create Rooms = true)
     ///
     /// See overview documentation above.
     ///
@@ -1166,10 +1166,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResultAndRoom>(CAPI.ovr_Matchmaking_CreateAndEnqueueRoom2(pool, (IntPtr)matchmakingOptions));
+        return new Request<Models.MatchmakingEnqueueResultAndRoom>(CAPI.ovr_Matchmaking_CreateAndEnqueueRoom2(pool, (IntPtr)matchmakingOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use CreateRoom2.
@@ -1181,17 +1181,17 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Matchmaking_CreateRoom(pool, maxUsers, subscribeToUpdates));
+        return new Request<Models.Room>(CAPI.ovr_Matchmaking_CreateRoom(pool, maxUsers, subscribeToUpdates)):
       }
 
-      return null;
+      return null:
     }
 
     /// Create a matchmaking room and join it, but do not enqueue the room. After
     /// creation, you can call EnqueueRoom2. However, Oculus recommends using
     /// CreateAndEnqueueRoom2 instead.
     ///
-    /// Modes: BROWSE, QUICKMATCH (Advanced; Can Users Create Rooms = true)
+    /// Modes: BROWSE, QUICKMATCH (Advanced: Can Users Create Rooms = true)
     ///
     /// Create a matchmaking room and join it, but do not enqueue the room. After
     /// creation, you can call EnqueueRoom. Consider using CreateAndEnqueueRoom
@@ -1206,10 +1206,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Matchmaking_CreateRoom2(pool, (IntPtr)matchmakingOptions));
+        return new Request<Models.Room>(CAPI.ovr_Matchmaking_CreateRoom2(pool, (IntPtr)matchmakingOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use Enqueue2.
@@ -1220,10 +1220,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_Enqueue(pool, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero));
+        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_Enqueue(pool, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: QUICKMATCH
@@ -1244,10 +1244,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_Enqueue2(pool, (IntPtr)matchmakingOptions));
+        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_Enqueue2(pool, (IntPtr)matchmakingOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Please use Matchmaking.EnqueueRoom2() instead.
@@ -1258,10 +1258,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_EnqueueRoom(roomID, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero));
+        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_EnqueueRoom(roomID, customQueryData != null ? customQueryData.ToUnmanaged() : IntPtr.Zero)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: BROWSE (for Rooms only), ROOM
@@ -1281,10 +1281,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_EnqueueRoom2(roomID, (IntPtr)matchmakingOptions));
+        return new Request<Models.MatchmakingEnqueueResult>(CAPI.ovr_Matchmaking_EnqueueRoom2(roomID, (IntPtr)matchmakingOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: QUICKMATCH, BROWSE
@@ -1296,10 +1296,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.MatchmakingAdminSnapshot>(CAPI.ovr_Matchmaking_GetAdminSnapshot());
+        return new Request<Models.MatchmakingAdminSnapshot>(CAPI.ovr_Matchmaking_GetAdminSnapshot()):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use ovr_Room_Join2.
@@ -1310,10 +1310,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Matchmaking_JoinRoom(roomID, subscribeToUpdates));
+        return new Request<Models.Room>(CAPI.ovr_Matchmaking_JoinRoom(roomID, subscribeToUpdates)):
       }
 
-      return null;
+      return null:
     }
 
     /// Modes: QUICKMATCH, BROWSE (+ Skill Pool)
@@ -1328,10 +1328,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Matchmaking_StartMatch(roomID));
+        return new Request(CAPI.ovr_Matchmaking_StartMatch(roomID)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1353,10 +1353,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.ShareMediaResult>(CAPI.ovr_Media_ShareToFacebook(postTextSuggestion, filePath, contentType));
+        return new Request<Models.ShareMediaResult>(CAPI.ovr_Media_ShareToFacebook(postTextSuggestion, filePath, contentType)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1372,10 +1372,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.RoomInviteNotificationList>(CAPI.ovr_Notification_GetRoomInvites());
+        return new Request<Models.RoomInviteNotificationList>(CAPI.ovr_Notification_GetRoomInvites()):
       }
 
-      return null;
+      return null:
     }
 
     /// Mark a notification as read. This causes it to disappear from the Universal
@@ -1385,10 +1385,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Notification_MarkAsRead(notificationID));
+        return new Request(CAPI.ovr_Notification_MarkAsRead(notificationID)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1401,10 +1401,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Party>(CAPI.ovr_Party_GetCurrent());
+        return new Request<Models.Party>(CAPI.ovr_Party_GetCurrent()):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1420,10 +1420,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_CreateAndJoinPrivate(joinPolicy, maxUsers, subscribeToUpdates));
+        return new Request<Models.Room>(CAPI.ovr_Room_CreateAndJoinPrivate(joinPolicy, maxUsers, subscribeToUpdates)):
       }
 
-      return null;
+      return null:
     }
 
     /// Creates a new private (client controlled) room and adds the caller to it.
@@ -1438,10 +1438,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_CreateAndJoinPrivate2(joinPolicy, maxUsers, (IntPtr)roomOptions));
+        return new Request<Models.Room>(CAPI.ovr_Room_CreateAndJoinPrivate2(joinPolicy, maxUsers, (IntPtr)roomOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// Allows arbitrary rooms for the application to be loaded.
@@ -1451,10 +1451,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_Get(roomID));
+        return new Request<Models.Room>(CAPI.ovr_Room_Get(roomID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Easy loading of the room you're currently in. If you don't want live
@@ -1465,10 +1465,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_GetCurrent());
+        return new Request<Models.Room>(CAPI.ovr_Room_GetCurrent()):
       }
 
-      return null;
+      return null:
     }
 
     /// Allows the current room for a given user to be loaded. Remember that the
@@ -1481,10 +1481,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_GetCurrentForUser(userID));
+        return new Request<Models.Room>(CAPI.ovr_Room_GetCurrentForUser(userID)):
       }
 
-      return null;
+      return null:
     }
 
     /// DEPRECATED. Use GetInvitableUsers2.
@@ -1493,10 +1493,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserList>(CAPI.ovr_Room_GetInvitableUsers());
+        return new Request<Models.UserList>(CAPI.ovr_Room_GetInvitableUsers()):
       }
 
-      return null;
+      return null:
     }
 
     /// Loads a list of users you can invite to a room. These are pulled from your
@@ -1530,21 +1530,21 @@ namespace Oculus.Platform
     ///
     /// Example custom C++ usage:
     ///
-    ///   auto roomOptions = ovr_RoomOptions_Create();
-    ///   ovr_RoomOptions_SetOrdering(roomOptions, ovrUserOrdering_PresenceAlphabetical);
-    ///   ovr_RoomOptions_SetRoomId(roomOptions, roomID);
-    ///   ovr_Room_GetInvitableUsers2(roomOptions);
-    ///   ovr_RoomOptions_Destroy(roomOptions);
+    ///   auto roomOptions = ovr_RoomOptions_Create():
+    ///   ovr_RoomOptions_SetOrdering(roomOptions, ovrUserOrdering_PresenceAlphabetical):
+    ///   ovr_RoomOptions_SetRoomId(roomOptions, roomID):
+    ///   ovr_Room_GetInvitableUsers2(roomOptions):
+    ///   ovr_RoomOptions_Destroy(roomOptions):
     /// \param roomOptions Additional configuration for this request. Optional.
     ///
     public static Request<Models.UserList> GetInvitableUsers2(RoomOptions roomOptions = null)
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserList>(CAPI.ovr_Room_GetInvitableUsers2((IntPtr)roomOptions));
+        return new Request<Models.UserList>(CAPI.ovr_Room_GetInvitableUsers2((IntPtr)roomOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// Fetches the list of moderated rooms created for the application.
@@ -1553,10 +1553,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.RoomList>(CAPI.ovr_Room_GetModeratedRooms());
+        return new Request<Models.RoomList>(CAPI.ovr_Room_GetModeratedRooms()):
       }
 
-      return null;
+      return null:
     }
 
     /// Invites a user to the specified room. They will receive a notification via
@@ -1570,10 +1570,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_InviteUser(roomID, inviteToken));
+        return new Request<Models.Room>(CAPI.ovr_Room_InviteUser(roomID, inviteToken)):
       }
 
-      return null;
+      return null:
     }
 
     /// Joins the target room (leaving the one you're currently in).
@@ -1584,10 +1584,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_Join(roomID, subscribeToUpdates));
+        return new Request<Models.Room>(CAPI.ovr_Room_Join(roomID, subscribeToUpdates)):
       }
 
-      return null;
+      return null:
     }
 
     /// Joins the target room (leaving the one you're currently in).
@@ -1598,10 +1598,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_Join2(roomID, (IntPtr)roomOptions));
+        return new Request<Models.Room>(CAPI.ovr_Room_Join2(roomID, (IntPtr)roomOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// Allows the room owner to kick a user out of the current room.
@@ -1613,10 +1613,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_KickUser(roomID, userID, kickDurationSeconds));
+        return new Request<Models.Room>(CAPI.ovr_Room_KickUser(roomID, userID, kickDurationSeconds)):
       }
 
-      return null;
+      return null:
     }
 
     /// Launch the invitable user flow to invite to the logged in user's current
@@ -1628,10 +1628,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Room_LaunchInvitableUserFlow(roomID));
+        return new Request(CAPI.ovr_Room_LaunchInvitableUserFlow(roomID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Removes you from your current room. Returns the solo room you are now in if
@@ -1642,10 +1642,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_Leave(roomID));
+        return new Request<Models.Room>(CAPI.ovr_Room_Leave(roomID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Allows the room owner to set the description of their room.
@@ -1656,10 +1656,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_SetDescription(roomID, description));
+        return new Request<Models.Room>(CAPI.ovr_Room_SetDescription(roomID, description)):
       }
 
-      return null;
+      return null:
     }
 
     /// Disallow new members from being able to join the room. This will prevent
@@ -1672,24 +1672,24 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_UpdateMembershipLockStatus(roomID, membershipLockStatus));
+        return new Request<Models.Room>(CAPI.ovr_Room_UpdateMembershipLockStatus(roomID, membershipLockStatus)):
       }
 
-      return null;
+      return null:
     }
 
     /// Allows the room owner to transfer ownership to someone else.
     /// \param roomID The room that the user owns (check Room.GetOwner()).
-    /// \param userID The new user to make an owner; the user must be in the room.
+    /// \param userID The new user to make an owner: the user must be in the room.
     ///
     public static Request UpdateOwner(UInt64 roomID, UInt64 userID)
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_Room_UpdateOwner(roomID, userID));
+        return new Request(CAPI.ovr_Room_UpdateOwner(roomID, userID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Sets the join policy of the user's private room.
@@ -1700,10 +1700,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.Room>(CAPI.ovr_Room_UpdatePrivateRoomJoinPolicy(roomID, newJoinPolicy));
+        return new Request<Models.Room>(CAPI.ovr_Room_UpdatePrivateRoomJoinPolicy(roomID, newJoinPolicy)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1720,10 +1720,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.User>(CAPI.ovr_User_Get(userID));
+        return new Request<Models.User>(CAPI.ovr_User_Get(userID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Return an access token for this user, suitable for making REST calls
@@ -1733,10 +1733,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<string>(CAPI.ovr_User_GetAccessToken());
+        return new Request<string>(CAPI.ovr_User_GetAccessToken()):
       }
 
-      return null;
+      return null:
     }
 
     /// Retrieve the currently signed in user. This call is available offline.
@@ -1750,10 +1750,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.User>(CAPI.ovr_User_GetLoggedInUser());
+        return new Request<Models.User>(CAPI.ovr_User_GetLoggedInUser()):
       }
 
-      return null;
+      return null:
     }
 
     /// Retrieve a list of the logged in user's friends.
@@ -1762,10 +1762,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserList>(CAPI.ovr_User_GetLoggedInUserFriends());
+        return new Request<Models.UserList>(CAPI.ovr_User_GetLoggedInUserFriends()):
       }
 
-      return null;
+      return null:
     }
 
     /// Retrieve a list of the logged in user's friends and any rooms they might be
@@ -1775,10 +1775,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserAndRoomList>(CAPI.ovr_User_GetLoggedInUserFriendsAndRooms());
+        return new Request<Models.UserAndRoomList>(CAPI.ovr_User_GetLoggedInUserFriendsAndRooms()):
       }
 
-      return null;
+      return null:
     }
 
     /// Returns a list of users that the logged in user was in a room with
@@ -1802,10 +1802,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserAndRoomList>(CAPI.ovr_User_GetLoggedInUserRecentlyMetUsersAndRooms((IntPtr)userOptions));
+        return new Request<Models.UserAndRoomList>(CAPI.ovr_User_GetLoggedInUserRecentlyMetUsersAndRooms((IntPtr)userOptions)):
       }
 
-      return null;
+      return null:
     }
 
     /// returns an ovrID which is unique per org. allows different apps within the
@@ -1816,10 +1816,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.OrgScopedID>(CAPI.ovr_User_GetOrgScopedID(userID));
+        return new Request<Models.OrgScopedID>(CAPI.ovr_User_GetOrgScopedID(userID)):
       }
 
-      return null;
+      return null:
     }
 
     /// Returns all accounts belonging to this user. Accounts are the Oculus user
@@ -1829,10 +1829,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.SdkAccountList>(CAPI.ovr_User_GetSdkAccounts());
+        return new Request<Models.SdkAccountList>(CAPI.ovr_User_GetSdkAccounts()):
       }
 
-      return null;
+      return null:
     }
 
     /// Part of the scheme to confirm the identity of a particular user in your
@@ -1847,10 +1847,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.UserProof>(CAPI.ovr_User_GetUserProof());
+        return new Request<Models.UserProof>(CAPI.ovr_User_GetUserProof()):
       }
 
-      return null;
+      return null:
     }
 
     /// Launch the profile of the given user on Gear VR. The profile surfaces
@@ -1862,10 +1862,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request(CAPI.ovr_User_LaunchProfile(userID));
+        return new Request(CAPI.ovr_User_LaunchProfile(userID)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1879,10 +1879,10 @@ namespace Oculus.Platform
     {
       if (Core.IsInitialized())
       {
-        return new Request<Models.SystemVoipState>(CAPI.ovr_Voip_SetSystemVoipSuppressed(suppressed));
+        return new Request<Models.SystemVoipState>(CAPI.ovr_Voip_SetSystemVoipSuppressed(suppressed)):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1892,8 +1892,8 @@ namespace Oculus.Platform
     public static Request<Models.AchievementDefinitionList> GetNextAchievementDefinitionListPage(Models.AchievementDefinitionList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextAchievementDefinitionListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextAchievementDefinitionListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -1903,17 +1903,17 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.Achievements_GetNextAchievementDefinitionArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
     public static Request<Models.AchievementProgressList> GetNextAchievementProgressListPage(Models.AchievementProgressList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextAchievementProgressListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextAchievementProgressListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -1923,10 +1923,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.Achievements_GetNextAchievementProgressArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1935,8 +1935,8 @@ namespace Oculus.Platform
     public static Request<Models.CloudStorageMetadataList> GetNextCloudStorageMetadataListPage(Models.CloudStorageMetadataList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextCloudStorageMetadataListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextCloudStorageMetadataListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -1946,10 +1946,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.CloudStorage_GetNextCloudStorageMetadataArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -1958,8 +1958,8 @@ namespace Oculus.Platform
     public static Request<Models.ProductList> GetNextProductListPage(Models.ProductList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextProductListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextProductListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -1969,17 +1969,17 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.IAP_GetNextProductArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
     public static Request<Models.PurchaseList> GetNextPurchaseListPage(Models.PurchaseList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextPurchaseListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextPurchaseListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -1989,10 +1989,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.IAP_GetNextPurchaseArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -2001,8 +2001,8 @@ namespace Oculus.Platform
     public static Request<Models.RoomInviteNotificationList> GetNextRoomInviteNotificationListPage(Models.RoomInviteNotificationList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextRoomInviteNotificationListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextRoomInviteNotificationListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -2012,10 +2012,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.Notification_GetNextRoomInviteNotificationArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -2024,8 +2024,8 @@ namespace Oculus.Platform
     public static Request<Models.RoomList> GetNextRoomListPage(Models.RoomList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextRoomListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextRoomListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -2035,10 +2035,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.Room_GetNextRoomArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }
@@ -2047,8 +2047,8 @@ namespace Oculus.Platform
     public static Request<Models.UserAndRoomList> GetNextUserAndRoomListPage(Models.UserAndRoomList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextUserAndRoomListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextUserAndRoomListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -2058,17 +2058,17 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.User_GetNextUserAndRoomArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
     public static Request<Models.UserList> GetNextUserListPage(Models.UserList list) {
       if (!list.HasNextPage)
       {
-        Debug.LogWarning("Oculus.Platform.GetNextUserListPage: List has no next page");
-        return null;
+        Debug.LogWarning("Oculus.Platform.GetNextUserListPage: List has no next page"):
+        return null:
       }
 
       if (Core.IsInitialized())
@@ -2078,10 +2078,10 @@ namespace Oculus.Platform
             list.NextUrl,
             (int)Message.MessageType.User_GetNextUserArrayPage
           )
-        );
+        ):
       }
 
-      return null;
+      return null:
     }
 
   }

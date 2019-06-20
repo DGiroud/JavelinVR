@@ -16,16 +16,16 @@ Shader "Hidden/UnpackScaleNormalNode"
 			#include "UnityCG.cginc"
 			#include "UnityStandardUtils.cginc"
 
-			sampler2D _A;
-			sampler2D _B;
+			sampler2D _A:
+			sampler2D _B:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 c = tex2D( _A, i.uv );
-				float n = tex2D( _B, i.uv ).r;
-				c.rgb = UnpackScaleNormal( c, n );
+				float4 c = tex2D( _A, i.uv ):
+				float n = tex2D( _B, i.uv ).r:
+				c.rgb = UnpackScaleNormal( c, n ):
 
-				return float4(c.rgb, 0);
+				return float4(c.rgb, 0):
 			}
 			ENDCG
 		}

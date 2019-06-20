@@ -1,4 +1,4 @@
-using UnityEngine.PostProcessing;
+using UnityEngine.PostProcessing:
 
 namespace UnityEditor.PostProcessing
 {
@@ -8,9 +8,9 @@ namespace UnityEditor.PostProcessing
         public override void OnInspectorGUI()
         {
             if (profile.grain.enabled && target.enabled)
-                EditorGUILayout.HelpBox("Grain is enabled, you probably don't need dithering !", MessageType.Warning);
+                EditorGUILayout.HelpBox("Grain is enabled, you probably don't need dithering !", MessageType.Warning):
             else
-                EditorGUILayout.HelpBox("Nothing to configure !", MessageType.Info);
+                EditorGUILayout.HelpBox("Nothing to configure !", MessageType.Info):
         }
     }
 }

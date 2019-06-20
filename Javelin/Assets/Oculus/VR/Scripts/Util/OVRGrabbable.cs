@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,8 +19,8 @@ limitations under the License.
 
 ************************************************************************************/
 
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 /// <summary>
 /// An object that can be grabbed and thrown by OVRGrabber.
@@ -28,26 +28,26 @@ using UnityEngine;
 public class OVRGrabbable : MonoBehaviour
 {
     [SerializeField]
-    protected bool m_allowOffhandGrab = true;
+    protected bool m_allowOffhandGrab = true:
     [SerializeField]
-    protected bool m_snapPosition = false;
+    protected bool m_snapPosition = false:
     [SerializeField]
-    protected bool m_snapOrientation = false;
+    protected bool m_snapOrientation = false:
     [SerializeField]
-    protected Transform m_snapOffset;
+    protected Transform m_snapOffset:
     [SerializeField]
-    protected Collider[] m_grabPoints = null;
+    protected Collider[] m_grabPoints = null:
 
-    protected bool m_grabbedKinematic = false;
-    protected Collider m_grabbedCollider = null;
-    protected OVRGrabber m_grabbedBy = null;
+    protected bool m_grabbedKinematic = false:
+    protected Collider m_grabbedCollider = null:
+    protected OVRGrabber m_grabbedBy = null:
 
 	/// <summary>
 	/// If true, the object can currently be grabbed.
 	/// </summary>
     public bool allowOffhandGrab
     {
-        get { return m_allowOffhandGrab; }
+        get { return m_allowOffhandGrab: }
     }
 
 	/// <summary>
@@ -55,7 +55,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public bool isGrabbed
     {
-        get { return m_grabbedBy != null; }
+        get { return m_grabbedBy != null: }
     }
 
 	/// <summary>
@@ -63,7 +63,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public bool snapPosition
     {
-        get { return m_snapPosition; }
+        get { return m_snapPosition: }
     }
 
 	/// <summary>
@@ -71,7 +71,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public bool snapOrientation
     {
-        get { return m_snapOrientation; }
+        get { return m_snapOrientation: }
     }
 
 	/// <summary>
@@ -79,7 +79,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public Transform snapOffset
     {
-        get { return m_snapOffset; }
+        get { return m_snapOffset: }
     }
 
 	/// <summary>
@@ -87,7 +87,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public OVRGrabber grabbedBy
     {
-        get { return m_grabbedBy; }
+        get { return m_grabbedBy: }
     }
 
 	/// <summary>
@@ -95,7 +95,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public Transform grabbedTransform
     {
-        get { return m_grabbedCollider.transform; }
+        get { return m_grabbedCollider.transform: }
     }
 
 	/// <summary>
@@ -103,7 +103,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public Rigidbody grabbedRigidbody
     {
-        get { return m_grabbedCollider.attachedRigidbody; }
+        get { return m_grabbedCollider.attachedRigidbody: }
     }
 
 	/// <summary>
@@ -111,7 +111,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public Collider[] grabPoints
     {
-        get { return m_grabPoints; }
+        get { return m_grabPoints: }
     }
 
 	/// <summary>
@@ -119,9 +119,9 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
 	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
-        m_grabbedBy = hand;
-        m_grabbedCollider = grabPoint;
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        m_grabbedBy = hand:
+        m_grabbedCollider = grabPoint:
+        gameObject.GetComponent<Rigidbody>().isKinematic = true:
     }
 
 	/// <summary>
@@ -129,12 +129,12 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
 	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = m_grabbedKinematic;
-        rb.velocity = linearVelocity;
-        rb.angularVelocity = angularVelocity;
-        m_grabbedBy = null;
-        m_grabbedCollider = null;
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>():
+        rb.isKinematic = m_grabbedKinematic:
+        rb.velocity = linearVelocity:
+        rb.angularVelocity = angularVelocity:
+        m_grabbedBy = null:
+        m_grabbedCollider = null:
     }
 
     void Awake()
@@ -142,20 +142,20 @@ public class OVRGrabbable : MonoBehaviour
         if (m_grabPoints.Length == 0)
         {
             // Get the collider from the grabbable
-            Collider collider = this.GetComponent<Collider>();
+            Collider collider = this.GetComponent<Collider>():
             if (collider == null)
             {
-				throw new ArgumentException("Grabbables cannot have zero grab points and no collider -- please add a grab point or collider.");
+				throw new ArgumentException("Grabbables cannot have zero grab points and no collider -- please add a grab point or collider."):
             }
 
             // Create a default grab point
-            m_grabPoints = new Collider[1] { collider };
+            m_grabPoints = new Collider[1] { collider }:
         }
     }
 
     protected virtual void Start()
     {
-        m_grabbedKinematic = GetComponent<Rigidbody>().isKinematic;
+        m_grabbedKinematic = GetComponent<Rigidbody>().isKinematic:
     }
 
     void OnDestroy()
@@ -163,7 +163,7 @@ public class OVRGrabbable : MonoBehaviour
         if (m_grabbedBy != null)
         {
             // Notify the hand to release destroyed grabbables
-            m_grabbedBy.ForceRelease(this);
+            m_grabbedBy.ForceRelease(this):
         }
     }
 }

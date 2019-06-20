@@ -11,7 +11,7 @@ Shader "Hidden/TexCoordVertexDataNode"
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				return float4( i.uv, 0, 0 );
+				return float4( i.uv, 0, 0 ):
 			}
 			ENDCG
 		}

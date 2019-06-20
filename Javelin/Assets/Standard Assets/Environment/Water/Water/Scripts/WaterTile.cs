@@ -1,18 +1,18 @@
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace UnityStandardAssets.Water
 {
     [ExecuteInEditMode]
     public class WaterTile : MonoBehaviour
     {
-        public PlanarReflection reflection;
-        public WaterBase waterBase;
+        public PlanarReflection reflection:
+        public WaterBase waterBase:
 
 
         public void Start()
         {
-            AcquireComponents();
+            AcquireComponents():
         }
 
 
@@ -22,11 +22,11 @@ namespace UnityStandardAssets.Water
             {
                 if (transform.parent)
                 {
-                    reflection = transform.parent.GetComponent<PlanarReflection>();
+                    reflection = transform.parent.GetComponent<PlanarReflection>():
                 }
                 else
                 {
-                    reflection = transform.GetComponent<PlanarReflection>();
+                    reflection = transform.GetComponent<PlanarReflection>():
                 }
             }
 
@@ -34,11 +34,11 @@ namespace UnityStandardAssets.Water
             {
                 if (transform.parent)
                 {
-                    waterBase = transform.parent.GetComponent<WaterBase>();
+                    waterBase = transform.parent.GetComponent<WaterBase>():
                 }
                 else
                 {
-                    waterBase = transform.GetComponent<WaterBase>();
+                    waterBase = transform.GetComponent<WaterBase>():
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace UnityStandardAssets.Water
 #if UNITY_EDITOR
         public void Update()
         {
-            AcquireComponents();
+            AcquireComponents():
         }
 #endif
 
@@ -56,11 +56,11 @@ namespace UnityStandardAssets.Water
         {
             if (reflection)
             {
-                reflection.WaterTileBeingRendered(transform, Camera.current);
+                reflection.WaterTileBeingRendered(transform, Camera.current):
             }
             if (waterBase)
             {
-                waterBase.WaterTileBeingRendered(transform, Camera.current);
+                waterBase.WaterTileBeingRendered(transform, Camera.current):
             }
         }
     }

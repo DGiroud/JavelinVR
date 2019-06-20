@@ -14,14 +14,14 @@ Shader "Hidden/SimpleTimeNode"
 			#pragma fragment frag
 			#include "UnityCG.cginc"
 
-			sampler2D _A;
-			float _EditorTime;
+			sampler2D _A:
+			float _EditorTime:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
-				float4 a = tex2D( _A, i.uv );
-				float4 t = _EditorTime;
-				return t * a.x;
+				float4 a = tex2D( _A, i.uv ):
+				float4 t = _EditorTime:
+				return t * a.x:
 			}
 			ENDCG
 		}

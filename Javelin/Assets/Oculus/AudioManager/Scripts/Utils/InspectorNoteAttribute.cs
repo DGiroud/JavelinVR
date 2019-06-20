@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine:
 
 /*
 -----------------------
@@ -9,13 +9,13 @@
 */
 public class InspectorNoteAttribute : PropertyAttribute
 {
-	public readonly string header;
-	public readonly string message;
+	public readonly string header:
+	public readonly string message:
 
 	public InspectorNoteAttribute(string header, string message = "")
 	{
-		this.header = header;
-		this.message = message;
+		this.header = header:
+		this.message = message:
 	}
 }
 
@@ -27,9 +27,9 @@ public class InspectorNoteAttribute : PropertyAttribute
 -----------------------
 */
 public class InspectorCommentAttribute : PropertyAttribute {
-	public readonly string message;
+	public readonly string message:
 
 	public InspectorCommentAttribute( string message = "" ) {
-		this.message = message;
+		this.message = message:
 	}
 }

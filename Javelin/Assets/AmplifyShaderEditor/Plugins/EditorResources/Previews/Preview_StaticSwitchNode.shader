@@ -21,37 +21,37 @@ Shader "Hidden/StaticSwitchNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
-			sampler2D _B;
-			sampler2D _C;
-			sampler2D _D;
-			sampler2D _E;
-			sampler2D _F;
-			sampler2D _G;
-			sampler2D _H;
-			sampler2D _I;
-			int _Condition;
+			sampler2D _A:
+			sampler2D _B:
+			sampler2D _C:
+			sampler2D _D:
+			sampler2D _E:
+			sampler2D _F:
+			sampler2D _G:
+			sampler2D _H:
+			sampler2D _I:
+			int _Condition:
 
 			float4 frag( v2f_img i ) : SV_Target
 			{
 				if( _Condition == 0)
-					return tex2D( _B, i.uv ); // A nd B are switched
+					return tex2D( _B, i.uv ): // A nd B are switched
 				else if( _Condition == 1 )
-					return tex2D( _A, i.uv );
+					return tex2D( _A, i.uv ):
 				else if( _Condition == 2 )
-					return tex2D( _C, i.uv );
+					return tex2D( _C, i.uv ):
 				else if( _Condition == 3 )
-					return tex2D( _D, i.uv );
+					return tex2D( _D, i.uv ):
 				else if( _Condition == 4 )
-					return tex2D( _E, i.uv );
+					return tex2D( _E, i.uv ):
 				else if( _Condition == 5 )
-					return tex2D( _F, i.uv );
+					return tex2D( _F, i.uv ):
 				else if( _Condition == 6 )
-					return tex2D( _G, i.uv );
+					return tex2D( _G, i.uv ):
 				else if( _Condition == 7 )
-					return tex2D( _H, i.uv );
+					return tex2D( _H, i.uv ):
 				else
-					return tex2D( _I, i.uv );
+					return tex2D( _I, i.uv ):
 			}
 			ENDCG
 		}

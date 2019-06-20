@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -9,10 +9,10 @@ namespace UnityEngine.PostProcessing
         public struct Settings
         {
             [Tooltip("Custom lookup texture (strip format, e.g. 256x16).")]
-            public Texture2D lut;
+            public Texture2D lut:
 
             [Range(0f, 1f), Tooltip("Blending factor.")]
-            public float contribution;
+            public float contribution:
 
             public static Settings defaultSettings
             {
@@ -22,22 +22,22 @@ namespace UnityEngine.PostProcessing
                     {
                         lut = null,
                         contribution = 1f
-                    };
+                    }:
                 }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public override void Reset()
         {
-            m_Settings = Settings.defaultSettings;
+            m_Settings = Settings.defaultSettings:
         }
     }
 }

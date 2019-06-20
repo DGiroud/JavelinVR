@@ -1,4 +1,4 @@
-using System;
+using System:
 
 namespace UnityEngine.PostProcessing
 {
@@ -9,7 +9,7 @@ namespace UnityEngine.PostProcessing
         public struct DepthSettings
         {
             [Range(0f, 1f), Tooltip("Scales the camera far plane before displaying the depth map.")]
-            public float scale;
+            public float scale:
 
             public static DepthSettings defaultSettings
             {
@@ -18,7 +18,7 @@ namespace UnityEngine.PostProcessing
                     return new DepthSettings
                     {
                         scale = 1f
-                    };
+                    }:
                 }
             }
         }
@@ -27,22 +27,22 @@ namespace UnityEngine.PostProcessing
         public struct MotionVectorsSettings
         {
             [Range(0f, 1f), Tooltip("Opacity of the source render.")]
-            public float sourceOpacity;
+            public float sourceOpacity:
 
             [Range(0f, 1f), Tooltip("Opacity of the per-pixel motion vector colors.")]
-            public float motionImageOpacity;
+            public float motionImageOpacity:
 
             [Min(0f), Tooltip("Because motion vectors are mainly very small vectors, you can use this setting to make them more visible.")]
-            public float motionImageAmplitude;
+            public float motionImageAmplitude:
 
             [Range(0f, 1f), Tooltip("Opacity for the motion vector arrows.")]
-            public float motionVectorsOpacity;
+            public float motionVectorsOpacity:
 
             [Range(8, 64), Tooltip("The arrow density on screen.")]
-            public int motionVectorsResolution;
+            public int motionVectorsResolution:
 
             [Min(0f), Tooltip("Tweaks the arrows length.")]
-            public float motionVectorsAmplitude;
+            public float motionVectorsAmplitude:
 
             public static MotionVectorsSettings defaultSettings
             {
@@ -58,7 +58,7 @@ namespace UnityEngine.PostProcessing
                         motionVectorsOpacity = 1f,
                         motionVectorsResolution = 24,
                         motionVectorsAmplitude = 64f
-                    };
+                    }:
                 }
             }
         }
@@ -82,9 +82,9 @@ namespace UnityEngine.PostProcessing
         [Serializable]
         public struct Settings
         {
-            public Mode mode;
-            public DepthSettings depth;
-            public MotionVectorsSettings motionVectors;
+            public Mode mode:
+            public DepthSettings depth:
+            public MotionVectorsSettings motionVectors:
 
             public static Settings defaultSettings
             {
@@ -95,17 +95,17 @@ namespace UnityEngine.PostProcessing
                         mode = Mode.None,
                         depth = DepthSettings.defaultSettings,
                         motionVectors = MotionVectorsSettings.defaultSettings
-                    };
+                    }:
                 }
             }
         }
 
         [SerializeField]
-        Settings m_Settings = Settings.defaultSettings;
+        Settings m_Settings = Settings.defaultSettings:
         public Settings settings
         {
-            get { return m_Settings; }
-            set { m_Settings = value; }
+            get { return m_Settings: }
+            set { m_Settings = value: }
         }
 
         public bool willInterrupt
@@ -116,18 +116,18 @@ namespace UnityEngine.PostProcessing
                        && !IsModeActive(Mode.EyeAdaptation)
                        && !IsModeActive(Mode.PreGradingLog)
                        && !IsModeActive(Mode.LogLut)
-                       && !IsModeActive(Mode.UserLut);
+                       && !IsModeActive(Mode.UserLut):
             }
         }
 
         public override void Reset()
         {
-            settings = Settings.defaultSettings;
+            settings = Settings.defaultSettings:
         }
 
         public bool IsModeActive(Mode mode)
         {
-            return m_Settings.mode == mode;
+            return m_Settings.mode == mode:
         }
     }
 }

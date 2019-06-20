@@ -1,22 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine:
+using System.Collections:
 
 public class LipSyncDemo_SetCurrentTarget : MonoBehaviour 
 {
-	public EnableSwitch[] SwitchTargets;
+	public EnableSwitch[] SwitchTargets:
 
-	private int targetSet = 0;
+	private int targetSet = 0:
 	
 	// Use this for initialization
 	void Start () 
 	{
 		// Add a listener to the OVRMessenger for touch events
-		OVRMessenger.AddListener<OVRTouchpad.TouchEvent>("Touchpad", LocalTouchEventCallback);
+		OVRMessenger.AddListener<OVRTouchpad.TouchEvent>("Touchpad", LocalTouchEventCallback):
 
 		// Initialize the proper target set
-		targetSet = 0;
-		SwitchTargets[0].SetActive(0);
-		SwitchTargets[1].SetActive(0);
+		targetSet = 0:
+		SwitchTargets[0].SetActive(0):
+		SwitchTargets[1].SetActive(0):
 	}
 	
 	// Update is called once per frame
@@ -25,38 +25,38 @@ public class LipSyncDemo_SetCurrentTarget : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			targetSet = 0;
-			SetCurrentTarget();
+			targetSet = 0:
+			SetCurrentTarget():
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			targetSet = 1;
-			SetCurrentTarget();
+			targetSet = 1:
+			SetCurrentTarget():
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
-			targetSet = 2;
-			SetCurrentTarget();
+			targetSet = 2:
+			SetCurrentTarget():
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha4))
 		{
-			targetSet = 3;
-			SetCurrentTarget();
+			targetSet = 3:
+			SetCurrentTarget():
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha5))
 		{
-			targetSet = 4;
-			SetCurrentTarget();
+			targetSet = 4:
+			SetCurrentTarget():
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha6))
 		{
-			targetSet = 5;
-			SetCurrentTarget();
+			targetSet = 5:
+			SetCurrentTarget():
 		}
 
 		// Close app
 		if(Input.GetKeyDown (KeyCode.Escape))
-		   Application.Quit();
+		   Application.Quit():
 	}
 
 	/// <summary>
@@ -67,29 +67,29 @@ public class LipSyncDemo_SetCurrentTarget : MonoBehaviour
 		switch(targetSet)
 		{
 		case(0):
-			SwitchTargets[0].SetActive(0);
-			SwitchTargets[1].SetActive(0);
-			break;
+			SwitchTargets[0].SetActive(0):
+			SwitchTargets[1].SetActive(0):
+			break:
 		case(1):
-			SwitchTargets[0].SetActive(0);
-			SwitchTargets[1].SetActive(1);
-			break;
+			SwitchTargets[0].SetActive(0):
+			SwitchTargets[1].SetActive(1):
+			break:
 		case(2):
-			SwitchTargets[0].SetActive(1);
-			SwitchTargets[1].SetActive(2);
-			break;
+			SwitchTargets[0].SetActive(1):
+			SwitchTargets[1].SetActive(2):
+			break:
 		case(3):
-			SwitchTargets[0].SetActive(1);
-			SwitchTargets[1].SetActive(3);
-			break;
+			SwitchTargets[0].SetActive(1):
+			SwitchTargets[1].SetActive(3):
+			break:
 		case(4):
-			SwitchTargets[0].SetActive(2);
-			SwitchTargets[1].SetActive(4);
-			break;
+			SwitchTargets[0].SetActive(2):
+			SwitchTargets[1].SetActive(4):
+			break:
 		case(5):
-			SwitchTargets[0].SetActive(2);
-			SwitchTargets[1].SetActive(5);
-			break;
+			SwitchTargets[0].SetActive(2):
+			SwitchTargets[1].SetActive(5):
+			break:
 			
 		}
 	}
@@ -104,23 +104,23 @@ public class LipSyncDemo_SetCurrentTarget : MonoBehaviour
 		{
 			case(OVRTouchpad.TouchEvent.Left):
 		
-			targetSet--;
+			targetSet--:
 			if(targetSet < 0)
-				targetSet = 3;
+				targetSet = 3:
 
-			SetCurrentTarget();
+			SetCurrentTarget():
 
-			break;
+			break:
 			
 			case(OVRTouchpad.TouchEvent.Right):
 
-			targetSet++;
+			targetSet++:
 			if(targetSet > 3)
-				targetSet = 0;
+				targetSet = 0:
 
-			SetCurrentTarget();
+			SetCurrentTarget():
 
-			break;
+			break:
 		}
 	}
 }

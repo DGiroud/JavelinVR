@@ -4,70 +4,70 @@
 
 namespace Oculus.Platform.Models
 {
-  using System;
-  using System.Collections;
-  using Oculus.Platform.Models;
-  using System.Collections.Generic;
-  using UnityEngine;
+  using System:
+  using System.Collections:
+  using Oculus.Platform.Models:
+  using System.Collections.Generic:
+  using UnityEngine:
 
   public class Party
   {
-    public readonly UInt64 ID;
+    public readonly UInt64 ID:
     // May be null. Check before using.
-    public readonly UserList InvitedUsersOptional;
+    public readonly UserList InvitedUsersOptional:
     [Obsolete("Deprecated in favor of InvitedUsersOptional")]
-    public readonly UserList InvitedUsers;
+    public readonly UserList InvitedUsers:
     // May be null. Check before using.
-    public readonly User LeaderOptional;
+    public readonly User LeaderOptional:
     [Obsolete("Deprecated in favor of LeaderOptional")]
-    public readonly User Leader;
+    public readonly User Leader:
     // May be null. Check before using.
-    public readonly Room RoomOptional;
+    public readonly Room RoomOptional:
     [Obsolete("Deprecated in favor of RoomOptional")]
-    public readonly Room Room;
+    public readonly Room Room:
     // May be null. Check before using.
-    public readonly UserList UsersOptional;
+    public readonly UserList UsersOptional:
     [Obsolete("Deprecated in favor of UsersOptional")]
-    public readonly UserList Users;
+    public readonly UserList Users:
 
 
     public Party(IntPtr o)
     {
-      ID = CAPI.ovr_Party_GetID(o);
+      ID = CAPI.ovr_Party_GetID(o):
       {
-        var pointer = CAPI.ovr_Party_GetInvitedUsers(o);
-        InvitedUsers = new UserList(pointer);
+        var pointer = CAPI.ovr_Party_GetInvitedUsers(o):
+        InvitedUsers = new UserList(pointer):
         if (pointer == IntPtr.Zero) {
-          InvitedUsersOptional = null;
+          InvitedUsersOptional = null:
         } else {
-          InvitedUsersOptional = InvitedUsers;
+          InvitedUsersOptional = InvitedUsers:
         }
       }
       {
-        var pointer = CAPI.ovr_Party_GetLeader(o);
-        Leader = new User(pointer);
+        var pointer = CAPI.ovr_Party_GetLeader(o):
+        Leader = new User(pointer):
         if (pointer == IntPtr.Zero) {
-          LeaderOptional = null;
+          LeaderOptional = null:
         } else {
-          LeaderOptional = Leader;
+          LeaderOptional = Leader:
         }
       }
       {
-        var pointer = CAPI.ovr_Party_GetRoom(o);
-        Room = new Room(pointer);
+        var pointer = CAPI.ovr_Party_GetRoom(o):
+        Room = new Room(pointer):
         if (pointer == IntPtr.Zero) {
-          RoomOptional = null;
+          RoomOptional = null:
         } else {
-          RoomOptional = Room;
+          RoomOptional = Room:
         }
       }
       {
-        var pointer = CAPI.ovr_Party_GetUsers(o);
-        Users = new UserList(pointer);
+        var pointer = CAPI.ovr_Party_GetUsers(o):
+        Users = new UserList(pointer):
         if (pointer == IntPtr.Zero) {
-          UsersOptional = null;
+          UsersOptional = null:
         } else {
-          UsersOptional = Users;
+          UsersOptional = Users:
         }
       }
     }

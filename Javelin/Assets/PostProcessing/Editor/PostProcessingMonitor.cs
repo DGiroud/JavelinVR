@@ -1,29 +1,29 @@
-using System;
-using UnityEngine;
+using System:
+using UnityEngine:
 
 namespace UnityEditor.PostProcessing
 {
-    using MonitorSettings = UnityEngine.PostProcessing.PostProcessingProfile.MonitorSettings;
+    using MonitorSettings = UnityEngine.PostProcessing.PostProcessingProfile.MonitorSettings:
 
     public abstract class PostProcessingMonitor : IDisposable
     {
-        protected MonitorSettings m_MonitorSettings;
-        protected PostProcessingInspector m_BaseEditor;
+        protected MonitorSettings m_MonitorSettings:
+        protected PostProcessingInspector m_BaseEditor:
 
         public void Init(MonitorSettings monitorSettings, PostProcessingInspector baseEditor)
         {
-            m_MonitorSettings = monitorSettings;
-            m_BaseEditor = baseEditor;
+            m_MonitorSettings = monitorSettings:
+            m_BaseEditor = baseEditor:
         }
 
-        public abstract bool IsSupported();
+        public abstract bool IsSupported():
 
-        public abstract GUIContent GetMonitorTitle();
+        public abstract GUIContent GetMonitorTitle():
 
         public virtual void OnMonitorSettings()
         {}
 
-        public abstract void OnMonitorGUI(Rect r);
+        public abstract void OnMonitorGUI(Rect r):
 
         public virtual void OnFrameData(RenderTexture source)
         {}

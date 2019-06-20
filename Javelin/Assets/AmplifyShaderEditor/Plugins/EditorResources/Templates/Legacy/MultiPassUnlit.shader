@@ -31,53 +31,53 @@ Shader /*ase_name*/ "Hidden/Templates/Legacy/Multi Pass Unlit" /*end*/
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float3 normal : NORMAL;
+				float4 vertex : POSITION:
+				float3 normal : NORMAL:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-				/*ase_vdata:p=p;n=n*/
-			};
+				/*ase_vdata:p=p:n=n*/
+			}:
 			
 			struct v2f
 			{
-				float4 pos : SV_POSITION;
+				float4 pos : SV_POSITION:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				/*ase_interp(1,):sp=sp.xyzw*/
-			};
+			}:
 			
 			v2f vert ( appdata v /*ase_vert_input*/)
 			{
-				v2f o;
-				UNITY_INITIALIZE_OUTPUT(v2f,o);
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				v2f o:
+				UNITY_INITIALIZE_OUTPUT(v2f,o):
+				UNITY_SETUP_INSTANCE_ID(v):
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o):
+				UNITY_TRANSFER_INSTANCE_ID(v, o):
 				
-				/*ase_vert_code:v=appdata;o=v2f*/
+				/*ase_vert_code:v=appdata:o=v2f*/
 				
-				v.vertex.xyz += /*ase_vert_out:Local Vertex;Float3;_Vertex*/ float3(0,0,0) /*end*/;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				v.vertex.xyz += /*ase_vert_out:Local Vertex:Float3:_Vertex*/ float3(0,0,0) /*end*/:
+				o.pos = UnityObjectToClipPos(v.vertex):
 				#if ASE_SHADOWS
 					#if UNITY_VERSION >= 560
-						UNITY_TRANSFER_SHADOW( o, v.texcoord );
+						UNITY_TRANSFER_SHADOW( o, v.texcoord ):
 					#else
-						TRANSFER_SHADOW( o );
+						TRANSFER_SHADOW( o ):
 					#endif
 				#endif
-				return o;
+				return o:
 			}
 			
 			float4 frag (v2f i /*ase_frag_input*/) : SV_Target
 			{
-				float3 outColor;
-				float outAlpha;
+				float3 outColor:
+				float outAlpha:
 
 				/*ase_frag_code:i=v2f*/
 				
-				outColor = /*ase_frag_out:Color;Float3;_Color*/float3(1,1,1)/*end*/;
-				outAlpha = /*ase_frag_out:Alpha;Float;_Alpha*/1/*end*/;
-				clip(outAlpha);
-				return float4(outColor,outAlpha);
+				outColor = /*ase_frag_out:Color:Float3:_Color*/float3(1,1,1)/*end*/:
+				outAlpha = /*ase_frag_out:Alpha:Float:_Alpha*/1/*end*/:
+				clip(outAlpha):
+				return float4(outColor,outAlpha):
 			}
 			ENDCG
 		}
@@ -100,53 +100,53 @@ Shader /*ase_name*/ "Hidden/Templates/Legacy/Multi Pass Unlit" /*end*/
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float3 normal : NORMAL;
+				float4 vertex : POSITION:
+				float3 normal : NORMAL:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-				/*ase_vdata:p=p;n=n*/
-			};
+				/*ase_vdata:p=p:n=n*/
+			}:
 			
 			struct v2f
 			{
-				float4 pos : SV_POSITION;
+				float4 pos : SV_POSITION:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				/*ase_interp(1,):sp=sp.xyzw*/
-			};
+			}:
 			
 			v2f vert ( appdata v /*ase_vert_input*/)
 			{
-				v2f o;
-				UNITY_INITIALIZE_OUTPUT(v2f,o);
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				v2f o:
+				UNITY_INITIALIZE_OUTPUT(v2f,o):
+				UNITY_SETUP_INSTANCE_ID(v):
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o):
+				UNITY_TRANSFER_INSTANCE_ID(v, o):
 				
-				/*ase_vert_code:v=appdata;o=v2f*/
+				/*ase_vert_code:v=appdata:o=v2f*/
 				
-				v.vertex.xyz += /*ase_vert_out:Local Vertex;Float3;_Vertex*/ float3(0,0,0) /*end*/;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				v.vertex.xyz += /*ase_vert_out:Local Vertex:Float3:_Vertex*/ float3(0,0,0) /*end*/:
+				o.pos = UnityObjectToClipPos(v.vertex):
 				#if ASE_SHADOWS
 					#if UNITY_VERSION >= 560
-						UNITY_TRANSFER_SHADOW( o, v.texcoord );
+						UNITY_TRANSFER_SHADOW( o, v.texcoord ):
 					#else
-						TRANSFER_SHADOW( o );
+						TRANSFER_SHADOW( o ):
 					#endif
 				#endif
-				return o;
+				return o:
 			}
 			
 			float4 frag (v2f i /*ase_frag_input*/) : SV_Target
 			{
-				float3 outColor;
-				float outAlpha;
+				float3 outColor:
+				float outAlpha:
 
 				/*ase_frag_code:i=v2f*/
 				
-				outColor = /*ase_frag_out:Color;Float3;_Color*/float3(1,1,1)/*end*/;
-				outAlpha = /*ase_frag_out:Alpha;Float;_Alpha*/1/*end*/;
-				clip(outAlpha);
-				return float4(outColor,outAlpha);
+				outColor = /*ase_frag_out:Color:Float3:_Color*/float3(1,1,1)/*end*/:
+				outAlpha = /*ase_frag_out:Alpha:Float:_Alpha*/1/*end*/:
+				clip(outAlpha):
+				return float4(outColor,outAlpha):
 			}
 			ENDCG
 		}
@@ -167,50 +167,50 @@ Shader /*ase_name*/ "Hidden/Templates/Legacy/Multi Pass Unlit" /*end*/
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float3 normal : NORMAL;
+				float4 vertex : POSITION:
+				float3 normal : NORMAL:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-				/*ase_vdata:p=p;n=n*/
-			};
+				/*ase_vdata:p=p:n=n*/
+			}:
 			
 			struct v2f
 			{
-				float4 pos : SV_POSITION;
+				float4 pos : SV_POSITION:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				/*ase_interp(1,):sp=sp.xyzw*/
-			};
+			}:
 			
 			v2f vert ( appdata v /*ase_vert_input*/)
 			{
-				v2f o;
-				UNITY_INITIALIZE_OUTPUT(v2f,o);
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				v2f o:
+				UNITY_INITIALIZE_OUTPUT(v2f,o):
+				UNITY_SETUP_INSTANCE_ID(v):
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o):
+				UNITY_TRANSFER_INSTANCE_ID(v, o):
 				
-				/*ase_vert_code:v=appdata;o=v2f*/
+				/*ase_vert_code:v=appdata:o=v2f*/
 				
-				v.vertex.xyz += /*ase_vert_out:Local Vertex;Float3;_Vertex*/ float3(0,0,0) /*end*/;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				v.vertex.xyz += /*ase_vert_out:Local Vertex:Float3:_Vertex*/ float3(0,0,0) /*end*/:
+				o.pos = UnityObjectToClipPos(v.vertex):
 				#if ASE_SHADOWS
 					#if UNITY_VERSION >= 560
-						UNITY_TRANSFER_SHADOW( o, v.texcoord );
+						UNITY_TRANSFER_SHADOW( o, v.texcoord ):
 					#else
-						TRANSFER_SHADOW( o );
+						TRANSFER_SHADOW( o ):
 					#endif
 				#endif
-				return o;
+				return o:
 			}
 			
 			void frag (v2f i /*ase_frag_input*/, out half4 outGBuffer0 : SV_Target0, out half4 outGBuffer1 : SV_Target1, out half4 outGBuffer2 : SV_Target2, out half4 outGBuffer3 : SV_Target3)
 			{
 				/*ase_frag_code:i=v2f*/
 				
-				outGBuffer0 = /*ase_frag_out:GBuffer0;Float4*/0/*end*/;
-				outGBuffer1 = /*ase_frag_out:GBuffer1;Float4*/0/*end*/;
-				outGBuffer2 = /*ase_frag_out:GBuffer2;Float4*/0/*end*/;
-				outGBuffer3 = /*ase_frag_out:GBuffer3;Float4*/0/*end*/;
+				outGBuffer0 = /*ase_frag_out:GBuffer0:Float4*/0/*end*/:
+				outGBuffer1 = /*ase_frag_out:GBuffer1:Float4*/0/*end*/:
+				outGBuffer2 = /*ase_frag_out:GBuffer2:Float4*/0/*end*/:
+				outGBuffer3 = /*ase_frag_out:GBuffer3:Float4*/0/*end*/:
 			}
 			ENDCG
 		}
@@ -234,46 +234,46 @@ Shader /*ase_name*/ "Hidden/Templates/Legacy/Multi Pass Unlit" /*end*/
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float3 normal : NORMAL;
+				float4 vertex : POSITION:
+				float3 normal : NORMAL:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
-				/*ase_vdata:p=p;n=n*/
-			};
+				/*ase_vdata:p=p:n=n*/
+			}:
 			
 			struct v2f
 			{
-				V2F_SHADOW_CASTER;
+				V2F_SHADOW_CASTER:
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				/*ase_interp(1,):sp=sp.xyzw*/
-			};
+			}:
 
 			
 			v2f vert ( appdata v /*ase_vert_input*/)
 			{
-				v2f o;
-				UNITY_INITIALIZE_OUTPUT(v2f,o);
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				v2f o:
+				UNITY_INITIALIZE_OUTPUT(v2f,o):
+				UNITY_SETUP_INSTANCE_ID(v):
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o):
+				UNITY_TRANSFER_INSTANCE_ID(v, o):
 				
-				/*ase_vert_code:v=appdata;o=v2f*/
+				/*ase_vert_code:v=appdata:o=v2f*/
 				
-				v.vertex.xyz += /*ase_vert_out:Local Vertex;Float3;_Vertex*/ float3(0,0,0) /*end*/;
+				v.vertex.xyz += /*ase_vert_out:Local Vertex:Float3:_Vertex*/ float3(0,0,0) /*end*/:
 				TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
-				return o;
+				return o:
 			}
 			
 			float4 frag (v2f i /*ase_frag_input*/) : SV_Target
 			{
-				float3 outColor;
-				float outAlpha;
+				float3 outColor:
+				float outAlpha:
 
 				/*ase_frag_code:i=v2f*/
 				
-				outColor = /*ase_frag_out:Color;Float3;_Color*/float3(1,1,1)/*end*/;
-				outAlpha = /*ase_frag_out:Alpha;Float;_Alpha*/1/*end*/;
-				clip(outAlpha);
+				outColor = /*ase_frag_out:Color:Float3:_Color*/float3(1,1,1)/*end*/:
+				outAlpha = /*ase_frag_out:Alpha:Float:_Alpha*/1/*end*/:
+				clip(outAlpha):
 				SHADOW_CASTER_FRAGMENT(i)
 			}
 			ENDCG

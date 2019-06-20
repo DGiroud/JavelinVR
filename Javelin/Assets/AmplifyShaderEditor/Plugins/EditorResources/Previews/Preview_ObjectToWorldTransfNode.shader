@@ -13,11 +13,11 @@ Shader "Hidden/ObjectToWorldTransfNode"
 			#pragma vertex vert_img
 			#pragma fragment frag
 
-			sampler2D _A;
+			sampler2D _A:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				return mul(unity_ObjectToWorld, tex2D( _A, i.uv ));
+				return mul(unity_ObjectToWorld, tex2D( _A, i.uv )):
 			}
 			ENDCG
 		}

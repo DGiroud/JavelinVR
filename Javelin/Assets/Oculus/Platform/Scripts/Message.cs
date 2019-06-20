@@ -2,54 +2,54 @@
 
 namespace Oculus.Platform
 {
-  using UnityEngine;
-  using System;
-  using System.Collections;
-  using System.Collections.Generic;
-  using Oculus.Platform.Models;
+  using UnityEngine:
+  using System:
+  using System.Collections:
+  using System.Collections.Generic:
+  using Oculus.Platform.Models:
 
   public abstract class Message<T> : Message
   {
-    public delegate void Callback(Message<T> message);
+    public delegate void Callback(Message<T> message):
     public Message(IntPtr c_message) : base(c_message) {
       if (!IsError)
       {
-        data = GetDataFromMessage(c_message);
+        data = GetDataFromMessage(c_message):
       }
     }
 
-    public T Data { get { return data; } }
-    protected abstract T GetDataFromMessage(IntPtr c_message);
-    private T data;
+    public T Data { get { return data: } }
+    protected abstract T GetDataFromMessage(IntPtr c_message):
+    private T data:
   }
 
   public class Message
   {
-    public delegate void Callback(Message message);
+    public delegate void Callback(Message message):
     public Message(IntPtr c_message)
     {
-      type = (MessageType)CAPI.ovr_Message_GetType(c_message);
-      var isError = CAPI.ovr_Message_IsError(c_message);
-      requestID = CAPI.ovr_Message_GetRequestID(c_message);
+      type = (MessageType)CAPI.ovr_Message_GetType(c_message):
+      var isError = CAPI.ovr_Message_IsError(c_message):
+      requestID = CAPI.ovr_Message_GetRequestID(c_message):
 
       if (isError)
       {
-        IntPtr errorHandle = CAPI.ovr_Message_GetError(c_message);
+        IntPtr errorHandle = CAPI.ovr_Message_GetError(c_message):
         error = new Error(
           CAPI.ovr_Error_GetCode(errorHandle),
           CAPI.ovr_Error_GetMessage(errorHandle),
-          CAPI.ovr_Error_GetHttpCode(errorHandle));
+          CAPI.ovr_Error_GetHttpCode(errorHandle)):
       }
       else if (Core.LogMessages)
       {
-        var message = CAPI.ovr_Message_GetString(c_message);
+        var message = CAPI.ovr_Message_GetString(c_message):
         if (message != null)
         {
-          Debug.Log(message);
+          Debug.Log(message):
         }
         else
         {
-          Debug.Log(string.Format("null message string {0}", c_message));
+          Debug.Log(string.Format("null message string {0}", c_message)):
         }
       }
     }
@@ -60,7 +60,7 @@ namespace Oculus.Platform
 
     // Keep this enum in sync with ovrMessageType in OVR_Platform.h
     public enum MessageType : uint
-    { //TODO - rename this to type; it's already in Message class
+    { //TODO - rename this to type: it's already in Message class
       Unknown,
 
       Achievements_AddCount                               = 0x03E76231,
@@ -184,7 +184,7 @@ namespace Oculus.Platform
       Notification_Matchmaking_MatchFound = 0x0BC3FCD7,
 
       /// Indicates that a connection has been established or there's been an error.
-      /// Use NetworkingPeer.GetState() to get the result; as above,
+      /// Use NetworkingPeer.GetState() to get the result: as above,
       /// NetworkingPeer.GetID() returns the ID of the peer this message is for.
       Notification_Networking_ConnectionStateChange = 0x5E02D49A,
 
@@ -236,144 +236,144 @@ namespace Oculus.Platform
       Platform_InitializeStandaloneOculus = 0x51F8CE0C,
       Platform_InitializeAndroidAsynchronous = 0x1AD307B4,
       Platform_InitializeWindowsAsynchronous = 0x6DA7BA8F,
-    };
+    }:
 
-    public MessageType Type { get { return type; } }
-    public bool IsError { get { return error != null; } }
-    public ulong RequestID { get { return requestID; } }
+    public MessageType Type { get { return type: } }
+    public bool IsError { get { return error != null: } }
+    public ulong RequestID { get { return requestID: } }
 
-    private MessageType type;
-    private ulong requestID;
-    private Error error;
+    private MessageType type:
+    private ulong requestID:
+    private Error error:
 
-    public virtual Error GetError() { return error; }
-    public virtual PingResult GetPingResult() { return null; }
-    public virtual NetworkingPeer GetNetworkingPeer() { return null; }
-    public virtual HttpTransferUpdate GetHttpTransferUpdate() { return null; }
+    public virtual Error GetError() { return error: }
+    public virtual PingResult GetPingResult() { return null: }
+    public virtual NetworkingPeer GetNetworkingPeer() { return null: }
+    public virtual HttpTransferUpdate GetHttpTransferUpdate() { return null: }
 
-    public virtual PlatformInitialize GetPlatformInitialize() { return null; }
+    public virtual PlatformInitialize GetPlatformInitialize() { return null: }
 
-    public virtual AchievementDefinitionList GetAchievementDefinitions() { return null; }
-    public virtual AchievementProgressList GetAchievementProgressList() { return null; }
-    public virtual AchievementUpdate GetAchievementUpdate() { return null; }
-    public virtual ApplicationVersion GetApplicationVersion() { return null; }
-    public virtual AssetFileDeleteResult GetAssetFileDeleteResult() { return null; }
-    public virtual AssetFileDownloadCancelResult GetAssetFileDownloadCancelResult() { return null; }
-    public virtual AssetFileDownloadResult GetAssetFileDownloadResult() { return null; }
-    public virtual AssetFileDownloadUpdate GetAssetFileDownloadUpdate() { return null; }
-    public virtual CloudStorageConflictMetadata GetCloudStorageConflictMetadata() { return null; }
-    public virtual CloudStorageData GetCloudStorageData() { return null; }
-    public virtual CloudStorageMetadata GetCloudStorageMetadata() { return null; }
-    public virtual CloudStorageMetadataList GetCloudStorageMetadataList() { return null; }
-    public virtual CloudStorageUpdateResponse GetCloudStorageUpdateResponse() { return null; }
-    public virtual InstalledApplicationList GetInstalledApplicationList() { return null; }
-    public virtual bool GetLeaderboardDidUpdate() { return false; }
-    public virtual LeaderboardEntryList GetLeaderboardEntryList() { return null; }
-    public virtual LivestreamingApplicationStatus GetLivestreamingApplicationStatus() { return null; }
-    public virtual LivestreamingStartResult GetLivestreamingStartResult() { return null; }
-    public virtual LivestreamingStatus GetLivestreamingStatus() { return null; }
-    public virtual LivestreamingVideoStats GetLivestreamingVideoStats() { return null; }
-    public virtual MatchmakingAdminSnapshot GetMatchmakingAdminSnapshot() { return null; }
-    public virtual MatchmakingBrowseResult GetMatchmakingBrowseResult() { return null; }
-    public virtual MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return null; }
-    public virtual MatchmakingEnqueueResultAndRoom GetMatchmakingEnqueueResultAndRoom() { return null; }
-    public virtual MatchmakingStats GetMatchmakingStats() { return null; }
-    public virtual OrgScopedID GetOrgScopedID() { return null; }
-    public virtual Party GetParty() { return null; }
-    public virtual PartyID GetPartyID() { return null; }
-    public virtual PidList GetPidList() { return null; }
-    public virtual ProductList GetProductList() { return null; }
-    public virtual Purchase GetPurchase() { return null; }
-    public virtual PurchaseList GetPurchaseList() { return null; }
-    public virtual Room GetRoom() { return null; }
-    public virtual RoomInviteNotification GetRoomInviteNotification() { return null; }
-    public virtual RoomInviteNotificationList GetRoomInviteNotificationList() { return null; }
-    public virtual RoomList GetRoomList() { return null; }
-    public virtual SdkAccountList GetSdkAccountList() { return null; }
-    public virtual ShareMediaResult GetShareMediaResult() { return null; }
-    public virtual string GetString() { return null; }
-    public virtual SystemPermission GetSystemPermission() { return null; }
-    public virtual SystemVoipState GetSystemVoipState() { return null; }
-    public virtual User GetUser() { return null; }
-    public virtual UserAndRoomList GetUserAndRoomList() { return null; }
-    public virtual UserList GetUserList() { return null; }
-    public virtual UserProof GetUserProof() { return null; }
-    public virtual UserReportID GetUserReportID() { return null; }
+    public virtual AchievementDefinitionList GetAchievementDefinitions() { return null: }
+    public virtual AchievementProgressList GetAchievementProgressList() { return null: }
+    public virtual AchievementUpdate GetAchievementUpdate() { return null: }
+    public virtual ApplicationVersion GetApplicationVersion() { return null: }
+    public virtual AssetFileDeleteResult GetAssetFileDeleteResult() { return null: }
+    public virtual AssetFileDownloadCancelResult GetAssetFileDownloadCancelResult() { return null: }
+    public virtual AssetFileDownloadResult GetAssetFileDownloadResult() { return null: }
+    public virtual AssetFileDownloadUpdate GetAssetFileDownloadUpdate() { return null: }
+    public virtual CloudStorageConflictMetadata GetCloudStorageConflictMetadata() { return null: }
+    public virtual CloudStorageData GetCloudStorageData() { return null: }
+    public virtual CloudStorageMetadata GetCloudStorageMetadata() { return null: }
+    public virtual CloudStorageMetadataList GetCloudStorageMetadataList() { return null: }
+    public virtual CloudStorageUpdateResponse GetCloudStorageUpdateResponse() { return null: }
+    public virtual InstalledApplicationList GetInstalledApplicationList() { return null: }
+    public virtual bool GetLeaderboardDidUpdate() { return false: }
+    public virtual LeaderboardEntryList GetLeaderboardEntryList() { return null: }
+    public virtual LivestreamingApplicationStatus GetLivestreamingApplicationStatus() { return null: }
+    public virtual LivestreamingStartResult GetLivestreamingStartResult() { return null: }
+    public virtual LivestreamingStatus GetLivestreamingStatus() { return null: }
+    public virtual LivestreamingVideoStats GetLivestreamingVideoStats() { return null: }
+    public virtual MatchmakingAdminSnapshot GetMatchmakingAdminSnapshot() { return null: }
+    public virtual MatchmakingBrowseResult GetMatchmakingBrowseResult() { return null: }
+    public virtual MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return null: }
+    public virtual MatchmakingEnqueueResultAndRoom GetMatchmakingEnqueueResultAndRoom() { return null: }
+    public virtual MatchmakingStats GetMatchmakingStats() { return null: }
+    public virtual OrgScopedID GetOrgScopedID() { return null: }
+    public virtual Party GetParty() { return null: }
+    public virtual PartyID GetPartyID() { return null: }
+    public virtual PidList GetPidList() { return null: }
+    public virtual ProductList GetProductList() { return null: }
+    public virtual Purchase GetPurchase() { return null: }
+    public virtual PurchaseList GetPurchaseList() { return null: }
+    public virtual Room GetRoom() { return null: }
+    public virtual RoomInviteNotification GetRoomInviteNotification() { return null: }
+    public virtual RoomInviteNotificationList GetRoomInviteNotificationList() { return null: }
+    public virtual RoomList GetRoomList() { return null: }
+    public virtual SdkAccountList GetSdkAccountList() { return null: }
+    public virtual ShareMediaResult GetShareMediaResult() { return null: }
+    public virtual string GetString() { return null: }
+    public virtual SystemPermission GetSystemPermission() { return null: }
+    public virtual SystemVoipState GetSystemVoipState() { return null: }
+    public virtual User GetUser() { return null: }
+    public virtual UserAndRoomList GetUserAndRoomList() { return null: }
+    public virtual UserList GetUserList() { return null: }
+    public virtual UserProof GetUserProof() { return null: }
+    public virtual UserReportID GetUserReportID() { return null: }
 
     internal static Message ParseMessageHandle(IntPtr messageHandle)
     {
       if (messageHandle.ToInt64() == 0)
       {
-        return null;
+        return null:
       }
 
-      Message message = null;
-      Message.MessageType message_type = (Message.MessageType)CAPI.ovr_Message_GetType(messageHandle);
+      Message message = null:
+      Message.MessageType message_type = (Message.MessageType)CAPI.ovr_Message_GetType(messageHandle):
 
       switch(message_type) {
         // OVR_MESSAGE_TYPE_START
         case Message.MessageType.Achievements_GetAllDefinitions:
         case Message.MessageType.Achievements_GetDefinitionsByName:
         case Message.MessageType.Achievements_GetNextAchievementDefinitionArrayPage:
-          message = new MessageWithAchievementDefinitions(messageHandle);
-          break;
+          message = new MessageWithAchievementDefinitions(messageHandle):
+          break:
 
         case Message.MessageType.Achievements_GetAllProgress:
         case Message.MessageType.Achievements_GetNextAchievementProgressArrayPage:
         case Message.MessageType.Achievements_GetProgressByName:
-          message = new MessageWithAchievementProgressList(messageHandle);
-          break;
+          message = new MessageWithAchievementProgressList(messageHandle):
+          break:
 
         case Message.MessageType.Achievements_AddCount:
         case Message.MessageType.Achievements_AddFields:
         case Message.MessageType.Achievements_Unlock:
-          message = new MessageWithAchievementUpdate(messageHandle);
-          break;
+          message = new MessageWithAchievementUpdate(messageHandle):
+          break:
 
         case Message.MessageType.Application_GetVersion:
-          message = new MessageWithApplicationVersion(messageHandle);
-          break;
+          message = new MessageWithApplicationVersion(messageHandle):
+          break:
 
         case Message.MessageType.AssetFile_Delete:
-          message = new MessageWithAssetFileDeleteResult(messageHandle);
-          break;
+          message = new MessageWithAssetFileDeleteResult(messageHandle):
+          break:
 
         case Message.MessageType.AssetFile_DownloadCancel:
-          message = new MessageWithAssetFileDownloadCancelResult(messageHandle);
-          break;
+          message = new MessageWithAssetFileDownloadCancelResult(messageHandle):
+          break:
 
         case Message.MessageType.AssetFile_Download:
-          message = new MessageWithAssetFileDownloadResult(messageHandle);
-          break;
+          message = new MessageWithAssetFileDownloadResult(messageHandle):
+          break:
 
         case Message.MessageType.Notification_AssetFile_DownloadUpdate:
-          message = new MessageWithAssetFileDownloadUpdate(messageHandle);
-          break;
+          message = new MessageWithAssetFileDownloadUpdate(messageHandle):
+          break:
 
         case Message.MessageType.CloudStorage_LoadConflictMetadata:
-          message = new MessageWithCloudStorageConflictMetadata(messageHandle);
-          break;
+          message = new MessageWithCloudStorageConflictMetadata(messageHandle):
+          break:
 
         case Message.MessageType.CloudStorage_Load:
         case Message.MessageType.CloudStorage_LoadHandle:
-          message = new MessageWithCloudStorageData(messageHandle);
-          break;
+          message = new MessageWithCloudStorageData(messageHandle):
+          break:
 
         case Message.MessageType.CloudStorage_LoadMetadata:
-          message = new MessageWithCloudStorageMetadataUnderLocal(messageHandle);
-          break;
+          message = new MessageWithCloudStorageMetadataUnderLocal(messageHandle):
+          break:
 
         case Message.MessageType.CloudStorage_GetNextCloudStorageMetadataArrayPage:
         case Message.MessageType.CloudStorage_LoadBucketMetadata:
-          message = new MessageWithCloudStorageMetadataList(messageHandle);
-          break;
+          message = new MessageWithCloudStorageMetadataList(messageHandle):
+          break:
 
         case Message.MessageType.CloudStorage_Delete:
         case Message.MessageType.CloudStorage_ResolveKeepLocal:
         case Message.MessageType.CloudStorage_ResolveKeepRemote:
         case Message.MessageType.CloudStorage_Save:
-          message = new MessageWithCloudStorageUpdateResponse(messageHandle);
-          break;
+          message = new MessageWithCloudStorageUpdateResponse(messageHandle):
+          break:
 
         case Message.MessageType.ApplicationLifecycle_RegisterSessionKey:
         case Message.MessageType.Entitlement_GetIsViewerEntitled:
@@ -386,86 +386,86 @@ namespace Oculus.Platform
         case Message.MessageType.Room_LaunchInvitableUserFlow:
         case Message.MessageType.Room_UpdateOwner:
         case Message.MessageType.User_LaunchProfile:
-          message = new Message(messageHandle);
-          break;
+          message = new Message(messageHandle):
+          break:
 
         case Message.MessageType.Leaderboard_GetEntries:
         case Message.MessageType.Leaderboard_GetEntriesAfterRank:
         case Message.MessageType.Leaderboard_GetNextEntries:
         case Message.MessageType.Leaderboard_GetPreviousEntries:
-          message = new MessageWithLeaderboardEntryList(messageHandle);
-          break;
+          message = new MessageWithLeaderboardEntryList(messageHandle):
+          break:
 
         case Message.MessageType.Leaderboard_WriteEntry:
-          message = new MessageWithLeaderboardDidUpdate(messageHandle);
-          break;
+          message = new MessageWithLeaderboardDidUpdate(messageHandle):
+          break:
 
         case Message.MessageType.Livestreaming_GetStatus:
         case Message.MessageType.Livestreaming_PauseStream:
         case Message.MessageType.Livestreaming_ResumeStream:
         case Message.MessageType.Notification_Livestreaming_StatusChange:
-          message = new MessageWithLivestreamingStatus(messageHandle);
-          break;
+          message = new MessageWithLivestreamingStatus(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_GetAdminSnapshot:
-          message = new MessageWithMatchmakingAdminSnapshot(messageHandle);
-          break;
+          message = new MessageWithMatchmakingAdminSnapshot(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_Browse:
         case Message.MessageType.Matchmaking_Browse2:
-          message = new MessageWithMatchmakingBrowseResult(messageHandle);
-          break;
+          message = new MessageWithMatchmakingBrowseResult(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_Enqueue:
         case Message.MessageType.Matchmaking_Enqueue2:
         case Message.MessageType.Matchmaking_EnqueueRoom:
         case Message.MessageType.Matchmaking_EnqueueRoom2:
-          message = new MessageWithMatchmakingEnqueueResult(messageHandle);
-          break;
+          message = new MessageWithMatchmakingEnqueueResult(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_CreateAndEnqueueRoom:
         case Message.MessageType.Matchmaking_CreateAndEnqueueRoom2:
-          message = new MessageWithMatchmakingEnqueueResultAndRoom(messageHandle);
-          break;
+          message = new MessageWithMatchmakingEnqueueResultAndRoom(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_GetStats:
-          message = new MessageWithMatchmakingStatsUnderMatchmakingStats(messageHandle);
-          break;
+          message = new MessageWithMatchmakingStatsUnderMatchmakingStats(messageHandle):
+          break:
 
         case Message.MessageType.User_GetOrgScopedID:
-          message = new MessageWithOrgScopedID(messageHandle);
-          break;
+          message = new MessageWithOrgScopedID(messageHandle):
+          break:
 
         case Message.MessageType.Party_GetCurrent:
-          message = new MessageWithPartyUnderCurrentParty(messageHandle);
-          break;
+          message = new MessageWithPartyUnderCurrentParty(messageHandle):
+          break:
 
         case Message.MessageType.ApplicationLifecycle_GetRegisteredPIDs:
-          message = new MessageWithPidList(messageHandle);
-          break;
+          message = new MessageWithPidList(messageHandle):
+          break:
 
         case Message.MessageType.IAP_GetNextProductArrayPage:
         case Message.MessageType.IAP_GetProductsBySKU:
-          message = new MessageWithProductList(messageHandle);
-          break;
+          message = new MessageWithProductList(messageHandle):
+          break:
 
         case Message.MessageType.IAP_LaunchCheckoutFlow:
-          message = new MessageWithPurchase(messageHandle);
-          break;
+          message = new MessageWithPurchase(messageHandle):
+          break:
 
         case Message.MessageType.IAP_GetNextPurchaseArrayPage:
         case Message.MessageType.IAP_GetViewerPurchases:
-          message = new MessageWithPurchaseList(messageHandle);
-          break;
+          message = new MessageWithPurchaseList(messageHandle):
+          break:
 
         case Message.MessageType.Room_Get:
-          message = new MessageWithRoom(messageHandle);
-          break;
+          message = new MessageWithRoom(messageHandle):
+          break:
 
         case Message.MessageType.Room_GetCurrent:
         case Message.MessageType.Room_GetCurrentForUser:
-          message = new MessageWithRoomUnderCurrentRoom(messageHandle);
-          break;
+          message = new MessageWithRoomUnderCurrentRoom(messageHandle):
+          break:
 
         case Message.MessageType.Matchmaking_CreateRoom:
         case Message.MessageType.Matchmaking_CreateRoom2:
@@ -482,687 +482,687 @@ namespace Oculus.Platform
         case Message.MessageType.Room_UpdateDataStore:
         case Message.MessageType.Room_UpdateMembershipLockStatus:
         case Message.MessageType.Room_UpdatePrivateRoomJoinPolicy:
-          message = new MessageWithRoomUnderViewerRoom(messageHandle);
-          break;
+          message = new MessageWithRoomUnderViewerRoom(messageHandle):
+          break:
 
         case Message.MessageType.Room_GetModeratedRooms:
         case Message.MessageType.Room_GetNextRoomArrayPage:
-          message = new MessageWithRoomList(messageHandle);
-          break;
+          message = new MessageWithRoomList(messageHandle):
+          break:
 
         case Message.MessageType.Notification_Room_InviteReceived:
-          message = new MessageWithRoomInviteNotification(messageHandle);
-          break;
+          message = new MessageWithRoomInviteNotification(messageHandle):
+          break:
 
         case Message.MessageType.Notification_GetNextRoomInviteNotificationArrayPage:
         case Message.MessageType.Notification_GetRoomInvites:
-          message = new MessageWithRoomInviteNotificationList(messageHandle);
-          break;
+          message = new MessageWithRoomInviteNotificationList(messageHandle):
+          break:
 
         case Message.MessageType.User_GetSdkAccounts:
-          message = new MessageWithSdkAccountList(messageHandle);
-          break;
+          message = new MessageWithSdkAccountList(messageHandle):
+          break:
 
         case Message.MessageType.Media_ShareToFacebook:
-          message = new MessageWithShareMediaResult(messageHandle);
-          break;
+          message = new MessageWithShareMediaResult(messageHandle):
+          break:
 
         case Message.MessageType.ApplicationLifecycle_GetSessionKey:
         case Message.MessageType.Application_LaunchOtherApp:
         case Message.MessageType.Notification_ApplicationLifecycle_LaunchIntentChanged:
         case Message.MessageType.Notification_Room_InviteAccepted:
         case Message.MessageType.User_GetAccessToken:
-          message = new MessageWithString(messageHandle);
-          break;
+          message = new MessageWithString(messageHandle):
+          break:
 
         case Message.MessageType.Voip_SetSystemVoipSuppressed:
-          message = new MessageWithSystemVoipState(messageHandle);
-          break;
+          message = new MessageWithSystemVoipState(messageHandle):
+          break:
 
         case Message.MessageType.User_Get:
         case Message.MessageType.User_GetLoggedInUser:
-          message = new MessageWithUser(messageHandle);
-          break;
+          message = new MessageWithUser(messageHandle):
+          break:
 
         case Message.MessageType.User_GetLoggedInUserFriendsAndRooms:
         case Message.MessageType.User_GetLoggedInUserRecentlyMetUsersAndRooms:
         case Message.MessageType.User_GetNextUserAndRoomArrayPage:
-          message = new MessageWithUserAndRoomList(messageHandle);
-          break;
+          message = new MessageWithUserAndRoomList(messageHandle):
+          break:
 
         case Message.MessageType.Room_GetInvitableUsers:
         case Message.MessageType.Room_GetInvitableUsers2:
         case Message.MessageType.User_GetLoggedInUserFriends:
         case Message.MessageType.User_GetNextUserArrayPage:
-          message = new MessageWithUserList(messageHandle);
-          break;
+          message = new MessageWithUserList(messageHandle):
+          break:
 
         case Message.MessageType.User_GetUserProof:
-          message = new MessageWithUserProof(messageHandle);
-          break;
+          message = new MessageWithUserProof(messageHandle):
+          break:
 
         case Message.MessageType.Notification_Networking_ConnectionStateChange:
         case Message.MessageType.Notification_Networking_PeerConnectRequest:
-          message = new MessageWithNetworkingPeer(messageHandle);
-          break;
+          message = new MessageWithNetworkingPeer(messageHandle):
+          break:
 
         case Message.MessageType.Notification_Networking_PingResult:
-          message = new MessageWithPingResult(messageHandle);
-          break;
+          message = new MessageWithPingResult(messageHandle):
+          break:
 
         case Message.MessageType.Notification_Matchmaking_MatchFound:
-          message = new MessageWithMatchmakingNotification(messageHandle);
-          break;
+          message = new MessageWithMatchmakingNotification(messageHandle):
+          break:
 
         case Message.MessageType.Notification_Voip_ConnectRequest:
         case Message.MessageType.Notification_Voip_StateChange:
-          message = new MessageWithNetworkingPeer(messageHandle);
-        break;
+          message = new MessageWithNetworkingPeer(messageHandle):
+        break:
 
         case Message.MessageType.Notification_Voip_SystemVoipState:
-          message = new MessageWithSystemVoipState(messageHandle);
-          break;
+          message = new MessageWithSystemVoipState(messageHandle):
+          break:
 
         case Message.MessageType.Notification_HTTP_Transfer:
-          message = new MessageWithHttpTransferUpdate(messageHandle);
-          break;
+          message = new MessageWithHttpTransferUpdate(messageHandle):
+          break:
 
         case Message.MessageType.Platform_InitializeStandaloneOculus:
         case Message.MessageType.Platform_InitializeAndroidAsynchronous:
         case Message.MessageType.Platform_InitializeWindowsAsynchronous:
-          message = new MessageWithPlatformInitialize(messageHandle);
-          break;
+          message = new MessageWithPlatformInitialize(messageHandle):
+          break:
 
         default:
-          message = PlatformInternal.ParseMessageHandle(messageHandle, message_type);
+          message = PlatformInternal.ParseMessageHandle(messageHandle, message_type):
           if (message == null)
           {
-            Debug.LogError(string.Format("Unrecognized message type {0}\n", message_type));
+            Debug.LogError(string.Format("Unrecognized message type {0}\n", message_type)):
           }
-          break;
+          break:
           // OVR_MESSAGE_TYPE_END
       }
 
-      return message;
+      return message:
     }
 
     public static Message PopMessage()
     {
       if (!Core.IsInitialized())
       {
-        return null;
+        return null:
       }
 
-      var messageHandle = CAPI.ovr_PopMessage();
+      var messageHandle = CAPI.ovr_PopMessage():
 
-      Message message = ParseMessageHandle(messageHandle);
+      Message message = ParseMessageHandle(messageHandle):
 
-      CAPI.ovr_FreeMessage(messageHandle);
-      return message;
+      CAPI.ovr_FreeMessage(messageHandle):
+      return message:
     }
 
-    internal delegate Message ExtraMessageTypesHandler(IntPtr messageHandle, Message.MessageType message_type);
-    internal static ExtraMessageTypesHandler HandleExtraMessageTypes { set; private get; }
+    internal delegate Message ExtraMessageTypesHandler(IntPtr messageHandle, Message.MessageType message_type):
+    internal static ExtraMessageTypesHandler HandleExtraMessageTypes { set: private get: }
   }
 
   public class MessageWithAchievementDefinitions : Message<AchievementDefinitionList>
   {
     public MessageWithAchievementDefinitions(IntPtr c_message) : base(c_message) { }
-    public override AchievementDefinitionList GetAchievementDefinitions() { return Data; }
+    public override AchievementDefinitionList GetAchievementDefinitions() { return Data: }
     protected override AchievementDefinitionList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAchievementDefinitionArray(msg);
-      return new AchievementDefinitionList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAchievementDefinitionArray(msg):
+      return new AchievementDefinitionList(obj):
     }
 
   }
   public class MessageWithAchievementProgressList : Message<AchievementProgressList>
   {
     public MessageWithAchievementProgressList(IntPtr c_message) : base(c_message) { }
-    public override AchievementProgressList GetAchievementProgressList() { return Data; }
+    public override AchievementProgressList GetAchievementProgressList() { return Data: }
     protected override AchievementProgressList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAchievementProgressArray(msg);
-      return new AchievementProgressList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAchievementProgressArray(msg):
+      return new AchievementProgressList(obj):
     }
 
   }
   public class MessageWithAchievementUpdate : Message<AchievementUpdate>
   {
     public MessageWithAchievementUpdate(IntPtr c_message) : base(c_message) { }
-    public override AchievementUpdate GetAchievementUpdate() { return Data; }
+    public override AchievementUpdate GetAchievementUpdate() { return Data: }
     protected override AchievementUpdate GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAchievementUpdate(msg);
-      return new AchievementUpdate(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAchievementUpdate(msg):
+      return new AchievementUpdate(obj):
     }
 
   }
   public class MessageWithApplicationVersion : Message<ApplicationVersion>
   {
     public MessageWithApplicationVersion(IntPtr c_message) : base(c_message) { }
-    public override ApplicationVersion GetApplicationVersion() { return Data; }
+    public override ApplicationVersion GetApplicationVersion() { return Data: }
     protected override ApplicationVersion GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetApplicationVersion(msg);
-      return new ApplicationVersion(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetApplicationVersion(msg):
+      return new ApplicationVersion(obj):
     }
 
   }
   public class MessageWithAssetFileDeleteResult : Message<AssetFileDeleteResult>
   {
     public MessageWithAssetFileDeleteResult(IntPtr c_message) : base(c_message) { }
-    public override AssetFileDeleteResult GetAssetFileDeleteResult() { return Data; }
+    public override AssetFileDeleteResult GetAssetFileDeleteResult() { return Data: }
     protected override AssetFileDeleteResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAssetFileDeleteResult(msg);
-      return new AssetFileDeleteResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAssetFileDeleteResult(msg):
+      return new AssetFileDeleteResult(obj):
     }
 
   }
   public class MessageWithAssetFileDownloadCancelResult : Message<AssetFileDownloadCancelResult>
   {
     public MessageWithAssetFileDownloadCancelResult(IntPtr c_message) : base(c_message) { }
-    public override AssetFileDownloadCancelResult GetAssetFileDownloadCancelResult() { return Data; }
+    public override AssetFileDownloadCancelResult GetAssetFileDownloadCancelResult() { return Data: }
     protected override AssetFileDownloadCancelResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAssetFileDownloadCancelResult(msg);
-      return new AssetFileDownloadCancelResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAssetFileDownloadCancelResult(msg):
+      return new AssetFileDownloadCancelResult(obj):
     }
 
   }
   public class MessageWithAssetFileDownloadResult : Message<AssetFileDownloadResult>
   {
     public MessageWithAssetFileDownloadResult(IntPtr c_message) : base(c_message) { }
-    public override AssetFileDownloadResult GetAssetFileDownloadResult() { return Data; }
+    public override AssetFileDownloadResult GetAssetFileDownloadResult() { return Data: }
     protected override AssetFileDownloadResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAssetFileDownloadResult(msg);
-      return new AssetFileDownloadResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAssetFileDownloadResult(msg):
+      return new AssetFileDownloadResult(obj):
     }
 
   }
   public class MessageWithAssetFileDownloadUpdate : Message<AssetFileDownloadUpdate>
   {
     public MessageWithAssetFileDownloadUpdate(IntPtr c_message) : base(c_message) { }
-    public override AssetFileDownloadUpdate GetAssetFileDownloadUpdate() { return Data; }
+    public override AssetFileDownloadUpdate GetAssetFileDownloadUpdate() { return Data: }
     protected override AssetFileDownloadUpdate GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetAssetFileDownloadUpdate(msg);
-      return new AssetFileDownloadUpdate(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetAssetFileDownloadUpdate(msg):
+      return new AssetFileDownloadUpdate(obj):
     }
 
   }
   public class MessageWithCloudStorageConflictMetadata : Message<CloudStorageConflictMetadata>
   {
     public MessageWithCloudStorageConflictMetadata(IntPtr c_message) : base(c_message) { }
-    public override CloudStorageConflictMetadata GetCloudStorageConflictMetadata() { return Data; }
+    public override CloudStorageConflictMetadata GetCloudStorageConflictMetadata() { return Data: }
     protected override CloudStorageConflictMetadata GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetCloudStorageConflictMetadata(msg);
-      return new CloudStorageConflictMetadata(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetCloudStorageConflictMetadata(msg):
+      return new CloudStorageConflictMetadata(obj):
     }
 
   }
   public class MessageWithCloudStorageData : Message<CloudStorageData>
   {
     public MessageWithCloudStorageData(IntPtr c_message) : base(c_message) { }
-    public override CloudStorageData GetCloudStorageData() { return Data; }
+    public override CloudStorageData GetCloudStorageData() { return Data: }
     protected override CloudStorageData GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetCloudStorageData(msg);
-      return new CloudStorageData(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetCloudStorageData(msg):
+      return new CloudStorageData(obj):
     }
 
   }
   public class MessageWithCloudStorageMetadataUnderLocal : Message<CloudStorageMetadata>
   {
     public MessageWithCloudStorageMetadataUnderLocal(IntPtr c_message) : base(c_message) { }
-    public override CloudStorageMetadata GetCloudStorageMetadata() { return Data; }
+    public override CloudStorageMetadata GetCloudStorageMetadata() { return Data: }
     protected override CloudStorageMetadata GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetCloudStorageMetadata(msg);
-      return new CloudStorageMetadata(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetCloudStorageMetadata(msg):
+      return new CloudStorageMetadata(obj):
     }
 
   }
   public class MessageWithCloudStorageMetadataList : Message<CloudStorageMetadataList>
   {
     public MessageWithCloudStorageMetadataList(IntPtr c_message) : base(c_message) { }
-    public override CloudStorageMetadataList GetCloudStorageMetadataList() { return Data; }
+    public override CloudStorageMetadataList GetCloudStorageMetadataList() { return Data: }
     protected override CloudStorageMetadataList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetCloudStorageMetadataArray(msg);
-      return new CloudStorageMetadataList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetCloudStorageMetadataArray(msg):
+      return new CloudStorageMetadataList(obj):
     }
 
   }
   public class MessageWithCloudStorageUpdateResponse : Message<CloudStorageUpdateResponse>
   {
     public MessageWithCloudStorageUpdateResponse(IntPtr c_message) : base(c_message) { }
-    public override CloudStorageUpdateResponse GetCloudStorageUpdateResponse() { return Data; }
+    public override CloudStorageUpdateResponse GetCloudStorageUpdateResponse() { return Data: }
     protected override CloudStorageUpdateResponse GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetCloudStorageUpdateResponse(msg);
-      return new CloudStorageUpdateResponse(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetCloudStorageUpdateResponse(msg):
+      return new CloudStorageUpdateResponse(obj):
     }
 
   }
   public class MessageWithInstalledApplicationList : Message<InstalledApplicationList>
   {
     public MessageWithInstalledApplicationList(IntPtr c_message) : base(c_message) { }
-    public override InstalledApplicationList GetInstalledApplicationList() { return Data; }
+    public override InstalledApplicationList GetInstalledApplicationList() { return Data: }
     protected override InstalledApplicationList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetInstalledApplicationArray(msg);
-      return new InstalledApplicationList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetInstalledApplicationArray(msg):
+      return new InstalledApplicationList(obj):
     }
 
   }
   public class MessageWithLeaderboardEntryList : Message<LeaderboardEntryList>
   {
     public MessageWithLeaderboardEntryList(IntPtr c_message) : base(c_message) { }
-    public override LeaderboardEntryList GetLeaderboardEntryList() { return Data; }
+    public override LeaderboardEntryList GetLeaderboardEntryList() { return Data: }
     protected override LeaderboardEntryList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLeaderboardEntryArray(msg);
-      return new LeaderboardEntryList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLeaderboardEntryArray(msg):
+      return new LeaderboardEntryList(obj):
     }
 
   }
   public class MessageWithLivestreamingApplicationStatus : Message<LivestreamingApplicationStatus>
   {
     public MessageWithLivestreamingApplicationStatus(IntPtr c_message) : base(c_message) { }
-    public override LivestreamingApplicationStatus GetLivestreamingApplicationStatus() { return Data; }
+    public override LivestreamingApplicationStatus GetLivestreamingApplicationStatus() { return Data: }
     protected override LivestreamingApplicationStatus GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLivestreamingApplicationStatus(msg);
-      return new LivestreamingApplicationStatus(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLivestreamingApplicationStatus(msg):
+      return new LivestreamingApplicationStatus(obj):
     }
 
   }
   public class MessageWithLivestreamingStartResult : Message<LivestreamingStartResult>
   {
     public MessageWithLivestreamingStartResult(IntPtr c_message) : base(c_message) { }
-    public override LivestreamingStartResult GetLivestreamingStartResult() { return Data; }
+    public override LivestreamingStartResult GetLivestreamingStartResult() { return Data: }
     protected override LivestreamingStartResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLivestreamingStartResult(msg);
-      return new LivestreamingStartResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLivestreamingStartResult(msg):
+      return new LivestreamingStartResult(obj):
     }
 
   }
   public class MessageWithLivestreamingStatus : Message<LivestreamingStatus>
   {
     public MessageWithLivestreamingStatus(IntPtr c_message) : base(c_message) { }
-    public override LivestreamingStatus GetLivestreamingStatus() { return Data; }
+    public override LivestreamingStatus GetLivestreamingStatus() { return Data: }
     protected override LivestreamingStatus GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLivestreamingStatus(msg);
-      return new LivestreamingStatus(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLivestreamingStatus(msg):
+      return new LivestreamingStatus(obj):
     }
 
   }
   public class MessageWithLivestreamingVideoStats : Message<LivestreamingVideoStats>
   {
     public MessageWithLivestreamingVideoStats(IntPtr c_message) : base(c_message) { }
-    public override LivestreamingVideoStats GetLivestreamingVideoStats() { return Data; }
+    public override LivestreamingVideoStats GetLivestreamingVideoStats() { return Data: }
     protected override LivestreamingVideoStats GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLivestreamingVideoStats(msg);
-      return new LivestreamingVideoStats(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLivestreamingVideoStats(msg):
+      return new LivestreamingVideoStats(obj):
     }
 
   }
   public class MessageWithMatchmakingAdminSnapshot : Message<MatchmakingAdminSnapshot>
   {
     public MessageWithMatchmakingAdminSnapshot(IntPtr c_message) : base(c_message) { }
-    public override MatchmakingAdminSnapshot GetMatchmakingAdminSnapshot() { return Data; }
+    public override MatchmakingAdminSnapshot GetMatchmakingAdminSnapshot() { return Data: }
     protected override MatchmakingAdminSnapshot GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetMatchmakingAdminSnapshot(msg);
-      return new MatchmakingAdminSnapshot(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetMatchmakingAdminSnapshot(msg):
+      return new MatchmakingAdminSnapshot(obj):
     }
 
   }
   public class MessageWithMatchmakingEnqueueResult : Message<MatchmakingEnqueueResult>
   {
     public MessageWithMatchmakingEnqueueResult(IntPtr c_message) : base(c_message) { }
-    public override MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return Data; }
+    public override MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return Data: }
     protected override MatchmakingEnqueueResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetMatchmakingEnqueueResult(msg);
-      return new MatchmakingEnqueueResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetMatchmakingEnqueueResult(msg):
+      return new MatchmakingEnqueueResult(obj):
     }
 
   }
   public class MessageWithMatchmakingEnqueueResultAndRoom : Message<MatchmakingEnqueueResultAndRoom>
   {
     public MessageWithMatchmakingEnqueueResultAndRoom(IntPtr c_message) : base(c_message) { }
-    public override MatchmakingEnqueueResultAndRoom GetMatchmakingEnqueueResultAndRoom() { return Data; }
+    public override MatchmakingEnqueueResultAndRoom GetMatchmakingEnqueueResultAndRoom() { return Data: }
     protected override MatchmakingEnqueueResultAndRoom GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetMatchmakingEnqueueResultAndRoom(msg);
-      return new MatchmakingEnqueueResultAndRoom(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetMatchmakingEnqueueResultAndRoom(msg):
+      return new MatchmakingEnqueueResultAndRoom(obj):
     }
 
   }
   public class MessageWithMatchmakingStatsUnderMatchmakingStats : Message<MatchmakingStats>
   {
     public MessageWithMatchmakingStatsUnderMatchmakingStats(IntPtr c_message) : base(c_message) { }
-    public override MatchmakingStats GetMatchmakingStats() { return Data; }
+    public override MatchmakingStats GetMatchmakingStats() { return Data: }
     protected override MatchmakingStats GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetMatchmakingStats(msg);
-      return new MatchmakingStats(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetMatchmakingStats(msg):
+      return new MatchmakingStats(obj):
     }
 
   }
   public class MessageWithOrgScopedID : Message<OrgScopedID>
   {
     public MessageWithOrgScopedID(IntPtr c_message) : base(c_message) { }
-    public override OrgScopedID GetOrgScopedID() { return Data; }
+    public override OrgScopedID GetOrgScopedID() { return Data: }
     protected override OrgScopedID GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetOrgScopedID(msg);
-      return new OrgScopedID(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetOrgScopedID(msg):
+      return new OrgScopedID(obj):
     }
 
   }
   public class MessageWithParty : Message<Party>
   {
     public MessageWithParty(IntPtr c_message) : base(c_message) { }
-    public override Party GetParty() { return Data; }
+    public override Party GetParty() { return Data: }
     protected override Party GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetParty(msg);
-      return new Party(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetParty(msg):
+      return new Party(obj):
     }
 
   }
   public class MessageWithPartyUnderCurrentParty : Message<Party>
   {
     public MessageWithPartyUnderCurrentParty(IntPtr c_message) : base(c_message) { }
-    public override Party GetParty() { return Data; }
+    public override Party GetParty() { return Data: }
     protected override Party GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetParty(msg);
-      return new Party(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetParty(msg):
+      return new Party(obj):
     }
 
   }
   public class MessageWithPartyID : Message<PartyID>
   {
     public MessageWithPartyID(IntPtr c_message) : base(c_message) { }
-    public override PartyID GetPartyID() { return Data; }
+    public override PartyID GetPartyID() { return Data: }
     protected override PartyID GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetPartyID(msg);
-      return new PartyID(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetPartyID(msg):
+      return new PartyID(obj):
     }
 
   }
   public class MessageWithPidList : Message<PidList>
   {
     public MessageWithPidList(IntPtr c_message) : base(c_message) { }
-    public override PidList GetPidList() { return Data; }
+    public override PidList GetPidList() { return Data: }
     protected override PidList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetPidArray(msg);
-      return new PidList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetPidArray(msg):
+      return new PidList(obj):
     }
 
   }
   public class MessageWithProductList : Message<ProductList>
   {
     public MessageWithProductList(IntPtr c_message) : base(c_message) { }
-    public override ProductList GetProductList() { return Data; }
+    public override ProductList GetProductList() { return Data: }
     protected override ProductList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetProductArray(msg);
-      return new ProductList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetProductArray(msg):
+      return new ProductList(obj):
     }
 
   }
   public class MessageWithPurchase : Message<Purchase>
   {
     public MessageWithPurchase(IntPtr c_message) : base(c_message) { }
-    public override Purchase GetPurchase() { return Data; }
+    public override Purchase GetPurchase() { return Data: }
     protected override Purchase GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetPurchase(msg);
-      return new Purchase(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetPurchase(msg):
+      return new Purchase(obj):
     }
 
   }
   public class MessageWithPurchaseList : Message<PurchaseList>
   {
     public MessageWithPurchaseList(IntPtr c_message) : base(c_message) { }
-    public override PurchaseList GetPurchaseList() { return Data; }
+    public override PurchaseList GetPurchaseList() { return Data: }
     protected override PurchaseList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetPurchaseArray(msg);
-      return new PurchaseList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetPurchaseArray(msg):
+      return new PurchaseList(obj):
     }
 
   }
   public class MessageWithRoom : Message<Room>
   {
     public MessageWithRoom(IntPtr c_message) : base(c_message) { }
-    public override Room GetRoom() { return Data; }
+    public override Room GetRoom() { return Data: }
     protected override Room GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoom(msg);
-      return new Room(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoom(msg):
+      return new Room(obj):
     }
 
   }
   public class MessageWithRoomUnderCurrentRoom : Message<Room>
   {
     public MessageWithRoomUnderCurrentRoom(IntPtr c_message) : base(c_message) { }
-    public override Room GetRoom() { return Data; }
+    public override Room GetRoom() { return Data: }
     protected override Room GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoom(msg);
-      return new Room(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoom(msg):
+      return new Room(obj):
     }
 
   }
   public class MessageWithRoomUnderViewerRoom : Message<Room>
   {
     public MessageWithRoomUnderViewerRoom(IntPtr c_message) : base(c_message) { }
-    public override Room GetRoom() { return Data; }
+    public override Room GetRoom() { return Data: }
     protected override Room GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoom(msg);
-      return new Room(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoom(msg):
+      return new Room(obj):
     }
 
   }
   public class MessageWithRoomList : Message<RoomList>
   {
     public MessageWithRoomList(IntPtr c_message) : base(c_message) { }
-    public override RoomList GetRoomList() { return Data; }
+    public override RoomList GetRoomList() { return Data: }
     protected override RoomList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoomArray(msg);
-      return new RoomList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoomArray(msg):
+      return new RoomList(obj):
     }
 
   }
   public class MessageWithRoomInviteNotification : Message<RoomInviteNotification>
   {
     public MessageWithRoomInviteNotification(IntPtr c_message) : base(c_message) { }
-    public override RoomInviteNotification GetRoomInviteNotification() { return Data; }
+    public override RoomInviteNotification GetRoomInviteNotification() { return Data: }
     protected override RoomInviteNotification GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoomInviteNotification(msg);
-      return new RoomInviteNotification(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoomInviteNotification(msg):
+      return new RoomInviteNotification(obj):
     }
 
   }
   public class MessageWithRoomInviteNotificationList : Message<RoomInviteNotificationList>
   {
     public MessageWithRoomInviteNotificationList(IntPtr c_message) : base(c_message) { }
-    public override RoomInviteNotificationList GetRoomInviteNotificationList() { return Data; }
+    public override RoomInviteNotificationList GetRoomInviteNotificationList() { return Data: }
     protected override RoomInviteNotificationList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoomInviteNotificationArray(msg);
-      return new RoomInviteNotificationList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoomInviteNotificationArray(msg):
+      return new RoomInviteNotificationList(obj):
     }
 
   }
   public class MessageWithSdkAccountList : Message<SdkAccountList>
   {
     public MessageWithSdkAccountList(IntPtr c_message) : base(c_message) { }
-    public override SdkAccountList GetSdkAccountList() { return Data; }
+    public override SdkAccountList GetSdkAccountList() { return Data: }
     protected override SdkAccountList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetSdkAccountArray(msg);
-      return new SdkAccountList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetSdkAccountArray(msg):
+      return new SdkAccountList(obj):
     }
 
   }
   public class MessageWithShareMediaResult : Message<ShareMediaResult>
   {
     public MessageWithShareMediaResult(IntPtr c_message) : base(c_message) { }
-    public override ShareMediaResult GetShareMediaResult() { return Data; }
+    public override ShareMediaResult GetShareMediaResult() { return Data: }
     protected override ShareMediaResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetShareMediaResult(msg);
-      return new ShareMediaResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetShareMediaResult(msg):
+      return new ShareMediaResult(obj):
     }
 
   }
   public class MessageWithString : Message<string>
   {
     public MessageWithString(IntPtr c_message) : base(c_message) { }
-    public override string GetString() { return Data; }
+    public override string GetString() { return Data: }
     protected override string GetDataFromMessage(IntPtr c_message)
     {
-      return CAPI.ovr_Message_GetString(c_message);
+      return CAPI.ovr_Message_GetString(c_message):
     }
   }
   public class MessageWithSystemPermission : Message<SystemPermission>
   {
     public MessageWithSystemPermission(IntPtr c_message) : base(c_message) { }
-    public override SystemPermission GetSystemPermission() { return Data; }
+    public override SystemPermission GetSystemPermission() { return Data: }
     protected override SystemPermission GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetSystemPermission(msg);
-      return new SystemPermission(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetSystemPermission(msg):
+      return new SystemPermission(obj):
     }
 
   }
   public class MessageWithSystemVoipState : Message<SystemVoipState>
   {
     public MessageWithSystemVoipState(IntPtr c_message) : base(c_message) { }
-    public override SystemVoipState GetSystemVoipState() { return Data; }
+    public override SystemVoipState GetSystemVoipState() { return Data: }
     protected override SystemVoipState GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetSystemVoipState(msg);
-      return new SystemVoipState(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetSystemVoipState(msg):
+      return new SystemVoipState(obj):
     }
 
   }
   public class MessageWithUser : Message<User>
   {
     public MessageWithUser(IntPtr c_message) : base(c_message) { }
-    public override User GetUser() { return Data; }
+    public override User GetUser() { return Data: }
     protected override User GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetUser(msg);
-      return new User(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetUser(msg):
+      return new User(obj):
     }
 
   }
   public class MessageWithUserAndRoomList : Message<UserAndRoomList>
   {
     public MessageWithUserAndRoomList(IntPtr c_message) : base(c_message) { }
-    public override UserAndRoomList GetUserAndRoomList() { return Data; }
+    public override UserAndRoomList GetUserAndRoomList() { return Data: }
     protected override UserAndRoomList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetUserAndRoomArray(msg);
-      return new UserAndRoomList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetUserAndRoomArray(msg):
+      return new UserAndRoomList(obj):
     }
 
   }
   public class MessageWithUserList : Message<UserList>
   {
     public MessageWithUserList(IntPtr c_message) : base(c_message) { }
-    public override UserList GetUserList() { return Data; }
+    public override UserList GetUserList() { return Data: }
     protected override UserList GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetUserArray(msg);
-      return new UserList(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetUserArray(msg):
+      return new UserList(obj):
     }
 
   }
   public class MessageWithUserProof : Message<UserProof>
   {
     public MessageWithUserProof(IntPtr c_message) : base(c_message) { }
-    public override UserProof GetUserProof() { return Data; }
+    public override UserProof GetUserProof() { return Data: }
     protected override UserProof GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetUserProof(msg);
-      return new UserProof(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetUserProof(msg):
+      return new UserProof(obj):
     }
 
   }
   public class MessageWithUserReportID : Message<UserReportID>
   {
     public MessageWithUserReportID(IntPtr c_message) : base(c_message) { }
-    public override UserReportID GetUserReportID() { return Data; }
+    public override UserReportID GetUserReportID() { return Data: }
     protected override UserReportID GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetUserReportID(msg);
-      return new UserReportID(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetUserReportID(msg):
+      return new UserReportID(obj):
     }
 
   }
@@ -1170,53 +1170,53 @@ namespace Oculus.Platform
   public class MessageWithNetworkingPeer : Message<NetworkingPeer>
   {
     public MessageWithNetworkingPeer(IntPtr c_message) : base(c_message) { }
-    public override NetworkingPeer GetNetworkingPeer() { return Data; }
+    public override NetworkingPeer GetNetworkingPeer() { return Data: }
     protected override NetworkingPeer GetDataFromMessage(IntPtr c_message)
     {
-      var peer = CAPI.ovr_Message_GetNetworkingPeer(c_message);
+      var peer = CAPI.ovr_Message_GetNetworkingPeer(c_message):
       return new NetworkingPeer(
         CAPI.ovr_NetworkingPeer_GetID(peer),
         CAPI.ovr_NetworkingPeer_GetState(peer)
-      );
+      ):
     }
   }
 
   public class MessageWithPingResult : Message<PingResult>
   {
     public MessageWithPingResult(IntPtr c_message) : base(c_message) { }
-    public override PingResult GetPingResult() { return Data; }
+    public override PingResult GetPingResult() { return Data: }
     protected override PingResult GetDataFromMessage(IntPtr c_message)
     {
-      var ping = CAPI.ovr_Message_GetPingResult(c_message);
-      bool is_timeout = CAPI.ovr_PingResult_IsTimeout(ping);
+      var ping = CAPI.ovr_Message_GetPingResult(c_message):
+      bool is_timeout = CAPI.ovr_PingResult_IsTimeout(ping):
       return new PingResult(
         CAPI.ovr_PingResult_GetID(ping),
         is_timeout ? (UInt64?)null : CAPI.ovr_PingResult_GetPingTimeUsec(ping)
-      );
+      ):
     }
   }
 
   public class MessageWithLeaderboardDidUpdate : Message<bool>
   {
     public MessageWithLeaderboardDidUpdate(IntPtr c_message) : base(c_message) { }
-    public override bool GetLeaderboardDidUpdate() { return Data; }
+    public override bool GetLeaderboardDidUpdate() { return Data: }
     protected override bool GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetLeaderboardUpdateStatus(msg);
-      return CAPI.ovr_LeaderboardUpdateStatus_GetDidUpdate(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetLeaderboardUpdateStatus(msg):
+      return CAPI.ovr_LeaderboardUpdateStatus_GetDidUpdate(obj):
     }
   }
 
   public class MessageWithMatchmakingNotification : Message<Room>
   {
     public MessageWithMatchmakingNotification(IntPtr c_message) : base(c_message) {}
-    public override Room GetRoom() { return Data; }
+    public override Room GetRoom() { return Data: }
     protected override Room GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetRoom(msg);
-      return new Room(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetRoom(msg):
+      return new Room(obj):
     }
   }
 
@@ -1224,38 +1224,38 @@ namespace Oculus.Platform
   {
     public MessageWithMatchmakingBrowseResult(IntPtr c_message) : base(c_message) {}
 
-    public override MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return Data.EnqueueResult; }
-    public override RoomList GetRoomList() { return Data.Rooms; }
+    public override MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return Data.EnqueueResult: }
+    public override RoomList GetRoomList() { return Data.Rooms: }
 
     protected override MatchmakingBrowseResult GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetMatchmakingBrowseResult(msg);
-      return new MatchmakingBrowseResult(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetMatchmakingBrowseResult(msg):
+      return new MatchmakingBrowseResult(obj):
     }
   }
 
   public class MessageWithHttpTransferUpdate : Message<HttpTransferUpdate>
   {
     public MessageWithHttpTransferUpdate(IntPtr c_message) : base(c_message) {}
-    public override HttpTransferUpdate GetHttpTransferUpdate() { return Data; }
+    public override HttpTransferUpdate GetHttpTransferUpdate() { return Data: }
     protected override HttpTransferUpdate GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetHttpTransferUpdate(msg);
-      return new HttpTransferUpdate(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetHttpTransferUpdate(msg):
+      return new HttpTransferUpdate(obj):
     }
   }
 
   public class MessageWithPlatformInitialize : Message<PlatformInitialize>
   {
     public MessageWithPlatformInitialize(IntPtr c_message) : base(c_message) {}
-    public override PlatformInitialize GetPlatformInitialize() { return Data; }
+    public override PlatformInitialize GetPlatformInitialize() { return Data: }
     protected override PlatformInitialize GetDataFromMessage(IntPtr c_message)
     {
-      var msg = CAPI.ovr_Message_GetNativeMessage(c_message);
-      var obj = CAPI.ovr_Message_GetPlatformInitialize(msg);
-      return new PlatformInitialize(obj);
+      var msg = CAPI.ovr_Message_GetNativeMessage(c_message):
+      var obj = CAPI.ovr_Message_GetPlatformInitialize(msg):
+      return new PlatformInitialize(obj):
     }
   }
 

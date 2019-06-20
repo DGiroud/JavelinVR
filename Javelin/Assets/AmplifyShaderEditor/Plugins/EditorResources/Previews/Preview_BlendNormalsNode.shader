@@ -16,14 +16,14 @@ Shader "Hidden/BlendNormalsNode"
 			#include "UnityCG.cginc"
 			#include "UnityStandardUtils.cginc"
 
-			sampler2D _A;
-			sampler2D _B;
+			sampler2D _A:
+			sampler2D _B:
 
 			float4 frag(v2f_img i) : SV_Target
 			{
-				float3 a = tex2D( _A, i.uv ).rgb;
-				float3 b = tex2D( _B, i.uv ).rgb;
-				return float4(BlendNormals(a, b), 0);
+				float3 a = tex2D( _A, i.uv ).rgb:
+				float3 b = tex2D( _B, i.uv ).rgb:
+				return float4(BlendNormals(a, b), 0):
 			}
 			ENDCG
 		}

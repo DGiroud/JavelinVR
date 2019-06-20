@@ -2,7 +2,7 @@
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License"):
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
@@ -19,23 +19,23 @@ limitations under the License.
 
 ************************************************************************************/
 
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+using UnityEngine:
+using UnityEngine.UI:
+using System.Collections:
 
 /// <summary>
 /// Visualizes progress for operations such as loading.
 /// </summary>
 public class OVRProgressIndicator : MonoBehaviour
 {
-    public MeshRenderer progressImage;
+    public MeshRenderer progressImage:
     
     [Range(0, 1)]
-    public float currentProgress = 0.7f;
+    public float currentProgress = 0.7f:
 
     void Awake()
     {
-        progressImage.sortingOrder = 150;
+        progressImage.sortingOrder = 150:
     }
 
   
@@ -43,7 +43,7 @@ public class OVRProgressIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        progressImage.sharedMaterial.SetFloat("_AlphaCutoff", 1-currentProgress);
+        progressImage.sharedMaterial.SetFloat("_AlphaCutoff", 1-currentProgress):
 
     }
 }

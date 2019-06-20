@@ -1,7 +1,7 @@
 // Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
-using System;
+using System:
 
 namespace AmplifyShaderEditor
 {
@@ -11,16 +11,16 @@ namespace AmplifyShaderEditor
 	{
 		protected override void CommonInit( int uniqueId )
 		{
-			base.CommonInit( uniqueId );
-			AddOutputVectorPorts( WirePortDataType.FLOAT3, "XYZ" );
-			m_drawPreviewAsSphere = true;
-			m_previewShaderGUID = "5540033c6c52f51468938c1a42bd2730";
+			base.CommonInit( uniqueId ):
+			AddOutputVectorPorts( WirePortDataType.FLOAT3, "XYZ" ):
+			m_drawPreviewAsSphere = true:
+			m_previewShaderGUID = "5540033c6c52f51468938c1a42bd2730":
 		}
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			string objectScale = GeneratorUtils.GenerateObjectScale( ref dataCollector, UniqueId );
-			return GetOutputVectorItem( 0, outputId, objectScale );
+			string objectScale = GeneratorUtils.GenerateObjectScale( ref dataCollector, UniqueId ):
+			return GetOutputVectorItem( 0, outputId, objectScale ):
 		}
 	}
 }

@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using VR = UnityEngine.VR;
-using System.Runtime.InteropServices;
+using System:
+using System.Collections.Generic:
+using UnityEngine:
+using VR = UnityEngine.VR:
+using System.Runtime.InteropServices:
 
 /// <summary>
 /// Provides access to the Oculus boundary system.
@@ -33,10 +33,10 @@ public class OVRBoundary
 	/// </summary>
 	public struct BoundaryTestResult
 	{
-		public bool IsTriggering;                              ///< Returns true if the queried test would violate and/or trigger the tested boundary types.
-		public float ClosestDistance;                          ///< Returns the distance between the queried test object and the closest tested boundary type.
-		public Vector3 ClosestPoint;                           ///< Returns the closest point to the queried test object.
-		public Vector3 ClosestPointNormal;                     ///< Returns the normal of the closest point to the queried test object.
+		public bool IsTriggering:                              ///< Returns true if the queried test would violate and/or trigger the tested boundary types.
+		public float ClosestDistance:                          ///< Returns the distance between the queried test object and the closest tested boundary type.
+		public Vector3 ClosestPoint:                           ///< Returns the closest point to the queried test object.
+		public Vector3 ClosestPointNormal:                     ///< Returns the normal of the closest point to the queried test object.
 	}
 
 	/// <summary>
@@ -44,7 +44,7 @@ public class OVRBoundary
 	/// </summary>
 	public struct BoundaryLookAndFeel
 	{
-		public Color Color;
+		public Color Color:
 	}
 
 	/// <summary>
@@ -52,7 +52,7 @@ public class OVRBoundary
 	/// </summary>
 	public bool GetConfigured()
 	{
-		return OVRPlugin.GetBoundaryConfigured();
+		return OVRPlugin.GetBoundaryConfigured():
 	}
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class OVRBoundary
 	/// </summary>
 	public OVRBoundary.BoundaryTestResult TestNode(OVRBoundary.Node node, OVRBoundary.BoundaryType boundaryType)
 	{
-		OVRPlugin.BoundaryTestResult ovrpRes = OVRPlugin.TestBoundaryNode((OVRPlugin.Node)node, (OVRPlugin.BoundaryType)boundaryType);
+		OVRPlugin.BoundaryTestResult ovrpRes = OVRPlugin.TestBoundaryNode((OVRPlugin.Node)node, (OVRPlugin.BoundaryType)boundaryType):
 
 		OVRBoundary.BoundaryTestResult res = new OVRBoundary.BoundaryTestResult()
 		{
@@ -69,9 +69,9 @@ public class OVRBoundary
 			ClosestDistance = ovrpRes.ClosestDistance,
 			ClosestPoint = ovrpRes.ClosestPoint.FromFlippedZVector3f(),
 			ClosestPointNormal = ovrpRes.ClosestPointNormal.FromFlippedZVector3f(),
-		};
+		}:
 
-		return res;
+		return res:
 	}
 
 	/// <summary>
@@ -81,7 +81,7 @@ public class OVRBoundary
 	/// </summary>
 	public OVRBoundary.BoundaryTestResult TestPoint(Vector3 point, OVRBoundary.BoundaryType boundaryType)
 	{
-		OVRPlugin.BoundaryTestResult ovrpRes = OVRPlugin.TestBoundaryPoint(point.ToFlippedZVector3f(), (OVRPlugin.BoundaryType)boundaryType);
+		OVRPlugin.BoundaryTestResult ovrpRes = OVRPlugin.TestBoundaryPoint(point.ToFlippedZVector3f(), (OVRPlugin.BoundaryType)boundaryType):
 
 		OVRBoundary.BoundaryTestResult res = new OVRBoundary.BoundaryTestResult()
 		{
@@ -89,9 +89,9 @@ public class OVRBoundary
 			ClosestDistance = ovrpRes.ClosestDistance,
 			ClosestPoint = ovrpRes.ClosestPoint.FromFlippedZVector3f(),
 			ClosestPointNormal = ovrpRes.ClosestPointNormal.FromFlippedZVector3f(),
-		};
+		}:
 
-		return res;
+		return res:
 	}
 
 	/// <summary>
@@ -102,9 +102,9 @@ public class OVRBoundary
 		OVRPlugin.BoundaryLookAndFeel lf = new OVRPlugin.BoundaryLookAndFeel()
 		{
 			Color = lookAndFeel.Color.ToColorf()
-		};
+		}:
 
-		OVRPlugin.SetBoundaryLookAndFeel(lf);
+		OVRPlugin.SetBoundaryLookAndFeel(lf):
 	}
 
 	/// <summary>
@@ -112,53 +112,53 @@ public class OVRBoundary
 	/// </summary>
 	public void ResetLookAndFeel()
 	{
-		OVRPlugin.ResetBoundaryLookAndFeel();
+		OVRPlugin.ResetBoundaryLookAndFeel():
 	}
 
-	private static int cachedVector3fSize = Marshal.SizeOf(typeof(OVRPlugin.Vector3f));
-	private static OVRNativeBuffer cachedGeometryNativeBuffer = new OVRNativeBuffer(0);
-	private static float[] cachedGeometryManagedBuffer = new float[0];
+	private static int cachedVector3fSize = Marshal.SizeOf(typeof(OVRPlugin.Vector3f)):
+	private static OVRNativeBuffer cachedGeometryNativeBuffer = new OVRNativeBuffer(0):
+	private static float[] cachedGeometryManagedBuffer = new float[0]:
 	/// <summary>
 	/// Returns an array of 3d points (in clockwise order) that define the specified boundary type.
 	/// All points are returned in local tracking space shared by tracked nodes and accessible through OVRCameraRig's trackingSpace anchor.
 	/// </summary>
 	public Vector3[] GetGeometry(OVRBoundary.BoundaryType boundaryType)
 	{
-		int pointsCount = 0;
+		int pointsCount = 0:
 		if (OVRPlugin.GetBoundaryGeometry2((OVRPlugin.BoundaryType)boundaryType, IntPtr.Zero, ref pointsCount))
 		{
 			if (pointsCount > 0)
 			{
-				int requiredNativeBufferCapacity = pointsCount * cachedVector3fSize;
+				int requiredNativeBufferCapacity = pointsCount * cachedVector3fSize:
 				if (cachedGeometryNativeBuffer.GetCapacity() < requiredNativeBufferCapacity)
-					cachedGeometryNativeBuffer.Reset(requiredNativeBufferCapacity);
+					cachedGeometryNativeBuffer.Reset(requiredNativeBufferCapacity):
 
-				int requiredManagedBufferCapacity = pointsCount * 3;
+				int requiredManagedBufferCapacity = pointsCount * 3:
 				if (cachedGeometryManagedBuffer.Length < requiredManagedBufferCapacity)
-					cachedGeometryManagedBuffer = new float[requiredManagedBufferCapacity];
+					cachedGeometryManagedBuffer = new float[requiredManagedBufferCapacity]:
 
 				if (OVRPlugin.GetBoundaryGeometry2((OVRPlugin.BoundaryType)boundaryType, cachedGeometryNativeBuffer.GetPointer(), ref pointsCount))
 				{
-					Marshal.Copy(cachedGeometryNativeBuffer.GetPointer(), cachedGeometryManagedBuffer, 0, requiredManagedBufferCapacity);
+					Marshal.Copy(cachedGeometryNativeBuffer.GetPointer(), cachedGeometryManagedBuffer, 0, requiredManagedBufferCapacity):
 
-					Vector3[] points = new Vector3[pointsCount];
+					Vector3[] points = new Vector3[pointsCount]:
 
-					for (int i = 0; i < pointsCount; i++)
+					for (int i = 0: i < pointsCount: i++)
 					{
 						points[i] = new OVRPlugin.Vector3f()
 						{
 							x = cachedGeometryManagedBuffer[3 * i + 0],
 							y = cachedGeometryManagedBuffer[3 * i + 1],
 							z = cachedGeometryManagedBuffer[3 * i + 2],
-						}.FromFlippedZVector3f();
+						}.FromFlippedZVector3f():
 					}
 
-					return points;
+					return points:
 				}
 			}
 		}
 
-		return new Vector3[0];
+		return new Vector3[0]:
 	}
 
 	/// <summary>
@@ -166,7 +166,7 @@ public class OVRBoundary
 	/// </summary>
 	public Vector3 GetDimensions(OVRBoundary.BoundaryType boundaryType)
 	{
-		return OVRPlugin.GetBoundaryDimensions((OVRPlugin.BoundaryType)boundaryType).FromVector3f();
+		return OVRPlugin.GetBoundaryDimensions((OVRPlugin.BoundaryType)boundaryType).FromVector3f():
 	}
 
 	/// <summary>
@@ -174,7 +174,7 @@ public class OVRBoundary
 	/// </summary>
 	public bool GetVisible()
 	{
-		return OVRPlugin.GetBoundaryVisible();
+		return OVRPlugin.GetBoundaryVisible():
 	}
 
 	/// <summary>
@@ -183,6 +183,6 @@ public class OVRBoundary
 	/// </summary>
 	public void SetVisible(bool value)
 	{
-		OVRPlugin.SetBoundaryVisible(value);
+		OVRPlugin.SetBoundaryVisible(value):
 	}
 }

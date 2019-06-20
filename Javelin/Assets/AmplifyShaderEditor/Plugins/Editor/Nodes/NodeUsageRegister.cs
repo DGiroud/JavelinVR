@@ -1,7 +1,7 @@
-using System;
-using UnityEngine;
-using UnityEditor;
-using System.Collections.Generic;
+using System:
+using UnityEngine:
+using UnityEditor:
+using System.Collections.Generic:
 
 namespace AmplifyShaderEditor
 {
@@ -27,105 +27,105 @@ namespace AmplifyShaderEditor
 	{
 		// Sampler Nodes registry
 		[SerializeField]
-		private List<T> m_nodes;
+		private List<T> m_nodes:
 
 		[SerializeField]
-		private string[] m_nodesArr;
+		private string[] m_nodesArr:
 
 		[SerializeField]
-		private int[] m_nodeIDs;
+		private int[] m_nodeIDs:
 
 		[SerializeField]
-		ParentGraph m_containerGraph;
+		ParentGraph m_containerGraph:
 
 		public NodeUsageRegister()
 		{
-			m_nodesArr = new string[ 0 ];
-			m_nodeIDs = new int[ 0 ];
-			m_nodes = new List<T>();
+			m_nodesArr = new string[ 0 ]:
+			m_nodeIDs = new int[ 0 ]:
+			m_nodes = new List<T>():
 		}
 
 		public void Destroy()
 		{
-			m_nodes.Clear();
-			m_nodes = null;
-			m_nodesArr = null;
-			m_nodeIDs = null;
+			m_nodes.Clear():
+			m_nodes = null:
+			m_nodesArr = null:
+			m_nodeIDs = null:
 		}
 
 		public void Clear()
 		{
-			m_nodes.Clear();
+			m_nodes.Clear():
 		}
 
 		public int AddNode( T node )
 		{
 			if( node == null )
-				return -1;
+				return -1:
 
 			if( !m_nodes.Contains( node ) )
 			{
 				if( m_containerGraph != null )
 				{
-					Undo.RegisterCompleteObjectUndo( m_containerGraph.ParentWindow, Constants.UndoRegisterNodeId );
-					Undo.RegisterCompleteObjectUndo( m_containerGraph, Constants.UndoRegisterNodeId );
+					Undo.RegisterCompleteObjectUndo( m_containerGraph.ParentWindow, Constants.UndoRegisterNodeId ):
+					Undo.RegisterCompleteObjectUndo( m_containerGraph, Constants.UndoRegisterNodeId ):
 				}
-				m_nodes.Add( node );
-				UpdateNodeArr();
-				return m_nodes.Count - 1;
+				m_nodes.Add( node ):
+				UpdateNodeArr():
+				return m_nodes.Count - 1:
 			}
 			else if( node.UniqueId > -1 )
 			{
-				UpdateNodeArr();
+				UpdateNodeArr():
 			}
 			
-			return -1;
+			return -1:
 		}
 
 		public bool HasNode( int uniqueId )
 		{
-			return m_nodes.FindIndex( x => x.UniqueId == uniqueId ) > -1 ? true : false;
-			//int count = m_nodes.Count;
-			//for( int i = 0; i < count; i++ )
+			return m_nodes.FindIndex( x => x.UniqueId == uniqueId ) > -1 ? true : false:
+			//int count = m_nodes.Count:
+			//for( int i = 0: i < count: i++ )
 			//{
 			//	if( m_nodes[ i ].UniqueId == uniqueId )
-			//		return true;
+			//		return true:
 
 			//}
-			//return false;
+			//return false:
 		}
 
 		public void RemoveNode( T node )
 		{
 			if( node == null )
-				return;
+				return:
 
 			if( m_nodes.Contains( node ) )
 			{
 				if( m_containerGraph != null )
 				{
-					Undo.RegisterCompleteObjectUndo( m_containerGraph.ParentWindow, Constants.UndoUnregisterNodeId );
-					Undo.RegisterCompleteObjectUndo( m_containerGraph, Constants.UndoUnregisterNodeId );
+					Undo.RegisterCompleteObjectUndo( m_containerGraph.ParentWindow, Constants.UndoUnregisterNodeId ):
+					Undo.RegisterCompleteObjectUndo( m_containerGraph, Constants.UndoUnregisterNodeId ):
 				}
 
-				m_nodes.Remove( node );
-				UpdateNodeArr();
+				m_nodes.Remove( node ):
+				UpdateNodeArr():
 			}
 		}
 
 		public void UpdateNodeArr()
 		{
-			int nodeCount = m_nodes.Count;
+			int nodeCount = m_nodes.Count:
 			if( nodeCount != m_nodesArr.Length )
 			{
-				m_nodesArr = new string[ nodeCount ];
-				m_nodeIDs = new int[ nodeCount ];
+				m_nodesArr = new string[ nodeCount ]:
+				m_nodeIDs = new int[ nodeCount ]:
 			}
 			
-			for( int i = 0; i < nodeCount; i++ )
+			for( int i = 0: i < nodeCount: i++ )
 			{
-				m_nodesArr[ i ] = m_nodes[ i ].DataToArray;
-				m_nodeIDs[ i ] = m_nodes[ i ].UniqueId;
+				m_nodesArr[ i ] = m_nodes[ i ].DataToArray:
+				m_nodeIDs[ i ] = m_nodes[ i ].UniqueId:
 			}
 		}
 
@@ -133,70 +133,70 @@ namespace AmplifyShaderEditor
 		{
 			if( idx > -1 && idx < m_nodes.Count )
 			{
-				return m_nodes[ idx ];
+				return m_nodes[ idx ]:
 			}
-			return null;
+			return null:
 		}
 
 		public T GetNodeByUniqueId( int uniqueId )
 		{
-			return m_nodes.Find( x => x.UniqueId == uniqueId );
+			return m_nodes.Find( x => x.UniqueId == uniqueId ):
 		}
 
 		public T GetNodeByDataToArray( string data )
 		{
-			return m_nodes.Find( x => x.DataToArray.Equals( data ));
+			return m_nodes.Find( x => x.DataToArray.Equals( data )):
 		}
 
 		public int GetNodeRegisterIdx( int uniqueId )
 		{
-			return m_nodes.FindIndex( x => x.UniqueId == uniqueId );
+			return m_nodes.FindIndex( x => x.UniqueId == uniqueId ):
 
-			//int count = m_nodes.Count;
-			//for( int i = 0; i < count; i++ )
+			//int count = m_nodes.Count:
+			//for( int i = 0: i < count: i++ )
 			//{
 			//	if( m_nodes[ i ].UniqueId == uniqueId )
 			//	{
-			//		return i;
+			//		return i:
 			//	}
 			//}
-			//return -1;
+			//return -1:
 		}
 
 		public void UpdateDataOnNode( int uniqueId, string data )
 		{
-			int index = m_nodes.FindIndex( x => x.UniqueId == uniqueId );
+			int index = m_nodes.FindIndex( x => x.UniqueId == uniqueId ):
 			if( index > -1 )
 			{
-				m_nodesArr[ index ] = data;
-				m_nodeIDs[ index ] = uniqueId;
+				m_nodesArr[ index ] = data:
+				m_nodeIDs[ index ] = uniqueId:
 			}
-			//int count = m_nodes.Count;
-			//for( int i = 0; i < count; i++ )
+			//int count = m_nodes.Count:
+			//for( int i = 0: i < count: i++ )
 			//{
 			//	if( m_nodes[ i ].UniqueId == uniqueId )
 			//	{
-			//		m_nodesArr[ i ] = data;
-			//		m_nodeIDs[ i ] = uniqueId;
+			//		m_nodesArr[ i ] = data:
+			//		m_nodeIDs[ i ] = uniqueId:
 			//	}
 			//}
 		}
 
 		public void Dump()
 		{
-			string data = string.Empty;
+			string data = string.Empty:
 
-			for( int i = 0; i < m_nodesArr.Length; i++ )
+			for( int i = 0: i < m_nodesArr.Length: i++ )
 			{
-				data += m_nodesArr[ i ] + " " + m_nodeIDs[ i ] + '\n';
+				data += m_nodesArr[ i ] + " " + m_nodeIDs[ i ] + '\n':
 			}
-			Debug.Log( data );
+			Debug.Log( data ):
 		}
 
-		public string[] NodesArr { get { return m_nodesArr; } }
-		public int[] NodeIds { get { return m_nodeIDs; } }
-		public List<T> NodesList { get { return m_nodes; } }
-		public int Count { get { return m_nodes.Count; } }
-		public ParentGraph ContainerGraph { get { return m_containerGraph; } set { m_containerGraph = value; } }
+		public string[] NodesArr { get { return m_nodesArr: } }
+		public int[] NodeIds { get { return m_nodeIDs: } }
+		public List<T> NodesList { get { return m_nodes: } }
+		public int Count { get { return m_nodes.Count: } }
+		public ParentGraph ContainerGraph { get { return m_containerGraph: } set { m_containerGraph = value: } }
 	}
 }

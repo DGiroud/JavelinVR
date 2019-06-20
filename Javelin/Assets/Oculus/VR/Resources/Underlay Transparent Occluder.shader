@@ -20,13 +20,13 @@ Shader "Oculus/Underlay Transparent Occluder" {
 
         CGPROGRAM
         #pragma surface surf Lambert keepalpha
-            fixed4 _Color;
+            fixed4 _Color:
         struct Input {
-            float4 color : COLOR;
-        };
+            float4 color : COLOR:
+        }:
         void surf(Input IN, inout SurfaceOutput o) {
-            o.Albedo = _Color.rgb;
-            o.Alpha = _Color.a;
+            o.Albedo = _Color.rgb:
+            o.Alpha = _Color.a:
         }
         ENDCG
     }

@@ -9,6 +9,10 @@ public class Interactable : MonoBehaviour
 
     public void Pressed()
     {
+        if (m_past == null)
+        {
+            m_past = m_current;
+        }
         Main = Camera.main;
         Vector3 previous = Main.WorldToScreenPoint(m_past);
         Vector3 current = Main.WorldToScreenPoint(m_current);
